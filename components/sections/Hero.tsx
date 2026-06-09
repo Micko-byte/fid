@@ -8,27 +8,31 @@ export default function Hero() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 767px)").matches;
-    setIsMobile(mobile);
+    setIsMobile(window.matchMedia("(max-width: 767px)").matches);
 
     const video = videoRef.current;
     const section = sectionRef.current;
     if (!video || !section) return;
 
-    // Respect reduced-motion preference — keep video paused as a static poster
+    // Respect reduced-motion: keep the first frame as a static poster
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       video.pause();
       return;
     }
 
-    // On slow connections or save-data mode, skip autoplay to save bandwidth
-    const conn = (navigator as Navigator & { connection?: { saveData?: boolean; effectiveType?: string } }).connection;
-    const isConstrained = conn?.saveData || conn?.effectiveType === "2g" || conn?.effectiveType === "slow-2g";
-    if (isConstrained) {
+    // On save-data / 2G connections skip autoplay entirely
+    const conn = (navigator as Navigator & {
+      connection?: { saveData?: boolean; effectiveType?: string };
+    }).connection;
+    if (conn?.saveData || conn?.effectiveType === "2g" || conn?.effectiveType === "slow-2g") {
       video.preload = "none";
       return;
     }
 
+    // Attempt play immediately — autoPlay attribute alone is just a hint in some browsers
+    video.play().catch(() => {});
+
+    // Pause when scrolled out of view, resume when back in
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -37,9 +41,8 @@ export default function Hero() {
           video.pause();
         }
       },
-      { threshold: 0.1 }
+      { threshold: 0.05 }
     );
-
     observer.observe(section);
     return () => observer.disconnect();
   }, []);
@@ -57,11 +60,10 @@ export default function Hero() {
         muted
         loop
         playsInline
-        preload="metadata"
+        preload="auto"
         className="absolute inset-0 w-full h-full"
         style={{
           objectFit: "cover",
-          // Portrait mobile: favour upper/centre of frame where subject usually is
           objectPosition: isMobile ? "center 25%" : "center center",
         }}
       >
@@ -72,7 +74,8 @@ export default function Hero() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 90% 90% at 50% 40%, transparent 40%, rgba(0,0,0,0.38) 100%)",
+          background:
+            "radial-gradient(ellipse 90% 90% at 50% 40%, transparent 40%, rgba(0,0,0,0.38) 100%)",
         }}
       />
     </section>
