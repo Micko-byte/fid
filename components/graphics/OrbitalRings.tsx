@@ -34,16 +34,17 @@ export default function OrbitalRings({ color = "#D9AB88", opacity = 0.1, classNa
       { radius: 3.6, tube: 0.004, rx: Math.PI / 7,    ry: 1.2,  dz: 0.0009 },
     ];
 
-    const rings: Array<THREE.Mesh & { _dz: number }> = [];
+    const rings: THREE.Mesh[] = [];
+    const speeds: number[] = [];
     ringDefs.forEach(({ radius, tube, rx, ry, dz }) => {
       const geo = new THREE.TorusGeometry(radius, tube, 8, 120);
       const mat = new THREE.MeshBasicMaterial({ color: new THREE.Color(color), transparent: true, opacity });
-      const mesh = new THREE.Mesh(geo, mat) as THREE.Mesh & { _dz: number };
+      const mesh = new THREE.Mesh(geo, mat);
       mesh.rotation.x = rx;
       mesh.rotation.y = ry;
-      mesh._dz = dz;
       scene.add(mesh);
       rings.push(mesh);
+      speeds.push(dz);
     });
 
     // Central glow dot
@@ -54,7 +55,7 @@ export default function OrbitalRings({ color = "#D9AB88", opacity = 0.1, classNa
     let animId: number;
     const tick = () => {
       animId = requestAnimationFrame(tick);
-      rings.forEach((r) => { r.rotation.z += r._dz; });
+      rings.forEach((r, i) => { r.rotation.z += speeds[i]; });
       renderer.render(scene, camera);
     };
     tick();
