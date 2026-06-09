@@ -18,6 +18,11 @@
   font-weight: 400 500 700;
 }
 
+/* Hide system cursor on pointer devices — custom cursor handles it */
+@media (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+
 :root {
   --red-mark:      #750006;
   --deep-current:  #260000;
