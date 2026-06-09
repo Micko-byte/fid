@@ -8,6 +8,7 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const [isMobile, setIsMobile] = useState(false);
+  const [introDone, setIntroDone] = useState(false);
 
   const rawX = useMotionValue(0.72);
   const rawY = useMotionValue(0.28);
@@ -37,16 +38,24 @@ export default function Hero() {
   );
 
   useEffect(() => {
+    const introState = document.documentElement.dataset.intro;
+    setIntroDone(introState === "done");
+
+    const onIntroDone = () => setIntroDone(true);
+    window.addEventListener("fid:intro-done", onIntroDone);
+
     const mobile = window.matchMedia("(max-width: 767px)").matches;
     setIsMobile(mobile);
 
-    if (prefersReducedMotion || mobile) return;
-
     const section = sectionRef.current;
-    if (!section) return;
+    if (!prefersReducedMotion && !mobile && section) {
+      section.addEventListener("pointermove", onPointerMove, { passive: true });
+    }
 
-    section.addEventListener("pointermove", onPointerMove, { passive: true });
-    return () => section.removeEventListener("pointermove", onPointerMove);
+    return () => {
+      window.removeEventListener("fid:intro-done", onIntroDone);
+      section?.removeEventListener("pointermove", onPointerMove);
+    };
   }, [onPointerMove, prefersReducedMotion]);
 
   const intro = useMemo(
@@ -67,6 +76,12 @@ export default function Hero() {
       id="hero"
       className="relative min-h-[100svh] overflow-hidden bg-[#1d0202] text-[#F5F2EC]"
     >
+      <motion.div
+        className="relative z-10"
+        initial={{ opacity: 0, y: 18 }}
+        animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+      >
       <motion.div
         aria-hidden="true"
         className="absolute inset-0"
@@ -189,6 +204,7 @@ export default function Hero() {
           }}
         />
       )}
+      </motion.div>
     </section>
   );
 }

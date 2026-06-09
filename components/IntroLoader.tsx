@@ -1,25 +1,37 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const MIN_VISIBLE_MS = 1400;
+const MIN_VISIBLE_MS = 1200;
+const FALLBACK_MS = 10000;
 
 export default function IntroLoader() {
   const [visible, setVisible] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     let mounted = true;
+    let finished = false;
     const startedAt = Date.now();
+    let fallbackTimer: number | undefined;
 
     const finish = () => {
+      if (!mounted || finished) return;
+      finished = true;
       const elapsed = Date.now() - startedAt;
       const delay = Math.max(0, MIN_VISIBLE_MS - elapsed);
 
       window.setTimeout(() => {
-        if (mounted) setVisible(false);
+        if (mounted) {
+          setVisible(false);
+          window.dispatchEvent(new Event("fid:intro-done"));
+          document.documentElement.dataset.intro = "done";
+        }
       }, delay);
     };
+
+    document.documentElement.dataset.intro = "playing";
 
     if (document.readyState === "complete") {
       finish();
@@ -27,9 +39,14 @@ export default function IntroLoader() {
       window.addEventListener("load", finish, { once: true });
     }
 
+    fallbackTimer = window.setTimeout(() => {
+      finish();
+    }, FALLBACK_MS);
+
     return () => {
       mounted = false;
       window.removeEventListener("load", finish);
+      if (fallbackTimer) window.clearTimeout(fallbackTimer);
     };
   }, []);
 
@@ -44,15 +61,20 @@ export default function IntroLoader() {
           exit={{ opacity: 0, transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] } }}
         >
           <motion.video
+            ref={videoRef}
             className="absolute inset-0 h-full w-full object-cover"
             autoPlay
             muted
-            loop
             playsInline
             preload="auto"
             initial={{ scale: 1.04, opacity: 0 }}
             animate={{ scale: 1, opacity: 0.9 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            onEnded={() => {
+              setVisible(false);
+              window.dispatchEvent(new Event("fid:intro-done"));
+              document.documentElement.dataset.intro = "done";
+            }}
           >
             <source src="/hero-bg.mp4" type="video/mp4" />
           </motion.video>
