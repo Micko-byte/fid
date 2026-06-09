@@ -1,26 +1,111 @@
 @import "tailwindcss";
+@source "../components/**/*.tsx";
+@source "../app/**/*.tsx";
+
+/* ─── FID & Co. Design System ─────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Maragsa Display";
+  src: url("/fonts/MaragsaDisplay.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Funnel Display";
+  src: url("https://fonts.gstatic.com/s/funneldisplay/v1/gNMcW2BkTd9h6CZ64TUYH6RfA0dXqf9sQw.woff2") format("woff2");
+  font-display: swap;
+  font-weight: 400 500 700;
+}
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --red-mark:      #750006;
+  --deep-current:  #260000;
+  --quite-light:   #F5F2EC;
+  --off-white:     #FAFAFA;
+  --anchor:        #1C1C1C;
+  --signal:        #D98038;
+  --earthline:     #D9AB88;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-red-mark:     #750006;
+  --color-deep-current: #260000;
+  --color-quite-light:  #F5F2EC;
+  --color-off-white:    #FAFAFA;
+  --color-anchor:       #1C1C1C;
+  --color-signal:       #D98038;
+  --color-earthline:    #D9AB88;
+  --font-heading:       "Maragsa Display", "Playfair Display", Georgia, serif;
+  --font-body:          "Funnel Display", system-ui, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--quite-light);
+  color: var(--anchor);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography utilities ─────────────────────────────────────────────── */
+
+.font-heading  { font-family: var(--font-heading); }
+.font-body     { font-family: var(--font-body); }
+
+/* ─── Scrollbar ────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--deep-current); }
+::-webkit-scrollbar-thumb { background: var(--red-mark); border-radius: 2px; }
+
+/* ─── Brand pattern texture ────────────────────────────────────────────── */
+
+.brand-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23750006' fill-opacity='0.08'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.brand-pattern-light {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23F5F2EC' fill-opacity='0.05'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─── Reduced motion ───────────────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Lenis ────────────────────────────────────────────────────────────── */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ─── Selection ────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--red-mark);
+  color: var(--quite-light);
 }
