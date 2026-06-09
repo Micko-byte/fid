@@ -172,7 +172,7 @@ export default function Hero() {
               transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
               className="flex h-full flex-col justify-between gap-10 pt-4 lg:pt-0"
             >
-              <p className="max-w-[20ch] font-heading text-[clamp(1.25rem,2.2vw,2rem)] italic leading-[1.25] text-[#D9AB88]">
+              <p className="max-w-[20ch] font-body text-[clamp(1.25rem,2.2vw,2rem)] italic leading-[1.25] text-[#D9AB88]">
                 Insight. Strategy. Impact.
               </p>
 

@@ -3,49 +3,40 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
-const MIN_VISIBLE_MS = 1200;
-const FALLBACK_MS = 10000;
+const FALLBACK_MS = 20000;
 
 export default function IntroLoader() {
   const [visible, setVisible] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const finishRef = useRef<null | (() => void)>(null);
 
   useEffect(() => {
     let mounted = true;
     let finished = false;
-    const startedAt = Date.now();
     let fallbackTimer: number | undefined;
 
     const finish = () => {
       if (!mounted || finished) return;
       finished = true;
-      const elapsed = Date.now() - startedAt;
-      const delay = Math.max(0, MIN_VISIBLE_MS - elapsed);
-
-      window.setTimeout(() => {
-        if (mounted) {
-          setVisible(false);
-          window.dispatchEvent(new Event("fid:intro-done"));
-          document.documentElement.dataset.intro = "done";
-        }
-      }, delay);
+      setVisible(false);
+      window.dispatchEvent(new Event("fid:intro-done"));
+      document.documentElement.dataset.intro = "done";
     };
+
+    finishRef.current = finish;
 
     document.documentElement.dataset.intro = "playing";
 
-    if (document.readyState === "complete") {
-      finish();
-    } else {
-      window.addEventListener("load", finish, { once: true });
+    const video = videoRef.current;
+    if (video) {
+      video.play().catch(() => {});
     }
-
     fallbackTimer = window.setTimeout(() => {
       finish();
     }, FALLBACK_MS);
 
     return () => {
       mounted = false;
-      window.removeEventListener("load", finish);
       if (fallbackTimer) window.clearTimeout(fallbackTimer);
     };
   }, []);
@@ -70,10 +61,11 @@ export default function IntroLoader() {
             initial={{ scale: 1.04, opacity: 0 }}
             animate={{ scale: 1, opacity: 0.9 }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            onCanPlay={() => {
+              videoRef.current?.play().catch(() => {});
+            }}
             onEnded={() => {
-              setVisible(false);
-              window.dispatchEvent(new Event("fid:intro-done"));
-              document.documentElement.dataset.intro = "done";
+              finishRef.current?.();
             }}
           >
             <source src="/hero-bg.mp4" type="video/mp4" />

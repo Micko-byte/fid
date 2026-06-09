@@ -1,22 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Oswald:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss";
 @source "../components/**/*.tsx";
 @source "../app/**/*.tsx";
 
 /* ─── FID & Co. Design System ─────────────────────────────────────────── */
 
-@font-face {
-  font-family: "Maragsa Display";
-  src: url("/fonts/MaragsaDisplay.woff2") format("woff2");
-  font-display: swap;
-  font-weight: 400;
-}
-
-@font-face {
-  font-family: "Funnel Display";
-  src: url("https://fonts.gstatic.com/s/funneldisplay/v1/gNMcW2BkTd9h6CZ64TUYH6RfA0dXqf9sQw.woff2") format("woff2");
-  font-display: swap;
-  font-weight: 400 500 700;
-}
 
 /* Hide system cursor on pointer devices — custom cursor handles it */
 @media (pointer: fine) {
@@ -41,8 +29,8 @@
   --color-anchor:       #1C1C1C;
   --color-signal:       #D98038;
   --color-earthline:    #D9AB88;
-  --font-heading:       "Maragsa Display", "Playfair Display", Georgia, serif;
-  --font-body:          "Funnel Display", system-ui, sans-serif;
+  --font-heading:       "Oswald", "Arial Narrow", sans-serif;
+  --font-body:          "Noto Sans", system-ui, -apple-system, sans-serif;
 }
 
 html {
