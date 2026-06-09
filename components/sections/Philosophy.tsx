@@ -1,8 +1,11 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+const WireframeOrb = dynamic(() => import("@/components/graphics/WireframeOrb"), { ssr: false });
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -61,10 +64,17 @@ export default function Philosophy() {
     <section
       ref={sectionRef}
       id="philosophy"
-      className="py-24 md:py-40"
+      className="py-24 md:py-40 relative overflow-hidden"
       style={{ backgroundColor: "#FAFAFA" }}
     >
-      <div className="max-w-[1280px] mx-auto px-6 md:px-16">
+      <WireframeOrb
+        color="#750006"
+        accentColor="#D98038"
+        opacity={0.06}
+        speed={0.6}
+        className="absolute -right-24 top-1/2 -translate-y-1/2 w-[480px] h-[480px] hidden md:block"
+      />
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#D98038" }}>
           Our approach
         </p>

@@ -1,9 +1,13 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "motion/react";
+import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
+
+const WireframeOrb = dynamic(() => import("@/components/graphics/WireframeOrb"), { ssr: false });
+const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
 const stats = [
   { value: "15+", label: "Years of practice" },
@@ -62,6 +66,13 @@ function PageHero() {
       <div
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse 80% 60% at 30% 80%, rgba(117,0,6,0.18) 0%, transparent 70%)" }}
+      />
+      {/* Animated orb — right half, desktop only */}
+      <WireframeOrb
+        color="#750006"
+        accentColor="#D98038"
+        opacity={0.13}
+        className="absolute right-0 top-0 h-full w-1/2 hidden md:block"
       />
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full">
         <motion.p
@@ -166,8 +177,9 @@ function Philosophy() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#1C1C1C" }}>
-      <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
+    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#1C1C1C" }}>
+      <OrbitalRings color="#D9AB88" opacity={0.07} className="absolute inset-0 w-full h-full" />
+      <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#D98038" }}>
           Our philosophy
         </p>

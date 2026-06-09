@@ -1,10 +1,13 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "motion/react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { X, ArrowUpRight } from "@phosphor-icons/react";
+import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
+
+const ParticleField = dynamic(() => import("@/components/graphics/ParticleField"), { ssr: false });
 
 const projects = [
   {
@@ -293,6 +296,7 @@ function PageHero() {
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse 80% 60% at 20% 80%, rgba(117,0,6,0.2) 0%, transparent 70%)" }}
       />
+      <ParticleField color="#D98038" count={100} opacity={0.35} className="absolute inset-0 w-full h-full" />
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full">
         <motion.p
           initial={{ opacity: 0, y: 12 }}

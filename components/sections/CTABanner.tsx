@@ -1,7 +1,10 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "motion/react";
+import dynamic from "next/dynamic";
+import { motion, useInView } from "framer-motion";
+
+const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
 export default function CTABanner() {
   const ref = useRef(null);
@@ -20,6 +23,7 @@ export default function CTABanner() {
           backgroundImage: "repeating-linear-gradient(135deg, rgba(245,242,236,0.03) 0px, rgba(245,242,236,0.03) 1px, transparent 1px, transparent 60px)",
         }}
       />
+      <OrbitalRings color="#F5F2EC" opacity={0.07} className="absolute right-0 top-0 h-full w-1/2 hidden md:block" />
 
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-16">
         <div className="md:flex md:items-end md:justify-between gap-12">
