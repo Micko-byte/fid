@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { X, ArrowUpRight } from "@phosphor-icons/react";
 import Link from "next/link";
+import TextReveal from "@/components/animations/TextReveal";
 
 const projects = [
   {
@@ -249,12 +250,13 @@ export default function Work() {
             All case studies →
           </Link>
         </div>
-        <h2
+        <TextReveal
+          text="Case studies"
+          as="h2"
+          delay={0.05}
           className="font-heading mb-16"
           style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", color: "#260000", letterSpacing: "-0.02em" }}
-        >
-          Case studies
-        </h2>
+        />
         <div>
           {projects.map((p, i) => <ProjectRow key={i} project={p} index={i} />)}
         </div>

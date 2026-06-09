@@ -16,15 +16,21 @@ const articles = [
 
 export default function Insights() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
+  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-60px" });
 
   return (
     <section id="insights" className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div className="flex items-end justify-between mb-20">
-          <p className="font-body text-xs tracking-[0.25em] uppercase" style={{ color: "#D98038" }}>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5 }}
+            className="font-body text-xs tracking-[0.25em] uppercase"
+            style={{ color: "#D98038" }}
+          >
             Our thinking
-          </p>
+          </motion.p>
           <Link
             href="/insights"
             className="font-body text-xs tracking-[0.15em] uppercase transition-colors duration-200 hidden md:block"
@@ -43,14 +49,23 @@ export default function Insights() {
               href={a.href}
               target="_blank"
               rel="noopener noreferrer"
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.4, delay: i * 0.06 }}
-              className="group flex items-baseline justify-between py-7 border-t transition-colors duration-200"
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65, delay: 0.05 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="group flex items-center justify-between py-7 border-t relative overflow-hidden"
               style={{ borderColor: "rgba(38,0,0,0.1)" }}
             >
-              <div className="flex items-baseline gap-8">
-                <span className="font-body text-xs flex-shrink-0" style={{ color: "rgba(38,0,0,0.3)" }}>
+              {/* Hover sweep */}
+              <motion.div
+                className="absolute inset-0 pointer-events-none"
+                initial={{ scaleX: 0 }}
+                whileHover={{ scaleX: 1 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                style={{ backgroundColor: "rgba(117,0,6,0.04)", transformOrigin: "left" }}
+              />
+
+              <div className="flex items-baseline gap-8 relative z-10">
+                <span className="font-body text-xs flex-shrink-0 hidden md:block" style={{ color: "rgba(38,0,0,0.3)" }}>
                   {a.date}
                 </span>
                 <h3
@@ -60,11 +75,18 @@ export default function Insights() {
                   {a.title}
                 </h3>
               </div>
-              <ArrowUpRight
-                size={16}
-                className="flex-shrink-0 ml-6 transition-colors duration-200 group-hover:text-[#750006]"
-                style={{ color: "rgba(38,0,0,0.2)" }}
-              />
+              <motion.div
+                className="relative z-10 flex-shrink-0 ml-6"
+                animate={{ x: 0 }}
+                whileHover={{ x: 3 }}
+                transition={{ type: "spring", stiffness: 400, damping: 20 }}
+              >
+                <ArrowUpRight
+                  size={16}
+                  className="transition-colors duration-200 group-hover:text-[#750006]"
+                  style={{ color: "rgba(38,0,0,0.2)" }}
+                />
+              </motion.div>
             </motion.a>
           ))}
           <div className="border-t" style={{ borderColor: "rgba(38,0,0,0.1)" }} />

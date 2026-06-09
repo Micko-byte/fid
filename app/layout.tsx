@@ -3,6 +3,7 @@ import "./globals.css";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import Nav from "@/components/Nav";
 import GrainOverlay from "@/components/GrainOverlay";
+import ScrollProgress from "@/components/ScrollProgress";
 
 export const metadata: Metadata = {
   title: "FID & Co. | Strategic Communications & Brand Experience Agency | Nairobi, Kenya",
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
+        <ScrollProgress />
         <GrainOverlay />
         <LenisProvider>
           <Nav />
