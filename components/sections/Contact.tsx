@@ -27,7 +27,7 @@ function validate(form: Record<string, string>) {
 }
 
 export default function Contact() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });

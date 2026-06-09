@@ -111,7 +111,7 @@ const sectors = [
 ];
 
 function ServiceAccordion({ service, index }: { service: typeof services[0]; index: number }) {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-40px" });
   const [open, setOpen] = useState(false);
 
@@ -224,7 +224,7 @@ function PageHero() {
 }
 
 function ServicesSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
@@ -262,7 +262,7 @@ function ServicesSection() {
 }
 
 function SectorsSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (

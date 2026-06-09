@@ -14,8 +14,8 @@ const services = [
 ];
 
 export default function Services() {
-  const ref = useRef(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-80px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
     <section id="services" className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>

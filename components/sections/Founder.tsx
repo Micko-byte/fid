@@ -6,8 +6,8 @@ import TextReveal from "@/components/animations/TextReveal";
 
 export default function Founder() {
   const sectionRef = useRef<HTMLElement>(null);
-  const ref = useRef(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
 
   // Parallax for the F.I. watermark — floats upward as you scroll through
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });

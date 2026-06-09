@@ -13,8 +13,8 @@ const stats = [
 ];
 
 export default function About() {
-  const ref = useRef(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section id="about" className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>

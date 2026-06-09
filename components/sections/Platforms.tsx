@@ -22,7 +22,7 @@ const platforms = [
 ];
 
 export default function Platforms() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (

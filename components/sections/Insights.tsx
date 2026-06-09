@@ -15,8 +15,8 @@ const articles = [
 ];
 
 export default function Insights() {
-  const ref = useRef(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-60px" });
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
     <section id="insights" className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>

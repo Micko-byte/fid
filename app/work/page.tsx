@@ -327,7 +327,7 @@ function PageHero() {
 }
 
 function WorkSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const [activeSector, setActiveSector] = useState("All");
 

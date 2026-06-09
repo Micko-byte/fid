@@ -95,7 +95,7 @@ function PageHero() {
 }
 
 function ArticlesSection() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
@@ -133,7 +133,7 @@ function ArticlesSection() {
 
 function ArticleRow({ article, index }: { article: typeof articles[0]; index: number }) {
   const ref = useRef<HTMLAnchorElement>(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-40px" });
+  const inView = useInView(ref, { once: true, margin: "-40px" });
 
   return (
     <motion.a

@@ -7,7 +7,7 @@ import { motion, useInView } from "framer-motion";
 const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
 export default function CTABanner() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (

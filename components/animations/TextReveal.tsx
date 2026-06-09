@@ -22,7 +22,7 @@ export default function TextReveal({
   as: Tag = "h2",
 }: Props) {
   const ref = useRef<HTMLElement>(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-80px" });
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   const words = text.split(" ");
 

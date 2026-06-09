@@ -12,7 +12,7 @@ interface Props {
 
 export default function CountUp({ value, duration = 1.6, className = "", style }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref as React.RefObject<Element>, { once: true, margin: "-40px" });
+  const inView = useInView(ref, { once: true, margin: "-40px" });
   const started = useRef(false);
 
   // Pull out the numeric part and any suffix ("+", "x", "%", etc.)

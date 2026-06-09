@@ -17,7 +17,7 @@ const sectors = [
 ];
 
 export default function Sectors() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (

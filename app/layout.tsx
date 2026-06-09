@@ -5,6 +5,7 @@ import Nav from "@/components/Nav";
 import GrainOverlay from "@/components/GrainOverlay";
 import ScrollProgress from "@/components/ScrollProgress";
 import CustomCursor from "@/components/CustomCursor";
+import IntroLoader from "@/components/IntroLoader";
 
 export const metadata: Metadata = {
   title: "FID & Co. | Strategic Communications & Brand Experience Agency | Nairobi, Kenya",
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <CustomCursor />
         <ScrollProgress />
         <GrainOverlay />
+        <IntroLoader />
         <LenisProvider>
           <Nav />
           <main id="main-content">

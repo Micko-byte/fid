@@ -104,7 +104,7 @@ function PageHero() {
 }
 
 function WhoWeAre() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
@@ -173,7 +173,7 @@ function WhoWeAre() {
 }
 
 function Philosophy() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
@@ -218,7 +218,7 @@ function Philosophy() {
 }
 
 function OurApproach() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
@@ -266,7 +266,7 @@ function OurApproach() {
 }
 
 function Founder() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
@@ -336,7 +336,7 @@ function Founder() {
 }
 
 function Markets() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
