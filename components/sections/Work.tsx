@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence, useMotionValue, useTransform } from "motion/react";
+import { motion, useInView, AnimatePresence, useMotionValue, useTransform } from "framer-motion";
 import { X, ArrowUpRight } from "@phosphor-icons/react";
 import Link from "next/link";
 
