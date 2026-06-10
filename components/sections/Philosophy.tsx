@@ -155,19 +155,34 @@ export default function Philosophy() {
       <style>{`
         .philosophy-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: 42fr 58fr;
         }
         .philosophy-canvas-col {
           position: relative;
+          background-color: #ffffff;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        .philosophy-canvas-inner {
+          position: relative;
+          width: min(88%, 88vh);
+          aspect-ratio: 1 / 1;
+          border: 1px solid rgba(38,0,0,0.1);
+          border-radius: 2px;
+          overflow: hidden;
           background-color: #ffffff;
         }
         @media (max-width: 767px) {
           .philosophy-grid {
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr 50vh;
+            grid-template-rows: 1fr 55vw;
           }
           .philosophy-canvas-col {
-            height: 50vh;
+            height: 55vw;
+          }
+          .philosophy-canvas-inner {
+            width: min(92%, 92vw);
           }
         }
       `}</style>
@@ -341,21 +356,10 @@ export default function Philosophy() {
           </div>
         </div>
 
-        {/* ── Right column: full-panel canvas animation ── */}
-        <div
-          className="philosophy-canvas-col"
-        >
-          {/* Canvas container — fills the entire right panel with small inset border */}
-          <div
-            style={{
-              position: "absolute",
-              inset: "clamp(1rem, 2vw, 2rem)",
-              border: "1px solid rgba(38,0,0,0.1)",
-              borderRadius: "2px",
-              overflow: "hidden",
-              backgroundColor: "#ffffff",
-            }}
-          >
+        {/* ── Right column: large centred canvas animation ── */}
+        <div className="philosophy-canvas-col">
+          {/* Canvas container — large square centered in right panel, aligned with Strategy */}
+          <div className="philosophy-canvas-inner">
             <canvas
               ref={canvasRef}
               aria-hidden="true"
