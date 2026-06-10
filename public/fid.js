@@ -47,15 +47,17 @@
 
   /* ── Marquee ──────────────────────────────────────────── */
   var marqueeItems = [
-    "Strategic Communications", "Media Strategy", "Digital & Influencer",
-    "Experiential Marketing", "Brand Activations", "Public Relations",
-    "Owned Platforms", "Cultural Relevance"
+    { num: "", label: "Strategic Communications" },
+    { num: "02", label: "Media Strategy" },
+    { num: "03", label: "Digital & Influencer" },
+    { num: "04", label: "Experiential Marketing" },
+    { num: "05", label: "Brand Activations" }
   ];
   var mq = document.getElementById("marqueeTrack");
   if (mq) {
-    var unit = marqueeItems.map(function (t, i) {
-      return '<span class="marquee-item"><span class="mq-no">' +
-        ("0" + (i + 1)).slice(-2) + '</span><span class="txt">' + t +
+    var unit = marqueeItems.map(function (item) {
+      var num = item.num ? '<span class="mq-no">' + item.num + '</span>' : '';
+      return '<span class="marquee-item">' + num + '<span class="txt">' + item.label +
         '</span><span class="sep" aria-hidden="true"></span></span>';
     }).join("");
     // Duplicate enough to fill + loop seamlessly
@@ -176,7 +178,7 @@
   if (wr) {
     wr.innerHTML = projects.map(function (p, i) {
       var first = (p.images && p.images[0]) ? p.images[0] : { src: "", label: p.title.toLowerCase() };
-      return '<a class="wcard reveal" href="case-study.html?p=' + encodeURIComponent(p.slug) + '" data-i="' + i + '">' +
+      return '<a class="wcard reveal" href="/work?p=' + encodeURIComponent(p.slug) + '" data-i="' + i + '">' +
         '<div class="wcard-media"><div class="wph ph">' +
         '<img alt="" loading="lazy" src="' + first.src + '" ' +
         'onload="this.parentNode.classList.add(\'has-img\')" onerror="this.remove()" />' +
@@ -261,7 +263,7 @@
     document.body.style.overflow = "";
     if (lastFocus) lastFocus.focus();
   }
-  // Work cards now navigate to their own case-study page (case-study.html?p=slug).
+  // Work cards now navigate to the React work detail page (/work?p=slug).
   // The legacy in-page modal is retained for reference but no longer bound.
   if (scrim) scrim.addEventListener("click", function (e) { if (e.target === scrim || e.target.classList.contains("modal-shell")) closeModal(); });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape" && scrim.classList.contains("open")) closeModal(); });

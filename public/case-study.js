@@ -47,7 +47,7 @@
       '<span class="eyebrow" style="color:var(--signal)">Case study not found</span>' +
       '<h1>This case study has moved</h1>' +
       '<p>We couldn\'t find the project you were looking for. Browse the full portfolio instead.</p>' +
-      '<a href="FID & Co - Home.html#work" class="btn btn-light"><span>View all work</span></a>' +
+      '<a href="/work" class="btn btn-light"><span>View all work</span></a>' +
       '</div>';
     document.title = "Case study not found — FID & Co.";
     return;
@@ -79,8 +79,8 @@
       '<div class="cs-hero-watermark" aria-hidden="true">' + esc(p.title.split(" ")[0]) + '</div>' +
       '<div class="wrap cs-hero-inner">' +
         '<nav class="cs-breadcrumb fade-up">' +
-          '<a href="FID & Co - Home.html">Home</a><span class="sep">/</span>' +
-          '<a href="FID & Co - Home.html#work">Work</a><span class="sep">/</span>' +
+          '<a href="/FID%20%26%20Co%20-%20Home.html">Home</a><span class="sep">/</span>' +
+          '<a href="/work">Work</a><span class="sep">/</span>' +
           '<span class="cur">' + esc(p.sector) + '</span>' +
         '</nav>' +
         '<div class="cs-sector fade-up">' + esc(p.sector) + ' · ' + esc(p.years) + '</div>' +
@@ -125,7 +125,7 @@
           '<div class="reveal" data-d="1"><div class="cs-impact"><div class="impact-k">The impact</div><p>' + esc(p.impact) + '</p></div></div>' +
         '</div>' +
         '<div class="cs-next">' +
-          '<a class="cs-next-link" href="case-study.html?p=' + encodeURIComponent(next.slug) + '">' +
+          '<a class="cs-next-link" href="/work?p=' + encodeURIComponent(next.slug) + '">' +
             '<div><div class="cs-next-k">Next case study</div>' +
               '<div class="cs-next-title">' + esc(next.client) + '</div></div>' +
             '<span class="cs-next-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
