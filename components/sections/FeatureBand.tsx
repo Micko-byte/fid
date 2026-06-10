@@ -19,57 +19,25 @@ export default function FeatureBand() {
       style={{
         position: "relative",
         minHeight: "clamp(560px, 84vh, 880px)",
-        display: "flex",
-        alignItems: "flex-end",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
         overflow: "hidden",
         backgroundColor: "#1d0202",
       }}
     >
-      {/* Video background */}
-      <video
-        ref={videoRef}
-        src="/hero-bg.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          zIndex: 0,
-        }}
-      />
-
-      {/* Scrim overlay */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          background:
-            "linear-gradient(180deg, rgba(29,2,2,0.42) 0%, rgba(29,2,2,0.30) 42%, rgba(29,2,2,0.62) 72%, rgba(29,2,2,0.94) 100%)",
-        }}
-      />
-
+      {/* Left panel — text content */}
       <div
         ref={ref}
         style={{
-          position: "relative",
-          zIndex: 2,
-          width: "100%",
-          maxWidth: "1320px",
-          margin: "0 auto",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
           paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
-          paddingRight: "clamp(1.5rem, 5vw, 6rem)",
-          paddingTop: "clamp(6rem, 14vh, 9rem)",
-          paddingBottom: "clamp(3.5rem, 9vh, 6.5rem)",
+          paddingRight: "clamp(2rem, 4vw, 4rem)",
+          paddingTop: "clamp(4rem, 10vh, 7rem)",
+          paddingBottom: "clamp(4rem, 10vh, 7rem)",
+          position: "relative",
+          zIndex: 1,
         }}
       >
         <motion.h2
@@ -81,10 +49,10 @@ export default function FeatureBand() {
             fontWeight: 300,
             textTransform: "uppercase",
             color: "rgba(245,242,236,0.92)",
-            fontSize: "clamp(2rem, 5vw, 4.6rem)",
+            fontSize: "clamp(2rem, 3.8vw, 4.2rem)",
             lineHeight: 1.05,
             letterSpacing: 0,
-            maxWidth: "20ch",
+            maxWidth: "18ch",
             textWrap: "balance",
           } as React.CSSProperties}
         >
@@ -99,11 +67,11 @@ export default function FeatureBand() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            color: "rgba(245,242,236,0.80)",
-            maxWidth: "54ch",
+            color: "rgba(245,242,236,0.70)",
+            maxWidth: "46ch",
             marginTop: "clamp(1.4rem, 3vw, 2rem)",
-            fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
-            lineHeight: 1.6,
+            fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)",
+            lineHeight: 1.65,
             fontFamily: "var(--font-body, 'Noto Sans', sans-serif)",
           }}
         >
@@ -124,20 +92,23 @@ export default function FeatureBand() {
         >
           <Link
             href="/#services"
-            className="fid-btn fid-btn-light"
             style={{
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
               padding: "0.85em 1.7em",
-              fontSize: "0.8rem",
+              fontSize: "0.78rem",
               letterSpacing: "0.08em",
+              textTransform: "uppercase",
               backgroundColor: "#F5F2EC",
               color: "#750006",
-              position: "relative",
-              overflow: "hidden",
               fontFamily: "var(--font-body)",
+              fontWeight: 500,
+              textDecoration: "none",
+              transition: "background 0.3s, color 0.3s",
             }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "#D9AB88"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "#F5F2EC"; }}
           >
             Explore our expertise
           </Link>
@@ -148,12 +119,14 @@ export default function FeatureBand() {
               alignItems: "center",
               justifyContent: "center",
               padding: "0.85em 1.7em",
-              fontSize: "0.8rem",
+              fontSize: "0.78rem",
               letterSpacing: "0.08em",
+              textTransform: "uppercase",
               backgroundColor: "transparent",
               border: "1px solid rgba(217,171,136,0.45)",
               color: "#F5F2EC",
               fontFamily: "var(--font-body)",
+              textDecoration: "none",
               transition: "border-color 0.3s",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(217,171,136,0.8)")}
@@ -163,6 +136,70 @@ export default function FeatureBand() {
           </Link>
         </motion.div>
       </div>
+
+      {/* Right panel — video */}
+      <div
+        style={{
+          position: "relative",
+          overflow: "hidden",
+        }}
+      >
+        {/* Vertical divider line */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            top: "10%",
+            bottom: "10%",
+            left: 0,
+            width: "1px",
+            background: "linear-gradient(to bottom, transparent, rgba(217,171,136,0.25) 30%, rgba(217,171,136,0.25) 70%, transparent)",
+            zIndex: 2,
+          }}
+        />
+
+        <video
+          ref={videoRef}
+          src="/hero-bg.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            display: "block",
+          }}
+        />
+
+        {/* Scrim — left edge to blend with the text panel */}
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background:
+              "linear-gradient(to right, rgba(29,2,2,0.55) 0%, rgba(29,2,2,0.1) 30%, rgba(29,2,2,0.15) 70%, rgba(29,2,2,0.5) 100%)",
+            pointerEvents: "none",
+            zIndex: 1,
+          }}
+        />
+      </div>
+
+      {/* Mobile fallback — stack vertically */}
+      <style>{`
+        @media (max-width: 768px) {
+          #feature {
+            grid-template-columns: 1fr !important;
+          }
+          #feature > div:last-child {
+            height: 40vh;
+          }
+        }
+      `}</style>
     </section>
   );
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
 
@@ -30,7 +30,6 @@ export default function Hero() {
     (event: PointerEvent) => {
       const rect = sectionRef.current?.getBoundingClientRect();
       if (!rect) return;
-
       rawX.set((event.clientX - rect.left) / rect.width);
       rawY.set((event.clientY - rect.top) / rect.height);
     },
@@ -58,153 +57,342 @@ export default function Hero() {
     };
   }, [onPointerMove, prefersReducedMotion]);
 
-  const intro = useMemo(
-    () => [
-      {
-        title: "We shape ",
-        emphasis: "influence",
-        suffix: " not just ",
-        accent: "visibility.",
-      },
-    ],
-    []
-  );
-
   return (
     <section
       ref={sectionRef}
       id="hero"
-      className="relative min-h-[100svh] overflow-hidden bg-[#1d0202] text-[#F5F2EC]"
+      style={{
+        position: "relative",
+        minHeight: "100svh",
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "#1d0202",
+        overflow: "hidden",
+        color: "#F5F2EC",
+      }}
     >
-      <motion.div
-        className="relative z-10"
-        initial={{ opacity: 0, y: 18 }}
-        animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
-        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-      >
+      {/* ── Cursor-reactive spotlight background ── */}
       <motion.div
         aria-hidden="true"
-        className="absolute inset-0"
+        suppressHydrationWarning
         style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
           background: prefersReducedMotion
             ? "linear-gradient(180deg, rgba(29,2,2,0.7) 0%, rgba(29,2,2,0.95) 100%)"
             : spotlight,
         }}
       />
 
+      {/* Ambient warm glow */}
       <div
         aria-hidden="true"
-        className="absolute inset-0"
         style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
           background:
-            "radial-gradient(120% 90% at 72% 24%, rgba(255, 138, 61, 0.14) 0%, transparent 44%), radial-gradient(120% 92% at 16% 84%, rgba(117,0,6,0.18) 0%, transparent 44%)",
+            "radial-gradient(120% 90% at 72% 24%, rgba(255,138,61,0.14) 0%, transparent 44%), radial-gradient(120% 92% at 16% 84%, rgba(117,0,6,0.18) 0%, transparent 44%)",
         }}
       />
 
+      {/* Scrim — vignette */}
       <div
         aria-hidden="true"
-        className="absolute inset-0"
         style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
           background:
             "linear-gradient(180deg, rgba(29,2,2,0.42) 0%, rgba(29,2,2,0.08) 30%, rgba(29,2,2,0.72) 100%)",
         }}
       />
 
-      <div className="relative z-10 mx-auto flex min-h-[100svh] max-w-[1320px] flex-col px-6 pb-10 pt-28 md:px-12 md:pb-12 md:pt-32 lg:pt-36">
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-start justify-between gap-6 text-[0.72rem] tracking-[0.28em] uppercase text-[#D9AB88] md:text-[0.78rem]"
-        >
-          <span className="max-w-[22ch] leading-relaxed">Strategic communications &amp; brand experience</span>
-          <span className="text-right">Nairobi · Africa</span>
-        </motion.div>
-
-        <div className="flex flex-1 flex-col justify-end pb-0 pt-14 md:pt-10">
-          <div className="grid items-end gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)]">
-            <div>
-              <motion.h1
-                initial={{ opacity: 0, y: 24 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="max-w-[10ch] font-heading text-[clamp(3rem,9.5vw,9.6rem)] leading-[0.92] tracking-[-0.03em] text-[#F5F2EC]"
-              >
-                {intro[0].title}
-                <em className="font-normal italic text-[#D9AB88]">{intro[0].emphasis}</em>
-                {intro[0].suffix}
-                <span className="text-[#D98038]">{intro[0].accent}</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-8 max-w-[34ch] font-body text-[1rem] leading-[1.72] text-[rgba(245,242,236,0.82)] md:text-[1.08rem]"
-              >
-                A full-service strategic communications and brand experience firm, building credibility and cultural relevance for Africa&apos;s most ambitious organisations.
-              </motion.p>
-
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                className="mt-9 flex flex-wrap items-center gap-4"
-              >
-                <Link
-                  href="/#contact"
-                  className="inline-flex items-center justify-center bg-[#750006] px-6 py-3 text-[0.72rem] uppercase tracking-[0.18em] text-[#F5F2EC] transition-colors duration-300 hover:bg-[#8a0007]"
-                >
-                  Book us
-                </Link>
-                <Link
-                  href="/work"
-                  className="inline-flex items-center justify-center border border-[rgba(217,171,136,0.24)] px-6 py-3 text-[0.72rem] uppercase tracking-[0.18em] text-[#D9AB88] transition-colors duration-300 hover:border-[rgba(245,242,236,0.32)] hover:text-[#F5F2EC]"
-                >
-                  View work
-                </Link>
-              </motion.div>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 18 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="flex h-full flex-col justify-between gap-10 pt-4 lg:pt-0"
-            >
-              <p className="max-w-[20ch] font-body text-[clamp(1.25rem,2.2vw,2rem)] italic leading-[1.25] text-[#D9AB88]">
-                Insight. Strategy. Impact.
-              </p>
-
-              <div className="border-l border-[rgba(217,171,136,0.24)] pl-4">
-                <span className="block text-[0.72rem] uppercase tracking-[0.22em] text-[rgba(217,171,136,0.72)]">
-                  Scroll to explore
-                </span>
-                <span className="mt-3 block h-10 w-px bg-gradient-to-b from-[#D9AB88] to-transparent" />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </div>
-
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#1d0202] to-transparent"
-      />
-
+      {/* Pulsing orb */}
       {!prefersReducedMotion && !isMobile && (
         <motion.div
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-[18%] h-[34vw] w-[34vw] max-h-[520px] max-w-[520px] -translate-x-1/2 rounded-full blur-3xl"
-          animate={{ opacity: [0.35, 0.58, 0.35], scale: [0.94, 1.04, 0.94] }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
           style={{
+            position: "absolute",
+            left: "50%",
+            top: "18%",
+            transform: "translateX(-50%)",
+            width: "34vw",
+            height: "34vw",
+            maxWidth: "520px",
+            maxHeight: "520px",
+            borderRadius: "9999px",
+            filter: "blur(60px)",
+            pointerEvents: "none",
+            zIndex: 0,
             background:
               "radial-gradient(circle, rgba(217,128,56,0.24) 0%, rgba(117,0,6,0.12) 35%, transparent 72%)",
           }}
+          animate={{ opacity: [0.35, 0.58, 0.35], scale: [0.94, 1.04, 0.94] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
       )}
+
+      {/* ── All content fades in after intro ── */}
+      <motion.div
+        style={{ display: "contents" }}
+        initial={{ opacity: 0, y: 18 }}
+        animate={introDone ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
+        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+      >
+
+        {/* ── hero-top: kicker row ── */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            maxWidth: "1320px",
+            width: "100%",
+            margin: "0 auto",
+            paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
+            paddingRight: "clamp(1.5rem, 5vw, 6rem)",
+            paddingTop: "clamp(7rem, 16vh, 10rem)",
+          }}
+        >
+          <motion.div
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1.2rem",
+              flexWrap: "wrap",
+            }}
+          >
+            {/* "Insight. Strategy. Impact." eyebrow */}
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.72rem",
+                letterSpacing: "0.26em",
+                textTransform: "uppercase",
+                color: "#D9AB88",
+              }}
+            >
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "22px",
+                  height: "1px",
+                  background: "#D9AB88",
+                  opacity: 0.7,
+                }}
+              />
+              Insight. Strategy. Impact.
+            </span>
+
+            {/* "Nairobi · Africa" */}
+            <span
+              style={{
+                fontFamily: "var(--font-body)",
+                fontSize: "0.72rem",
+                letterSpacing: "0.26em",
+                textTransform: "uppercase",
+                color: "rgba(217,171,136,0.6)",
+              }}
+            >
+              Nairobi · Africa
+            </span>
+          </motion.div>
+        </div>
+
+        {/* ── hero-body: headline + meta + scroll cue ── */}
+        <div
+          style={{
+            position: "relative",
+            zIndex: 2,
+            flex: 1,
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "flex-end",
+            maxWidth: "1320px",
+            width: "100%",
+            margin: "0 auto",
+            paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
+            paddingRight: "clamp(1.5rem, 5vw, 6rem)",
+            paddingBottom: "clamp(2rem, 5vh, 4rem)",
+          }}
+        >
+          {/* H1 */}
+          <motion.h1
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: "var(--font-heading, 'Oswald', 'Arial Narrow', sans-serif)",
+              fontWeight: 300,
+              textTransform: "uppercase",
+              color: "rgba(245,242,236,0.90)",
+              fontSize: "clamp(1.7rem, 3.7vw, 3.5rem)",
+              lineHeight: 1.12,
+              letterSpacing: 0,
+              marginTop: "clamp(1.2rem, 3.5vh, 2rem)",
+              textWrap: "balance",
+              maxWidth: "24ch",
+            } as React.CSSProperties}
+          >
+            We turn communication into{" "}
+            <em style={{ fontStyle: "normal", fontWeight: 600, color: "#D9AB88" }}>influence</em>
+            {" "}— building{" "}
+            <strong style={{ fontWeight: 600, color: "#F5F2EC" }}>credibility</strong>
+            {" "}and{" "}
+            <strong style={{ fontWeight: 600, color: "#F5F2EC" }}>cultural relevance</strong>
+            {" "}across Africa.
+          </motion.h1>
+
+          {/* hero-meta row: lede left + explore-link right */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              display: "flex",
+              alignItems: "flex-end",
+              justifyContent: "space-between",
+              gap: "2rem",
+              flexWrap: "wrap",
+              marginTop: "clamp(1.8rem, 5vh, 3rem)",
+            }}
+          >
+            {/* Lede */}
+            <p
+              style={{
+                maxWidth: "44ch",
+                color: "rgba(245,242,236,0.82)",
+                fontSize: "clamp(1rem, 1.4vw, 1.18rem)",
+                lineHeight: 1.6,
+                fontFamily: "var(--font-body, 'Noto Sans', sans-serif)",
+              }}
+            >
+              FID &amp; Co. is a full-service strategic communications and brand experience firm operating across Kenya and Africa.
+            </p>
+
+            {/* Explore link */}
+            <Link
+              href="/#feature"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.6rem",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.74rem",
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                color: "rgba(217,171,136,0.75)",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+                textDecoration: "none",
+                transition: "color 0.35s, gap 0.35s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "#F5F2EC";
+                e.currentTarget.style.gap = "0.95rem";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "rgba(217,171,136,0.75)";
+                e.currentTarget.style.gap = "0.6rem";
+              }}
+            >
+              Explore the firm
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                style={{ flexShrink: 0 }}
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+          </motion.div>
+
+          {/* Scroll cue */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.38, ease: "easeOut" }}
+            style={{ marginTop: "clamp(2rem, 5vh, 3rem)" }}
+          >
+            <Link
+              href="/#feature"
+              aria-label="Scroll to explore"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.7rem",
+                color: "rgba(217,171,136,0.55)",
+                fontSize: "0.7rem",
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                textDecoration: "none",
+                fontFamily: "var(--font-body)",
+                transition: "color 0.3s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#D9AB88")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(217,171,136,0.55)")}
+            >
+              {/* Animated dot/line */}
+              <span
+                aria-hidden="true"
+                style={{
+                  display: "inline-block",
+                  width: "1px",
+                  height: "34px",
+                  background: "linear-gradient(to bottom, #D9AB88, transparent)",
+                  position: "relative",
+                  overflow: "hidden",
+                  flexShrink: 0,
+                }}
+              >
+                <style>{`
+                  @keyframes scrolldown {
+                    0%   { transform: translateY(-100%); opacity: 1; }
+                    60%  { transform: translateY(100%);  opacity: 1; }
+                    100% { transform: translateY(100%);  opacity: 0; }
+                  }
+                  .scroll-dot-inner {
+                    position: absolute;
+                    top: 0; left: 0;
+                    width: 100%; height: 40%;
+                    background: #D98038;
+                    animation: scrolldown 1.9s cubic-bezier(0.4,0,0.2,1) infinite;
+                  }
+                  @media (prefers-reduced-motion: reduce) {
+                    .scroll-dot-inner { animation: none; }
+                  }
+                `}</style>
+                <span className="scroll-dot-inner" />
+              </span>
+              Scroll to explore
+            </Link>
+          </motion.div>
+        </div>
       </motion.div>
+
+      {/* Bottom fade */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: "auto 0 0",
+          height: "6rem",
+          background: "linear-gradient(to top, #1d0202, transparent)",
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      />
     </section>
   );
 }

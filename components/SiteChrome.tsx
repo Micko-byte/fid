@@ -1,10 +1,9 @@
 "use client";
 
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import CustomCursor from "@/components/CustomCursor";
 import GrainOverlay from "@/components/GrainOverlay";
-import IntroLoader from "@/components/IntroLoader";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 
@@ -13,6 +12,12 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
   // The old /work page uses its own full-screen layout — strip site chrome for it
   // but keep chrome for /work/[slug] detail pages
   const isLegacyWorkRoute = pathname === "/work" || pathname.startsWith("/work?");
+
+  // Fire intro-done immediately so Hero shows without the loader
+  useEffect(() => {
+    document.documentElement.dataset.intro = "done";
+    window.dispatchEvent(new Event("fid:intro-done"));
+  }, []);
 
   if (isLegacyWorkRoute) {
     return <>{children}</>;
@@ -30,7 +35,6 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       <CustomCursor />
       <ScrollProgress />
       <GrainOverlay />
-      <IntroLoader />
       <Nav />
       <main id="main-content">{children}</main>
     </>
