@@ -3,6 +3,9 @@
 import { useRef, useEffect, useState, useCallback } from "react";
 
 const TOTAL_FRAMES = 121;
+// More scroll travel per frame = smoother, more controlled scrubbing
+const SCROLL_PX_PER_FRAME = 22;
+
 const PILLARS = [
   {
     word: "INSIGHT",
@@ -28,43 +31,135 @@ function getActivePillar(prog: number): number {
 }
 
 export default function Philosophy() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const framesRef = useRef<HTMLImageElement[]>([]);
-  const loadedRef = useRef<boolean[]>(new Array(TOTAL_FRAMES).fill(false));
+  const sectionRef    = useRef<HTMLDivElement>(null);
+  const canvasRef     = useRef<HTMLCanvasElement>(null);
+  const framesRef     = useRef<HTMLImageElement[]>([]);
+  const loadedRef     = useRef<boolean[]>(new Array(TOTAL_FRAMES).fill(false));
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [activePillar, setActivePillar] = useState(0);
 
-  // Preload 121 frames
+  // ── Smooth lerp state (RAF-based, not tied to scroll events) ──
+  const targetProgRef  = useRef(0);
+  const currentProgRef = useRef(0);
+  const rafLoopRef     = useRef<number | null>(null);
+  const lastPillarRef  = useRef(0);
+
+  // ── Draw with cross-dissolve interpolation between adjacent frames ──
+  const drawAtProg = useCallback((prog: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const dpr = window.devicePixelRatio || 1;
+    const cw  = canvas.offsetWidth;
+    const ch  = canvas.offsetHeight;
+
+    // Exact fractional frame position
+    const exactFrame = prog * (TOTAL_FRAMES - 1);
+    const frameA     = Math.floor(exactFrame);
+    const frameB     = Math.min(TOTAL_FRAMES - 1, frameA + 1);
+    const blend      = exactFrame - frameA; // 0→1 cross-dissolve factor
+
+    const imgA = framesRef.current[frameA];
+    const imgB = framesRef.current[frameB];
+    if (!imgA || !loadedRef.current[frameA]) return;
+
+    const iw = imgA.naturalWidth;
+    const ih = imgA.naturalHeight;
+    if (!iw || !ih) return;
+
+    // Cover-fit: fill 96% of canvas, centred
+    const scale = Math.min((cw * 0.96) / iw, (ch * 0.96) / ih);
+    const dw = iw * scale;
+    const dh = ih * scale;
+    const dx = (cw - dw) / 2;
+    const dy = (ch - dh) / 2;
+
+    // White background
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, cw * dpr, ch * dpr);
+
+    // Draw frame A
+    ctx.globalAlpha = 1;
+    ctx.drawImage(imgA, dx * dpr, dy * dpr, dw * dpr, dh * dpr);
+
+    // Cross-dissolve to frame B at blend factor
+    if (imgB && loadedRef.current[frameB] && blend > 0.001) {
+      ctx.globalAlpha = blend;
+      ctx.drawImage(imgB, dx * dpr, dy * dpr, dw * dpr, dh * dpr);
+      ctx.globalAlpha = 1;
+    }
+
+    // Update progress bar (direct DOM, no re-render)
+    if (progressBarRef.current) {
+      progressBarRef.current.style.width = `${prog * 100}%`;
+    }
+
+    // Update active pillar if changed (triggers single React re-render)
+    const nextPillar = getActivePillar(prog);
+    if (nextPillar !== lastPillarRef.current) {
+      lastPillarRef.current = nextPillar;
+      setActivePillar(nextPillar);
+    }
+  }, []);
+
+  // ── RAF lerp loop — runs until currentProg converges to targetProg ──
+  const startLerpLoop = useCallback(() => {
+    if (rafLoopRef.current !== null) return; // already running
+
+    const tick = () => {
+      const diff = targetProgRef.current - currentProgRef.current;
+
+      if (Math.abs(diff) < 0.00015) {
+        // Converged — snap and stop
+        currentProgRef.current = targetProgRef.current;
+        drawAtProg(currentProgRef.current);
+        rafLoopRef.current = null;
+        return;
+      }
+
+      // Ease factor: 0.10 = smooth cinematic, 0.18 = snappier
+      currentProgRef.current += diff * 0.10;
+      drawAtProg(currentProgRef.current);
+      rafLoopRef.current = requestAnimationFrame(tick);
+    };
+
+    rafLoopRef.current = requestAnimationFrame(tick);
+  }, [drawAtProg]);
+
+  // ── Preload all 121 frames ──
   useEffect(() => {
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new Image();
-      const num = String(i + 1).padStart(3, "0");
-      img.src = `/frames/ezgif-frame-${num}.jpg`;
+      img.src = `/frames/ezgif-frame-${String(i + 1).padStart(3, "0")}.jpg`;
       const idx = i;
       img.onload = () => {
         loadedRef.current[idx] = true;
-        if (idx === 0) drawFrameIndex(0);
+        if (idx === 0) drawAtProg(0);
       };
       framesRef.current[i] = img;
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Size canvas on mount + resize
+  // ── Canvas resize — keeps DPR-correct buffer ──
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const dpr = window.devicePixelRatio || 1;
-    const w = canvas.offsetWidth;
-    const h = canvas.offsetHeight;
-    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
-      canvas.width = Math.round(w * dpr);
-      canvas.height = Math.round(h * dpr);
+    const w   = canvas.offsetWidth;
+    const h   = canvas.offsetHeight;
+    const wPx = Math.round(w * dpr);
+    const hPx = Math.round(h * dpr);
+    if (canvas.width !== wPx || canvas.height !== hPx) {
+      canvas.width  = wPx;
+      canvas.height = hPx;
       const ctx = canvas.getContext("2d");
       if (ctx) ctx.scale(dpr, dpr);
+      drawAtProg(currentProgRef.current);
     }
-  }, []);
+  }, [drawAtProg]);
 
   useEffect(() => {
     resizeCanvas();
@@ -72,64 +167,19 @@ export default function Philosophy() {
     return () => window.removeEventListener("resize", resizeCanvas);
   }, [resizeCanvas]);
 
-  const drawFrameIndex = useCallback((frameIndex: number) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    const img = framesRef.current[frameIndex];
-    if (!img || !loadedRef.current[frameIndex]) return;
-
-    const dpr = window.devicePixelRatio || 1;
-    const cw = canvas.offsetWidth;
-    const ch = canvas.offsetHeight;
-
-    // White background then frame (contain-fit — show full logo)
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, cw * dpr, ch * dpr);
-
-    const iw = img.naturalWidth;
-    const ih = img.naturalHeight;
-    if (iw === 0 || ih === 0) return;
-
-    // Contain-fit: show entire logo frame centred
-    const scale = Math.min((cw * 0.88) / iw, (ch * 0.88) / ih);
-    const dw = iw * scale;
-    const dh = ih * scale;
-    const dx = (cw - dw) / 2;
-    const dy = (ch - dh) / 2;
-    ctx.drawImage(img, dx * dpr, dy * dpr, dw * dpr, dh * dpr);
-  }, []);
-
+  // ── Scroll handler — updates targetProg, kicks off lerp loop ──
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    let rafId: number;
-    let lastPillar = 0;
-
     const onScroll = () => {
-      cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        const rect = section.getBoundingClientRect();
-        const totalH = section.offsetHeight - window.innerHeight;
-        const scrolled = Math.max(0, -rect.top);
-        const prog = totalH > 0 ? Math.min(1, scrolled / totalH) : 0;
+      const rect    = section.getBoundingClientRect();
+      const totalH  = section.offsetHeight - window.innerHeight;
+      const scrolled = Math.max(0, -rect.top);
+      const prog    = totalH > 0 ? Math.min(1, scrolled / totalH) : 0;
 
-        // Update progress bar directly
-        if (progressBarRef.current) {
-          progressBarRef.current.style.width = `${prog * 100}%`;
-        }
-
-        const nextPillar = getActivePillar(prog);
-        if (nextPillar !== lastPillar) {
-          lastPillar = nextPillar;
-          setActivePillar(nextPillar);
-        }
-
-        const frameIdx = Math.min(TOTAL_FRAMES - 1, Math.floor(prog * TOTAL_FRAMES));
-        drawFrameIndex(frameIdx);
-      });
+      targetProgRef.current = prog;
+      startLerpLoop();
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -137,9 +187,9 @@ export default function Philosophy() {
 
     return () => {
       window.removeEventListener("scroll", onScroll);
-      cancelAnimationFrame(rafId);
+      if (rafLoopRef.current !== null) cancelAnimationFrame(rafLoopRef.current);
     };
-  }, [drawFrameIndex]);
+  }, [startLerpLoop]);
 
   return (
     <section
@@ -147,46 +197,41 @@ export default function Philosophy() {
       id="philosophy"
       aria-label="Our approach"
       style={{
-        // 600vh gives each frame ~13px of scroll travel — smooth & followable
-        height: `calc(${TOTAL_FRAMES * 13}px + 200vh)`,
+        height: `calc(${TOTAL_FRAMES * SCROLL_PX_PER_FRAME}px + 200vh)`,
         position: "relative",
       }}
     >
       <style>{`
+        /* Left 38% text | Right 62% canvas */
         .philosophy-grid {
           display: grid;
-          grid-template-columns: 42fr 58fr;
+          grid-template-columns: 38fr 62fr;
         }
         .philosophy-canvas-col {
           position: relative;
           background-color: #ffffff;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        .philosophy-canvas-inner {
-          position: relative;
-          width: min(88%, 88vh);
-          aspect-ratio: 1 / 1;
-          border: 1px solid rgba(38,0,0,0.1);
-          border-radius: 2px;
           overflow: hidden;
+        }
+        /* Canvas fills the ENTIRE right column — edge to edge */
+        .philosophy-canvas-inner {
+          position: absolute;
+          inset: 0;
           background-color: #ffffff;
         }
+        /* Mobile: stack vertically, canvas below at 60vw height */
         @media (max-width: 767px) {
           .philosophy-grid {
             grid-template-columns: 1fr;
-            grid-template-rows: 1fr 55vw;
+            grid-template-rows: auto 60vw;
+            height: 100vh;
           }
           .philosophy-canvas-col {
-            height: 55vw;
-          }
-          .philosophy-canvas-inner {
-            width: min(92%, 92vw);
+            height: 60vw;
           }
         }
       `}</style>
-      {/* Sticky viewport panel — white background */}
+
+      {/* ── Sticky viewport panel ── */}
       <div
         className="philosophy-grid"
         style={{
@@ -197,20 +242,19 @@ export default function Philosophy() {
           backgroundColor: "#ffffff",
         }}
       >
-        {/* ── Left column: label + pillar rows with hairline separators ── */}
+        {/* ── Left: label + pillar rows ── */}
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
-            paddingRight: "clamp(2rem, 4vw, 4rem)",
-            paddingTop: "2rem",
+            paddingLeft:  "clamp(1.5rem, 5vw, 6rem)",
+            paddingRight: "clamp(1.5rem, 3vw, 3rem)",
+            paddingTop:    "2rem",
             paddingBottom: "5rem",
             borderRight: "1px solid rgba(38,0,0,0.08)",
           }}
         >
-          {/* Section label — 14islands eyebrow style */}
           <p
             style={{
               fontFamily: "var(--font-body)",
@@ -218,83 +262,67 @@ export default function Philosophy() {
               letterSpacing: "0.28em",
               textTransform: "uppercase",
               color: "#D98038",
-              marginBottom: "clamp(2.5rem, 5vw, 4rem)",
+              marginBottom: "clamp(2rem, 4vw, 3.5rem)",
             }}
           >
             Our Approach
           </p>
 
-          {/* Pillar rows with hairline separators */}
           <div>
             {PILLARS.map((p, i) => {
               const isActive = activePillar === i;
               return (
                 <div key={i}>
-                  {/* Hairline top rule — 14islands separator */}
+                  <div style={{ height: "1px", background: isActive ? "rgba(38,0,0,0.18)" : "rgba(38,0,0,0.08)", transition: "background 0.6s ease" }} />
                   <div
                     style={{
-                      height: "1px",
-                      background: isActive
-                        ? "rgba(38,0,0,0.18)"
-                        : "rgba(38,0,0,0.08)",
-                      transition: "background 0.5s ease",
-                    }}
-                  />
-
-                  <div
-                    style={{
-                      paddingTop: "clamp(1.2rem, 2.5vw, 2rem)",
-                      paddingBottom: "clamp(1.2rem, 2.5vw, 2rem)",
+                      paddingTop: "clamp(1rem, 2vw, 1.8rem)",
+                      paddingBottom: "clamp(1rem, 2vw, 1.8rem)",
                       display: "grid",
-                      gridTemplateColumns: "2.5rem 1fr",
-                      gap: "1rem",
+                      gridTemplateColumns: "2.2rem 1fr",
+                      gap: "0.8rem",
                       alignItems: "start",
                     }}
                   >
-                    {/* Number */}
                     <p
                       style={{
                         fontFamily: "var(--font-body)",
-                        fontSize: "0.62rem",
+                        fontSize: "0.6rem",
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
                         color: isActive ? "#D98038" : "rgba(217,160,56,0.3)",
                         paddingTop: "0.3rem",
-                        transition: "color 0.55s ease",
+                        transition: "color 0.6s ease",
                       }}
                     >
                       {p.num}
                     </p>
-
                     <div>
-                      {/* Pillar word */}
                       <h2
                         style={{
                           fontFamily: "var(--font-heading, 'Oswald')",
                           fontWeight: isActive ? 600 : 300,
-                          fontSize: "clamp(1.8rem, 3.5vw, 3.4rem)",
-                          color: isActive ? "#260000" : "rgba(38,0,0,0.18)",
+                          fontSize: "clamp(1.6rem, 3vw, 3rem)",
+                          color: isActive ? "#260000" : "rgba(38,0,0,0.15)",
                           letterSpacing: "-0.02em",
                           lineHeight: 0.95,
-                          transition: "color 0.55s ease, font-weight 0.3s ease",
+                          transition: "color 0.6s ease, font-weight 0.3s ease",
                           textTransform: "uppercase",
-                          marginBottom: "0.6rem",
+                          marginBottom: "0.5rem",
                         }}
                       >
                         {p.word}
                       </h2>
-
-                      {/* Descriptor — only shown when active */}
                       <p
                         style={{
                           fontFamily: "var(--font-body)",
-                          fontSize: "0.85rem",
+                          fontSize: "0.82rem",
                           lineHeight: 1.55,
                           color: "rgba(38,0,0,0.55)",
-                          maxWidth: "34ch",
+                          maxWidth: "30ch",
                           opacity: isActive ? 1 : 0,
-                          transform: isActive ? "translateY(0)" : "translateY(6px)",
-                          transition: "opacity 0.55s ease, transform 0.55s ease",
+                          transform: isActive ? "translateY(0)" : "translateY(8px)",
+                          transition: "opacity 0.65s ease, transform 0.65s ease",
                           pointerEvents: "none",
                         }}
                       >
@@ -305,80 +333,39 @@ export default function Philosophy() {
                 </div>
               );
             })}
-
-            {/* Final hairline */}
             <div style={{ height: "1px", background: "rgba(38,0,0,0.08)" }} />
           </div>
 
           {/* Progress bar */}
-          <div
-            style={{
-              marginTop: "clamp(2rem, 4vw, 3rem)",
-              display: "flex",
-              alignItems: "center",
-              gap: "1rem",
-            }}
-          >
-            <div
-              style={{
-                flex: 1,
-                height: "1px",
-                background: "rgba(38,0,0,0.08)",
-                position: "relative",
-                overflow: "hidden",
-              }}
-            >
+          <div style={{ marginTop: "clamp(1.5rem, 3vw, 2.5rem)", display: "flex", alignItems: "center", gap: "0.8rem" }}>
+            <div style={{ flex: 1, height: "1px", background: "rgba(38,0,0,0.08)", position: "relative", overflow: "hidden" }}>
               <div
                 ref={progressBarRef}
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  height: "100%",
-                  width: "0%",
-                  background: "#750006",
-                }}
+                style={{ position: "absolute", top: 0, left: 0, height: "100%", width: "0%", background: "#750006", transition: "none" }}
               />
             </div>
-            <p
-              style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "0.6rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                color: "rgba(38,0,0,0.28)",
-                whiteSpace: "nowrap",
-                flexShrink: 0,
-              }}
-            >
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(38,0,0,0.28)", whiteSpace: "nowrap", flexShrink: 0 }}>
               Scroll to explore
             </p>
           </div>
         </div>
 
-        {/* ── Right column: large centred canvas animation ── */}
+        {/* ── Right: full-column canvas ── */}
         <div className="philosophy-canvas-col">
-          {/* Canvas container — large square centered in right panel, aligned with Strategy */}
           <div className="philosophy-canvas-inner">
             <canvas
               ref={canvasRef}
               aria-hidden="true"
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                display: "block",
-              }}
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", display: "block" }}
             />
 
-            {/* Active pillar label chip — bottom of canvas */}
+            {/* Bottom label strip */}
             <div
               style={{
                 position: "absolute",
-                bottom: "1rem",
-                left: "1rem",
-                right: "1rem",
+                bottom: "1.2rem",
+                left: "1.5rem",
+                right: "1.5rem",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -386,27 +373,11 @@ export default function Philosophy() {
                 pointerEvents: "none",
               }}
             >
-              <span
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "rgba(38,0,0,0.3)",
-                }}
-              >
+              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(38,0,0,0.25)" }}>
                 {PILLARS[activePillar].num} / {PILLARS[activePillar].word}
               </span>
-              <span
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.2em",
-                  textTransform: "uppercase",
-                  color: "rgba(38,0,0,0.25)",
-                }}
-              >
-                FID & Co.
+              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(38,0,0,0.2)" }}>
+                FID &amp; Co.
               </span>
             </div>
           </div>
