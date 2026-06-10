@@ -17,8 +17,35 @@ export default function About() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="about" className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
-      <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
+    <section
+      id="about"
+      className="relative py-24 md:py-40 overflow-hidden"
+      style={{ backgroundColor: "#1d0202" }}
+    >
+      {/* Video background */}
+      <video
+        src="/hero-bg.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 0.18 }}
+      />
+
+      {/* Dark overlay so text remains legible */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(29,2,2,0.55) 0%, rgba(29,2,2,0.7) 60%, rgba(29,2,2,0.88) 100%)",
+        }}
+      />
+
+      <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
 
         <motion.p
           initial={{ opacity: 0, y: 10 }}
@@ -38,12 +65,15 @@ export default function About() {
           className="font-heading leading-tight mb-24 max-w-4xl"
           style={{
             fontSize: "clamp(2.4rem, 5vw, 4rem)",
-            color: "#260000",
+            color: "#F5F2EC",
             letterSpacing: "-0.02em",
           }}
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-4 border-t" style={{ borderColor: "rgba(38,0,0,0.1)" }}>
+        <div
+          className="grid grid-cols-2 md:grid-cols-4 border-t"
+          style={{ borderColor: "rgba(217,171,136,0.18)" }}
+        >
           {stats.map((s, i) => (
             <motion.div
               key={i}
@@ -54,11 +84,18 @@ export default function About() {
             >
               <p
                 className="font-heading leading-none mb-2"
-                style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", color: "#750006", letterSpacing: "-0.03em" }}
+                style={{
+                  fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                  color: "#D98038",
+                  letterSpacing: "-0.03em",
+                }}
               >
                 <CountUp value={s.value} duration={1.8} />
               </p>
-              <p className="font-body text-xs uppercase tracking-[0.15em]" style={{ color: "rgba(38,0,0,0.4)" }}>
+              <p
+                className="font-body text-xs uppercase tracking-[0.15em]"
+                style={{ color: "rgba(217,171,136,0.6)" }}
+              >
                 {s.label}
               </p>
             </motion.div>

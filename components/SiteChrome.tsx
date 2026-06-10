@@ -10,9 +10,11 @@ import ScrollProgress from "@/components/ScrollProgress";
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname() || "";
-  const isWorkRoute = pathname === "/work" || pathname.startsWith("/work?");
+  // The old /work page uses its own full-screen layout — strip site chrome for it
+  // but keep chrome for /work/[slug] detail pages
+  const isLegacyWorkRoute = pathname === "/work" || pathname.startsWith("/work?");
 
-  if (isWorkRoute) {
+  if (isLegacyWorkRoute) {
     return <>{children}</>;
   }
 
