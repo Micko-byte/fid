@@ -2,14 +2,12 @@
 
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import TextReveal from "@/components/animations/TextReveal";
 
 export default function Founder() {
   const sectionRef = useRef<HTMLElement>(null);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
-  // Parallax for the F.I. watermark — floats upward as you scroll through
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const watermarkY = useTransform(scrollYProgress, [0, 1], ["10%", "-15%"]);
 
@@ -17,67 +15,141 @@ export default function Founder() {
     <section
       ref={sectionRef}
       id="founder"
-      className="py-24 md:py-40 relative overflow-hidden"
-      style={{ backgroundColor: "#260000" }}
+      style={{
+        backgroundColor: "#1d0202",
+        color: "#F5F2EC",
+        paddingTop: "clamp(5.5rem, 12vw, 11rem)",
+        paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
+        position: "relative",
+        overflow: "hidden",
+      }}
     >
-      {/* Parallax watermark */}
+      {/* F.I. Watermark */}
       <motion.div
         aria-hidden="true"
-        className="absolute top-1/2 right-0 -translate-y-1/2 font-heading select-none pointer-events-none"
         style={{
-          fontSize: "clamp(14rem, 32vw, 24rem)",
-          color: "rgba(117,0,6,0.07)",
-          lineHeight: 0.85,
+          position: "absolute", top: "50%", right: "-2%",
+          transform: "translateY(-50%)",
+          fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 500,
+          fontSize: "clamp(14rem, 34vw, 28rem)",
+          color: "rgba(117,0,6,0.10)", lineHeight: 0.8,
+          pointerEvents: "none", userSelect: "none", zIndex: 0,
           y: watermarkY,
         }}
       >
         F.I.
       </motion.div>
 
-      <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
+      <div
+        ref={ref}
+        style={{
+          position: "relative", zIndex: 1,
+          maxWidth: "1320px", margin: "0 auto",
+          paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
+          paddingRight: "clamp(1.5rem, 5vw, 6rem)",
+        }}
+      >
+        {/* Eyebrow */}
+        <motion.span
+          initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="font-body text-xs tracking-[0.25em] uppercase mb-16"
-          style={{ color: "#D98038" }}
-        >
-          Founder
-        </motion.p>
-
-        <TextReveal
-          text="Farida Idris"
-          as="h2"
-          delay={0.05}
-          stagger={0.1}
-          className="font-heading leading-none mb-4"
-          style={{ fontSize: "clamp(3rem, 7vw, 6rem)", color: "#F5F2EC", letterSpacing: "-0.03em" }}
-        />
-
-        <motion.p
-          initial={{ opacity: 0, x: -12 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.35 }}
-          className="font-body text-xs tracking-[0.2em] uppercase mb-20"
-          style={{ color: "#D98038" }}
-        >
-          Founder &amp; Lead Strategist
-        </motion.p>
-
-        <TextReveal
-          text="Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people they serve."
-          as="blockquote"
-          delay={0.45}
-          stagger={0.04}
-          className="font-heading leading-tight max-w-3xl"
+          transition={{ duration: 0.6 }}
           style={{
-            fontSize: "clamp(1.6rem, 3.5vw, 2.8rem)",
-            color: "#F5F2EC",
-            letterSpacing: "-0.01em",
+            display: "inline-flex", alignItems: "center", gap: "0.7rem",
+            fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
+            letterSpacing: "0.28em", textTransform: "uppercase", color: "#D98038",
           }}
-        />
+        >
+          <span style={{ width: "26px", height: "1px", background: "#D98038", opacity: 0.7, flexShrink: 0 }} />
+          Founder
+        </motion.span>
+
+        {/* Two-column grid */}
+        <div className="founder-grid">
+          {/* Portrait placeholder */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.08 }}
+          >
+            <div
+              style={{
+                height: "clamp(360px, 46vw, 560px)",
+                backgroundColor: "#260000",
+                backgroundImage: "repeating-linear-gradient(135deg, rgba(217,171,136,0.07) 0 2px, transparent 2px 11px)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              <div style={{ position: "absolute", inset: "0.7rem", border: "1px solid rgba(217,171,136,0.22)" }} />
+              <span style={{ position: "absolute", left: "1rem", bottom: "0.9rem", fontFamily: "ui-monospace,monospace", fontSize: "0.64rem", letterSpacing: "0.05em", color: "rgba(217,171,136,0.7)", textTransform: "uppercase" }}>
+                portrait — farida idris
+              </span>
+            </div>
+          </motion.div>
+
+          {/* Text */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75, delay: 0.14 }}
+              style={{
+                fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600,
+                color: "#F5F2EC",
+                fontSize: "clamp(2.6rem, 6vw, 5rem)",
+                lineHeight: 1.0, letterSpacing: "-0.005em",
+                marginTop: "1.4rem", textTransform: "uppercase",
+              }}
+            >
+              Farida Idris
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65, delay: 0.22 }}
+              style={{
+                fontSize: "0.74rem", letterSpacing: "0.2em",
+                textTransform: "uppercase", color: "#D98038", marginTop: "1rem",
+                fontFamily: "var(--font-body)",
+              }}
+            >
+              Founder &amp; Lead Strategist
+            </motion.div>
+
+            <motion.blockquote
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.32 }}
+              style={{
+                fontFamily: "var(--font-body)", fontWeight: 400,
+                fontStyle: "italic", color: "#F5F2EC",
+                fontSize: "clamp(1.4rem, 2.7vw, 2.2rem)",
+                lineHeight: 1.32, letterSpacing: "-0.01em",
+                marginTop: "2.4rem", maxWidth: "30ch",
+              }}
+            >
+              <span style={{ color: "#750006", fontStyle: "normal" }}>&ldquo;</span>
+              Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people they serve.
+              <span style={{ color: "#750006", fontStyle: "normal" }}>&rdquo;</span>
+            </motion.blockquote>
+          </div>
+        </div>
       </div>
+
+      <style>{`
+        .founder-grid {
+          display: grid;
+          grid-template-columns: 0.85fr 1.15fr;
+          gap: clamp(2.5rem, 6vw, 5rem);
+          align-items: center;
+          margin-top: 1.4rem;
+        }
+        @media (max-width: 1024px) {
+          .founder-grid { grid-template-columns: 1fr; }
+        }
+      `}</style>
     </section>
   );
 }

@@ -1,133 +1,117 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
-
+// Marquee items exactly as in the design (fid.js)
 const ITEMS = [
   { num: "01", label: "Strategic Communications" },
   { num: "02", label: "Media Strategy" },
   { num: "03", label: "Digital & Influencer" },
   { num: "04", label: "Experiential Marketing" },
   { num: "05", label: "Brand Activations" },
+  { num: "06", label: "Public Relations" },
+  { num: "07", label: "Owned Platforms" },
+  { num: "08", label: "Cultural Relevance" },
 ];
 
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ·—";
-
-function ScrambleText({ text }: { text: string }) {
-  const [display, setDisplay] = useState(text);
-  const frameRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const scramble = useCallback(() => {
-    const total = text.length;
-    let iter = 0;
-
-    const tick = () => {
-      setDisplay(
-        text
-          .split("")
-          .map((ch, i) => {
-            if (ch === " ") return " ";
-            if (i < iter) return ch;
-            return CHARS[Math.floor(Math.random() * CHARS.length)];
-          })
-          .join("")
-      );
-      iter += 0.6;
-      if (iter < total) {
-        frameRef.current = setTimeout(tick, 28);
-      } else {
-        setDisplay(text);
-      }
-    };
-
-    if (frameRef.current) clearTimeout(frameRef.current);
-    tick();
-  }, [text]);
-
-  const reset = useCallback(() => {
-    if (frameRef.current) clearTimeout(frameRef.current);
-    setDisplay(text);
-  }, [text]);
-
-  useEffect(() => () => { if (frameRef.current) clearTimeout(frameRef.current); }, []);
-
-  return (
-    <span
-      onMouseEnter={scramble}
-      onMouseLeave={reset}
-      className="inline-block cursor-default select-none transition-colors duration-200 hover:text-[#D9AB88]"
-    >
-      {display}
-    </span>
-  );
-}
-
-function MarqueeItem({ num, label }: { num: string; label: string }) {
-  return (
-    <span className="inline-flex items-center whitespace-nowrap">
-      <span
-        className="font-body text-[0.62rem] tracking-[0.18em] mr-2 opacity-40"
-        style={{ color: "#D9AB88" }}
-      >
-        {num}
-      </span>
-      <span
-        className="font-body text-[0.8rem] tracking-[0.24em] uppercase"
-        style={{ color: "#F5F2EC", fontFamily: "var(--font-body)" }}
-      >
-        <ScrambleText text={label} />
-      </span>
-      <span
-        className="mx-10 opacity-25"
-        style={{ color: "#D9AB88" }}
-        aria-hidden="true"
-      >
-        ·
-      </span>
-    </span>
-  );
-}
-
 export default function Marquee() {
-  // Repeat 4× so the strip loops seamlessly
-  const repeated = [...ITEMS, ...ITEMS, ...ITEMS, ...ITEMS];
+  // Duplicate for seamless loop
+  const track = [...ITEMS, ...ITEMS];
 
   return (
     <div
-      className="relative overflow-hidden border-y py-[14px]"
+      className="marquee-strip overflow-hidden border-y"
       style={{
-        backgroundColor: "#1d0202",
-        borderColor: "rgba(217,171,136,0.14)",
+        backgroundColor: "var(--maroon-2, #1d0202)",
+        borderColor: "rgba(217,171,136,0.16)",
+        padding: "1.35rem 0",
+        position: "relative",
       }}
     >
+      {/* Fade edges */}
       <div
-        className="flex"
+        aria-hidden="true"
         style={{
-          animation: "fid-marquee 34s linear infinite",
+          position: "absolute", top: 0, bottom: 0, left: 0, width: "14%", zIndex: 2, pointerEvents: "none",
+          background: "linear-gradient(90deg, #1d0202, transparent)",
+        }}
+      />
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute", top: 0, bottom: 0, right: 0, width: "14%", zIndex: 2, pointerEvents: "none",
+          background: "linear-gradient(270deg, #1d0202, transparent)",
+        }}
+      />
+
+      <div
+        className="marquee-track"
+        style={{
+          display: "flex",
           width: "max-content",
+          alignItems: "center",
+          animation: "fid-marquee 38s linear infinite",
+          willChange: "transform",
         }}
       >
-        {repeated.map((item, i) => (
-          <MarqueeItem key={i} num={item.num} label={item.label} />
+        {track.map((item, i) => (
+          <span
+            key={i}
+            className="marquee-item"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.95rem",
+              padding: "0 2.4rem",
+            }}
+          >
+            <span
+              className="mq-no"
+              style={{
+                fontFamily: "var(--font-body, 'Noto Sans', sans-serif)",
+                fontSize: "0.6rem",
+                fontWeight: 600,
+                letterSpacing: "0.14em",
+                color: "#D98038",
+                fontVariantNumeric: "tabular-nums",
+                opacity: 0.85,
+              }}
+            >
+              {item.num}
+            </span>
+            <span
+              className="mq-txt"
+              style={{
+                fontFamily: "var(--font-heading, 'Oswald', 'Arial Narrow', sans-serif)",
+                fontWeight: 500,
+                fontSize: "clamp(0.95rem, 1.5vw, 1.25rem)",
+                letterSpacing: "0.04em",
+                textTransform: "uppercase",
+                color: "#F5F2EC",
+                whiteSpace: "nowrap",
+                transition: "color 0.4s cubic-bezier(0.16,1,0.3,1)",
+              }}
+            >
+              {item.label}
+            </span>
+            {/* Diamond separator */}
+            <span
+              aria-hidden="true"
+              style={{
+                width: "6px",
+                height: "6px",
+                flexShrink: 0,
+                transform: "rotate(45deg)",
+                border: "1px solid #D9AB88",
+                opacity: 0.5,
+              }}
+            />
+          </span>
         ))}
       </div>
 
-      {/* Fade masks at edges */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 left-0 w-16"
-        style={{ background: "linear-gradient(to right, #1d0202, transparent)" }}
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-y-0 right-0 w-16"
-        style={{ background: "linear-gradient(to left, #1d0202, transparent)" }}
-      />
-
       <style>{`
-        @keyframes fid-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
-        }
+        .marquee-strip:hover .marquee-track { animation-play-state: paused; }
+        .marquee-item:hover .mq-txt { color: #D98038 !important; }
+        @keyframes fid-marquee { to { transform: translateX(-50%); } }
       `}</style>
     </div>
   );

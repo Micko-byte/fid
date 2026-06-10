@@ -62,7 +62,7 @@ export default function Contact() {
   const inputClass = "w-full px-0 py-3 border-b font-body text-sm outline-none focus:border-b-[#750006] transition-colors duration-200";
 
   return (
-    <section id="contact" className="py-24 md:py-40" style={{ backgroundColor: "#1C1C1C" }}>
+    <section id="contact" className="py-24 md:py-40" style={{ backgroundColor: "#1d0202" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24">
           {/* Left */}
@@ -201,9 +201,9 @@ export default function Contact() {
                     style={{ ...inputStyle, cursor: "pointer" }}
                     aria-invalid={!!errors.service}
                   >
-                    <option value="" style={{ backgroundColor: "#1C1C1C" }}>Select a service</option>
+                    <option value="" style={{ backgroundColor: "#1d0202" }}>Select a service</option>
                     {services.map((s) => (
-                      <option key={s} value={s} style={{ backgroundColor: "#1C1C1C" }}>{s}</option>
+                      <option key={s} value={s} style={{ backgroundColor: "#1d0202" }}>{s}</option>
                     ))}
                   </select>
                   {errors.service && <p className="font-body text-xs mt-1" style={{ color: "#D98038" }}>{errors.service}</p>}

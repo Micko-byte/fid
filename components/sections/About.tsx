@@ -2,14 +2,13 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import TextReveal from "@/components/animations/TextReveal";
 import CountUp from "@/components/animations/CountUp";
 
 const stats = [
-  { value: "15+", label: "Years" },
-  { value: "10+", label: "Industries" },
-  { value: "8+", label: "Markets" },
-  { value: "100+", label: "Campaigns" },
+  { value: "15+", count: 15, suffix: "+", label: "Years" },
+  { value: "10+", count: 10, suffix: "+", label: "Industries" },
+  { value: "8+",  count: 8,  suffix: "+", label: "Markets" },
+  { value: "100+", count: 100, suffix: "+", label: "Campaigns" },
 ];
 
 export default function About() {
@@ -19,89 +18,120 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative py-24 md:py-40 overflow-hidden"
-      style={{ backgroundColor: "#1d0202" }}
+      style={{
+        backgroundColor: "#260000",
+        color: "#F5F2EC",
+        paddingTop: "clamp(5.5rem, 12vw, 11rem)",
+        paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
+      }}
     >
-      {/* Video background */}
-      <video
-        src="/hero-bg.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.18 }}
-      />
-
-      {/* Dark overlay so text remains legible */}
       <div
-        aria-hidden="true"
-        className="absolute inset-0"
+        ref={ref}
         style={{
-          background:
-            "linear-gradient(180deg, rgba(29,2,2,0.55) 0%, rgba(29,2,2,0.7) 60%, rgba(29,2,2,0.88) 100%)",
+          maxWidth: "1320px",
+          margin: "0 auto",
+          paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
+          paddingRight: "clamp(1.5rem, 5vw, 6rem)",
         }}
-      />
-
-      <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-
-        <motion.p
-          initial={{ opacity: 0, y: 10 }}
+      >
+        {/* Eyebrow */}
+        <motion.span
+          initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          className="font-body text-xs tracking-[0.25em] uppercase mb-16"
-          style={{ color: "#D98038" }}
-        >
-          Who we are
-        </motion.p>
-
-        <TextReveal
-          text="We treat communication as influence — not a function."
-          as="h2"
-          delay={0.1}
-          stagger={0.05}
-          className="font-heading leading-tight mb-24 max-w-4xl"
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="fid-eyebrow"
           style={{
-            fontSize: "clamp(2.4rem, 5vw, 4rem)",
-            color: "#F5F2EC",
-            letterSpacing: "-0.02em",
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.7rem",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.72rem",
+            fontWeight: 500,
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: "#D98038",
           }}
-        />
+        >
+          <span style={{ width: "26px", height: "1px", background: "#D98038", opacity: 0.7, flexShrink: 0 }} />
+          Who we are
+        </motion.span>
 
+        {/* Statement */}
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontFamily: "var(--font-heading, 'Oswald')",
+            fontWeight: 500,
+            color: "#F5F2EC",
+            fontSize: "clamp(2rem, 4.6vw, 3.9rem)",
+            lineHeight: 1.04,
+            letterSpacing: "-0.025em",
+            maxWidth: "18ch",
+            textWrap: "balance",
+            marginTop: "1.6rem",
+          } as React.CSSProperties}
+        >
+          A communications partner built for influence at{" "}
+          <em style={{ fontStyle: "normal", color: "#D98038" }}>scale</em>.
+        </motion.h2>
+
+        {/* Stats */}
         <div
-          className="grid grid-cols-2 md:grid-cols-4 border-t"
-          style={{ borderColor: "rgba(217,171,136,0.18)" }}
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 1fr)",
+            borderTop: "1px solid rgba(217,171,136,0.16)",
+            marginTop: "clamp(3rem, 6vw, 5rem)",
+          }}
+          className="about-stats"
         >
           {stats.map((s, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: 0.4 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="pt-8 pb-4 pr-8"
+              transition={{ duration: 0.6, delay: 0.25 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                padding: "2rem 1.5rem 1.2rem 0",
+                borderRight: i < 3 ? "1px solid rgba(217,171,136,0.09)" : "none",
+              }}
             >
-              <p
-                className="font-heading leading-none mb-2"
+              <div
                 style={{
-                  fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
+                  fontFamily: "var(--font-heading, 'Oswald')",
+                  fontWeight: 500,
                   color: "#D98038",
+                  fontSize: "clamp(2.6rem, 5vw, 4.2rem)",
+                  lineHeight: 0.9,
                   letterSpacing: "-0.03em",
                 }}
               >
                 <CountUp value={s.value} duration={1.8} />
-              </p>
-              <p
-                className="font-body text-xs uppercase tracking-[0.15em]"
-                style={{ color: "rgba(217,171,136,0.6)" }}
+              </div>
+              <div
+                style={{
+                  fontSize: "0.7rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  color: "rgba(217,171,136,0.45)",
+                  marginTop: "0.7rem",
+                  fontFamily: "var(--font-body)",
+                }}
               >
                 {s.label}
-              </p>
+              </div>
             </motion.div>
           ))}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .about-stats { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
     </section>
   );
 }

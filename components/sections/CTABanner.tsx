@@ -1,10 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import dynamic from "next/dynamic";
 import { motion, useInView } from "framer-motion";
-
-const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,63 +9,113 @@ export default function CTABanner() {
 
   return (
     <section
-      ref={ref}
-      className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#750006" }}
+      style={{
+        backgroundColor: "#750006",
+        color: "#F5F2EC",
+        position: "relative",
+        overflow: "hidden",
+        paddingTop: "clamp(4.5rem, 9vw, 8rem)",
+        paddingBottom: "clamp(4.5rem, 9vw, 8rem)",
+      }}
     >
-      {/* Subtle diagonal texture */}
+      {/* Diagonal texture */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        aria-hidden="true"
         style={{
-          backgroundImage: "repeating-linear-gradient(135deg, rgba(245,242,236,0.03) 0px, rgba(245,242,236,0.03) 1px, transparent 1px, transparent 60px)",
+          position: "absolute", inset: 0, pointerEvents: "none",
+          backgroundImage: "repeating-linear-gradient(135deg, rgba(245,242,236,0.04) 0 1px, transparent 1px 64px)",
         }}
       />
-      <OrbitalRings color="#F5F2EC" opacity={0.07} className="absolute right-0 top-0 h-full w-1/2 hidden md:block" />
 
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-16">
-        <div className="md:flex md:items-end md:justify-between gap-12">
-          <motion.h2
-            initial={{ opacity: 0, y: 32 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="font-heading leading-none mb-8 md:mb-0"
+      {/* Concentric rings (radar) */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute", right: "-8%", top: "50%", transform: "translateY(-50%)",
+          width: "min(54vw, 720px)", height: "min(54vw, 720px)", pointerEvents: "none",
+          WebkitMaskImage: "radial-gradient(closest-side, #000 60%, transparent 100%)",
+          maskImage: "radial-gradient(closest-side, #000 60%, transparent 100%)",
+          opacity: 0.7,
+        }}
+      >
+        {[0, 14, 28, 42].map((inset, i) => (
+          <span
+            key={i}
             style={{
-              fontSize: "clamp(2.8rem, 7vw, 6rem)",
-              color: "#F5F2EC",
-              letterSpacing: "-0.02em",
-              textWrap: "balance",
-              maxWidth: "16ch",
-            } as React.CSSProperties}
-          >
-            Let's build something meaningful.
-          </motion.h2>
+              position: "absolute",
+              inset: `${inset}%`,
+              border: "1px solid rgba(245,242,236,0.14)",
+              borderRadius: "50%",
+            }}
+          />
+        ))}
+      </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.35 }}
-            className="flex flex-col sm:flex-row gap-4 flex-shrink-0"
+      <div
+        ref={ref}
+        style={{
+          position: "relative", zIndex: 1,
+          maxWidth: "1320px", margin: "0 auto",
+          paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
+          paddingRight: "clamp(1.5rem, 5vw, 6rem)",
+          display: "flex", alignItems: "flex-end",
+          justifyContent: "space-between",
+          gap: "clamp(2rem, 5vw, 4rem)",
+          flexWrap: "wrap",
+        }}
+      >
+        <motion.h2
+          initial={{ opacity: 0, y: 32 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 500,
+            color: "#F5F2EC",
+            fontSize: "clamp(2.6rem, 6.5vw, 5.6rem)",
+            lineHeight: 0.96, letterSpacing: "-0.025em",
+            maxWidth: "15ch",
+          } as React.CSSProperties}
+        >
+          Let&apos;s build something{" "}
+          <em style={{ fontStyle: "normal", color: "#D9AB88" }}>meaningful.</em>
+        </motion.h2>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.25 }}
+          style={{ display: "flex", gap: "1rem", flexWrap: "wrap", flexShrink: 0 }}
+        >
+          <a
+            href="/#contact"
+            style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
+              backgroundColor: "#F5F2EC", color: "#750006",
+              fontFamily: "var(--font-body)", textDecoration: "none",
+              transition: "background 0.3s, color 0.3s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "#260000"; e.currentTarget.style.color = "#F5F2EC"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "#F5F2EC"; e.currentTarget.style.color = "#750006"; }}
           >
-            <motion.button
-              onClick={() => document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })}
-              whileHover={{ backgroundColor: "#ffffff" }}
-              whileTap={{ scale: 0.97 }}
-              className="font-body text-sm px-10 py-4 transition-colors duration-200 cursor-pointer"
-              style={{ backgroundColor: "#F5F2EC", color: "#750006", letterSpacing: "0.05em" }}
-            >
-              Book us
-            </motion.button>
-            <a
-              href="mailto:info@fidco.africa"
-              className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
-              style={{ borderColor: "rgba(245,242,236,0.3)", color: "#F5F2EC", letterSpacing: "0.05em" }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(245,242,236,0.8)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(245,242,236,0.3)")}
-            >
-              info@fidco.africa
-            </a>
-          </motion.div>
-        </div>
+            Book us
+          </a>
+          <a
+            href="mailto:info@fidco.africa"
+            style={{
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
+              padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
+              backgroundColor: "transparent",
+              border: "1px solid rgba(245,242,236,0.45)", color: "#F5F2EC",
+              fontFamily: "var(--font-body)", textDecoration: "none",
+              transition: "border-color 0.3s, color 0.3s",
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.9)"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.45)"; }}
+          >
+            info@fidco.africa
+          </a>
+        </motion.div>
       </div>
     </section>
   );
