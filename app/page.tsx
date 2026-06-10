@@ -9,7 +9,6 @@ import Platforms from "@/components/sections/Platforms";
 import Sectors from "@/components/sections/Sectors";
 import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
-import CTABanner from "@/components/sections/CTABanner";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/Footer";
 
@@ -27,7 +26,6 @@ export default function HomePage() {
       <Sectors />
       <Founder />
       <Insights />
-      <CTABanner />
       <Contact />
       <Footer />
     </>

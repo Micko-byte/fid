@@ -2,7 +2,6 @@
 
 import { ReactNode, useEffect } from "react";
 import { usePathname } from "next/navigation";
-import CustomCursor from "@/components/CustomCursor";
 import GrainOverlay from "@/components/GrainOverlay";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -32,7 +31,6 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
-      <CustomCursor />
       <ScrollProgress />
       <GrainOverlay />
       <Nav />

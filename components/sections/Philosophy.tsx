@@ -4,12 +4,23 @@ import { useRef, useEffect, useState, useCallback } from "react";
 
 const TOTAL_FRAMES = 121;
 const PILLARS = [
-  { word: "INSIGHT", num: "01", activeFrom: 0, activeTo: 0.4 },
-  { word: "STRATEGY", num: "02", activeFrom: 0.33, activeTo: 0.72 },
-  { word: "IMPACT", num: "03", activeFrom: 0.65, activeTo: 1 },
+  {
+    word: "INSIGHT",
+    num: "01",
+    desc: "Deep audience intelligence that uncovers what truly drives perception, behaviour and decision-making.",
+  },
+  {
+    word: "STRATEGY",
+    num: "02",
+    desc: "Purposeful planning that connects brand truth to cultural moment — across every channel and market.",
+  },
+  {
+    word: "IMPACT",
+    num: "03",
+    desc: "Measurable results: earned attention, shifted reputation and enduring cultural relevance.",
+  },
 ];
 
-// Which pillar is "most" active at a given progress
 function getActivePillar(prog: number): number {
   if (prog < 0.37) return 0;
   if (prog < 0.68) return 1;
@@ -24,7 +35,7 @@ export default function Philosophy() {
   const progressBarRef = useRef<HTMLDivElement>(null);
   const [activePillar, setActivePillar] = useState(0);
 
-  // Preload all 121 frames
+  // Preload 121 frames
   useEffect(() => {
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new Image();
@@ -33,24 +44,23 @@ export default function Philosophy() {
       const idx = i;
       img.onload = () => {
         loadedRef.current[idx] = true;
-        // Draw first frame as soon as it loads
         if (idx === 0) drawFrameIndex(0);
       };
       framesRef.current[i] = img;
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Size canvas to match its CSS dimensions
+  // Size canvas on mount + resize
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const dpr = window.devicePixelRatio || 1;
     const w = canvas.offsetWidth;
     const h = canvas.offsetHeight;
-    if (canvas.width !== w * dpr || canvas.height !== h * dpr) {
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
+    if (canvas.width !== Math.round(w * dpr) || canvas.height !== Math.round(h * dpr)) {
+      canvas.width = Math.round(w * dpr);
+      canvas.height = Math.round(h * dpr);
       const ctx = canvas.getContext("2d");
       if (ctx) ctx.scale(dpr, dpr);
     }
@@ -74,23 +84,23 @@ export default function Philosophy() {
     const cw = canvas.offsetWidth;
     const ch = canvas.offsetHeight;
 
-    ctx.clearRect(0, 0, cw * dpr, ch * dpr);
+    // White background then frame (contain-fit — show full logo)
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, cw * dpr, ch * dpr);
 
-    // Cover-fit the frame into the canvas
     const iw = img.naturalWidth;
     const ih = img.naturalHeight;
     if (iw === 0 || ih === 0) return;
 
-    const scale = Math.max(cw / iw, ch / ih);
+    // Contain-fit: show entire logo frame centred
+    const scale = Math.min((cw * 0.88) / iw, (ch * 0.88) / ih);
     const dw = iw * scale;
     const dh = ih * scale;
     const dx = (cw - dw) / 2;
     const dy = (ch - dh) / 2;
-
     ctx.drawImage(img, dx * dpr, dy * dpr, dw * dpr, dh * dpr);
   }, []);
 
-  // Scroll-driven frame playback
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
@@ -106,29 +116,24 @@ export default function Philosophy() {
         const scrolled = Math.max(0, -rect.top);
         const prog = totalH > 0 ? Math.min(1, scrolled / totalH) : 0;
 
-        // Update progress bar directly (no re-render)
+        // Update progress bar directly
         if (progressBarRef.current) {
           progressBarRef.current.style.width = `${prog * 100}%`;
         }
 
-        // Active pillar — only setState on change to minimise renders
         const nextPillar = getActivePillar(prog);
         if (nextPillar !== lastPillar) {
           lastPillar = nextPillar;
           setActivePillar(nextPillar);
         }
 
-        // Draw the corresponding frame
-        const frameIdx = Math.min(
-          TOTAL_FRAMES - 1,
-          Math.floor(prog * TOTAL_FRAMES)
-        );
+        const frameIdx = Math.min(TOTAL_FRAMES - 1, Math.floor(prog * TOTAL_FRAMES));
         drawFrameIndex(frameIdx);
       });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // initial draw
+    onScroll();
 
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -142,41 +147,55 @@ export default function Philosophy() {
       id="philosophy"
       aria-label="Our approach"
       style={{
-        // Tall enough to give each of the 121 frames ~8px of scroll travel
-        // plus extra breathing room at top and bottom
-        height: `calc(${TOTAL_FRAMES * 8}px + 200vh)`,
+        // 600vh gives each frame ~13px of scroll travel — smooth & followable
+        height: `calc(${TOTAL_FRAMES * 13}px + 200vh)`,
         position: "relative",
       }}
     >
-      {/* Sticky viewport-height panel */}
+      <style>{`
+        .philosophy-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+        }
+        .philosophy-canvas-col {
+          position: relative;
+          background-color: #ffffff;
+        }
+        @media (max-width: 767px) {
+          .philosophy-grid {
+            grid-template-columns: 1fr;
+            grid-template-rows: 1fr 50vh;
+          }
+          .philosophy-canvas-col {
+            height: 50vh;
+          }
+        }
+      `}</style>
+      {/* Sticky viewport panel — white background */}
       <div
+        className="philosophy-grid"
         style={{
           position: "sticky",
           top: 0,
           height: "100vh",
           overflow: "hidden",
-          backgroundColor: "#1d0202",
-          display: "flex",
-          alignItems: "stretch",
+          backgroundColor: "#ffffff",
         }}
       >
-        {/* ── Left column: label + pillars ── */}
+        {/* ── Left column: label + pillar rows with hairline separators ── */}
         <div
           style={{
-            width: "clamp(180px, 26vw, 360px)",
-            flexShrink: 0,
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
             paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
-            paddingRight: "1.5rem",
+            paddingRight: "clamp(2rem, 4vw, 4rem)",
             paddingTop: "2rem",
             paddingBottom: "5rem",
-            position: "relative",
-            zIndex: 2,
+            borderRight: "1px solid rgba(38,0,0,0.08)",
           }}
         >
-          {/* Section label */}
+          {/* Section label — 14islands eyebrow style */}
           <p
             style={{
               fontFamily: "var(--font-body)",
@@ -184,78 +203,112 @@ export default function Philosophy() {
               letterSpacing: "0.28em",
               textTransform: "uppercase",
               color: "#D98038",
-              marginBottom: "3.5rem",
+              marginBottom: "clamp(2.5rem, 5vw, 4rem)",
             }}
           >
             Our Approach
           </p>
 
-          {/* Three pillars */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "2.2rem" }}>
+          {/* Pillar rows with hairline separators */}
+          <div>
             {PILLARS.map((p, i) => {
               const isActive = activePillar === i;
               return (
-                <div key={i} style={{ position: "relative" }}>
-                  {/* Active indicator bar */}
+                <div key={i}>
+                  {/* Hairline top rule — 14islands separator */}
                   <div
-                    aria-hidden
                     style={{
-                      position: "absolute",
-                      left: "-1.5rem",
-                      top: "50%",
-                      transform: "translateY(-50%)",
-                      width: "2px",
-                      height: isActive ? "80%" : "0%",
-                      background: "#D9AB88",
-                      transition: "height 0.5s ease",
+                      height: "1px",
+                      background: isActive
+                        ? "rgba(38,0,0,0.18)"
+                        : "rgba(38,0,0,0.08)",
+                      transition: "background 0.5s ease",
                     }}
                   />
-                  <p
+
+                  <div
                     style={{
-                      fontFamily: "var(--font-body)",
-                      fontSize: "0.62rem",
-                      letterSpacing: "0.22em",
-                      textTransform: "uppercase",
-                      color: isActive ? "#D98038" : "rgba(217,160,56,0.3)",
-                      marginBottom: "0.45rem",
-                      transition: "color 0.6s ease",
+                      paddingTop: "clamp(1.2rem, 2.5vw, 2rem)",
+                      paddingBottom: "clamp(1.2rem, 2.5vw, 2rem)",
+                      display: "grid",
+                      gridTemplateColumns: "2.5rem 1fr",
+                      gap: "1rem",
+                      alignItems: "start",
                     }}
                   >
-                    {p.num}
-                  </p>
-                  <h2
-                    style={{
-                      fontFamily: "var(--font-heading, 'Oswald')",
-                      fontWeight: isActive ? 600 : 300,
-                      fontSize: "clamp(2rem, 4vw, 3.8rem)",
-                      color: isActive
-                        ? "#F5F2EC"
-                        : "rgba(245,242,236,0.18)",
-                      letterSpacing: "-0.02em",
-                      lineHeight: 0.92,
-                      transition: "color 0.6s ease, font-weight 0.4s ease",
-                    }}
-                  >
-                    {p.word}
-                  </h2>
+                    {/* Number */}
+                    <p
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.62rem",
+                        letterSpacing: "0.22em",
+                        textTransform: "uppercase",
+                        color: isActive ? "#D98038" : "rgba(217,160,56,0.3)",
+                        paddingTop: "0.3rem",
+                        transition: "color 0.55s ease",
+                      }}
+                    >
+                      {p.num}
+                    </p>
+
+                    <div>
+                      {/* Pillar word */}
+                      <h2
+                        style={{
+                          fontFamily: "var(--font-heading, 'Oswald')",
+                          fontWeight: isActive ? 600 : 300,
+                          fontSize: "clamp(1.8rem, 3.5vw, 3.4rem)",
+                          color: isActive ? "#260000" : "rgba(38,0,0,0.18)",
+                          letterSpacing: "-0.02em",
+                          lineHeight: 0.95,
+                          transition: "color 0.55s ease, font-weight 0.3s ease",
+                          textTransform: "uppercase",
+                          marginBottom: "0.6rem",
+                        }}
+                      >
+                        {p.word}
+                      </h2>
+
+                      {/* Descriptor — only shown when active */}
+                      <p
+                        style={{
+                          fontFamily: "var(--font-body)",
+                          fontSize: "0.85rem",
+                          lineHeight: 1.55,
+                          color: "rgba(38,0,0,0.55)",
+                          maxWidth: "34ch",
+                          opacity: isActive ? 1 : 0,
+                          transform: isActive ? "translateY(0)" : "translateY(6px)",
+                          transition: "opacity 0.55s ease, transform 0.55s ease",
+                          pointerEvents: "none",
+                        }}
+                      >
+                        {p.desc}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               );
             })}
+
+            {/* Final hairline */}
+            <div style={{ height: "1px", background: "rgba(38,0,0,0.08)" }} />
           </div>
 
-          {/* Scroll progress line */}
+          {/* Progress bar */}
           <div
             style={{
-              position: "absolute",
-              bottom: "2.5rem",
-              left: "clamp(1.5rem, 5vw, 6rem)",
-              right: "1.5rem",
+              marginTop: "clamp(2rem, 4vw, 3rem)",
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
             }}
           >
             <div
               style={{
+                flex: 1,
                 height: "1px",
-                background: "rgba(245,242,236,0.08)",
+                background: "rgba(38,0,0,0.08)",
                 position: "relative",
                 overflow: "hidden",
               }}
@@ -268,7 +321,7 @@ export default function Philosophy() {
                   left: 0,
                   height: "100%",
                   width: "0%",
-                  background: "linear-gradient(to right, #D9AB88, #D98038)",
+                  background: "#750006",
                 }}
               />
             </div>
@@ -276,10 +329,11 @@ export default function Philosophy() {
               style={{
                 fontFamily: "var(--font-body)",
                 fontSize: "0.6rem",
-                letterSpacing: "0.18em",
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
-                color: "rgba(245,242,236,0.28)",
-                marginTop: "0.6rem",
+                color: "rgba(38,0,0,0.28)",
+                whiteSpace: "nowrap",
+                flexShrink: 0,
               }}
             >
               Scroll to explore
@@ -287,50 +341,71 @@ export default function Philosophy() {
           </div>
         </div>
 
-        {/* ── Right column: canvas animation ── */}
+        {/* ── Right column: full-panel canvas animation ── */}
         <div
-          style={{
-            flex: 1,
-            position: "relative",
-            overflow: "hidden",
-          }}
+          className="philosophy-canvas-col"
         >
-          <canvas
-            ref={canvasRef}
-            aria-hidden="true"
+          {/* Canvas container — fills the entire right panel with small inset border */}
+          <div
             style={{
               position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              display: "block",
+              inset: "clamp(1rem, 2vw, 2rem)",
+              border: "1px solid rgba(38,0,0,0.1)",
+              borderRadius: "2px",
+              overflow: "hidden",
+              backgroundColor: "#ffffff",
             }}
-          />
+          >
+            <canvas
+              ref={canvasRef}
+              aria-hidden="true"
+              style={{
+                position: "absolute",
+                inset: 0,
+                width: "100%",
+                height: "100%",
+                display: "block",
+              }}
+            />
 
-          {/* Left fade — canvas blends into the left column */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to right, #1d0202 0%, rgba(29,2,2,0.6) 8%, transparent 22%, transparent 78%, rgba(29,2,2,0.6) 92%, #1d0202 100%)",
-              pointerEvents: "none",
-              zIndex: 1,
-            }}
-          />
-          {/* Top / bottom fade */}
-          <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              background:
-                "linear-gradient(to bottom, #1d0202 0%, transparent 12%, transparent 88%, #1d0202 100%)",
-              pointerEvents: "none",
-              zIndex: 1,
-            }}
-          />
+            {/* Active pillar label chip — bottom of canvas */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "1rem",
+                left: "1rem",
+                right: "1rem",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                zIndex: 2,
+                pointerEvents: "none",
+              }}
+            >
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "rgba(38,0,0,0.3)",
+                }}
+              >
+                {PILLARS[activePillar].num} / {PILLARS[activePillar].word}
+              </span>
+              <span
+                style={{
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: "rgba(38,0,0,0.25)",
+                }}
+              >
+                FID & Co.
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </section>

@@ -5,11 +5,11 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 
 const services = [
-  { num: "01", title: "Strategic Communications & PR" },
-  { num: "02", title: "Media Management & Buying" },
-  { num: "03", title: "Influencer, Creator & Talent" },
-  { num: "04", title: "Digital Strategy & Social Media" },
-  { num: "05", title: "Experiential Marketing & Events" },
+  { num: "01", title: "Strategic Communications & PR", slug: "strategic-communications" },
+  { num: "02", title: "Media Management & Buying", slug: "media-management" },
+  { num: "03", title: "Influencer, Creator & Talent", slug: "influencer-creator" },
+  { num: "04", title: "Digital Strategy & Social Media", slug: "digital-strategy" },
+  { num: "05", title: "Experiential Marketing & Events", slug: "experiential-marketing" },
 ];
 
 export default function Services() {
@@ -103,11 +103,17 @@ export default function Services() {
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",
                 gap: "1.5rem", borderBottom: "1px solid rgba(38,0,0,0.13)",
-                position: "relative", overflow: "hidden", cursor: "default",
+                position: "relative", overflow: "hidden", cursor: "pointer",
               }}
             >
               <div className="expertise-bg" />
-              <div style={{ display: "flex", alignItems: "baseline", gap: "clamp(1rem,2.5vw,2.2rem)", position: "relative", zIndex: 1 }}>
+              <Link
+                href={`/services/${svc.slug}`}
+                style={{
+                  display: "flex", alignItems: "baseline", gap: "clamp(1rem,2.5vw,2.2rem)",
+                  position: "relative", zIndex: 1, textDecoration: "none", flex: 1,
+                }}
+              >
                 <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.2em", fontWeight: 500, color: "#D98038", flexShrink: 0, paddingTop: "0.6em" }}>
                   {svc.num}
                 </span>
@@ -122,7 +128,7 @@ export default function Services() {
                 >
                   {svc.title}
                 </span>
-              </div>
+              </Link>
               <svg
                 className="expertise-arrow"
                 width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"
@@ -154,8 +160,14 @@ export default function Services() {
       <style>{`
         .expertise-item { padding: clamp(1.3rem, 3vw, 2.3rem) 0; transition: padding-left 0.4s cubic-bezier(0.16,1,0.3,1); }
         .expertise-item:hover { padding-left: 1.1rem; }
-        .expertise-bg { position: absolute; inset: 0; background: rgba(117,0,6,0.04); transform: scaleX(0); transform-origin: left; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1); z-index: 0; }
-        .expertise-item:hover .expertise-bg { transform: scaleX(1); }
+        .expertise-bg {
+          position: absolute; inset: 0; z-index: 0;
+          background: transparent;
+          transition: background 0.4s cubic-bezier(0.16,1,0.3,1);
+        }
+        .expertise-item:hover .expertise-bg {
+          background: rgba(117,0,6,0.04);
+        }
         .expertise-item:hover .expertise-name { color: #750006 !important; }
         .expertise-item:hover .expertise-arrow { transform: translate(3px,-3px) !important; color: #750006 !important; }
       `}</style>

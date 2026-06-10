@@ -6,10 +6,7 @@
 /* ─── FID & Co. Design System ─────────────────────────────────────────── */
 
 
-/* Hide system cursor on pointer devices — custom cursor handles it */
-@media (pointer: fine) {
-  *, *::before, *::after { cursor: none !important; }
-}
+/* ─── 14islands-inspired editorial tokens (FID palette) ──────────────── */
 
 :root {
   --red-mark:      #750006;

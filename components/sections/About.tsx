@@ -77,12 +77,11 @@ export default function About() {
           <em style={{ fontStyle: "normal", color: "#D98038" }}>scale</em>.
         </motion.h2>
 
-        {/* Stats */}
+        {/* Stats — glass cards */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            borderTop: "1px solid rgba(217,171,136,0.16)",
             marginTop: "clamp(3rem, 6vw, 5rem)",
           }}
           className="about-stats"
@@ -94,8 +93,9 @@ export default function About() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.25 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                padding: "2rem 1.5rem 1.2rem 0",
-                borderRight: i < 3 ? "1px solid rgba(217,171,136,0.09)" : "none",
+                padding: "1.8rem 1.6rem",
+                borderTop: "1px solid rgba(217, 171, 136, 0.18)",
+                borderLeft: i === 0 ? "none" : "1px solid rgba(217,171,136,0.09)",
               }}
             >
               <div
@@ -116,7 +116,7 @@ export default function About() {
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
                   color: "rgba(217,171,136,0.45)",
-                  marginTop: "0.7rem",
+                  marginTop: "0.8rem",
                   fontFamily: "var(--font-body)",
                 }}
               >

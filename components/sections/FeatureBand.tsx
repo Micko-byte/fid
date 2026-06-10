@@ -1,203 +1,234 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 
 export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    videoRef.current?.play().catch(() => {});
-  }, []);
+  const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
     <section
       id="feature"
       style={{
-        position: "relative",
-        minHeight: "clamp(560px, 84vh, 880px)",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        overflow: "hidden",
         backgroundColor: "#1d0202",
+        color: "#F5F2EC",
+        position: "relative",
+        overflow: "hidden",
+        paddingTop: "clamp(7rem, 14vw, 12rem)",
+        paddingBottom: "clamp(7rem, 14vw, 12rem)",
       }}
     >
-      {/* Left panel — text content */}
+      {/* Subtle diagonal texture — 14islands-style minimal surface decoration */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          backgroundImage:
+            "repeating-linear-gradient(135deg, rgba(217,171,136,0.025) 0 1px, transparent 1px 80px)",
+        }}
+      />
+
+      {/* Thin top border hairline */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "clamp(1.5rem, 5vw, 6rem)",
+          right: "clamp(1.5rem, 5vw, 6rem)",
+          height: "1px",
+          background: "rgba(217,171,136,0.18)",
+        }}
+      />
+
       <div
         ref={ref}
         style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
+          maxWidth: "1320px",
+          margin: "0 auto",
           paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
-          paddingRight: "clamp(2rem, 4vw, 4rem)",
-          paddingTop: "clamp(4rem, 10vh, 7rem)",
-          paddingBottom: "clamp(4rem, 10vh, 7rem)",
-          position: "relative",
-          zIndex: 1,
+          paddingRight: "clamp(1.5rem, 5vw, 6rem)",
         }}
       >
-        <motion.h2
-          initial={{ opacity: 0, y: 28 }}
+        {/* Eyebrow — 14islands uppercase label style */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            fontFamily: "var(--font-heading, 'Oswald', 'Arial Narrow', sans-serif)",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.7rem",
+            letterSpacing: "0.28em",
+            textTransform: "uppercase",
+            color: "#D98038",
+            marginBottom: "clamp(2rem, 4vw, 3rem)",
+          }}
+        >
+          The FID approach
+        </motion.p>
+
+        {/* Display headline — editorial oversized, 14islands scale */}
+        <motion.h2
+          initial={{ opacity: 0, y: 32 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontFamily: "var(--font-heading, 'Oswald')",
             fontWeight: 300,
             textTransform: "uppercase",
-            color: "rgba(245,242,236,0.92)",
-            fontSize: "clamp(2rem, 3.8vw, 4.2rem)",
-            lineHeight: 1.05,
-            letterSpacing: 0,
-            maxWidth: "18ch",
+            color: "#F5F2EC",
+            fontSize: "clamp(2.8rem, 7vw, 7.5rem)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.03em",
+            maxWidth: "16ch",
             textWrap: "balance",
           } as React.CSSProperties}
         >
           We treat communication as{" "}
-          <em style={{ fontStyle: "normal", fontWeight: 600, color: "#D9AB88" }}>influence</em>
+          <em
+            style={{
+              fontStyle: "normal",
+              fontWeight: 600,
+              color: "#D9AB88",
+            }}
+          >
+            influence
+          </em>
           {" "}— not a{" "}
-          <strong style={{ fontWeight: 600, color: "#F5F2EC" }}>function</strong>.
+          <strong style={{ fontWeight: 600, color: "#D98038" }}>
+            function.
+          </strong>
         </motion.h2>
 
-        <motion.p
+        {/* Hairline rule — 14islands divider style */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={inView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            transformOrigin: "left",
+            height: "1px",
+            background: "rgba(217,171,136,0.2)",
+            marginTop: "clamp(3rem, 6vw, 5rem)",
+            marginBottom: "clamp(3rem, 6vw, 5rem)",
+          }}
+        />
+
+        {/* Bottom row — lede + CTA — 14islands two-zone layout */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+          className="feature-bottom-row"
           style={{
-            color: "rgba(245,242,236,0.70)",
-            maxWidth: "46ch",
-            marginTop: "clamp(1.4rem, 3vw, 2rem)",
-            fontSize: "clamp(0.95rem, 1.2vw, 1.1rem)",
-            lineHeight: 1.65,
-            fontFamily: "var(--font-body, 'Noto Sans', sans-serif)",
+            display: "grid",
+            gridTemplateColumns: "1fr auto",
+            alignItems: "end",
+            gap: "clamp(2rem, 6vw, 8rem)",
           }}
         >
-          Every brief begins with insight and ends in measurable impact. We build reputation,
-          credibility and cultural relevance for the organisations shaping Africa&apos;s future.
-        </motion.p>
+          <p
+            style={{
+              color: "rgba(245,242,236,0.65)",
+              fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
+              lineHeight: 1.65,
+              fontFamily: "var(--font-body)",
+              maxWidth: "52ch",
+            }}
+          >
+            Every brief begins with insight and ends in measurable impact. We
+            build reputation, credibility and cultural relevance for the
+            organisations shaping Africa&apos;s future.
+          </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            marginTop: "clamp(1.8rem, 4vw, 2.6rem)",
-            display: "flex",
-            gap: "1rem",
-            flexWrap: "wrap",
-          }}
-        >
-          <Link
-            href="/#services"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "0.85em 1.7em",
-              fontSize: "0.78rem",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              backgroundColor: "#F5F2EC",
-              color: "#750006",
-              fontFamily: "var(--font-body)",
-              fontWeight: 500,
-              textDecoration: "none",
-              transition: "background 0.3s, color 0.3s",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#D9AB88"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#F5F2EC"; }}
-          >
-            Explore our expertise
-          </Link>
-          <Link
-            href="/#work"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: "0.85em 1.7em",
-              fontSize: "0.78rem",
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              backgroundColor: "transparent",
-              border: "1px solid rgba(217,171,136,0.45)",
-              color: "#F5F2EC",
-              fontFamily: "var(--font-body)",
-              textDecoration: "none",
-              transition: "border-color 0.3s",
-            }}
-            onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(217,171,136,0.8)")}
-            onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(217,171,136,0.45)")}
-          >
-            See our work
-          </Link>
+          <div style={{ display: "flex", flexDirection: "column", gap: "1.2rem", flexShrink: 0 }}>
+            <Link
+              href="/#services"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.55rem",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.78rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "#D9AB88",
+                textDecoration: "none",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+                transition: "color 0.3s, gap 0.3s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "#F5F2EC";
+                e.currentTarget.style.gap = "0.85rem";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "#D9AB88";
+                e.currentTarget.style.gap = "0.55rem";
+              }}
+            >
+              Explore our expertise
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+
+            <Link
+              href="/#work"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.55rem",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.78rem",
+                letterSpacing: "0.14em",
+                textTransform: "uppercase",
+                color: "rgba(217,171,136,0.5)",
+                textDecoration: "none",
+                fontWeight: 500,
+                whiteSpace: "nowrap",
+                transition: "color 0.3s, gap 0.3s",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.color = "#D9AB88";
+                e.currentTarget.style.gap = "0.85rem";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.color = "rgba(217,171,136,0.5)";
+                e.currentTarget.style.gap = "0.55rem";
+              }}
+            >
+              See our work
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M5 12h14M13 6l6 6-6 6" />
+              </svg>
+            </Link>
+          </div>
         </motion.div>
       </div>
 
-      {/* Right panel — video */}
+      {/* Thin bottom border hairline */}
       <div
+        aria-hidden="true"
         style={{
-          position: "relative",
-          overflow: "hidden",
+          position: "absolute",
+          bottom: 0,
+          left: "clamp(1.5rem, 5vw, 6rem)",
+          right: "clamp(1.5rem, 5vw, 6rem)",
+          height: "1px",
+          background: "rgba(217,171,136,0.12)",
         }}
-      >
-        {/* Vertical divider line */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: "10%",
-            bottom: "10%",
-            left: 0,
-            width: "1px",
-            background: "linear-gradient(to bottom, transparent, rgba(217,171,136,0.25) 30%, rgba(217,171,136,0.25) 70%, transparent)",
-            zIndex: 2,
-          }}
-        />
+      />
 
-        <video
-          ref={videoRef}
-          src="/hero-bg.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-          aria-hidden="true"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            display: "block",
-          }}
-        />
-
-        {/* Scrim — left edge to blend with the text panel */}
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(to right, rgba(29,2,2,0.55) 0%, rgba(29,2,2,0.1) 30%, rgba(29,2,2,0.15) 70%, rgba(29,2,2,0.5) 100%)",
-            pointerEvents: "none",
-            zIndex: 1,
-          }}
-        />
-      </div>
-
-      {/* Mobile fallback — stack vertically */}
+      {/* Mobile grid fix */}
       <style>{`
-        @media (max-width: 768px) {
-          #feature {
-            grid-template-columns: 1fr !important;
-          }
-          #feature > div:last-child {
-            height: 40vh;
-          }
+        @media (max-width: 640px) {
+          #feature .feat-row { grid-template-columns: 1fr !important; }
+          .feature-bottom-row { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </section>

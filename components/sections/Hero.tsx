@@ -71,16 +71,48 @@ export default function Hero() {
         color: "#F5F2EC",
       }}
     >
-      {/* ── Cursor-reactive spotlight background ── */}
+      {/* ── Full-bleed background video ── */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="auto"
+        aria-hidden="true"
+        className="hero-video"
+        style={{
+          position: "absolute",
+          inset: 0,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center center",
+          zIndex: 0,
+          opacity: 0.55,
+        }}
+      >
+        <source src="/hero-bg.mp4" type="video/mp4" />
+      </video>
+      <style>{`
+        @media (max-width: 767px) {
+          .hero-video {
+            object-fit: contain !important;
+            background-color: #1d0202;
+          }
+        }
+      `}</style>
+
+      {/* ── Cursor-reactive spotlight — rides on top of video ── */}
       <motion.div
         aria-hidden="true"
         suppressHydrationWarning
         style={{
           position: "absolute",
           inset: 0,
-          zIndex: 0,
+          zIndex: 1,
+          mixBlendMode: "multiply",
           background: prefersReducedMotion
-            ? "linear-gradient(180deg, rgba(29,2,2,0.7) 0%, rgba(29,2,2,0.95) 100%)"
+            ? "linear-gradient(180deg, rgba(29,2,2,0.55) 0%, rgba(29,2,2,0.85) 100%)"
             : spotlight,
         }}
       />
@@ -91,21 +123,23 @@ export default function Hero() {
         style={{
           position: "absolute",
           inset: 0,
-          zIndex: 0,
+          zIndex: 2,
+          pointerEvents: "none",
           background:
-            "radial-gradient(120% 90% at 72% 24%, rgba(255,138,61,0.14) 0%, transparent 44%), radial-gradient(120% 92% at 16% 84%, rgba(117,0,6,0.18) 0%, transparent 44%)",
+            "radial-gradient(120% 90% at 72% 24%, rgba(255,138,61,0.10) 0%, transparent 44%), radial-gradient(120% 92% at 16% 84%, rgba(117,0,6,0.14) 0%, transparent 44%)",
         }}
       />
 
-      {/* Scrim — vignette */}
+      {/* Scrim — gradient vignette for legibility */}
       <div
         aria-hidden="true"
         style={{
           position: "absolute",
           inset: 0,
-          zIndex: 0,
+          zIndex: 2,
+          pointerEvents: "none",
           background:
-            "linear-gradient(180deg, rgba(29,2,2,0.42) 0%, rgba(29,2,2,0.08) 30%, rgba(29,2,2,0.72) 100%)",
+            "linear-gradient(180deg, rgba(29,2,2,0.35) 0%, rgba(29,2,2,0.04) 35%, rgba(29,2,2,0.65) 100%)",
         }}
       />
 
@@ -125,9 +159,9 @@ export default function Hero() {
             borderRadius: "9999px",
             filter: "blur(60px)",
             pointerEvents: "none",
-            zIndex: 0,
+            zIndex: 3,
             background:
-              "radial-gradient(circle, rgba(217,128,56,0.24) 0%, rgba(117,0,6,0.12) 35%, transparent 72%)",
+              "radial-gradient(circle, rgba(217,128,56,0.22) 0%, rgba(117,0,6,0.10) 35%, transparent 72%)",
           }}
           animate={{ opacity: [0.35, 0.58, 0.35], scale: [0.94, 1.04, 0.94] }}
           transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
@@ -146,7 +180,7 @@ export default function Hero() {
         <div
           style={{
             position: "relative",
-            zIndex: 2,
+            zIndex: 10,
             maxWidth: "1320px",
             width: "100%",
             margin: "0 auto",

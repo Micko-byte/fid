@@ -52,16 +52,16 @@ export default function Insights() {
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.65, delay: 0.05 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group flex items-center justify-between py-7 border-t relative overflow-hidden"
-              style={{ borderColor: "rgba(38,0,0,0.1)" }}
+              className="group insights-row flex items-center justify-between py-7 border-t relative overflow-hidden"
+              style={{ borderColor: "rgba(38,0,0,0.1)", textDecoration: "none", transition: "background 0.4s, backdrop-filter 0.4s" }}
             >
-              {/* Hover sweep */}
+              {/* Hover sweep — flat editorial */}
               <motion.div
                 className="absolute inset-0 pointer-events-none"
                 initial={{ scaleX: 0 }}
                 whileHover={{ scaleX: 1 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                style={{ backgroundColor: "rgba(117,0,6,0.04)", transformOrigin: "left" }}
+                style={{ backgroundColor: "rgba(117,0,6,0.04)", transformOrigin: "left", zIndex: 0 }}
               />
 
               <div className="flex items-baseline gap-8 relative z-10">
@@ -92,6 +92,7 @@ export default function Insights() {
           <div className="border-t" style={{ borderColor: "rgba(38,0,0,0.1)" }} />
         </div>
       </div>
+
     </section>
   );
 }
