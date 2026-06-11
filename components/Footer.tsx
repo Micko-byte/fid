@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import BrandMark from "@/components/graphics/BrandMark";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer style={{ backgroundColor: "#1d0202", padding: "clamp(3.5rem, 7vw, 5.5rem) 0 2.5rem" }}>
+    <footer style={{ backgroundColor: "#161616", padding: "clamp(3.5rem, 7vw, 5.5rem) 0 2.5rem" }}>
       <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem, 5vw, 6rem)", paddingRight: "clamp(1.5rem, 5vw, 6rem)" }}>
 
         {/* Grid */}
@@ -67,6 +68,11 @@ export default function Footer() {
               Westlands Business Park<br />3rd Floor Suite 12, Nairobi
             </p>
           </div>
+        </div>
+
+        {/* Animated brand mark */}
+        <div style={{ display: "flex", justifyContent: "center", padding: "clamp(1.5rem,4vw,3rem) 0 clamp(2rem,4vw,3rem)" }}>
+          <BrandMark size={96} color="rgba(245,242,236,0.55)" accent="#D98038" />
         </div>
 
         {/* Bottom bar */}

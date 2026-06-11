@@ -51,7 +51,7 @@ export default function CustomCursor() {
         style={{
           position: "fixed", top: 0, left: 0, zIndex: 9999, pointerEvents: "none",
           x, y, translateX: "-50%", translateY: "-50%",
-          width: 6, height: 6, borderRadius: "50%", backgroundColor: "#750006",
+          width: 6, height: 6, borderRadius: "50%", backgroundColor: "#1C1C1C",
           mixBlendMode: "multiply",
         }}
       />
@@ -62,13 +62,13 @@ export default function CustomCursor() {
           position: "fixed", top: 0, left: 0, zIndex: 9999, pointerEvents: "none",
           x: rx, y: ry, translateX: "-50%", translateY: "-50%",
           borderRadius: "999px",
-          border: "1px solid rgba(117,0,6,0.5)",
+          border: "1px solid rgba(28,28,28,0.45)",
           display: "flex", alignItems: "center", justifyContent: "center",
         }}
         animate={{
           width: hovering ? (label ? 76 : 46) : 30,
           height: hovering ? (label ? 76 : 46) : 30,
-          backgroundColor: hovering && label ? "#750006" : "rgba(117,0,6,0)",
+          backgroundColor: hovering && label ? "#1C1C1C" : "rgba(28,28,28,0)",
         }}
         transition={{ type: "spring", stiffness: 260, damping: 24 }}
       >

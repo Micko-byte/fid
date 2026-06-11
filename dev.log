@@ -3453,3 +3453,40 @@ https://react.dev/link/hydration-mismatch
  GET / 200 in 484ms (next.js: 271ms, application-code: 213ms)
 ✓ Compiled in 287ms
  GET / 200 in 418ms (next.js: 240ms, application-code: 178ms)
+✓ Compiled in 401ms
+ GET / 200 in 1759ms (next.js: 475ms, application-code: 1284ms)
+ GET / 200 in 945ms (next.js: 175ms, application-code: 770ms)
+ GET / 200 in 681ms (next.js: 588ms, application-code: 93ms)
+ GET / 200 in 683ms (next.js: 548ms, application-code: 136ms)
+ GET / 200 in 722ms (next.js: 11ms, application-code: 711ms)
+ GET /photos/founder.jpg 404 in 268ms (next.js: 66ms, application-code: 201ms)
+ GET /photos/founder.jpg 404 in 137ms (next.js: 14ms, application-code: 123ms)
+✓ Compiled in 355ms
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 872ms (next.js: 239ms, application-code: 633ms)
+ GET /photos/founder.jpg 404 in 175ms (next.js: 53ms, application-code: 122ms)
+ GET /photos/founder.jpg 404 in 114ms (next.js: 13ms, application-code: 101ms)
+✓ Compiled in 97ms
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 850ms (next.js: 262ms, application-code: 588ms)
+ GET /photos/founder.jpg 404 in 169ms (next.js: 30ms, application-code: 139ms)
+ GET /photos/founder.jpg 404 in 106ms (next.js: 12ms, application-code: 93ms)
+✓ Compiled in 230ms
+ GET / 200 in 276ms (next.js: 201ms, application-code: 75ms)
+✓ Compiled in 186ms
+ GET / 200 in 338ms (next.js: 206ms, application-code: 132ms)
+✓ Compiled in 185ms
+ GET / 200 in 352ms (next.js: 264ms, application-code: 89ms)
+✓ Compiled in 236ms
+ GET / 200 in 580ms (next.js: 484ms, application-code: 97ms)
+✓ Compiled in 353ms
+ GET / 200 in 414ms (next.js: 227ms, application-code: 187ms)
+ GET / 200 in 107ms (next.js: 5ms, application-code: 102ms)
+ GET / 200 in 60ms (next.js: 6ms, application-code: 54ms)
+✓ Compiled in 543ms
+ GET / 200 in 523ms (next.js: 205ms, application-code: 319ms)
+ GET / 200 in 254ms (next.js: 7ms, application-code: 248ms)
+ GET / 200 in 208ms (next.js: 9ms, application-code: 199ms)
+ GET / 200 in 208ms (next.js: 49ms, application-code: 160ms)
+ GET / 200 in 209ms (next.js: 86ms, application-code: 123ms)
+ GET / 200 in 210ms (next.js: 130ms, application-code: 80ms)

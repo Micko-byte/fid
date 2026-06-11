@@ -2,10 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from "framer-motion";
-
-const HeroCanvas = dynamic(() => import("@/components/motion/HeroCanvas"), { ssr: false });
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -96,9 +93,6 @@ export default function Hero() {
       >
         <source src="/hero-bg.mp4" type="video/mp4" />
       </video>
-
-      {/* ── R3F shader layer — liquid burgundy/gold reacting to cursor ── */}
-      {introDone && <HeroCanvas />}
 
       <style>{`
         @media (max-width: 767px) {

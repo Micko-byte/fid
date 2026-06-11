@@ -20,7 +20,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
           style={{
             position: "fixed", inset: 0, zIndex: 200, transformOrigin: "top",
-            backgroundColor: "#750006", pointerEvents: "none",
+            backgroundColor: "#1C1C1C", pointerEvents: "none",
             display: "flex", alignItems: "center", justifyContent: "center",
           }}
         >
