@@ -96,8 +96,8 @@ export default function Hero() {
       <style>{`
         @media (max-width: 767px) {
           .hero-video {
-            object-fit: contain !important;
-            background-color: #1d0202;
+            object-fit: cover !important;
+            object-position: center 20% !important;
           }
         }
       `}</style>
