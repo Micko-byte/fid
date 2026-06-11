@@ -321,6 +321,7 @@ export default function Hero() {
             {/* Explore link */}
             <Link
               href="/#feature"
+              data-cursor="Explore"
               style={{
                 display: "inline-flex",
                 alignItems: "center",

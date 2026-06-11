@@ -3261,3 +3261,5 @@ Import trace:
  GET / 200 in 1079ms (next.js: 262ms, application-code: 818ms)
  GET /photos/founder.jpg 404 in 189ms (next.js: 45ms, application-code: 143ms)
  GET /photos/founder.jpg 404 in 186ms (next.js: 18ms, application-code: 168ms)
+✓ Compiled in 133ms
+ GET / 200 in 326ms (next.js: 221ms, application-code: 105ms)
