@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FacebookLogo, InstagramLogo, YoutubeLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
+import { fireConfetti } from "@/components/motion/confetti";
 
 const services = [
   "Strategic Communications & Public Relations",
@@ -50,6 +51,7 @@ export default function Contact() {
       if (endpoint) await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
       setState("success");
       setForm({ name: "", email: "", phone: "", service: "", message: "" });
+      fireConfetti();
     } catch {
       setState("error");
     }

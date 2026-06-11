@@ -3646,3 +3646,98 @@ https://react.dev/link/hydration-mismatch
  GET / 200 in 2.4s (next.js: 470ms, application-code: 1963ms)
  GET /photos/founder.jpg 404 in 1351ms (next.js: 586ms, application-code: 766ms)
  GET /photos/founder.jpg 404 in 203ms (next.js: 17ms, application-code: 185ms)
+[browser] You have Reduced Motion enabled on your device. Animations may not appear as expected.. For more information and steps for solving, visit https://motion.dev/troubleshooting/reduced-motion-disabled (app/template.tsx:11:34)
+[browser] Uncaught Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <SegmentViewNode type="layout" pagePath="layout.tsx">
+      <SegmentTrieNode>
+      <link>
+      <script>
+      <script>
+      <script>
+      <script>
+      <script>
+      <script>
+      <RootLayout>
+        <html lang="en">
+          <body>
+            <LenisProvider>
+              <SiteChrome>
+                <a>
+                <ScrollProgress>
+                <GrainOverlay>
+                <Nav>
+                <main id="main-content">
+                  <OuterLayoutRouter parallelRouterKey="children" template={{...}} templateStyles={[...]} ...>
+                    <SegmentStateProvider>
+                      <script>
+                      <script>
+                      <SegmentViewNode type="template" pagePath="template.tsx">
+                        <SegmentTrieNode>
+                        <Template>
+                          <motion.div initial={false} animate={{opacity:1,y:0}} transition={{duration:0.6, ...}}>
+                            <div
+                              style={{
++                               opacity: 1
++                               transform: "none"
+-                               transform: "none"
+-                               position: "fixed"
+-                               top: "0px"
+-                               right: "0px"
+-                               bottom: "0px"
+-                               left: "0px"
+-                               z-index: "200"
+-                               transform-origin: "center top"
+-                               background-color: "rgb(28, 28, 28)"
+-                               pointer-events: "none"
+-                               display: "flex"
+-                               align-items: "center"
+-                               justify-content: "center"
+                              }}
+                              ref={function useMotionRef.useCallback}
+-                             aria-hidden="true"
+                            >
+                              ...
+                                <SegmentViewNode type="page" pagePath="page.tsx">
+                                  <SegmentTrieNode>
+                                  <HomePage>
+                                    <HeroLogo>
++                                     <section
++                                       id="hero"
++                                       style={{position:"relative",minHeight:"100svh",display:"flex",flexDirection:"column", ...}}
++                                     >
+-                                     <span
+-                                       style={{font-family:"var(--font...",font-weight:"700",font-size:"clamp(2rem...", ...}}
+-                                     >
+                                    ...
+                      ...
+              ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at section (<anonymous>)
+    at HeroLogo (components/sections/HeroLogo.tsx:19:5)
+    at HomePage (app\page.tsx:19:7)
+  17 |
+  18 |   return (
+> 19 |     <section
+     |     ^
+  20 |       id="hero"
+  21 |       style={{
+  22 |         position: "relative",
+ GET /logos/kansai-plascon.png 404 in 503ms (next.js: 46ms, application-code: 457ms)
+✓ Compiled in 284ms
+ GET / 200 in 319ms (next.js: 232ms, application-code: 87ms)
+✓ Compiled in 274ms
+ GET / 200 in 610ms (next.js: 353ms, application-code: 257ms)
+ GET / 200 in 88ms (next.js: 9ms, application-code: 80ms)
