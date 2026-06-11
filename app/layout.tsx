@@ -3,6 +3,7 @@ import "./globals.css";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import SiteChrome from "@/components/SiteChrome";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import CustomCursor from "@/components/motion/CustomCursor";
 
 export const metadata: Metadata = {
   title: "FID & Co. | Strategic Communications & Brand Experience Agency | Nairobi, Kenya",
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LenisProvider>
           <SiteChrome>{children}</SiteChrome>
           <WhatsAppButton />
+          <CustomCursor />
         </LenisProvider>
       </body>
     </html>
