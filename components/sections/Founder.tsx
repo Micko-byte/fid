@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 export default function Founder() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -82,6 +83,7 @@ export default function Founder() {
               }}
             >
               <div style={{ position: "absolute", inset: "0.7rem", border: "1px solid rgba(217,171,136,0.22)" }} />
+              <CornerBrackets color="rgba(255,255,255,0.38)" size={26} weight={1.5} inset={0} />
               <span style={{ position: "absolute", left: "1rem", bottom: "0.9rem", fontFamily: "ui-monospace,monospace", fontSize: "0.64rem", letterSpacing: "0.05em", color: "rgba(217,171,136,0.7)", textTransform: "uppercase" }}>
                 portrait — farida idris
               </span>

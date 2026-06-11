@@ -4,6 +4,7 @@ import { useRef, useState, useCallback } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { projects } from "@/lib/projects";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 function WorkCard({ project, index }: { project: typeof projects[0]; index: number }) {
   const [hover, setHover] = useState(false);
@@ -113,6 +114,9 @@ function WorkCard({ project, index }: { project: typeof projects[0]; index: numb
         >
           {project.sector.toLowerCase()}
         </span>
+
+        {/* Corner brackets on the dark card */}
+        <CornerBrackets color="rgba(255,255,255,0.28)" size={20} weight={1.2} inset={11} />
 
         {/* Number overlay */}
         <div

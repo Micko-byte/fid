@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CountUp from "@/components/animations/CountUp";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 const stats = [
   { value: "15+", count: 15, suffix: "+", label: "Years" },
@@ -192,6 +193,7 @@ export default function About() {
               </div>
               {/* Ambient glow */}
               <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 40% 55%, rgba(217,128,56,0.06) 0%, transparent 70%)", pointerEvents: "none" }} />
+              <CornerBrackets color="rgba(255,255,255,0.42)" size={26} weight={1.5} inset={14} />
             </div>
 
             {/* Two small plates below */}
@@ -201,6 +203,7 @@ export default function About() {
                 { bg: "#1a1a2e", label: "Impact", sub: "15+ yrs" },
               ].map((plate, pi) => (
                 <div key={pi} style={{ aspectRatio: "4/3", backgroundColor: plate.bg, position: "relative", overflow: "hidden" }}>
+                  <CornerBrackets color="rgba(255,255,255,0.28)" size={14} weight={1.2} inset={8} />
                   <div style={{ position: "absolute", inset: 0, backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E")`, pointerEvents: "none" }} />
                   {[33, 66].map(p => <div key={p} style={{ position: "absolute", left: 0, right: 0, top: `${p}%`, height: "1px", background: "rgba(217,171,136,0.06)" }} />)}
                   <div style={{ position: "absolute", inset: 0, padding: "0.9rem", display: "flex", flexDirection: "column", justifyContent: "space-between" }}>

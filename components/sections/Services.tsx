@@ -3,14 +3,49 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import FlowingMenu from "@/components/ui/FlowingMenu";
 
+// Editorial placeholder images — dark campaign imagery feel using picsum
 const services = [
-  { num: "01", title: "Strategic Communications & PR", slug: "strategic-communications" },
-  { num: "02", title: "Media Management & Buying", slug: "media-management" },
-  { num: "03", title: "Influencer, Creator & Talent", slug: "influencer-creator" },
-  { num: "04", title: "Digital Strategy & Social Media", slug: "digital-strategy" },
-  { num: "05", title: "Experiential Marketing & Events", slug: "experiential-marketing" },
+  {
+    num: "01",
+    title: "Strategic Communications & PR",
+    slug: "strategic-communications",
+    image: "https://picsum.photos/600/400?random=11",
+  },
+  {
+    num: "02",
+    title: "Media Management & Buying",
+    slug: "media-management",
+    image: "https://picsum.photos/600/400?random=22",
+  },
+  {
+    num: "03",
+    title: "Influencer, Creator & Talent",
+    slug: "influencer-creator",
+    image: "https://picsum.photos/600/400?random=33",
+  },
+  {
+    num: "04",
+    title: "Digital Strategy & Social Media",
+    slug: "digital-strategy",
+    image: "https://picsum.photos/600/400?random=44",
+  },
+  {
+    num: "05",
+    title: "Experiential Marketing & Events",
+    slug: "experiential-marketing",
+    image: "https://picsum.photos/600/400?random=55",
+  },
 ];
+
+// Map services to FlowingMenu items — each links to its detail page
+const menuItems = services.map((s) => ({
+  link: `/services/${s.slug}`,
+  text: s.title,
+  image: s.image,
+  num: s.num,
+}));
 
 export default function Services() {
   const ref = useRef<HTMLDivElement>(null);
@@ -23,7 +58,7 @@ export default function Services() {
         backgroundColor: "#F5F2EC",
         color: "#211b18",
         paddingTop: "clamp(5.5rem, 12vw, 11rem)",
-        paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
+        paddingBottom: "0",          // FlowingMenu block sits flush at bottom
       }}
     >
       <div
@@ -33,6 +68,7 @@ export default function Services() {
           margin: "0 auto",
           paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
           paddingRight: "clamp(1.5rem, 5vw, 6rem)",
+          paddingBottom: "clamp(3rem, 5vw, 4.5rem)",
         }}
       >
         {/* Header */}
@@ -81,7 +117,7 @@ export default function Services() {
               display: "inline-flex", alignItems: "center", gap: "0.6rem",
               fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.16em",
               textTransform: "uppercase", color: "rgba(33,27,24,0.6)", fontWeight: 500,
-              whiteSpace: "nowrap", transition: "color 0.3s",
+              whiteSpace: "nowrap", transition: "color 0.3s", textDecoration: "none",
             }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(33,27,24,0.6)")}
@@ -91,64 +127,15 @@ export default function Services() {
           </Link>
         </div>
 
-        {/* List */}
-        <div style={{ borderTop: "1px solid rgba(38,0,0,0.13)" }}>
-          {services.map((svc, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -22 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.75, delay: 0.1 + i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-              className="expertise-item"
-              style={{
-                display: "flex", alignItems: "center", justifyContent: "space-between",
-                gap: "1.5rem", borderBottom: "1px solid rgba(38,0,0,0.13)",
-                position: "relative", overflow: "hidden", cursor: "pointer",
-              }}
-            >
-              <div className="expertise-bg" />
-              <Link
-                href={`/services/${svc.slug}`}
-                style={{
-                  display: "flex", alignItems: "baseline", gap: "clamp(1rem,2.5vw,2.2rem)",
-                  position: "relative", zIndex: 1, textDecoration: "none", flex: 1,
-                }}
-              >
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.2em", fontWeight: 500, color: "#D98038", flexShrink: 0, paddingTop: "0.6em" }}>
-                  {svc.num}
-                </span>
-                <span
-                  className="expertise-name"
-                  style={{
-                    fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600,
-                    textTransform: "uppercase", color: "#260000",
-                    fontSize: "clamp(1.5rem, 4.4vw, 3.4rem)", lineHeight: 1.02,
-                    transition: "color 0.35s",
-                  }}
-                >
-                  {svc.title}
-                </span>
-              </Link>
-              <svg
-                className="expertise-arrow"
-                width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4"
-                style={{ color: "rgba(33,27,24,0.3)", flexShrink: 0, position: "relative", zIndex: 1, transition: "transform 0.35s, color 0.35s" }}
-              >
-                <path d="M7 17 17 7M9 7h8v8" />
-              </svg>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Note */}
+        {/* Sub-copy */}
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.55 }}
+          transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            marginTop: "clamp(2.2rem, 5vw, 3.6rem)", maxWidth: "62ch",
-            color: "rgba(33,27,24,0.6)", fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)",
-            lineHeight: 1.5, fontFamily: "var(--font-body)",
+            maxWidth: "62ch", color: "rgba(33,27,24,0.6)",
+            fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)", lineHeight: 1.5,
+            fontFamily: "var(--font-body)",
           }}
         >
           FID &amp; Co. is a 360° communications partner — bringing strategic counsel, cultural fluency and
@@ -157,20 +144,28 @@ export default function Services() {
         </motion.p>
       </div>
 
-      <style>{`
-        .expertise-item { padding: clamp(1.3rem, 3vw, 2.3rem) 0; transition: padding-left 0.4s cubic-bezier(0.16,1,0.3,1); }
-        .expertise-item:hover { padding-left: 1.1rem; }
-        .expertise-bg {
-          position: absolute; inset: 0; z-index: 0;
-          background: transparent;
-          transition: background 0.4s cubic-bezier(0.16,1,0.3,1);
-        }
-        .expertise-item:hover .expertise-bg {
-          background: rgba(117,0,6,0.04);
-        }
-        .expertise-item:hover .expertise-name { color: #750006 !important; }
-        .expertise-item:hover .expertise-arrow { transform: translate(3px,-3px) !important; color: #750006 !important; }
-      `}</style>
+      {/* ── FlowingMenu — full-bleed below the header ── */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ duration: 0.8, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          height: `${services.length * 88}px`,
+          minHeight: "360px",
+          width: "100%",
+          borderTop: "1px solid rgba(38,0,0,0.13)",
+        }}
+      >
+        <FlowingMenu
+          items={menuItems}
+          speed={18}
+          textColor="#260000"
+          bgColor="#F5F2EC"
+          marqueeBgColor="#750006"
+          marqueeTextColor="#F5F2EC"
+          borderColor="rgba(38,0,0,0.13)"
+        />
+      </motion.div>
     </section>
   );
 }

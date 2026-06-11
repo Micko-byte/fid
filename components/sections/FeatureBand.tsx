@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
@@ -144,6 +145,8 @@ export default function FeatureBand() {
 
               {/* Ambient glow */}
               <div style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 80% 60% at 40% 55%, rgba(217,128,56,0.07) 0%, transparent 70%)", pointerEvents: "none" }} />
+              {/* Corner brackets */}
+              <CornerBrackets color="rgba(255,255,255,0.45)" size={28} weight={1.5} inset={14} />
             </div>
 
             {/* Small offset accent plate */}
@@ -163,6 +166,7 @@ export default function FeatureBand() {
               }}
             >
               <span style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, fontSize: "clamp(0.7rem,1.5vw,1rem)", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245,242,236,0.5)", textAlign: "center", padding: "0.5rem" }}>Nairobi<br />· Africa</span>
+              <CornerBrackets color="rgba(255,255,255,0.4)" size={16} weight={1.5} inset={8} />
             </div>
           </motion.div>
         </div>
