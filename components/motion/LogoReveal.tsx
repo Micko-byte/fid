@@ -10,13 +10,17 @@ interface LogoRevealProps {
   onComplete?: () => void;
   className?: string;
   style?: React.CSSProperties;
+  /** loop the sequence continuously after the first play */
+  loop?: boolean;
+  /** pause (ms) on the final frame before looping again */
+  loopHoldMs?: number;
 }
 
 /**
  * Plays the 121-frame "FID & Co." logo-reveal sequence on a canvas, once,
  * then holds the final frame. Reduced-motion: shows the final frame instantly.
  */
-export default function LogoReveal({ fps = 30, onComplete, className, style }: LogoRevealProps) {
+export default function LogoReveal({ fps = 30, onComplete, className, style, loop = false, loopHoldMs = 1400 }: LogoRevealProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
   const [done, setDone] = useState(false);
@@ -35,6 +39,7 @@ export default function LogoReveal({ fps = 30, onComplete, className, style }: L
     let last = 0;
     let frame = 0;
     let cancelled = false;
+    let completedOnce = false;
 
     const dpr = Math.min(2, window.devicePixelRatio || 1);
 
@@ -72,8 +77,16 @@ export default function LogoReveal({ fps = 30, onComplete, className, style }: L
         frame++;
         if (frame >= FRAME_COUNT) {
           draw(FRAME_COUNT - 1);
-          setDone(true);
-          onComplete?.();
+          if (!completedOnce) { completedOnce = true; setDone(true); onComplete?.(); }
+          if (loop && !cancelled) {
+            // hold the final frame, then restart the sequence
+            window.setTimeout(() => {
+              if (cancelled) return;
+              frame = 0;
+              last = 0;
+              raf = requestAnimationFrame(play);
+            }, loopHoldMs);
+          }
           return;
         }
       }

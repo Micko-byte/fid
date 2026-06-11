@@ -1,9 +1,8 @@
-import HeroLogo from "@/components/sections/HeroLogo";
+import HeroApproach from "@/components/sections/HeroApproach";
 import Marquee from "@/components/sections/Marquee";
 import FeatureBand from "@/components/sections/FeatureBand";
 import Services from "@/components/sections/Services";
 import WorkIndustries from "@/components/sections/WorkIndustries";
-import Philosophy from "@/components/sections/Philosophy";
 import About from "@/components/sections/About";
 import Platforms from "@/components/sections/Platforms";
 import LogoMarquee from "@/components/sections/LogoMarquee";
@@ -16,12 +15,14 @@ import Footer from "@/components/Footer";
 export default function HomePage() {
   return (
     <>
-      <HeroLogo />
+      {/* Hero + Our Approach: one scroll-choreographed stage.
+          Logo starts full-screen, shrinks to the right through Insight →
+          Strategy → Impact, then the rest of the site flows. */}
+      <HeroApproach />
       <Marquee />
       <FeatureBand />
       <Services />
       <WorkIndustries />
-      <Philosophy />
       <About />
       <Platforms />
       <LogoMarquee />
