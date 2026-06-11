@@ -2,11 +2,10 @@ import Hero from "@/components/sections/Hero";
 import Marquee from "@/components/sections/Marquee";
 import FeatureBand from "@/components/sections/FeatureBand";
 import Services from "@/components/sections/Services";
-import Work from "@/components/sections/Work";
+import WorkIndustries from "@/components/sections/WorkIndustries";
 import Philosophy from "@/components/sections/Philosophy";
 import About from "@/components/sections/About";
 import Platforms from "@/components/sections/Platforms";
-import Sectors from "@/components/sections/Sectors";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
@@ -21,11 +20,10 @@ export default function HomePage() {
       <Marquee />
       <FeatureBand />
       <Services />
-      <Work />
+      <WorkIndustries />
       <Philosophy />
       <About />
       <Platforms />
-      <Sectors />
       <LogoMarquee />
       <Founder />
       <Insights />

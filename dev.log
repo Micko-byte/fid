@@ -2973,3 +2973,154 @@ https://react.dev/link/hydration-mismatch
  GET / 200 in 335ms (next.js: 210ms, application-code: 125ms)
  GET / 200 in 344ms (next.js: 229ms, application-code: 115ms)
  GET / 200 in 273ms (next.js: 178ms, application-code: 96ms)
+[browser] You have Reduced Motion enabled on your device. Animations may not appear as expected.. For more information and steps for solving, visit https://motion.dev/troubleshooting/reduced-motion-disabled (file://C:/Users/User/FID/fidco-web/.next/dev/static/chunks/node_modules_1u199ib._.js:49:187)
+[browser] Uncaught Error: Hydration failed because the server rendered HTML didn't match the client. As a result this tree will be regenerated on the client. This can happen if a SSR-ed Client Component used:
+
+- A server/client branch `if (typeof window !== 'undefined')`.
+- Variable input such as `Date.now()` or `Math.random()` which changes each time it's called.
+- Date formatting in a user's locale which doesn't match the server.
+- External changing data without sending a snapshot of it along with the HTML.
+- Invalid HTML tag nesting.
+
+It can also happen if the client has a browser extension installed which messes with the HTML before React loaded.
+
+https://react.dev/link/hydration-mismatch
+
+  ...
+    <ErrorBoundary errorComponent={undefined} errorStyles={undefined} errorScripts={undefined}>
+      <LoadingBoundary name="/" loading={null}>
+        <HTTPAccessFallbackBoundary notFound={{...}} forbidden={undefined} unauthorized={undefined}>
+          <HTTPAccessFallbackErrorBoundary pathname="/" notFound={{...}} forbidden={undefined} unauthorized={undefined} ...>
+            <RedirectBoundary>
+              <RedirectErrorBoundary router={{...}}>
+                <InnerLayoutRouter url="/" tree={[...]} params={{}} cacheNode={{rsc:{...}, ...}} segmentPath={[...]} ...>
+                  <SegmentViewNode type="page" pagePath="page.tsx">
+                    <SegmentTrieNode>
+                    <HomePage>
+                      <Hero>
+                        <section ref={{current:null}} id="hero" style={{position:"...", ...}}>
+                          <video>
+                          <style>
+                          <motion.div>
+                          <div>
+                          <div>
+                          <motion.div style={{display:"c..."}} initial={{opacity:0,y:18}} animate={{opacity:0,y:18}} ...>
+                            <div
+                              style={{
++                               display: "contents"
++                               opacity: 0
++                               transform: "translateY(18px)"
+-                               transform: "translateX(-50%)"
+-                               position: "absolute"
+-                               left: "50%"
+-                               top: "18%"
+-                               width: "34vw"
+-                               height: "34vw"
+-                               max-width: "520px"
+-                               max-height: "520px"
+-                               border-top-left-radius: "9999px"
+-                               border-top-right-radius: "9999px"
+-                               border-bottom-right-radius: "9999px"
+-                               border-bottom-left-radius: "9999px"
+-                               filter: "blur(60px)"
+-                               pointer-events: "none"
+-                               z-index: "3"
+-                               background-image: "radial-gradient(circle, rgba(217, 128, 56, 0.22) 0%, rgba(117, 0, 6..."
+-                               background-position-x: "initial"
+-                               background-position-y: "initial"
+-                               background-size: "initial"
+-                               background-repeat: "initial"
+-                               background-attachment: "initial"
+-                               background-origin: "initial"
+-                               background-clip: "initial"
+-                               background-color: "initial"
+                              }}
+                              ref={function useMotionRef.useCallback}
+-                             aria-hidden="true"
+                            >
++                             <div
++                               style={{position:"relative",zIndex:10,maxWidth:"1320px",width:"100%",margin:"0 auto",paddingLeft:"clamp(1.5...", ...}}
++                             >
+                              ...
+                          ...
+                      ...
+                  ...
+                ...
+
+    at <unknown> (https://react.dev/link/hydration-mismatch)
+    at div (<anonymous>)
+    at Hero (file://C:/Users/User/FID/fidco-web/.next/dev/static/chunks/_14vm3de._.js:259:223)
+    at HomePage (app\page.tsx:20:7)
+  18 |   return (
+  19 |     <>
+> 20 |       <Hero />
+     |       ^
+  21 |       <Marquee />
+  22 |       <FeatureBand />
+  23 |       <Services />
+✓ Compiled in 423ms
+⨯ ReferenceError: Work is not defined
+    at HomePage (app\page.tsx:23:8)
+  21 |       <FeatureBand />
+  22 |       <Services />
+> 23 |       <Work />
+     |        ^
+  24 |       <Philosophy />
+  25 |       <About />
+  26 |       <Platforms /> {
+  digest: '3465413365'
+}
+⨯ ReferenceError: Work is not defined
+    at HomePage (app\page.tsx:23:8)
+  21 |       <FeatureBand />
+  22 |       <Services />
+> 23 |       <Work />
+     |        ^
+  24 |       <Philosophy />
+  25 |       <About />
+  26 |       <Platforms /> {
+  digest: '3465413365'
+}
+⨯ ReferenceError: Work is not defined
+    at HomePage (app\page.tsx:23:8)
+  21 |       <FeatureBand />
+  22 |       <Services />
+> 23 |       <Work />
+     |        ^
+  24 |       <Philosophy />
+  25 |       <About />
+  26 |       <Platforms /> {
+  digest: '3465413365'
+}
+⨯ ReferenceError: Work is not defined
+    at HomePage (app\page.tsx:23:8)
+  21 |       <FeatureBand />
+  22 |       <Services />
+> 23 |       <Work />
+     |        ^
+  24 |       <Philosophy />
+  25 |       <About />
+  26 |       <Platforms /> {
+  digest: '3465413365'
+}
+⨯ ReferenceError: Work is not defined
+    at HomePage (app\page.tsx:23:8)
+  21 |       <FeatureBand />
+  22 |       <Services />
+> 23 |       <Work />
+     |        ^
+  24 |       <Philosophy />
+  25 |       <About />
+  26 |       <Platforms /> {
+  digest: '3465413365'
+}
+ GET / 200 in 715ms (next.js: 235ms, application-code: 480ms)
+ GET / 200 in 345ms (next.js: 7ms, application-code: 338ms)
+ GET / 200 in 271ms (next.js: 10ms, application-code: 261ms)
+ GET / 200 in 271ms (next.js: 77ms, application-code: 194ms)
+ GET / 200 in 271ms (next.js: 149ms, application-code: 122ms)
+✓ Compiled in 477ms
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ GET / 200 in 871ms (next.js: 249ms, application-code: 622ms)
+ GET /photos/founder.jpg 404 in 694ms (next.js: 292ms, application-code: 402ms)
+ GET /photos/founder.jpg 404 in 297ms (next.js: 16ms, application-code: 281ms)
