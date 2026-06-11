@@ -1,6 +1,9 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useState } from "react";
+import { Lightbulb, Target, ChartLineUp } from "@phosphor-icons/react";
+
+const PILLAR_ICONS = [Lightbulb, Target, ChartLineUp];
 
 const PILLARS = [
   {
@@ -227,9 +230,14 @@ export default function Philosophy() {
                       {p.num}
                     </p>
                     <div>
-                      <h2 className="phil-word" style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: isActive ? 600 : 300, fontSize: "clamp(1.5rem,2.6vw,2.6rem)", color: isActive ? "#260000" : "rgba(38,0,0,0.13)", letterSpacing: "-0.02em", lineHeight: 0.95, transition: "color 0.55s, font-weight 0.3s", textTransform: "uppercase", marginBottom: "0.4rem" }}>
-                        {p.word}
-                      </h2>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.4rem" }}>
+                        {(() => { const Icon = PILLAR_ICONS[i]; return (
+                          <Icon size={26} weight={isActive ? "fill" : "light"} color={isActive ? "#750006" : "rgba(38,0,0,0.18)"} style={{ transition: "color 0.55s", flexShrink: 0 }} />
+                        ); })()}
+                        <h2 className="phil-word" style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: isActive ? 600 : 300, fontSize: "clamp(1.5rem,2.6vw,2.6rem)", color: isActive ? "#260000" : "rgba(38,0,0,0.13)", letterSpacing: "-0.02em", lineHeight: 0.95, transition: "color 0.55s, font-weight 0.3s", textTransform: "uppercase" }}>
+                          {p.word}
+                        </h2>
+                      </div>
                       <p className="phil-desc" style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.55, color: "rgba(38,0,0,0.5)", maxWidth: "28ch", opacity: isActive ? 1 : 0, transform: isActive ? "translateY(0)" : "translateY(7px)", transition: "opacity 0.6s, transform 0.6s", pointerEvents: "none" }}>
                         {p.desc}
                       </p>

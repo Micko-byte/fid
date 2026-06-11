@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
-import { FacebookLogo, InstagramLogo, YoutubeLogo } from "@phosphor-icons/react";
+import { FacebookLogo, InstagramLogo, YoutubeLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 
 const services = [
   "Strategic Communications & Public Relations",
@@ -32,6 +32,7 @@ export default function Contact() {
   const [state, setState] = useState<FormState>("idle");
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [focused, setFocused] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -54,199 +55,156 @@ export default function Contact() {
     }
   };
 
-  const inputStyle: React.CSSProperties = {
-    borderBottomColor: "rgba(245,242,236,0.18)",
-    color: "#F5F2EC",
-    backgroundColor: "transparent",
-  };
-  const inputClass = "w-full px-0 py-3 border-b font-body text-sm outline-none focus:border-b-[#750006] transition-colors duration-200";
+  const fieldBox = (name: string): React.CSSProperties => ({
+    width: "100%",
+    padding: "0.85rem 1rem",
+    border: `1px solid ${errors[name] ? "#c0392b" : focused === name ? "#750006" : "rgba(26,26,26,0.16)"}`,
+    backgroundColor: focused === name ? "#fff" : "#faf8f3",
+    color: "#1a1a1a",
+    fontFamily: "var(--font-body)",
+    fontSize: "0.92rem",
+    outline: "none",
+    borderRadius: "2px",
+    transition: "border-color 0.25s, background-color 0.25s, box-shadow 0.25s",
+    boxShadow: focused === name ? "0 0 0 3px rgba(117,0,6,0.08)" : "none",
+  });
+  const labelStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(26,26,26,0.55)", display: "block", marginBottom: "0.5rem", fontWeight: 500 };
+  const errStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.72rem", marginTop: "0.4rem", color: "#c0392b" };
 
   return (
-    <section id="contact" className="py-24 md:py-40" style={{ backgroundColor: "#1d0202" }}>
-      <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24">
-          {/* Left */}
+    <section id="contact" style={{ backgroundColor: "#FAF8F3", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
+      <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+        <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(2.5rem,6vw,5rem)", alignItems: "start" }}>
+          {/* Left: info */}
           <div>
-            <p className="font-body text-xs tracking-[0.25em] uppercase mb-6" style={{ color: "#D98038" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#750006", marginBottom: "1.2rem", fontWeight: 500 }}>
               Get in touch
             </p>
             <motion.h2
-              initial={{ opacity: 0, y: 24 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8 }}
-              className="font-heading leading-tight mb-14"
-              style={{
-                fontSize: "clamp(2.5rem, 6vw, 5rem)",
-                color: "#F5F2EC",
-                letterSpacing: "-0.02em",
-                textWrap: "balance",
-              } as React.CSSProperties}
+              initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
+              animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
+              transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2.4rem,5.5vw,4.5rem)", color: "#1a1a1a", letterSpacing: "-0.02em", lineHeight: 1.02, textWrap: "balance", marginBottom: "2.5rem" } as React.CSSProperties}
             >
-              Let's build something deliberate.
+              Let&apos;s build something meaningful.
             </motion.h2>
 
-            <div className="space-y-7">
-              <div>
-                <p className="font-body text-xs tracking-[0.15em] uppercase mb-2" style={{ color: "#D98038" }}>Email</p>
-                <a href="mailto:info@fidco.africa" className="font-body text-base transition-colors hover:text-white" style={{ color: "#D9AB88" }}>
-                  info@fidco.africa
-                </a>
-              </div>
-              <div>
-                <p className="font-body text-xs tracking-[0.15em] uppercase mb-2" style={{ color: "#D98038" }}>Phone</p>
-                <a href="tel:+254797690609" className="font-body text-base transition-colors hover:text-white" style={{ color: "#D9AB88" }}>
-                  +254 797 690 609
-                </a>
-              </div>
-              <div>
-                <p className="font-body text-xs tracking-[0.15em] uppercase mb-2" style={{ color: "#D98038" }}>Location</p>
-                <p className="font-body text-base" style={{ color: "#D9AB88" }}>
-                  Westlands Business Park, 3rd Floor Suite 12<br />Nairobi, Kenya
-                </p>
-              </div>
-              <div>
-                <p className="font-body text-xs tracking-[0.15em] uppercase mb-3" style={{ color: "#D98038" }}>Social</p>
-                <div className="flex gap-5">
-                  {[
-                    { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
-                    { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
-                    { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
-                  ].map(({ Icon, href, label }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={label}
-                      className="transition-colors hover:text-[#750006]"
-                      style={{ color: "rgba(217,171,136,0.5)" }}
-                    >
-                      <Icon size={22} weight="light" />
-                    </a>
-                  ))}
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.6rem" }}>
+              {[
+                { Icon: EnvelopeSimple, label: "Email", value: "info@fidco.africa", href: "mailto:info@fidco.africa" },
+                { Icon: Phone, label: "Phone", value: "+254 797 690 609", href: "tel:+254797690609" },
+                { Icon: MapPin, label: "Location", value: "Nairobi, Kenya · Africa", href: null },
+              ].map(({ Icon, label, value, href }) => (
+                <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                  <div style={{ width: "40px", height: "40px", flexShrink: 0, border: "1px solid rgba(117,0,6,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "2px" }}>
+                    <Icon size={20} weight="light" color="#750006" />
+                  </div>
+                  <div>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(26,26,26,0.45)", marginBottom: "0.25rem" }}>{label}</p>
+                    {href ? (
+                      <a href={href} style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "#1a1a1a", textDecoration: "none" }}>{value}</a>
+                    ) : (
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "#1a1a1a" }}>{value}</p>
+                    )}
+                  </div>
                 </div>
+              ))}
+
+              <div style={{ display: "flex", gap: "1rem", marginTop: "0.6rem" }}>
+                {[
+                  { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
+                  { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
+                  { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
+                ].map(({ Icon, href, label }) => (
+                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                    style={{ width: "40px", height: "40px", border: "1px solid rgba(26,26,26,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(26,26,26,0.55)", borderRadius: "2px", transition: "all 0.25s" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#750006"; e.currentTarget.style.borderColor = "#750006"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(26,26,26,0.55)"; e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(26,26,26,0.14)"; }}
+                  >
+                    <Icon size={20} weight="light" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
 
-          {/* Right: form */}
+          {/* Right: boxed form */}
           <motion.div
             initial={{ opacity: 0, y: 32 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
+            style={{ backgroundColor: "#fff", border: "1px solid rgba(26,26,26,0.1)", borderRadius: "4px", padding: "clamp(1.6rem,3.5vw,2.8rem)", boxShadow: "0 18px 50px rgba(26,26,26,0.06)" }}
           >
             {state === "success" ? (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="flex flex-col items-start justify-center h-full gap-5 py-20"
-              >
-                <div className="w-12 h-12 flex items-center justify-center text-xl font-heading" style={{ backgroundColor: "#750006", color: "#F5F2EC" }}>
-                  ✓
-                </div>
-                <h3 className="font-heading text-2xl" style={{ color: "#F5F2EC", letterSpacing: "-0.01em" }}>
-                  Message received
-                </h3>
-                <p className="font-body text-sm max-w-xs" style={{ color: "#D9AB88" }}>
-                  Thank you for reaching out. We'll be in touch shortly.
-                </p>
-                <button
-                  onClick={() => setState("idle")}
-                  className="font-body text-xs tracking-widest uppercase mt-2 transition-colors hover:text-white"
-                  style={{ color: "#750006" }}
-                >
-                  Send another message →
-                </button>
+              <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem", padding: "3rem 0" }}>
+                <div style={{ width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", backgroundColor: "#750006", color: "#fff", borderRadius: "2px" }}>✓</div>
+                <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontSize: "1.6rem", color: "#1a1a1a" }}>Message received</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(26,26,26,0.6)", maxWidth: "32ch" }}>Thank you for reaching out. We&apos;ll be in touch shortly.</p>
+                <button onClick={() => setState("idle")} style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", background: "none", border: "none", cursor: "pointer", marginTop: "0.4rem" }}>Send another message →</button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} noValidate className="space-y-8">
+              <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "1.3rem" }}>
                 {[
-                  { name: "name", label: "Full name", type: "text", required: true },
-                  { name: "email", label: "Email address", type: "email", required: true },
+                  { name: "name", label: "Full name *", type: "text", required: true },
+                  { name: "email", label: "Email address *", type: "email", required: true },
                   { name: "phone", label: "Phone number", type: "tel", required: false },
                 ].map((f) => (
                   <div key={f.name}>
-                    <label className="font-body text-xs tracking-[0.15em] uppercase block mb-1" style={{ color: "#D98038" }}>
-                      {f.label}{f.required ? " *" : ""}
-                    </label>
+                    <label style={labelStyle}>{f.label}</label>
                     <input
-                      type={f.type}
-                      name={f.name}
+                      type={f.type} name={f.name}
                       value={form[f.name as keyof typeof form]}
                       onChange={handleChange}
+                      onFocus={() => setFocused(f.name)}
+                      onBlur={() => setFocused(null)}
                       required={f.required}
-                      className={inputClass}
-                      style={inputStyle}
-                      aria-invalid={!!errors[f.name]}
-                      aria-describedby={errors[f.name] ? `${f.name}-err` : undefined}
+                      style={fieldBox(f.name)}
                     />
-                    {errors[f.name] && (
-                      <p id={`${f.name}-err`} className="font-body text-xs mt-1" style={{ color: "#D98038" }}>
-                        {errors[f.name]}
-                      </p>
-                    )}
+                    {errors[f.name] && <p style={errStyle}>{errors[f.name]}</p>}
                   </div>
                 ))}
 
                 <div>
-                  <label className="font-body text-xs tracking-[0.15em] uppercase block mb-1" style={{ color: "#D98038" }}>
-                    Service of interest *
-                  </label>
+                  <label style={labelStyle}>Service of interest *</label>
                   <select
-                    name="service"
-                    value={form.service}
-                    onChange={handleChange}
-                    required
-                    className={inputClass}
-                    style={{ ...inputStyle, cursor: "pointer" }}
-                    aria-invalid={!!errors.service}
+                    name="service" value={form.service} onChange={handleChange}
+                    onFocus={() => setFocused("service")} onBlur={() => setFocused(null)}
+                    required style={{ ...fieldBox("service"), cursor: "pointer" }}
                   >
-                    <option value="" style={{ backgroundColor: "#1d0202" }}>Select a service</option>
-                    {services.map((s) => (
-                      <option key={s} value={s} style={{ backgroundColor: "#1d0202" }}>{s}</option>
-                    ))}
+                    <option value="">Select a service</option>
+                    {services.map((s) => <option key={s} value={s}>{s}</option>)}
                   </select>
-                  {errors.service && <p className="font-body text-xs mt-1" style={{ color: "#D98038" }}>{errors.service}</p>}
+                  {errors.service && <p style={errStyle}>{errors.service}</p>}
                 </div>
 
                 <div>
-                  <label className="font-body text-xs tracking-[0.15em] uppercase block mb-1" style={{ color: "#D98038" }}>
-                    Message *
-                  </label>
+                  <label style={labelStyle}>Message *</label>
                   <textarea
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    required
-                    rows={4}
-                    className={inputClass}
-                    style={{ ...inputStyle, resize: "none" }}
-                    aria-invalid={!!errors.message}
+                    name="message" value={form.message} onChange={handleChange}
+                    onFocus={() => setFocused("message")} onBlur={() => setFocused(null)}
+                    required rows={4} style={{ ...fieldBox("message"), resize: "none" }}
                   />
-                  {errors.message && <p className="font-body text-xs mt-1" style={{ color: "#D98038" }}>{errors.message}</p>}
+                  {errors.message && <p style={errStyle}>{errors.message}</p>}
                 </div>
 
                 <motion.button
-                  type="submit"
-                  disabled={state === "submitting"}
-                  whileHover={{ backgroundColor: "#8a0007" }}
-                  whileTap={{ scale: 0.98 }}
-                  className="font-body text-sm px-10 py-4 w-full transition-colors duration-200 disabled:opacity-40 cursor-pointer"
-                  style={{ backgroundColor: "#750006", color: "#F5F2EC", letterSpacing: "0.05em" }}
+                  type="submit" disabled={state === "submitting"}
+                  whileHover={{ backgroundColor: "#8a0007" }} whileTap={{ scale: 0.98 }}
+                  style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", padding: "1rem", width: "100%", backgroundColor: "#750006", color: "#fff", border: "none", borderRadius: "2px", cursor: "pointer", marginTop: "0.4rem" }}
                 >
                   {state === "submitting" ? "Sending…" : "Send message"}
                 </motion.button>
 
-                {state === "error" && (
-                  <p className="font-body text-xs" style={{ color: "#D98038" }}>
-                    Connection failed. Please email us directly at info@fidco.africa
-                  </p>
-                )}
+                {state === "error" && <p style={errStyle}>Connection failed. Please email us directly at info@fidco.africa</p>}
               </form>
             )}
           </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 860px) { .contact-grid { grid-template-columns: 1fr !important; } }
+      `}</style>
     </section>
   );
 }
