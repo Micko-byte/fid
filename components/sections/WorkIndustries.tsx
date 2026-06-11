@@ -4,6 +4,7 @@ import { useRef, useState, useMemo } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { projects, type Project } from "@/lib/projects";
+import Tilt from "@/components/motion/Tilt";
 
 // Map each project slug -> real client logo + project photo
 const assets: Record<string, { logo?: string; image?: string }> = {
@@ -61,8 +62,8 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
       exit={{ opacity: 0, scale: 0.96 }}
       transition={{ duration: 0.45, delay: index * 0.04, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Link href={`/work/${p.slug}`} className="work-card" style={{ display: "block", textDecoration: "none" }}>
-        <div className="work-card-media" style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden", backgroundColor: "#ece7df", marginBottom: "1.1rem" }}>
+      <Link href={`/work/${p.slug}`} className="work-card" data-cursor="View" style={{ display: "block", textDecoration: "none" }}>
+        <Tilt className="work-card-media" style={{ position: "relative", aspectRatio: "4/3", overflow: "hidden", backgroundColor: "#ece7df", marginBottom: "1.1rem" }}>
           {a.image ? (
             /* eslint-disable-next-line @next/next/no-img-element */
             <img src={a.image} alt={p.client} loading="lazy" className="work-card-img" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1)" }} />
@@ -77,10 +78,10 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
               <img src={a.logo} alt="" style={{ maxHeight: "100%", maxWidth: "110px", objectFit: "contain" }} />
             </div>
           )}
-          <span style={{ position: "absolute", bottom: "0.7rem", right: "0.9rem", fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "1rem", color: "rgba(255,255,255,0.85)", textShadow: "0 1px 4px rgba(0,0,0,0.4)" }}>
+          <span style={{ position: "absolute", bottom: "0.7rem", right: "0.9rem", fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "1rem", color: "rgba(255,255,255,0.85)", textShadow: "0 1px 4px rgba(0,0,0,0.4)", transform: "translateZ(30px)" }}>
             {String(index + 1).padStart(2, "0")}
           </span>
-        </div>
+        </Tilt>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", marginBottom: "0.4rem" }}>
           {shortLabel[p.sector] ?? p.sector} · {p.years}
         </p>

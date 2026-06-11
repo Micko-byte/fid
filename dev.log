@@ -3169,3 +3169,95 @@ https://react.dev/link/hydration-mismatch
  GET / 200 in 146ms (next.js: 71ms, application-code: 74ms)
 ✓ Compiled in 167ms
  GET / 200 in 317ms (next.js: 220ms, application-code: 97ms)
+✓ Compiled in 245ms
+ GET / 200 in 359ms (next.js: 272ms, application-code: 87ms)
+✓ Compiled in 269ms
+⨯ ./components/sections/WorkIndustries.tsx:84:15
+Expected '</', got 'jsx text'
+  [90m82 |[0m             {[33mString[0m(index + [35m1[0m).padStart([35m2[0m, [32m"0"[0m)}
+  [90m83 |[0m           </span>
+[31m[1m>[0m [90m84 |[0m         </div>
+  [90m   |[0m               [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m85 |[0m         <p style={{ fontFamily: [32m"var(--font-body)"[0m, fontSize: [32m"0.66rem"[0m, letterSpacing: [32m"0...[0m
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+  [90m86 |[0m           {shortLabel[p.sector] ?? p.sector} · {p.years}
+  [90m87 |[0m         </p>
+  [90m88 |[0m         <h3 className=[32m"work-card-title"[0m style={{ fontFamily: [32m"var(--font-heading,'Oswald').[0m..
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/sections/WorkIndustries.tsx
+    ./app/page.tsx
+
+
+ GET / 500 in 218ms (next.js: 166ms, application-code: 52ms)
+⨯ ./components/sections/WorkIndustries.tsx:84:15
+Expected '</', got 'jsx text'
+  [90m82 |[0m             {[33mString[0m(index + [35m1[0m).padStart([35m2[0m, [32m"0"[0m)}
+  [90m83 |[0m           </span>
+[31m[1m>[0m [90m84 |[0m         </div>
+  [90m   |[0m               [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m85 |[0m         <p style={{ fontFamily: [32m"var(--font-body)"[0m, fontSize: [32m"0.66rem"[0m, letterSpacing: [32m"0...[0m
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+  [90m86 |[0m           {shortLabel[p.sector] ?? p.sector} · {p.years}
+  [90m87 |[0m         </p>
+  [90m88 |[0m         <h3 className=[32m"work-card-title"[0m style={{ fontFamily: [32m"var(--font-heading,'Oswald').[0m..
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/sections/WorkIndustries.tsx
+    ./app/page.tsx
+
+
+ GET / 500 in 48ms (next.js: 21ms, application-code: 27ms)
+⨯ ./components/sections/WorkIndustries.tsx:84:15
+Expected '</', got 'jsx text'
+  [90m82 |[0m             {[33mString[0m(index + [35m1[0m).padStart([35m2[0m, [32m"0"[0m)}
+  [90m83 |[0m           </span>
+[31m[1m>[0m [90m84 |[0m         </div>
+  [90m   |[0m               [31m[1m^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^[0m
+[31m[1m>[0m [90m85 |[0m         <p style={{ fontFamily: [32m"var(--font-body)"[0m, fontSize: [32m"0.66rem"[0m, letterSpacing: [32m"0...[0m
+  [90m   |[0m [31m[1m^^^^^^^^[0m
+  [90m86 |[0m           {shortLabel[p.sector] ?? p.sector} · {p.years}
+  [90m87 |[0m         </p>
+  [90m88 |[0m         <h3 className=[32m"work-card-title"[0m style={{ fontFamily: [32m"var(--font-heading,'Oswald').[0m..
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/sections/WorkIndustries.tsx
+    ./app/page.tsx
+
+
+ GET / 500 in 36ms (next.js: 14ms, application-code: 22ms)
+[browser] Uncaught Error: ./components/sections/WorkIndustries.tsx:84:15
+Expected '</', got 'jsx text'
+  82 |             {String(index + 1).padStart(2, "0")}
+  83 |           </span>
+> 84 |         </div>
+     |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 85 |         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0...
+     | ^^^^^^^^
+  86 |           {shortLabel[p.sector] ?? p.sector} · {p.years}
+  87 |         </p>
+  88 |         <h3 className="work-card-title" style={{ fontFamily: "var(--font-heading,'Oswald')...
+
+Parsing ecmascript source code failed
+
+Import trace:
+  Server Component:
+    ./components/sections/WorkIndustries.tsx
+    ./app/page.tsx
+
+
+    at <unknown> (Error: ./components/sections/WorkIndustries.tsx:84:15)
+    at <unknown> (Error: (./components/sections/WorkIndustries.tsx:84:15)
+✓ Compiled in 459ms
+ GET / 200 in 1079ms (next.js: 262ms, application-code: 818ms)
+ GET /photos/founder.jpg 404 in 189ms (next.js: 45ms, application-code: 143ms)
+ GET /photos/founder.jpg 404 in 186ms (next.js: 18ms, application-code: 168ms)
