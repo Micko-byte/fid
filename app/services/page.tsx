@@ -3,99 +3,16 @@
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Plus, Minus } from "@phosphor-icons/react";
+import { Plus, Minus, Megaphone, Television, UsersThree, DeviceMobileCamera, Confetti, type Icon } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
+import { services } from "@/lib/services";
 
 const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
-const services = [
-  {
-    num: "01",
-    title: "Strategic Communications & PR",
-    summary: "We shape how organisations are understood — by media, stakeholders, and the public.",
-    body: "Strategic communications is the foundation of everything we do. We work with clients to develop narratives that are honest, compelling and built to last — then we execute them across every channel that matters. From media relations to crisis management to corporate storytelling, we ensure your organisation is positioned, protected and heard.",
-    capabilities: [
-      "Media relations and earned coverage",
-      "Crisis communications and reputation management",
-      "Stakeholder and public affairs",
-      "Corporate communications and internal alignment",
-      "Brand positioning and narrative development",
-      "Spokesperson training and media coaching",
-      "Issues management and monitoring",
-    ],
-  },
-  {
-    num: "02",
-    title: "Media Management & Buying",
-    summary: "The right message, in the right place, at the right moment.",
-    body: "Media without strategy is just noise. We plan, negotiate and place across every channel — TV, radio, print, digital and out-of-home — with a focus on reach efficiency and audience precision. We manage the full cycle from strategy to booking to post-campaign analysis, so every shilling is accountable.",
-    capabilities: [
-      "Integrated media planning and strategy",
-      "TV, radio, print and digital media placement",
-      "Out-of-home (OOH) and billboard advertising",
-      "Sponsored content and editorial partnerships",
-      "Media negotiation and rate management",
-      "Campaign performance monitoring and reporting",
-    ],
-  },
-  {
-    num: "03",
-    title: "Influencer, Creator & Talent Engagement",
-    summary: "We connect brands with the voices their audiences already trust.",
-    body: "Influence is not about reach — it is about resonance. We identify, brief and manage creators and talent who genuinely align with your brand, your values and your audience. From one-off activations to long-term ambassador partnerships, we handle the full relationship so every collaboration is authentic, measurable and on-brief.",
-    capabilities: [
-      "Influencer identification, vetting and matching",
-      "Campaign briefing and creative direction",
-      "Contract negotiation and relationship management",
-      "Content review and brand alignment oversight",
-      "Performance tracking, analytics and reporting",
-      "Long-term ambassador and partnership programmes",
-      "AI-integrated content production and virtual campaigns",
-    ],
-  },
-  {
-    num: "04",
-    title: "Digital Strategy, Content & Social Media",
-    summary: "Consistent, strategic presence across the platforms that matter to your audience.",
-    body: "Social media is not a broadcast tool — it is a conversation. We manage that conversation with editorial discipline, creative rigour and platform-specific intelligence. From strategy to content production to community management, we build and sustain digital presences that grow audiences, drive engagement and support business objectives.",
-    capabilities: [
-      "Social media strategy and platform planning",
-      "Content creation: copywriting, photography direction, video",
-      "Community management and audience engagement",
-      "Paid social advertising and campaign management",
-      "Editorial calendars and content workflows",
-      "Analytics, monthly insights and performance reporting",
-      "AI-integrated content production pipelines",
-    ],
-  },
-  {
-    num: "05",
-    title: "Experiential Marketing, Events & Brand Activations",
-    summary: "Experiences that put people inside the brand — not just in front of it.",
-    body: "The most powerful brand moments are the ones people experience directly. We design and produce events and activations that are thoughtful, logistically sound and narratively coherent — whether a government national observance for thousands, a VIP brand launch for fifty, or a roadshow across multiple cities. Every touchpoint is intentional.",
-    capabilities: [
-      "Event concept development and creative direction",
-      "Full-service event production and logistics",
-      "Brand launches, activations and product reveals",
-      "Government and high-profile event management",
-      "Roadshows and multi-city campaign execution",
-      "Live and hybrid event design",
-      "Post-event PR, coverage and amplification",
-    ],
-  },
-  {
-    num: "06",
-    title: "Owned Platform Partnerships",
-    summary: "Three platforms. One mission: creating culture, not just content.",
-    body: "FID & Co. operates three owned media platforms that give brand partners access to engaged, curated communities. These are not advertising channels — they are editorial environments built around genuine audience interest. Partnerships are selective, meaningful and built around fit.",
-    capabilities: [
-      "The Tribe Vibe — Lifestyle, Music & Culture: brand integration, event partnerships",
-      "Suhba Series — Curated Conversations, Identity & Wellbeing: dialogue series, co-production",
-      "The Capital Room — Leadership, Business & African Perspectives: executive positioning, thought leadership",
-    ],
-  },
-];
+const iconMap: Record<string, Icon> = {
+  Megaphone, Television, UsersThree, DeviceMobileCamera, Confetti,
+};
 
 const sectors = [
   { name: "Government & Public Institutions", icon: "○" },
@@ -129,10 +46,11 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
         className="w-full text-left py-8 group flex items-start justify-between gap-8"
       >
         <div className="flex-1">
-          <div className="flex items-baseline gap-6 mb-2">
+          <div className="flex items-center gap-5 mb-2">
             <span className="font-body text-xs flex-shrink-0" style={{ color: "rgba(38,0,0,0.25)" }}>
               {service.num}
             </span>
+            {(() => { const Ico = iconMap[service.iconName]; return Ico ? <Ico size={28} weight="light" color="#750006" style={{ flexShrink: 0 }} /> : null; })()}
             <h3
               className="font-heading leading-tight group-hover:text-[#750006] transition-colors duration-200"
               style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)", color: "#260000", letterSpacing: "-0.02em" }}
@@ -216,7 +134,7 @@ function PageHero() {
             maxWidth: "14ch",
           }}
         >
-          Six disciplines. One strategy.
+Five disciplines. One strategy.
         </motion.h1>
       </div>
     </section>
@@ -247,7 +165,7 @@ function ServicesSection() {
           className="font-body text-base mb-20 max-w-2xl"
           style={{ color: "rgba(28,28,28,0.6)" }}
         >
-          Each discipline is distinct. All six are designed to work together — giving clients one connected partner across every dimension of their communications.
+          Each discipline is distinct. All five are designed to work together — giving clients one connected partner across every dimension of their communications.
         </motion.p>
 
         <div>
