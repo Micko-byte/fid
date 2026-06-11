@@ -119,9 +119,9 @@ export default function Founder() {
             </motion.div>
 
             <motion.blockquote
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.32 }}
+              initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
+              animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
+              transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: "var(--font-body)", fontWeight: 400,
                 fontStyle: "italic", color: "#F5F2EC",

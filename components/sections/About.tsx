@@ -58,9 +58,9 @@ export default function About() {
 
         {/* Statement */}
         <motion.h2
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.85, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
+          animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
+          transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           style={{
             fontFamily: "var(--font-heading, 'Oswald')",
             fontWeight: 500,
@@ -77,12 +77,20 @@ export default function About() {
           <em style={{ fontStyle: "normal", color: "#D98038" }}>scale</em>.
         </motion.h2>
 
+        {/* Animated hairline */}
+        <motion.div
+          initial={{ scaleX: 0, opacity: 0 }}
+          animate={inView ? { scaleX: 1, opacity: 1 } : {}}
+          transition={{ duration: 1.2, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          style={{ transformOrigin: "left", height: "1px", background: "rgba(217,171,136,0.18)", marginTop: "2.5rem" }}
+        />
+
         {/* Stats — glass cards */}
         <div
           style={{
             display: "grid",
             gridTemplateColumns: "repeat(4, 1fr)",
-            marginTop: "clamp(3rem, 6vw, 5rem)",
+            marginTop: "0",
           }}
           className="about-stats"
         >

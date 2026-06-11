@@ -62,9 +62,9 @@ export default function Services() {
             </motion.span>
 
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.08 }}
+              initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
+              animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
+              transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600,
                 fontSize: "clamp(2.2rem, 5vw, 4rem)", color: "#260000",
@@ -96,9 +96,9 @@ export default function Services() {
           {services.map((svc, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.65, delay: 0.1 + i * 0.07 }}
+              initial={{ opacity: 0, x: -22 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.75, delay: 0.1 + i * 0.09, ease: [0.16, 1, 0.3, 1] }}
               className="expertise-item"
               style={{
                 display: "flex", alignItems: "center", justifyContent: "space-between",

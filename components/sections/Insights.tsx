@@ -22,6 +22,7 @@ export default function Insights() {
     <section id="insights" className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div className="flex items-end justify-between mb-20">
+          <div>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -31,6 +32,15 @@ export default function Insights() {
           >
             Our thinking
           </motion.p>
+          <motion.h2
+            initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
+            animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
+            transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2rem,4vw,3rem)", color: "#260000", marginTop: "0.8rem", letterSpacing: "-0.01em" }}
+          >
+            Perspectives &amp; Intelligence
+          </motion.h2>
+          </div>
           <Link
             href="/insights"
             className="font-body text-xs tracking-[0.15em] uppercase transition-colors duration-200 hidden md:block"
