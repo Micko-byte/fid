@@ -3162,3 +3162,10 @@ https://react.dev/link/hydration-mismatch
  GET / 200 in 804ms (next.js: 9ms, application-code: 795ms)
  GET /photos/founder.jpg 404 in 699ms (next.js: 247ms, application-code: 452ms)
  GET /photos/founder.jpg 404 in 103ms (next.js: 13ms, application-code: 89ms)
+✓ Compiled in 1373ms
+ GET / 200 in 567ms (next.js: 240ms, application-code: 327ms)
+ GET / 200 in 224ms (next.js: 8ms, application-code: 215ms)
+ GET / 200 in 145ms (next.js: 10ms, application-code: 135ms)
+ GET / 200 in 146ms (next.js: 71ms, application-code: 74ms)
+✓ Compiled in 167ms
+ GET / 200 in 317ms (next.js: 220ms, application-code: 97ms)

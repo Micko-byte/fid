@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ElementType, type CSSProperties, type ReactNode } from "react";
+import { createElement, useRef, type ElementType, type CSSProperties } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 
 interface SplitRevealProps {
@@ -34,16 +34,12 @@ export default function SplitReveal({
   const inView = useInView(ref, { once, margin: "-12% 0px" });
   const reduce = useReducedMotion();
 
-  const MotionTag = motion[as as keyof typeof motion] as ElementType;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const MotionTag = motion[as as keyof typeof motion] as any;
   const tokens = by === "char" ? Array.from(children) : children.split(" ");
 
   if (reduce) {
-    const Tag = as as ElementType;
-    return (
-      <Tag ref={ref} style={style} className={className}>
-        {children}
-      </Tag>
-    );
+    return createElement(as, { ref, style, className }, children);
   }
 
   return (
