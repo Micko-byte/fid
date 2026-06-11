@@ -3449,3 +3449,7 @@ https://react.dev/link/hydration-mismatch
  GET /logos/kansai-plascon.png 404 in 312ms (next.js: 34ms, application-code: 278ms)
 ✓ Compiled in 183ms
  GET / 200 in 442ms (next.js: 318ms, application-code: 124ms)
+✓ Compiled in 225ms
+ GET / 200 in 484ms (next.js: 271ms, application-code: 213ms)
+✓ Compiled in 287ms
+ GET / 200 in 418ms (next.js: 240ms, application-code: 178ms)

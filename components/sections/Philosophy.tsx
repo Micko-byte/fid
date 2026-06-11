@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import { Lightbulb, Target, ChartLineUp } from "@phosphor-icons/react";
 
 const PILLAR_ICONS = [Lightbulb, Target, ChartLineUp];
@@ -232,7 +233,13 @@ export default function Philosophy() {
                     <div>
                       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginBottom: "0.4rem" }}>
                         {(() => { const Icon = PILLAR_ICONS[i]; return (
-                          <Icon size={26} weight={isActive ? "fill" : "light"} color={isActive ? "#750006" : "rgba(38,0,0,0.18)"} style={{ transition: "color 0.55s", flexShrink: 0 }} />
+                          <motion.span
+                            animate={{ scale: isActive ? 1.18 : 1, rotate: isActive ? 0 : -6 }}
+                            transition={{ type: "spring", stiffness: 300, damping: 16 }}
+                            style={{ display: "inline-flex", flexShrink: 0, transformOrigin: "center" }}
+                          >
+                            <Icon size={26} weight={isActive ? "fill" : "light"} color={isActive ? "#750006" : "rgba(38,0,0,0.18)"} style={{ transition: "color 0.55s" }} />
+                          </motion.span>
                         ); })()}
                         <h2 className="phil-word" style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: isActive ? 600 : 300, fontSize: "clamp(1.5rem,2.6vw,2.6rem)", color: isActive ? "#260000" : "rgba(38,0,0,0.13)", letterSpacing: "-0.02em", lineHeight: 0.95, transition: "color 0.55s, font-weight 0.3s", textTransform: "uppercase" }}>
                           {p.word}
