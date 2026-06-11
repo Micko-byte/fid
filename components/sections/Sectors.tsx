@@ -217,12 +217,43 @@ export default function Sectors() {
             <span style={{ width: "26px", height: "1px", background: "#D98038", opacity: 0.7 }} />
             African footprint
           </span>
-          <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, color: "#F5F2EC", fontSize: "clamp(1.5rem,3vw,2.3rem)", lineHeight: 1.12, letterSpacing: "-0.015em", maxWidth: "24ch", margin: "1rem 0 1.2rem" }}>
-            Operating across Kenya, Uganda, Tanzania, Ghana, South Sudan and beyond.
+          <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, color: "#F5F2EC", fontSize: "clamp(1.5rem,3vw,2.3rem)", lineHeight: 1.12, letterSpacing: "-0.015em", maxWidth: "24ch", margin: "1rem 0 1.6rem" }}>
+            8+ markets across East &amp; Southern Africa — and beyond.
           </h3>
-          <p style={{ color: "rgba(217,171,136,0.7)", fontSize: "0.88rem", letterSpacing: "0.02em", fontFamily: "var(--font-body)" }}>
-            Kenya · Uganda · Rwanda · Ethiopia · South Sudan · Zambia · Ghana · Tanzania
-          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.7rem" }}>
+            {[
+              { name: "Kenya", code: "ke" },
+              { name: "Uganda", code: "ug" },
+              { name: "Rwanda", code: "rw" },
+              { name: "Ethiopia", code: "et" },
+              { name: "South Sudan", code: "ss" },
+              { name: "Zambia", code: "zm" },
+              { name: "Ghana", code: "gh" },
+              { name: "Tanzania", code: "tz" },
+            ].map((c) => (
+              <span
+                key={c.code}
+                style={{
+                  display: "inline-flex", alignItems: "center", gap: "0.55rem",
+                  border: "1px solid rgba(217,171,136,0.22)",
+                  padding: "0.45rem 0.85rem", borderRadius: "999px",
+                  fontFamily: "var(--font-body)", fontSize: "0.78rem",
+                  color: "rgba(245,242,236,0.85)",
+                }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`https://flagcdn.com/w40/${c.code}.png`}
+                  alt={`${c.name} flag`}
+                  width={22}
+                  height={15}
+                  loading="lazy"
+                  style={{ width: "22px", height: "15px", objectFit: "cover", borderRadius: "1px", flexShrink: 0 }}
+                />
+                {c.name}
+              </span>
+            ))}
+          </div>
         </motion.div>
       </div>
 

@@ -10,6 +10,7 @@ import Sectors from "@/components/sections/Sectors";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
+import InstagramFeed from "@/components/sections/InstagramFeed";
 import Contact from "@/components/sections/Contact";
 import Footer from "@/components/Footer";
 
@@ -28,6 +29,7 @@ export default function HomePage() {
       <LogoMarquee />
       <Founder />
       <Insights />
+      <InstagramFeed />
       <Contact />
       <Footer />
     </>
