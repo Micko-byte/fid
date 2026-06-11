@@ -1,4 +1,4 @@
-import Hero from "@/components/sections/Hero";
+import HeroLogo from "@/components/sections/HeroLogo";
 import Marquee from "@/components/sections/Marquee";
 import FeatureBand from "@/components/sections/FeatureBand";
 import Services from "@/components/sections/Services";
@@ -16,7 +16,7 @@ import Footer from "@/components/Footer";
 export default function HomePage() {
   return (
     <>
-      <Hero />
+      <HeroLogo />
       <Marquee />
       <FeatureBand />
       <Services />
