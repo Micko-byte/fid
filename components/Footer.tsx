@@ -1,14 +1,27 @@
 "use client";
 
+import { useRef } from "react";
 import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
 import BrandMark from "@/components/graphics/BrandMark";
 
 export default function Footer() {
   const year = new Date().getFullYear();
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
+  const wordX = useTransform(scrollYProgress, [0, 1], ["-6%", "2%"]);
+  const wordOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 0.05]);
 
   return (
-    <footer style={{ backgroundColor: "#161616", padding: "clamp(3.5rem, 7vw, 5.5rem) 0 2.5rem" }}>
-      <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem, 5vw, 6rem)", paddingRight: "clamp(1.5rem, 5vw, 6rem)" }}>
+    <footer ref={ref} style={{ backgroundColor: "#161616", padding: "clamp(3.5rem, 7vw, 5.5rem) 0 2.5rem", position: "relative", overflow: "hidden" }}>
+      {/* Kinetic background wordmark */}
+      <motion.div
+        aria-hidden
+        style={{ x: wordX, opacity: wordOpacity, position: "absolute", bottom: "-0.15em", left: 0, right: 0, textAlign: "center", fontFamily: "var(--font-heading,'Oswald')", fontWeight: 700, fontSize: "clamp(5rem,22vw,20rem)", lineHeight: 0.8, letterSpacing: "-0.04em", color: "#F5F2EC", pointerEvents: "none", whiteSpace: "nowrap" }}
+      >
+        FID &amp; CO.
+      </motion.div>
+      <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem, 5vw, 6rem)", paddingRight: "clamp(1.5rem, 5vw, 6rem)", position: "relative", zIndex: 1 }}>
 
         {/* Grid */}
         <div className="footer-grid" style={{ marginBottom: "clamp(3rem, 6vw, 4.5rem)" }}>

@@ -58,13 +58,13 @@ function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#260000" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 80%, rgba(117,0,6,0.18) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 80%, rgba(217,128,56,0.07) 0%, transparent 70%)" }}
       />
-      <ParticleField color="#D9AB88" count={80} opacity={0.3} className="absolute inset-0 w-full h-full" />
+      <ParticleField color="#1C1C1C" count={80} opacity={0.12} className="absolute inset-0 w-full h-full" />
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
@@ -82,7 +82,7 @@ function PageHero() {
           className="font-heading leading-none"
           style={{
             fontSize: "clamp(3rem, 8vw, 7rem)",
-            color: "#F5F2EC",
+            color: "#1a1a1a",
             letterSpacing: "-0.03em",
             maxWidth: "16ch",
           }}
