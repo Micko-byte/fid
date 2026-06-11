@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import SiteChrome from "@/components/SiteChrome";
+import WhatsAppButton from "@/components/ui/WhatsAppButton";
 
 export const metadata: Metadata = {
   title: "FID & Co. | Strategic Communications & Brand Experience Agency | Nairobi, Kenya",
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <LenisProvider>
           <SiteChrome>{children}</SiteChrome>
+          <WhatsAppButton />
         </LenisProvider>
       </body>
     </html>

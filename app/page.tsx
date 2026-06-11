@@ -7,6 +7,7 @@ import Philosophy from "@/components/sections/Philosophy";
 import About from "@/components/sections/About";
 import Platforms from "@/components/sections/Platforms";
 import Sectors from "@/components/sections/Sectors";
+import LogoMarquee from "@/components/sections/LogoMarquee";
 import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
 import Contact from "@/components/sections/Contact";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <About />
       <Platforms />
       <Sectors />
+      <LogoMarquee />
       <Founder />
       <Insights />
       <Contact />
