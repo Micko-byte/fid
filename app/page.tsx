@@ -5,7 +5,7 @@ import Services from "@/components/sections/Services";
 import WorkIndustries from "@/components/sections/WorkIndustries";
 import About from "@/components/sections/About";
 import Platforms from "@/components/sections/Platforms";
-import LogoMarquee from "@/components/sections/LogoMarquee";
+import BrandFlow from "@/components/sections/BrandFlow";
 import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
 import InstagramFeed from "@/components/sections/InstagramFeed";
@@ -25,7 +25,7 @@ export default function HomePage() {
       <WorkIndustries />
       <About />
       <Platforms />
-      <LogoMarquee />
+      <BrandFlow />
       <Founder />
       <Insights />
       <InstagramFeed />

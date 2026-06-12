@@ -38,16 +38,21 @@ export default function HeroApproach() {
   });
 
   return (
-    <section ref={sectionRef} id="hero" style={{ position: "relative", height: "360vh", backgroundColor: "#FFFFFF" }}>
+    <section ref={sectionRef} id="hero" style={{ position: "relative", height: "360vh", backgroundColor: "#F1E194" }}>
       {/* Pinned stage */}
-      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", backgroundColor: "#FFFFFF", color: "#1a1a1a" }}>
-        {/* warm ambient wash */}
-        <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(120% 80% at 60% 25%, rgba(217,128,56,0.06) 0%, transparent 55%)" }} />
+      <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", color: "#1a1a1a", background: "linear-gradient(135deg, #F1E194 0%, #f7ecc4 55%, #efd98a 100%)" }}>
+        {/* animated wine glow wash */}
+        <motion.div
+          aria-hidden
+          animate={{ opacity: [0.45, 0.7, 0.45], scale: [1, 1.08, 1] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+          style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(80% 70% at 25% 15%, rgba(91,14,20,0.30) 0%, transparent 55%), radial-gradient(70% 60% at 85% 90%, rgba(91,14,20,0.22) 0%, transparent 50%)" }}
+        />
 
         {/* ── Top kicker (hero phase) ── */}
         <motion.div style={{ opacity: heroFade, position: "absolute", top: 0, left: 0, right: 0, zIndex: 5, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(6.5rem,13vh,8rem)", display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "1rem" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.26em", textTransform: "uppercase", color: "#D98038" }}>
-            <span style={{ width: "22px", height: "1px", background: "#D98038", opacity: 0.7 }} /> Strategic Communications
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.26em", textTransform: "uppercase", color: "#5B0E14" }}>
+            <span style={{ width: "22px", height: "1px", background: "#5B0E14", opacity: 0.7 }} /> Strategic Communications
           </span>
           <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(26,26,26,0.4)" }}>Nairobi · Africa</span>
         </motion.div>
@@ -57,7 +62,7 @@ export default function HeroApproach() {
           className="ha-pillars"
           style={{ opacity: approachFade, position: "absolute", top: 0, bottom: 0, left: 0, width: "52%", zIndex: 4, display: "flex", flexDirection: "column", justifyContent: "center", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "2rem" }}
         >
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#D98038", marginBottom: "clamp(1.5rem,3vw,2.5rem)" }}>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "clamp(1.5rem,3vw,2.5rem)" }}>
             Our Approach
           </span>
           {PILLARS.map((p, i) => {
@@ -66,7 +71,7 @@ export default function HeroApproach() {
             return (
               <div key={i} style={{ borderTop: "1px solid rgba(26,26,26,0.1)", paddingTop: "clamp(0.8rem,1.6vw,1.4rem)", paddingBottom: "clamp(0.8rem,1.6vw,1.4rem)" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.7rem" }}>
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.56rem", letterSpacing: "0.22em", color: active ? "#D98038" : "rgba(26,26,26,0.25)" }}>{p.num}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.56rem", letterSpacing: "0.22em", color: active ? "#5B0E14" : "rgba(26,26,26,0.25)" }}>{p.num}</span>
                   <motion.span animate={{ scale: active ? 1.15 : 1 }} transition={{ type: "spring", stiffness: 300, damping: 16 }} style={{ display: "inline-flex" }}>
                     <Icon size={24} weight={active ? "fill" : "light"} color={active ? "#1a1a1a" : "rgba(26,26,26,0.2)"} />
                   </motion.span>
@@ -90,10 +95,11 @@ export default function HeroApproach() {
 
         {/* ── Logo stage (persists across both phases) ── */}
         <div style={{ position: "absolute", inset: 0, zIndex: 3, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
-          <motion.div style={{ x: logoX, y: logoY, scale: logoScale, width: "min(86vw, 980px)", aspectRatio: "16/9", transformOrigin: "center" }}>
-            <LogoReveal loop onComplete={() => setRevealed(true)} style={{ width: "100%", height: "100%" }} />
+          <motion.div style={{ x: logoX, y: logoY, scale: logoScale, width: "min(58vw, 640px)", aspectRatio: "16/9", transformOrigin: "center" }}>
+            {/* multiply blend drops the white frame background onto the gold field */}
+            <LogoReveal onComplete={() => setRevealed(true)} style={{ width: "100%", height: "100%", mixBlendMode: "multiply" }} />
             {/* Tagline lockup under the logo (hero phase) */}
-            <motion.p style={{ opacity: heroFade, textAlign: "center", marginTop: "-1.5rem", fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1rem,2.2vw,1.9rem)", letterSpacing: "0.02em", color: "#1a1a1a", textTransform: "none" }}>
+            <motion.p style={{ opacity: heroFade, textAlign: "center", marginTop: "-1rem", fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1rem,2.2vw,1.8rem)", letterSpacing: "0.04em", color: "#5B0E14", textTransform: "none" }}>
               Insight. Strategy. Impact.
             </motion.p>
           </motion.div>

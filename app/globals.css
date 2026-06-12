@@ -16,6 +16,10 @@
   --anchor:        #1C1C1C;
   --signal:        #D98038;
   --earthline:     #D9AB88;
+  /* Luxury wine + gold direction */
+  --wine:          #5B0E14;
+  --gold-soft:     #F1E194;
+  --gold-field:    #f7ecc4;
 }
 
 @theme inline {
