@@ -16,7 +16,7 @@ export default function Founder() {
       ref={sectionRef}
       id="founder"
       style={{
-        backgroundColor: "#FAF8F3",
+        backgroundColor: "#f7ecc4",
         color: "#1a1a1a",
         paddingTop: "clamp(5.5rem, 12vw, 11rem)",
         paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
@@ -56,10 +56,10 @@ export default function Founder() {
           style={{
             display: "inline-flex", alignItems: "center", gap: "0.7rem",
             fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
-            letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006",
+            letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14",
           }}
         >
-          <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6, flexShrink: 0 }} />
+          <span style={{ width: "26px", height: "1px", background: "#5B0E14", opacity: 0.6, flexShrink: 0 }} />
           Founder
         </motion.span>
 
@@ -114,7 +114,7 @@ export default function Founder() {
               transition={{ duration: 0.65, delay: 0.22 }}
               style={{
                 fontSize: "0.74rem", letterSpacing: "0.2em",
-                textTransform: "uppercase", color: "#750006", marginTop: "1rem",
+                textTransform: "uppercase", color: "#5B0E14", marginTop: "1rem",
                 fontFamily: "var(--font-body)", fontWeight: 500,
               }}
             >
@@ -133,9 +133,9 @@ export default function Founder() {
                 marginTop: "2.4rem", maxWidth: "34ch",
               }}
             >
-              <span style={{ color: "#750006", fontStyle: "normal" }}>&ldquo;</span>
+              <span style={{ color: "#5B0E14", fontStyle: "normal" }}>&ldquo;</span>
               Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people and communities they serve.
-              <span style={{ color: "#750006", fontStyle: "normal" }}>&rdquo;</span>
+              <span style={{ color: "#5B0E14", fontStyle: "normal" }}>&rdquo;</span>
             </motion.blockquote>
 
             <motion.p

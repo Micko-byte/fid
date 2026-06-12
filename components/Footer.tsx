@@ -13,7 +13,7 @@ export default function Footer() {
   const wordOpacity = useTransform(scrollYProgress, [0, 0.6], [0, 0.05]);
 
   return (
-    <footer ref={ref} style={{ backgroundColor: "#161616", padding: "clamp(3.5rem, 7vw, 5.5rem) 0 2.5rem", position: "relative", overflow: "hidden" }}>
+    <footer ref={ref} style={{ backgroundColor: "#1a0306", padding: "clamp(3.5rem, 7vw, 5.5rem) 0 2.5rem", position: "relative", overflow: "hidden" }}>
       {/* Kinetic background wordmark */}
       <motion.div
         aria-hidden
@@ -43,7 +43,7 @@ export default function Footer() {
 
           {/* Nav */}
           <div className="footer-col">
-            <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#D98038", marginBottom: "1.5rem", fontWeight: 500, fontFamily: "var(--font-body)" }}>
+            <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#F1E194", marginBottom: "1.5rem", fontWeight: 500, fontFamily: "var(--font-body)" }}>
               Navigation
             </h5>
             {[
@@ -64,7 +64,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="footer-col">
-            <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#D98038", marginBottom: "1.5rem", fontWeight: 500, fontFamily: "var(--font-body)" }}>
+            <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#F1E194", marginBottom: "1.5rem", fontWeight: 500, fontFamily: "var(--font-body)" }}>
               Contact
             </h5>
             <a href="mailto:info@fidco.africa" style={{ display: "block", color: "#D9AB88", fontSize: "0.9rem", marginBottom: "0.85rem", textDecoration: "none", transition: "color 0.3s" }}
@@ -85,7 +85,7 @@ export default function Footer() {
 
         {/* Animated brand mark */}
         <div style={{ display: "flex", justifyContent: "center", padding: "clamp(1.5rem,4vw,3rem) 0 clamp(2rem,4vw,3rem)" }}>
-          <BrandMark size={96} color="rgba(245,242,236,0.55)" accent="#D98038" />
+          <BrandMark size={96} color="rgba(245,242,236,0.55)" accent="#F1E194" />
         </div>
 
         {/* Bottom bar */}

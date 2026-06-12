@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import Parallax from "@/components/motion/Parallax";
 
 export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
@@ -12,7 +13,7 @@ export default function FeatureBand() {
     <section
       id="feature"
       style={{
-        backgroundColor: "#FAF8F3",
+        backgroundColor: "#f7ecc4",
         color: "#1a1a1a",
         position: "relative",
         overflow: "hidden",
@@ -32,7 +33,7 @@ export default function FeatureBand() {
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006", marginBottom: "clamp(1.5rem,3vw,2.5rem)", fontWeight: 500 }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "clamp(1.5rem,3vw,2.5rem)", fontWeight: 500 }}
             >
               The FID approach
             </motion.p>
@@ -44,9 +45,9 @@ export default function FeatureBand() {
               style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 400, textTransform: "uppercase", color: "#1a1a1a", fontSize: "clamp(2.4rem,5.5vw,5.5rem)", lineHeight: 0.96, letterSpacing: "-0.03em", maxWidth: "14ch", textWrap: "balance" } as React.CSSProperties}
             >
               We treat communication as{" "}
-              <em style={{ fontStyle: "normal", fontWeight: 600, color: "#750006" }}>influence</em>
+              <em style={{ fontStyle: "normal", fontWeight: 600, color: "#5B0E14" }}>influence</em>
               {" "}— not a{" "}
-              <strong style={{ fontWeight: 600, color: "#D98038" }}>function.</strong>
+              <strong style={{ fontWeight: 600, color: "#5B0E14" }}>function.</strong>
             </motion.h2>
 
             <motion.div
@@ -78,9 +79,9 @@ export default function FeatureBand() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", fontFamily: "var(--font-body)", fontSize: "0.76rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap", transition: "color 0.3s, gap 0.3s" }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", fontFamily: "var(--font-body)", fontSize: "0.76rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#5B0E14", textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap", transition: "color 0.3s, gap 0.3s" }}
                   onMouseEnter={(e) => { e.currentTarget.style.color = "#1a1a1a"; e.currentTarget.style.gap = "0.9rem"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "#750006"; e.currentTarget.style.gap = "0.55rem"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#5B0E14"; e.currentTarget.style.gap = "0.55rem"; }}
                 >
                   {link.label}
                   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
@@ -97,11 +98,13 @@ export default function FeatureBand() {
             style={{ position: "relative" }}
           >
             <div style={{ width: "100%", aspectRatio: "3/4", overflow: "hidden", backgroundColor: "#ece7df" }}>
+              <Parallax speed={0.14} style={{ width: "100%", height: "112%", marginTop: "-6%" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/photos/editorial/crowd-audience.jpg" alt="Audience engagement" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+              </Parallax>
             </div>
             {/* Offset accent square */}
-            <div style={{ position: "absolute", bottom: "-1.5rem", right: "-1.5rem", width: "42%", aspectRatio: "1/1", backgroundColor: "#750006", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ position: "absolute", bottom: "-1.5rem", right: "-1.5rem", width: "42%", aspectRatio: "1/1", backgroundColor: "#5B0E14", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, fontSize: "clamp(0.7rem,1.5vw,1rem)", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245,242,236,0.85)", textAlign: "center", padding: "0.5rem" }}>Nairobi<br />· Africa</span>
             </div>
           </motion.div>

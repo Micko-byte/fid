@@ -20,7 +20,7 @@ export default function About() {
     <section
       id="about"
       style={{
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#f7ecc4",
         color: "#1a1a1a",
         paddingTop: "clamp(5.5rem, 12vw, 11rem)",
         paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
@@ -45,10 +45,10 @@ export default function About() {
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.7rem",
                 fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
-                letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006",
+                letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14",
               }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6, flexShrink: 0 }} />
+              <span style={{ width: "26px", height: "1px", background: "#5B0E14", opacity: 0.6, flexShrink: 0 }} />
               Who we are
             </motion.span>
 
@@ -63,7 +63,7 @@ export default function About() {
               } as React.CSSProperties}
             >
               A communications partner built for influence at{" "}
-              <em style={{ fontStyle: "normal", color: "#750006" }}>scale</em>.
+              <em style={{ fontStyle: "normal", color: "#5B0E14" }}>scale</em>.
             </motion.h2>
 
             {/* Exact copy from company profile */}
@@ -108,7 +108,7 @@ export default function About() {
               transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 position: "absolute", bottom: "-1.2rem", left: "-1rem", zIndex: 10,
-                backgroundColor: "#750006", color: "#fff",
+                backgroundColor: "#5B0E14", color: "#fff",
                 padding: "1rem 1.4rem",
                 fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600,
                 fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase",
@@ -134,7 +134,7 @@ export default function About() {
                   borderLeft: i === 0 ? "none" : "1px solid rgba(26,26,26,0.08)",
                 }}
               >
-                <Icon size={26} weight="light" color="#750006" />
+                <Icon size={26} weight="light" color="#5B0E14" />
                 <div style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600, color: "#1a1a1a", fontSize: "clamp(2.4rem, 5vw, 3.8rem)", lineHeight: 0.9, letterSpacing: "-0.03em", marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>

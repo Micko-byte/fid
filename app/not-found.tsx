@@ -4,14 +4,14 @@ export default function NotFound() {
   return (
     <div
       className="min-h-[100dvh] flex flex-col items-center justify-center px-6 text-center"
-      style={{ backgroundColor: "#260000" }}
+      style={{ backgroundColor: "#2a0508" }}
     >
-      <p className="font-body text-xs tracking-[0.25em] uppercase mb-6" style={{ color: "#D98038" }}>
+      <p className="font-body text-xs tracking-[0.25em] uppercase mb-6" style={{ color: "#5B0E14" }}>
         404
       </p>
       <h1
         className="font-heading leading-none mb-6"
-        style={{ fontSize: "clamp(4rem, 12vw, 9rem)", color: "#750006", letterSpacing: "-0.03em" }}
+        style={{ fontSize: "clamp(4rem, 12vw, 9rem)", color: "#5B0E14", letterSpacing: "-0.03em" }}
       >
         Lost.
       </h1>
@@ -21,7 +21,7 @@ export default function NotFound() {
       <Link
         href="/"
         className="font-body text-sm px-8 py-4 transition-colors duration-200"
-        style={{ backgroundColor: "#750006", color: "#F5F2EC", letterSpacing: "0.05em" }}
+        style={{ backgroundColor: "#5B0E14", color: "#F5F2EC", letterSpacing: "0.05em" }}
       >
         Back to home
       </Link>

@@ -70,7 +70,7 @@ export default function Marquee() {
                 fontSize: "0.6rem",
                 fontWeight: 600,
                 letterSpacing: "0.14em",
-                color: "#D98038",
+                color: "#F1E194",
                 fontVariantNumeric: "tabular-nums",
                 opacity: 0.85,
               }}
@@ -110,7 +110,7 @@ export default function Marquee() {
 
       <style>{`
         .marquee-strip:hover .marquee-track { animation-play-state: paused; }
-        .marquee-item:hover .mq-txt { color: #D98038 !important; }
+        .marquee-item:hover .mq-txt { color: #F1E194 !important; }
         @keyframes fid-marquee { to { transform: translateX(-50%); } }
       `}</style>
     </div>

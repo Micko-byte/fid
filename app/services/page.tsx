@@ -50,10 +50,10 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
             <span className="font-body text-xs flex-shrink-0" style={{ color: "rgba(38,0,0,0.25)" }}>
               {service.num}
             </span>
-            {(() => { const Ico = iconMap[service.iconName]; return Ico ? <Ico size={28} weight="light" color="#750006" style={{ flexShrink: 0 }} /> : null; })()}
+            {(() => { const Ico = iconMap[service.iconName]; return Ico ? <Ico size={28} weight="light" color="#5B0E14" style={{ flexShrink: 0 }} /> : null; })()}
             <h3
-              className="font-heading leading-tight group-hover:text-[#750006] transition-colors duration-200"
-              style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)", color: "#260000", letterSpacing: "-0.02em" }}
+              className="font-heading leading-tight group-hover:text-[#5B0E14] transition-colors duration-200"
+              style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)", color: "#2a0508", letterSpacing: "-0.02em" }}
             >
               {service.title}
             </h3>
@@ -62,7 +62,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
             {service.summary}
           </p>
         </div>
-        <div className="flex-shrink-0 mt-2" style={{ color: open ? "#750006" : "rgba(38,0,0,0.3)" }}>
+        <div className="flex-shrink-0 mt-2" style={{ color: open ? "#5B0E14" : "rgba(38,0,0,0.3)" }}>
           {open ? <Minus size={18} /> : <Plus size={18} />}
         </div>
       </button>
@@ -81,13 +81,13 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
                 {service.body}
               </p>
               <div>
-                <p className="font-body text-xs tracking-[0.2em] uppercase mb-5" style={{ color: "#D98038" }}>
+                <p className="font-body text-xs tracking-[0.2em] uppercase mb-5" style={{ color: "#5B0E14" }}>
                   What&apos;s included
                 </p>
                 <ul className="space-y-2.5">
                   {service.capabilities.map((c, i) => (
                     <li key={i} className="font-body text-sm flex gap-3" style={{ color: "rgba(28,28,28,0.7)" }}>
-                      <span className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: "#750006" }} />
+                      <span className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: "#5B0E14" }} />
                       {c}
                     </li>
                   ))}
@@ -105,7 +105,7 @@ function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "#f7ecc4" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -118,7 +118,7 @@ function PageHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-8"
-          style={{ color: "#D98038" }}
+          style={{ color: "#5B0E14" }}
         >
           Our Expertise
         </motion.p>
@@ -146,7 +146,7 @@ function ServicesSection() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
       <div className="max-w-[1280px] mx-auto px-6 md:px-16">
         <motion.p
           ref={ref}
@@ -154,7 +154,7 @@ function ServicesSection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-4"
-          style={{ color: "#D98038" }}
+          style={{ color: "#5B0E14" }}
         >
           What we do
         </motion.p>
@@ -187,7 +187,7 @@ function SectorsSection() {
     <section className="py-24 md:py-40" style={{ backgroundColor: "#1C1C1C" }}>
       <div className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div ref={ref} className="mb-16">
-          <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: "#D98038" }}>
+          <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: "#5B0E14" }}>
             Industries we serve
           </p>
           <motion.h2
@@ -208,10 +208,10 @@ function SectorsSection() {
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.4, delay: i * 0.04 }}
-              className="group p-6 border-r border-b cursor-default transition-all duration-300 hover:bg-[#750006]"
+              className="group p-6 border-r border-b cursor-default transition-all duration-300 hover:bg-[#5B0E14]"
               style={{ borderColor: "rgba(245,242,236,0.08)" }}
             >
-              <div className="font-body text-xl mb-3 transition-colors duration-300 group-hover:text-[#F5F2EC]" style={{ color: "#D98038" }}>
+              <div className="font-body text-xl mb-3 transition-colors duration-300 group-hover:text-[#F5F2EC]" style={{ color: "#5B0E14" }}>
                 {s.icon}
               </div>
               <p className="font-body text-xs leading-snug transition-colors duration-300 group-hover:text-[#F5F2EC]" style={{ color: "rgba(245,242,236,0.7)" }}>
@@ -229,7 +229,7 @@ function CTA() {
   return (
     <section
       className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#750006" }}
+      style={{ backgroundColor: "#5B0E14" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -254,7 +254,7 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#F5F2EC", color: "#750006", letterSpacing: "0.05em" }}
+              style={{ backgroundColor: "#f7ecc4", color: "#5B0E14", letterSpacing: "0.05em" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#F5F2EC")}
             >

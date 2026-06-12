@@ -84,13 +84,13 @@ export default function Nav() {
               href="/#contact"
               style={{
                 fontSize: "0.8rem", letterSpacing: "0.08em",
-                padding: "0.85em 1.7em", background: "#750006",
+                padding: "0.85em 1.7em", background: "#5B0E14",
                 color: "#F5F2EC", position: "relative", overflow: "hidden",
                 textDecoration: "none", display: "inline-block",
                 transition: "background 0.3s",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.background = "#8a0a10")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#750006")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "#5B0E14")}
             >
               Book us
             </Link>
@@ -147,7 +147,7 @@ export default function Nav() {
                       color: "#F5F2EC", lineHeight: 1.15, fontWeight: 500,
                       display: "block", textDecoration: "none",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#D98038")}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#5B0E14")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "#F5F2EC")}
                   >
                     {link.label}

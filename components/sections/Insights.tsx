@@ -19,7 +19,7 @@ export default function Insights() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="insights" className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
+    <section id="insights" className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div className="flex items-end justify-between mb-20">
           <div>
@@ -28,7 +28,7 @@ export default function Insights() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.5 }}
             className="font-body text-xs tracking-[0.25em] uppercase"
-            style={{ color: "#D98038" }}
+            style={{ color: "#5B0E14" }}
           >
             Our thinking
           </motion.p>
@@ -36,7 +36,7 @@ export default function Insights() {
             initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
             animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
             transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2rem,4vw,3rem)", color: "#260000", marginTop: "0.8rem", letterSpacing: "-0.01em" }}
+            style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2rem,4vw,3rem)", color: "#2a0508", marginTop: "0.8rem", letterSpacing: "-0.01em" }}
           >
             Perspectives &amp; Intelligence
           </motion.h2>
@@ -45,7 +45,7 @@ export default function Insights() {
             href="/insights"
             className="font-body text-xs tracking-[0.15em] uppercase transition-colors duration-200 hidden md:block"
             style={{ color: "rgba(38,0,0,0.4)" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#5B0E14")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(38,0,0,0.4)")}
           >
             All articles →
@@ -79,8 +79,8 @@ export default function Insights() {
                   {a.date}
                 </span>
                 <h3
-                  className="font-heading leading-tight group-hover:text-[#750006] transition-colors duration-200"
-                  style={{ fontSize: "clamp(1rem, 2vw, 1.4rem)", color: "#260000", letterSpacing: "-0.01em" }}
+                  className="font-heading leading-tight group-hover:text-[#5B0E14] transition-colors duration-200"
+                  style={{ fontSize: "clamp(1rem, 2vw, 1.4rem)", color: "#2a0508", letterSpacing: "-0.01em" }}
                 >
                   {a.title}
                 </h3>
@@ -93,7 +93,7 @@ export default function Insights() {
               >
                 <ArrowUpRight
                   size={16}
-                  className="transition-colors duration-200 group-hover:text-[#750006]"
+                  className="transition-colors duration-200 group-hover:text-[#5B0E14]"
                   style={{ color: "rgba(38,0,0,0.2)" }}
                 />
               </motion.div>

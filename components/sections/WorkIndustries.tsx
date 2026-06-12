@@ -68,7 +68,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
             /* eslint-disable-next-line @next/next/no-img-element */
             <img src={a.image} alt={p.client} loading="lazy" className="work-card-img" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1)" }} />
           ) : (
-            <div style={{ position: "absolute", inset: 0, backgroundColor: p.color ?? "#260000", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ position: "absolute", inset: 0, backgroundColor: p.color ?? "#2a0508", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <span style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "2rem", color: "rgba(255,255,255,0.25)", textTransform: "uppercase" }}>{p.client.split(" ")[0]}</span>
             </div>
           )}
@@ -82,7 +82,7 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
             {String(index + 1).padStart(2, "0")}
           </span>
         </Tilt>
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", marginBottom: "0.4rem" }}>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "0.4rem" }}>
           {shortLabel[p.sector] ?? p.sector} · {p.years}
         </p>
         <h3 className="work-card-title" style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1.1rem,1.6vw,1.4rem)", color: "#1a1a1a", lineHeight: 1.12, letterSpacing: "-0.01em", textTransform: "uppercase", transition: "color 0.3s" }}>
@@ -112,7 +112,7 @@ export default function WorkIndustries() {
   );
 
   return (
-    <section id="work" style={{ backgroundColor: "#FAF8F3", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
+    <section id="work" style={{ backgroundColor: "#f7ecc4", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
       <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "2rem", flexWrap: "wrap", marginBottom: "clamp(1.8rem,3.5vw,2.5rem)" }}>
@@ -121,9 +121,9 @@ export default function WorkIndustries() {
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6 }}
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006" }}
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14" }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} />
+              <span style={{ width: "26px", height: "1px", background: "#5B0E14", opacity: 0.6 }} />
               Our work · by industry
             </motion.span>
             <motion.h2
@@ -137,7 +137,7 @@ export default function WorkIndustries() {
           </div>
 
           <Link href="/work" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(26,26,26,0.6)", fontWeight: 500, whiteSpace: "nowrap", textDecoration: "none", transition: "color 0.3s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#5B0E14")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(26,26,26,0.6)")}
           >
             All case studies
@@ -162,8 +162,8 @@ export default function WorkIndustries() {
                   fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 500,
                   letterSpacing: "0.04em",
                   padding: "0.55rem 1.1rem", borderRadius: "999px", cursor: "pointer",
-                  border: `1px solid ${on ? "#750006" : "rgba(26,26,26,0.18)"}`,
-                  backgroundColor: on ? "#750006" : "transparent",
+                  border: `1px solid ${on ? "#5B0E14" : "rgba(26,26,26,0.18)"}`,
+                  backgroundColor: on ? "#5B0E14" : "transparent",
                   color: on ? "#fff" : "rgba(26,26,26,0.7)",
                   transition: "all 0.25s cubic-bezier(0.16,1,0.3,1)",
                 }}
@@ -188,10 +188,10 @@ export default function WorkIndustries() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          style={{ marginTop: "clamp(3rem,6vw,5rem)", backgroundColor: "#260000", borderLeft: "3px solid #750006", padding: "clamp(2rem,4vw,3.4rem)" }}
+          style={{ marginTop: "clamp(3rem,6vw,5rem)", backgroundColor: "#2a0508", borderLeft: "3px solid #F1E194", padding: "clamp(2rem,4vw,3.4rem)" }}
         >
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#D98038" }}>
-            <span style={{ width: "26px", height: "1px", background: "#D98038", opacity: 0.7 }} />
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#F1E194" }}>
+            <span style={{ width: "26px", height: "1px", background: "#F1E194", opacity: 0.7 }} />
             African footprint
           </span>
           <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, color: "#F5F2EC", fontSize: "clamp(1.5rem,3vw,2.3rem)", lineHeight: 1.12, letterSpacing: "-0.015em", maxWidth: "24ch", margin: "1rem 0 1.6rem" }}>
@@ -211,7 +211,7 @@ export default function WorkIndustries() {
 
       <style>{`
         .work-card:hover .work-card-img { transform: scale(1.05); }
-        .work-card:hover .work-card-title { color: #750006 !important; }
+        .work-card:hover .work-card-title { color: #5B0E14 !important; }
         @media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2,1fr) !important; } }
         @media (max-width: 560px) { .work-grid { grid-template-columns: 1fr !important; } }
       `}</style>

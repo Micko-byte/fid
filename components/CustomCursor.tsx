@@ -71,7 +71,7 @@ export default function CustomCursor() {
           y: dotY,
           translateX: "-50%",
           translateY: "-50%",
-          backgroundColor: "#750006",
+          backgroundColor: "#5B0E14",
           opacity: visible ? 1 : 0,
           scale: clicking ? 0.5 : 1,
         }}
@@ -88,7 +88,7 @@ export default function CustomCursor() {
           y: ringY,
           translateX: "-50%",
           translateY: "-50%",
-          borderColor: onLink ? "#750006" : "rgba(245,242,236,0.5)",
+          borderColor: onLink ? "#5B0E14" : "rgba(245,242,236,0.5)",
           opacity: visible ? 1 : 0,
           mixBlendMode: "difference",
         }}

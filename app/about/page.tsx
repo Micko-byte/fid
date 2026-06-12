@@ -61,7 +61,7 @@ function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#260000" }}
+      style={{ backgroundColor: "#2a0508" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -69,8 +69,8 @@ function PageHero() {
       />
       {/* Animated orb — right half, desktop only */}
       <WireframeOrb
-        color="#750006"
-        accentColor="#D98038"
+        color="#5B0E14"
+        accentColor="#5B0E14"
         opacity={0.13}
         className="absolute right-0 top-0 h-full w-1/2 hidden md:block"
       />
@@ -80,7 +80,7 @@ function PageHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-8"
-          style={{ color: "#D98038" }}
+          style={{ color: "#5B0E14" }}
         >
           About FID &amp; Co.
         </motion.p>
@@ -108,7 +108,7 @@ function WhoWeAre() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
           <motion.div
@@ -116,12 +116,12 @@ function WhoWeAre() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#D98038" }}>
+            <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#5B0E14" }}>
               Who we are
             </p>
             <h2
               className="font-heading leading-tight"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "#260000", letterSpacing: "-0.02em" }}
+              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "#2a0508", letterSpacing: "-0.02em" }}
             >
               We treat communication as influence — not a function.
             </h2>
@@ -157,7 +157,7 @@ function WhoWeAre() {
             >
               <p
                 className="font-heading leading-none mb-2"
-                style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", color: "#750006", letterSpacing: "-0.03em" }}
+                style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", color: "#5B0E14", letterSpacing: "-0.03em" }}
               >
                 {s.value}
               </p>
@@ -180,7 +180,7 @@ function Philosophy() {
     <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#1C1C1C" }}>
       <OrbitalRings color="#D9AB88" opacity={0.07} className="absolute inset-0 w-full h-full" />
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#D98038" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#5B0E14" }}>
           Our philosophy
         </p>
         <div className="space-y-0">
@@ -222,9 +222,9 @@ function OurApproach() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#D98038" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#5B0E14" }}>
           How we work
         </p>
         <motion.h2
@@ -232,7 +232,7 @@ function OurApproach() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="font-heading mb-20 max-w-2xl"
-          style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", color: "#260000", letterSpacing: "-0.02em" }}
+          style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", color: "#2a0508", letterSpacing: "-0.02em" }}
         >
           Principled by design. Accountable by default.
         </motion.h2>
@@ -249,7 +249,7 @@ function OurApproach() {
             >
               <h3
                 className="font-heading mb-4"
-                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#260000", letterSpacing: "-0.01em" }}
+                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#2a0508", letterSpacing: "-0.01em" }}
               >
                 {v.title}
               </h3>
@@ -270,7 +270,7 @@ function Founder() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#260000" }}>
+    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#2a0508" }}>
       <div
         aria-hidden="true"
         className="absolute top-1/2 right-0 -translate-y-1/2 font-heading select-none pointer-events-none"
@@ -280,7 +280,7 @@ function Founder() {
       </div>
 
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#D98038" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#5B0E14" }}>
           Founder
         </p>
 
@@ -300,7 +300,7 @@ function Founder() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="font-body text-xs tracking-[0.2em] uppercase"
-              style={{ color: "#D98038" }}
+              style={{ color: "#5B0E14" }}
             >
               Founder &amp; Lead Strategist
             </motion.p>
@@ -340,9 +340,9 @@ function Markets() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#F5F2EC" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#D98038" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#5B0E14" }}>
           African footprint
         </p>
         <motion.h2
@@ -350,7 +350,7 @@ function Markets() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="font-heading mb-20"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: "#260000", letterSpacing: "-0.02em" }}
+          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: "#2a0508", letterSpacing: "-0.02em" }}
         >
           Operating across 8+ markets
         </motion.h2>
@@ -367,7 +367,7 @@ function Markets() {
             >
               <p
                 className="font-heading"
-                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#260000", letterSpacing: "-0.01em" }}
+                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#2a0508", letterSpacing: "-0.01em" }}
               >
                 {m}
               </p>
@@ -383,7 +383,7 @@ function CTA() {
   return (
     <section
       className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#750006" }}
+      style={{ backgroundColor: "#5B0E14" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -408,7 +408,7 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#F5F2EC", color: "#750006", letterSpacing: "0.05em" }}
+              style={{ backgroundColor: "#f7ecc4", color: "#5B0E14", letterSpacing: "0.05em" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#F5F2EC")}
             >

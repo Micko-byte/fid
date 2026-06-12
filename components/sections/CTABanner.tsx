@@ -10,7 +10,7 @@ export default function CTABanner() {
   return (
     <section
       style={{
-        backgroundColor: "#750006",
+        backgroundColor: "#5B0E14",
         color: "#F5F2EC",
         position: "relative",
         overflow: "hidden",
@@ -91,12 +91,12 @@ export default function CTABanner() {
             style={{
               display: "inline-flex", alignItems: "center", justifyContent: "center",
               padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
-              backgroundColor: "#F5F2EC", color: "#750006",
+              backgroundColor: "#f7ecc4", color: "#5B0E14",
               fontFamily: "var(--font-body)", textDecoration: "none",
               transition: "background 0.3s, color 0.3s",
             }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#260000"; e.currentTarget.style.color = "#F5F2EC"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#F5F2EC"; e.currentTarget.style.color = "#750006"; }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "#2a0508"; e.currentTarget.style.color = "#F5F2EC"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "#F5F2EC"; e.currentTarget.style.color = "#5B0E14"; }}
           >
             Book us
           </a>

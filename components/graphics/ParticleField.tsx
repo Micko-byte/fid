@@ -9,7 +9,7 @@ interface Props {
   className?: string;
 }
 
-export default function ParticleField({ color = "#D98038", count = 140, opacity = 0.55, className = "" }: Props) {
+export default function ParticleField({ color = "#5B0E14", count = 140, opacity = 0.55, className = "" }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

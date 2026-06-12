@@ -11,8 +11,8 @@ interface Props {
 }
 
 export default function WireframeOrb({
-  color = "#750006",
-  accentColor = "#D98038",
+  color = "#5B0E14",
+  accentColor = "#5B0E14",
   opacity = 0.14,
   speed = 1,
   className = "",

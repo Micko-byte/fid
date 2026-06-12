@@ -55,7 +55,7 @@ export default function Services() {
     <section
       id="services"
       style={{
-        backgroundColor: "#F5F2EC",
+        backgroundColor: "#f7ecc4",
         color: "#211b18",
         paddingTop: "clamp(5.5rem, 12vw, 11rem)",
         paddingBottom: "0",          // FlowingMenu block sits flush at bottom
@@ -90,10 +90,10 @@ export default function Services() {
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.7rem",
                 fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
-                letterSpacing: "0.28em", textTransform: "uppercase", color: "#D98038",
+                letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14",
               }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#D98038", opacity: 0.7, flexShrink: 0 }} />
+              <span style={{ width: "26px", height: "1px", background: "#5B0E14", opacity: 0.7, flexShrink: 0 }} />
               What we do
             </motion.span>
 
@@ -103,7 +103,7 @@ export default function Services() {
               transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600,
-                fontSize: "clamp(2.2rem, 5vw, 4rem)", color: "#260000",
+                fontSize: "clamp(2.2rem, 5vw, 4rem)", color: "#2a0508",
                 marginTop: "0.8rem", letterSpacing: 0, lineHeight: 1,
               }}
             >
@@ -119,7 +119,7 @@ export default function Services() {
               textTransform: "uppercase", color: "rgba(33,27,24,0.6)", fontWeight: 500,
               whiteSpace: "nowrap", transition: "color 0.3s", textDecoration: "none",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#5B0E14")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(33,27,24,0.6)")}
           >
             All services
@@ -159,9 +159,9 @@ export default function Services() {
         <FlowingMenu
           items={menuItems}
           speed={18}
-          textColor="#260000"
+          textColor="#2a0508"
           bgColor="#F5F2EC"
-          marqueeBgColor="#750006"
+          marqueeBgColor="#5B0E14"
           marqueeTextColor="#F5F2EC"
           borderColor="rgba(38,0,0,0.13)"
         />

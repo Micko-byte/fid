@@ -60,7 +60,7 @@ export default function Contact() {
   const fieldBox = (name: string): React.CSSProperties => ({
     width: "100%",
     padding: "0.85rem 1rem",
-    border: `1px solid ${errors[name] ? "#c0392b" : focused === name ? "#750006" : "rgba(26,26,26,0.16)"}`,
+    border: `1px solid ${errors[name] ? "#c0392b" : focused === name ? "#5B0E14" : "rgba(26,26,26,0.16)"}`,
     backgroundColor: focused === name ? "#fff" : "#faf8f3",
     color: "#1a1a1a",
     fontFamily: "var(--font-body)",
@@ -74,12 +74,12 @@ export default function Contact() {
   const errStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.72rem", marginTop: "0.4rem", color: "#c0392b" };
 
   return (
-    <section id="contact" style={{ backgroundColor: "#FAF8F3", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
+    <section id="contact" style={{ backgroundColor: "#f7ecc4", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
       <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(2.5rem,6vw,5rem)", alignItems: "start" }}>
           {/* Left: info */}
           <div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#750006", marginBottom: "1.2rem", fontWeight: 500 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "1.2rem", fontWeight: 500 }}>
               Get in touch
             </p>
             <motion.h2
@@ -99,7 +99,7 @@ export default function Contact() {
               ].map(({ Icon, label, value, href }) => (
                 <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
                   <div style={{ width: "40px", height: "40px", flexShrink: 0, border: "1px solid rgba(117,0,6,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "2px" }}>
-                    <Icon size={20} weight="light" color="#750006" />
+                    <Icon size={20} weight="light" color="#5B0E14" />
                   </div>
                   <div>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(26,26,26,0.45)", marginBottom: "0.25rem" }}>{label}</p>
@@ -120,7 +120,7 @@ export default function Contact() {
                 ].map(({ Icon, href, label }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
                     style={{ width: "40px", height: "40px", border: "1px solid rgba(26,26,26,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(26,26,26,0.55)", borderRadius: "2px", transition: "all 0.25s" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#750006"; e.currentTarget.style.borderColor = "#750006"; }}
+                    onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#5B0E14"; e.currentTarget.style.borderColor = "#5B0E14"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(26,26,26,0.55)"; e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(26,26,26,0.14)"; }}
                   >
                     <Icon size={20} weight="light" />
@@ -139,10 +139,10 @@ export default function Contact() {
           >
             {state === "success" ? (
               <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem", padding: "3rem 0" }}>
-                <div style={{ width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", backgroundColor: "#750006", color: "#fff", borderRadius: "2px" }}>✓</div>
+                <div style={{ width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", backgroundColor: "#5B0E14", color: "#fff", borderRadius: "2px" }}>✓</div>
                 <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontSize: "1.6rem", color: "#1a1a1a" }}>Message received</h3>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(26,26,26,0.6)", maxWidth: "32ch" }}>Thank you for reaching out. We&apos;ll be in touch shortly.</p>
-                <button onClick={() => setState("idle")} style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", background: "none", border: "none", cursor: "pointer", marginTop: "0.4rem" }}>Send another message →</button>
+                <button onClick={() => setState("idle")} style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#5B0E14", background: "none", border: "none", cursor: "pointer", marginTop: "0.4rem" }}>Send another message →</button>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "1.3rem" }}>
@@ -192,7 +192,7 @@ export default function Contact() {
                 <motion.button
                   type="submit" disabled={state === "submitting"}
                   whileHover={{ backgroundColor: "#8a0007" }} whileTap={{ scale: 0.98 }}
-                  style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", padding: "1rem", width: "100%", backgroundColor: "#750006", color: "#fff", border: "none", borderRadius: "2px", cursor: "pointer", marginTop: "0.4rem" }}
+                  style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", padding: "1rem", width: "100%", backgroundColor: "#5B0E14", color: "#fff", border: "none", borderRadius: "2px", cursor: "pointer", marginTop: "0.4rem" }}
                 >
                   {state === "submitting" ? "Sending…" : "Send message"}
                 </motion.button>

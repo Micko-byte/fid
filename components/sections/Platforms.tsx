@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import Parallax from "@/components/motion/Parallax";
 
 const platforms = [
   {
@@ -53,11 +54,11 @@ function PlatformPlate({ p, inView, i }: { p: typeof platforms[0]; inView: boole
             {p.name}
           </h3>
         </div>
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.06em", color: "#750006", lineHeight: 1.4, textTransform: "uppercase" }}>{p.tag}</p>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.06em", color: "#5B0E14", lineHeight: 1.4, textTransform: "uppercase" }}>{p.tag}</p>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.7, color: "rgba(26,26,26,0.6)", maxWidth: "42ch" }}>{p.desc}</p>
         <a
           href={p.href}
-          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#750006", textDecoration: "none", marginTop: "0.5rem", fontWeight: 600, transition: "gap 0.3s" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#5B0E14", textDecoration: "none", marginTop: "0.5rem", fontWeight: 600, transition: "gap 0.3s" }}
           onMouseEnter={e => { e.currentTarget.style.gap = "0.85rem"; }}
           onMouseLeave={e => { e.currentTarget.style.gap = "0.5rem"; }}
         >
@@ -69,8 +70,10 @@ function PlatformPlate({ p, inView, i }: { p: typeof platforms[0]; inView: boole
       {/* Image */}
       <div style={{ position: "relative", order: reverse ? 1 : 2 }}>
         <div style={{ width: "100%", aspectRatio: "4/3", overflow: "hidden", backgroundColor: "#ece7df" }}>
+          <Parallax speed={0.12} style={{ width: "100%", height: "116%", marginTop: "-8%" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={p.image} alt={p.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </Parallax>
         </div>
       </div>
     </motion.div>
@@ -82,15 +85,15 @@ export default function Platforms() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="platforms" style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
+    <section id="platforms" style={{ backgroundColor: "#f7ecc4", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
       <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         <motion.span
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14" }}
         >
-          <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} />
+          <span style={{ width: "26px", height: "1px", background: "#5B0E14", opacity: 0.6 }} />
           Owned platforms &amp; cultural IPs
         </motion.span>
 
