@@ -43,10 +43,10 @@ export default function Nav() {
             transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          {/* Logo (full lockup, transparent, no background) */}
-          <Link href="/" aria-label="FID &amp; Co. — home" style={{ display: "inline-flex", alignItems: "center" }} className="nav-logo-chip">
+          {/* Logo — metallic lockup as-is on a tight cream chip */}
+          <Link href="/" aria-label="FID &amp; Co. — home" style={{ display: "inline-flex", alignItems: "center", background: "#F5F2EC", padding: "8px 14px", borderRadius: "4px" }} className="nav-logo-chip">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: scrolled ? "34px" : "40px", width: "auto", display: "block", filter: "brightness(0) invert(1)", transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)" }} />
+            <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: scrolled ? "30px" : "36px", width: "auto", display: "block", transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)" }} />
           </Link>
 
           {/* Desktop links */}
@@ -111,8 +111,10 @@ export default function Nav() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.6rem clamp(1.5rem,5vw,6rem)", borderBottom: "1px solid rgba(217,171,136,0.09)" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: "34px", filter: "brightness(0) invert(1)" }} />
+              <span style={{ background: "#F5F2EC", padding: "7px 12px", borderRadius: "4px", display: "inline-flex" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: "30px" }} />
+              </span>
               <button onClick={() => setMenuOpen(false)} style={{ color: "#D9AB88", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px" }} aria-label="Close menu">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ width: "26px", height: "26px" }}>
                   <line x1="5" y1="5" x2="19" y2="19" /><line x1="19" y1="5" x2="5" y2="19" />
