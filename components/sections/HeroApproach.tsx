@@ -3,7 +3,10 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { Lightbulb, Target, ChartLineUp } from "@phosphor-icons/react";
+import dynamic from "next/dynamic";
 import Button from "@/components/ui/Button";
+
+const SplashCursor = dynamic(() => import("@/components/ui/SplashCursor"), { ssr: false });
 
 const PILLARS = [
   { word: "Insight", num: "01", Icon: Lightbulb, photo: 1, desc: "Deep audience intelligence that uncovers what truly drives perception, behaviour and decision-making.", lines: ["Audience Analysis", "Cultural Mapping", "Media Landscape", "Stakeholder Research"] },
@@ -69,6 +72,10 @@ export default function HeroApproach() {
         <motion.div style={{ clipPath: clip, WebkitClipPath: clip, position: "absolute", inset: 0, zIndex: 1 }}>
           <Montage forced={forced} />
           <motion.div style={{ opacity: scrimFade, position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(26,3,6,0.4) 0%, rgba(26,3,6,0.12) 42%, rgba(26,3,6,0.72) 100%)" }} />
+          {/* subtle fluid cursor — gold, scoped to hero */}
+          <motion.div style={{ opacity: scrimFade, position: "absolute", inset: 0, mixBlendMode: "screen" }}>
+            <SplashCursor />
+          </motion.div>
         </motion.div>
 
         {/* Approach pillars (left) */}
