@@ -44,10 +44,15 @@ function PlatformPlate({ p, i }: { p: typeof platforms[0]; i: number }) {
       transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className="platform-card"
       style={{
+        position: "sticky", top: `calc(96px + ${i * 22}px)`,
         display: "grid", gridTemplateColumns: "1fr 1fr",
         gap: "clamp(1.5rem,4vw,4rem)", alignItems: "center",
-        paddingTop: "clamp(2.5rem,5vw,4rem)", paddingBottom: "clamp(2.5rem,5vw,4rem)",
-        borderTop: "1px solid rgba(26,26,26,0.1)",
+        padding: "clamp(2rem,4vw,3.2rem)",
+        marginBottom: "clamp(2rem,4vw,3rem)",
+        backgroundColor: "#fbf3d6",
+        border: "1px solid rgba(91,14,20,0.12)",
+        borderRadius: "10px",
+        boxShadow: "0 -8px 40px rgba(91,14,20,0.08)",
       }}
     >
       {/* Text */}
