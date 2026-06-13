@@ -177,15 +177,16 @@ const MenuItem: React.FC<MenuItemProps> = ({
       }}
     >
       <a
-        className="flex items-center h-full relative cursor-pointer no-underline"
+        className="flex items-center justify-center h-full relative cursor-pointer no-underline"
         href={link}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         style={{
           color: textColor,
           padding: "0 clamp(1.5rem, 5vw, 6rem)",
-          gap: "clamp(1rem, 2vw, 2rem)",
+          gap: "clamp(1rem, 2vw, 1.4rem)",
           textDecoration: "none",
+          textAlign: "center",
         }}
       >
         {num && (
@@ -216,7 +217,6 @@ const MenuItem: React.FC<MenuItemProps> = ({
         {/* Arrow */}
         <svg
           style={{
-            marginLeft: "auto",
             flexShrink: 0,
             opacity: 0.3,
             transition: "opacity 0.3s",

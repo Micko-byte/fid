@@ -31,13 +31,16 @@ const platforms = [
   },
 ];
 
-function PlatformPlate({ p, inView, i }: { p: typeof platforms[0]; inView: boolean; i: number }) {
+function PlatformPlate({ p, i }: { p: typeof platforms[0]; i: number }) {
   const reverse = i % 2 === 1;
+  const cardRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(cardRef, { once: true, margin: "-18%" });
   return (
     <motion.div
-      initial={{ opacity: 0, y: 28 }}
+      ref={cardRef}
+      initial={{ opacity: 0, y: 60 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.8, delay: 0.12 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
       className="platform-card"
       style={{
         display: "grid", gridTemplateColumns: "1fr 1fr",
@@ -108,7 +111,7 @@ export default function Platforms() {
 
         <div>
           {platforms.map((p, i) => (
-            <PlatformPlate key={i} p={p} inView={inView} i={i} />
+            <PlatformPlate key={i} p={p} i={i} />
           ))}
           <div style={{ borderTop: "1px solid rgba(26,26,26,0.1)" }} />
         </div>

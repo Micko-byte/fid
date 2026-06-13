@@ -61,11 +61,10 @@ export default function Footer() {
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(3rem,6vw,4.5rem)" }}>
         <div className="ft-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "clamp(2rem,5vw,4rem)" }}>
           <div className="ft-brand">
-            <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", alignItems: "center", background: "#F5F2EC", padding: "11px 16px", borderRadius: "3px" }}>
+            <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", alignItems: "center" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/fid-mark.jpg" alt="FID & Co." style={{ height: "30px", width: "auto", display: "block" }} />
+              <img src="/fid-logo.png" alt="FID & Co. — Insight. Strategy. Impact." style={{ height: "58px", width: "auto", display: "block", filter: "brightness(0) invert(1)" }} />
             </Link>
-            <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", color: "#F1E194", marginTop: "0.8rem" }}>Insight. Strategy. Impact.</p>
             <p style={{ color: "rgba(245,242,236,0.6)", fontSize: "0.88rem", lineHeight: 1.6, maxWidth: "34ch", marginTop: "1.2rem", fontFamily: "var(--font-body)" }}>
               Strategic Communications &amp; Brand Experiences Across Africa.
             </p>
