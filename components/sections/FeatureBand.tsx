@@ -2,8 +2,8 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Link from "next/link";
 import Parallax from "@/components/motion/Parallax";
+import Button from "@/components/ui/Button";
 
 export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
@@ -70,23 +70,10 @@ export default function FeatureBand() {
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: "flex", flexDirection: "column", gap: "1rem" }}
+              style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
             >
-              {[
-                { label: "Explore our expertise", href: "/#services" },
-                { label: "See our work", href: "/#work" },
-              ].map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", fontFamily: "var(--font-body)", fontSize: "0.76rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#5B0E14", textDecoration: "none", fontWeight: 600, whiteSpace: "nowrap", transition: "color 0.3s, gap 0.3s" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = "#1a1a1a"; e.currentTarget.style.gap = "0.9rem"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "#5B0E14"; e.currentTarget.style.gap = "0.55rem"; }}
-                >
-                  {link.label}
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-                </Link>
-              ))}
+              <Button href="/#services" variant="primary" magnetic cursor="Expertise">Explore our expertise</Button>
+              <Button href="/#work" variant="outline">See our work</Button>
             </motion.div>
           </div>
 

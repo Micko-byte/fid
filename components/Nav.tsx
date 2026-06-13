@@ -58,7 +58,7 @@ export default function Nav() {
               className="nav-logo-chip"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-fid.svg" alt="FID &amp; Co." style={{ height: "19px", width: "auto", display: "block" }} />
+              <img src="/fid-mark.jpg" alt="FID &amp; Co." style={{ height: "19px", width: "auto", display: "block" }} />
             </span>
           </Link>
 
@@ -126,7 +126,7 @@ export default function Nav() {
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.6rem clamp(1.5rem,5vw,6rem)", borderBottom: "1px solid rgba(217,171,136,0.09)" }}>
               <span style={{ background: "#F5F2EC", padding: "7px 11px", borderRadius: "3px", display: "inline-flex" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/logo-fid.svg" alt="FID &amp; Co." style={{ height: "18px" }} />
+                <img src="/fid-mark.jpg" alt="FID &amp; Co." style={{ height: "18px" }} />
               </span>
               <button onClick={() => setMenuOpen(false)} style={{ color: "#D9AB88", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px" }} aria-label="Close menu">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ width: "26px", height: "26px" }}>

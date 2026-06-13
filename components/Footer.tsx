@@ -63,7 +63,7 @@ export default function Footer() {
           <div className="ft-brand">
             <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", alignItems: "center", background: "#F5F2EC", padding: "11px 16px", borderRadius: "3px" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-fid.svg" alt="FID & Co." style={{ height: "30px", width: "auto", display: "block" }} />
+              <img src="/fid-mark.jpg" alt="FID & Co." style={{ height: "30px", width: "auto", display: "block" }} />
             </Link>
             <p style={{ fontFamily: "var(--font-body)", fontStyle: "italic", color: "#F1E194", marginTop: "0.8rem" }}>Insight. Strategy. Impact.</p>
             <p style={{ color: "rgba(245,242,236,0.6)", fontSize: "0.88rem", lineHeight: 1.6, maxWidth: "34ch", marginTop: "1.2rem", fontFamily: "var(--font-body)" }}>
