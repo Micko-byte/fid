@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import ScrollVelocity from "@/components/ui/ScrollVelocity";
 
 const logos = [
   "/logos/executive-office-president.png", "/logos/lc-waikiki.png", "/logos/unhcr.png",
@@ -49,12 +50,18 @@ export default function BrandFlow() {
         </motion.h2>
       </div>
 
+      {/* scroll-velocity ribbon */}
+      <div style={{ position: "relative", zIndex: 2, color: "rgba(91,14,20,0.16)", marginBottom: "clamp(2rem,4vw,3rem)" }}>
+        <ScrollVelocity texts={["Government · Retail · Hospitality · Healthcare · Finance · Culture · Sport ·"]} velocity={45} numCopies={3} className="bf-vel" />
+      </div>
+
       <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
         <Strip items={logos.slice(0, half)} dur={32} />
         <Strip items={logos.slice(half)} reverse dur={38} />
       </div>
 
       <style>{`
+        .bf-vel { font-family: var(--font-heading,'Oswald'); font-weight: 700; text-transform: uppercase; font-size: clamp(2rem,5vw,4rem); letter-spacing: -0.01em; }
         .bf-strip { animation-name: bf-move; animation-timing-function: linear; animation-iteration-count: infinite; }
         .bf-rev { animation-name: bf-move-rev; }
         @keyframes bf-move { to { transform: translateX(-50%); } }

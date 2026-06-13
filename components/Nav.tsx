@@ -29,9 +29,9 @@ export default function Nav() {
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 8000,
           transition: "background 0.5s, backdrop-filter 0.5s, border-color 0.5s, padding 0.4s",
-          borderBottom: scrolled ? "1px solid rgba(217,171,136,0.09)" : "1px solid transparent",
-          background: scrolled ? "rgba(29,2,2,0.82)" : "transparent",
-          backdropFilter: scrolled ? "blur(18px) saturate(1.2)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(217,171,136,0.12)" : "1px solid transparent",
+          background: scrolled ? "rgba(26,3,6,0.9)" : "linear-gradient(180deg, rgba(26,3,6,0.6) 0%, rgba(26,3,6,0.2) 60%, transparent 100%)",
+          backdropFilter: scrolled ? "blur(18px) saturate(1.2)" : "blur(2px)",
         }}
       >
         <div

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Parallax from "@/components/motion/Parallax";
 import Button from "@/components/ui/Button";
+import VariableProximity from "@/components/ui/VariableProximity";
 
 export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,17 +39,17 @@ export default function FeatureBand() {
               The FID approach
             </motion.p>
 
-            <motion.h2
-              initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-              animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
-              transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 400, textTransform: "uppercase", color: "#1a1a1a", fontSize: "clamp(2.4rem,5.5vw,5.5rem)", lineHeight: 0.96, letterSpacing: "-0.03em", maxWidth: "14ch", textWrap: "balance" } as React.CSSProperties}
-            >
-              We treat communication as{" "}
-              <em style={{ fontStyle: "normal", fontWeight: 600, color: "#5B0E14" }}>influence</em>
-              {" "}— not a{" "}
-              <strong style={{ fontWeight: 600, color: "#5B0E14" }}>function.</strong>
-            </motion.h2>
+            <h2 style={{ maxWidth: "14ch", margin: 0 }}>
+              <VariableProximity
+                label="We treat communication as influence — not a function."
+                containerRef={ref as React.MutableRefObject<HTMLElement | null>}
+                radius={140}
+                falloff="gaussian"
+                fromFontVariationSettings="'wght' 400, 'opsz' 12"
+                toFontVariationSettings="'wght' 900, 'opsz' 40"
+                style={{ fontFamily: "'Roboto Flex', var(--font-heading,'Oswald')", textTransform: "uppercase", color: "#1a1a1a", fontSize: "clamp(2.4rem,5.5vw,5rem)", lineHeight: 0.98, letterSpacing: "-0.03em" }}
+              />
+            </h2>
 
             <motion.div
               initial={{ scaleX: 0 }}

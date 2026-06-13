@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Parallax from "@/components/motion/Parallax";
+import SplitText from "@/components/ui/SplitText";
 
 const platforms = [
   {
@@ -100,14 +101,17 @@ export default function Platforms() {
           Owned platforms &amp; cultural IPs
         </motion.span>
 
-        <motion.h2
-          initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-          animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
-          transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2rem,4vw,3.2rem)", color: "#1a1a1a", letterSpacing: "-0.02em", textWrap: "balance", marginTop: "1rem", maxWidth: "22ch", marginBottom: "clamp(1rem,3vw,2rem)" } as React.CSSProperties}
-        >
-          Culture, conversation and brand experience — on our terms.
-        </motion.h2>
+        <SplitText
+          tag="h2"
+          text="Culture, conversation and brand experience — on our terms."
+          splitType="words"
+          delay={40}
+          duration={0.9}
+          from={{ opacity: 0, y: 50 }}
+          to={{ opacity: 1, y: 0 }}
+          textAlign="left"
+          style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2rem,4vw,3.2rem)", color: "#1a1a1a", letterSpacing: "-0.02em", marginTop: "1rem", maxWidth: "22ch", marginBottom: "clamp(1rem,3vw,2rem)" }}
+        />
 
         <div>
           {platforms.map((p, i) => (

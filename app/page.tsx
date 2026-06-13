@@ -10,6 +10,7 @@ import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
 import InstagramFeed from "@/components/sections/InstagramFeed";
 import Contact from "@/components/sections/Contact";
+import CurvedLoop from "@/components/ui/CurvedLoop";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
@@ -30,6 +31,15 @@ export default function HomePage() {
       <Insights />
       <InstagramFeed />
       <Contact />
+      {/* Service ribbon above footer */}
+      <div style={{ backgroundColor: "#1a0306", paddingTop: "clamp(2rem,5vw,4rem)", paddingBottom: "clamp(1rem,3vw,2rem)" }}>
+        <CurvedLoop
+          marqueeText="Strategic Communications ✦ Media Management ✦ Influencer & Creator ✦ Digital Strategy ✦ Experiential Marketing ✦"
+          speed={1.6}
+          curveAmount={90}
+          className="curved-ribbon"
+        />
+      </div>
       <Footer />
     </>
   );

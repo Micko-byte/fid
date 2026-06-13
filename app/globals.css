@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Oswald:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Oswald:wght@300;400;500;600;700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
 @import "tailwindcss";
 @source "../components/**/*.tsx";
 @source "../app/**/*.tsx";
@@ -56,6 +56,9 @@ body {
 
 .font-heading  { font-family: var(--font-heading); }
 .font-body     { font-family: var(--font-body); }
+
+/* CurvedLoop service ribbon */
+.curved-ribbon { fill: #F1E194; font-family: var(--font-heading, "Oswald"); font-weight: 700; font-size: 5.5rem; }
 
 main {
   position: relative;
