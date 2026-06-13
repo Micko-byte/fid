@@ -60,6 +60,13 @@ body {
 /* CurvedLoop service ribbon */
 .curved-ribbon { fill: #F1E194; font-family: var(--font-heading, "Oswald"); font-weight: 700; font-size: 5.5rem; }
 
+/* animatable angle for the Work card rotating border */
+@property --wc-a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
 main {
   position: relative;
 }

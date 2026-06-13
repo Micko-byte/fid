@@ -81,6 +81,12 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           <span style={{ position: "absolute", bottom: "0.7rem", right: "0.9rem", fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "1rem", color: "rgba(255,255,255,0.85)", textShadow: "0 1px 4px rgba(0,0,0,0.4)", transform: "translateZ(30px)" }}>
             {String(index + 1).padStart(2, "0")}
           </span>
+          {/* unique animated hover border */}
+          <span aria-hidden className="wc-frame" />
+          <span aria-hidden className="wc-corner wc-tl" />
+          <span aria-hidden className="wc-corner wc-tr" />
+          <span aria-hidden className="wc-corner wc-bl" />
+          <span aria-hidden className="wc-corner wc-br" />
         </Tilt>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "0.4rem" }}>
           {shortLabel[p.sector] ?? p.sector} · {p.years}
@@ -212,6 +218,25 @@ export default function WorkIndustries() {
       <style>{`
         .work-card:hover .work-card-img { transform: scale(1.05); }
         .work-card:hover .work-card-title { color: #5B0E14 !important; }
+
+        /* animated rotating gradient frame */
+        .wc-frame { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0;
+          padding: 2px; border-radius: 2px;
+          background: conic-gradient(from var(--wc-a, 0deg), transparent 0 55%, #F1E194 70%, #5B0E14 85%, transparent 100%);
+          -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          -webkit-mask-composite: xor; mask-composite: exclude;
+          transition: opacity 0.45s ease; }
+        .work-card:hover .wc-frame { opacity: 1; animation: wc-spin 2.8s linear infinite; }
+        @keyframes wc-spin { to { --wc-a: 360deg; } }
+
+        /* corner ticks that shoot out on hover */
+        .wc-corner { position: absolute; width: 10px; height: 10px; z-index: 5; pointer-events: none;
+          border-color: #F1E194; opacity: 0; transition: opacity 0.35s ease, width 0.35s ease, height 0.35s ease; }
+        .work-card:hover .wc-corner { opacity: 1; width: 18px; height: 18px; }
+        .wc-tl { top: 7px; left: 7px; border-top: 2px solid; border-left: 2px solid; }
+        .wc-tr { top: 7px; right: 7px; border-top: 2px solid; border-right: 2px solid; }
+        .wc-bl { bottom: 7px; left: 7px; border-bottom: 2px solid; border-left: 2px solid; }
+        .wc-br { bottom: 7px; right: 7px; border-bottom: 2px solid; border-right: 2px solid; }
         @media (max-width: 900px) { .work-grid { grid-template-columns: repeat(2,1fr) !important; } }
         @media (max-width: 560px) { .work-grid { grid-template-columns: 1fr !important; } }
       `}</style>
