@@ -24,18 +24,18 @@ function Montage({ forced }: { forced: number | null }) {
     if (forced !== null) { setIdx(forced); return; }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
+    // smooth sequential slideshow
     const t = setInterval(() => {
-      // random cut (avoid repeating the same frame)
-      setIdx((i) => { let n = i; while (n === i) n = Math.floor(Math.random() * PHOTOS.length); return n; });
-    }, 640);
+      setIdx((i) => (i + 1) % PHOTOS.length);
+    }, 3200);
     return () => clearInterval(t);
   }, [forced]);
   return (
     <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", backgroundColor: "#1a0306" }}>
       {PHOTOS.map((src, i) => (
         <motion.div key={i}
-          animate={{ opacity: i === idx ? 1 : 0, scale: i === idx ? 1.08 : 1 }}
-          transition={{ opacity: { duration: forced !== null ? 0.6 : 0.32 }, scale: { duration: forced !== null ? 1.4 : 1.1, ease: "linear" } }}
+          animate={{ opacity: i === idx ? 1 : 0, scale: i === idx ? 1.1 : 1.0 }}
+          transition={{ opacity: { duration: 1.1, ease: "easeInOut" }, scale: { duration: 4.2, ease: "linear" } }}
           style={{ position: "absolute", inset: 0, backgroundImage: `url(${src})`, backgroundSize: "cover", backgroundPosition: POSITIONS[i % POSITIONS.length], willChange: "opacity, transform" }}
         />
       ))}
@@ -79,7 +79,7 @@ export default function HeroApproach() {
         </motion.div>
 
         {/* Approach pillars (left) */}
-        <motion.div className="ha-pillars" style={{ opacity: approachFade, position: "absolute", top: 0, bottom: 0, left: 0, width: "50%", zIndex: 4, display: "flex", flexDirection: "column", justifyContent: "center", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "2rem" }}>
+        <motion.div className="ha-pillars" style={{ opacity: approachFade, position: "absolute", top: 0, bottom: 0, left: 0, width: "52%", zIndex: 6, display: "flex", flexDirection: "column", justifyContent: "center", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "2.5rem", background: "linear-gradient(90deg, #f7ecc4 0%, #f7ecc4 82%, transparent 100%)" }}>
           <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "clamp(1.5rem,3vw,2.5rem)" }}>Our Approach</span>
           {PILLARS.map((p, i) => {
             const active = pillar === i; const Icon = p.Icon;
@@ -93,9 +93,9 @@ export default function HeroApproach() {
                   <h2 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: active ? 600 : 300, fontSize: "clamp(1.6rem,3vw,2.8rem)", color: active ? "#1a1a1a" : "rgba(26,26,26,0.18)", textTransform: "uppercase", letterSpacing: "-0.02em", lineHeight: 0.98, transition: "color 0.5s, font-weight 0.3s" }}>{p.word}</h2>
                 </div>
                 <motion.div initial={false} animate={{ height: active ? "auto" : 0, opacity: active ? 1 : 0 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }} style={{ overflow: "hidden" }}>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "rgba(26,26,26,0.62)", maxWidth: "34ch", marginTop: "0.8rem", paddingLeft: "2.1rem" }}>{p.desc}</p>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "rgba(26,26,26,0.82)", maxWidth: "32ch", marginTop: "0.8rem", paddingLeft: "2.1rem" }}>{p.desc}</p>
                   <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.3rem 1rem", marginTop: "0.9rem", paddingLeft: "2.1rem" }}>
-                    {p.lines.map((l, li) => (<span key={li} style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", color: "rgba(26,26,26,0.5)" }}>— {l}</span>))}
+                    {p.lines.map((l, li) => (<span key={li} style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(26,26,26,0.68)" }}>— {l}</span>))}
                   </div>
                 </motion.div>
               </div>
@@ -125,7 +125,7 @@ export default function HeroApproach() {
 
       <style>{`
         @media (max-width: 860px) {
-          .ha-pillars { width: 100% !important; padding-right: clamp(1.5rem,5vw,6rem) !important; background: rgba(247,236,196,0.9); backdrop-filter: blur(2px); }
+          .ha-pillars { width: 100% !important; padding-right: clamp(1.5rem,5vw,6rem) !important; background: #f7ecc4 !important; }
         }
       `}</style>
     </section>
