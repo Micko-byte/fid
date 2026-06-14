@@ -1,5 +1,4 @@
 import HeroApproach from "@/components/sections/HeroApproach";
-import Marquee from "@/components/sections/Marquee";
 import FeatureBand from "@/components/sections/FeatureBand";
 import Services from "@/components/sections/Services";
 import WorkIndustries from "@/components/sections/WorkIndustries";
@@ -20,7 +19,6 @@ export default function HomePage() {
           Logo starts full-screen, shrinks to the right through Insight →
           Strategy → Impact, then the rest of the site flows. */}
       <HeroApproach />
-      <Marquee />
       <FeatureBand />
       <Services />
       <WorkIndustries />

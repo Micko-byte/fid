@@ -2,7 +2,8 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { InstagramLogo, Heart, ChatCircle, ArrowUpRight } from "@phosphor-icons/react";
+import { InstagramLogo } from "@phosphor-icons/react";
+import BounceCards from "@/components/ui/BounceCards";
 
 const HANDLE = "fidpr";
 const PROFILE = "https://instagram.com/fidpr/";
@@ -64,37 +65,6 @@ function normalize(raw: any): IGPost[] {
     .slice(0, 6);
 }
 
-function PostTile({ post, i, inView }: { post: IGPost; i: number; inView: boolean }) {
-  return (
-    <motion.a
-      href={post.permalink}
-      target="_blank"
-      rel="noopener noreferrer"
-      data-cursor="View"
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.55, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="ig-tile"
-      style={{ position: "relative", aspectRatio: "1/1", overflow: "hidden", backgroundColor: "#ece7df", display: "block" }}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={post.image} alt={post.caption?.slice(0, 80) || "FID & Co. on Instagram"} loading="lazy" className="ig-img" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} />
-      <div className="ig-overlay" style={{ position: "absolute", inset: 0, background: "rgba(117,0,6,0.8)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "0.6rem", opacity: 0, transition: "opacity 0.35s", padding: "1rem", textAlign: "center" }}>
-        <ArrowUpRight size={26} weight="bold" color="#fff" />
-        {post.caption ? (
-          <span style={{ color: "rgba(255,255,255,0.9)", fontFamily: "var(--font-body)", fontSize: "0.72rem", lineHeight: 1.4, maxWidth: "22ch", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-            {post.caption}
-          </span>
-        ) : (
-          <span style={{ display: "inline-flex", gap: "1rem", color: "#fff" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-body)", fontSize: "0.8rem", fontWeight: 600 }}><Heart size={18} weight="fill" /> {120 + i * 37}</span>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", fontFamily: "var(--font-body)", fontSize: "0.8rem", fontWeight: 600 }}><ChatCircle size={18} weight="fill" /> {8 + i * 3}</span>
-          </span>
-        )}
-      </div>
-    </motion.a>
-  );
-}
 
 export default function InstagramFeed() {
   const ref = useRef<HTMLDivElement>(null);
@@ -160,19 +130,27 @@ export default function InstagramFeed() {
           </a>
         </div>
 
-        <div className="ig-grid" style={{ display: "grid", gridTemplateColumns: "repeat(6, 1fr)", gap: "clamp(0.5rem,1vw,0.9rem)" }}>
-          {posts.map((p, i) => (
-            <PostTile key={p.id} post={p} i={i} inView={inView} />
-          ))}
-        </div>
+        {/* Bouncing card stack of latest posts */}
+        <a href={PROFILE} target="_blank" rel="noopener noreferrer" data-cursor="View" style={{ display: "flex", justifyContent: "center", textDecoration: "none" }}>
+          <BounceCards
+            images={posts.slice(0, 5).map((p) => p.image)}
+            containerWidth={560}
+            containerHeight={300}
+            animationDelay={0.4}
+            animationStagger={0.09}
+            easeType="elastic.out(1, 0.6)"
+            transformStyles={[
+              "rotate(7deg) translate(-200px)",
+              "rotate(-4deg) translate(-100px)",
+              "rotate(2deg)",
+              "rotate(-7deg) translate(100px)",
+              "rotate(5deg) translate(200px)",
+            ]}
+            enableHover
+            className="ig-bounce"
+          />
+        </a>
       </div>
-
-      <style>{`
-        .ig-tile:hover .ig-overlay { opacity: 1; }
-        .ig-tile:hover .ig-img { transform: scale(1.06); }
-        @media (max-width: 900px) { .ig-grid { grid-template-columns: repeat(3,1fr) !important; } }
-        @media (max-width: 480px) { .ig-grid { grid-template-columns: repeat(2,1fr) !important; } }
-      `}</style>
     </section>
   );
 }

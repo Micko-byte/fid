@@ -435,8 +435,8 @@ export default function AboutPage() {
     <>
       <PageHero />
       <WhoWeAre />
-      <Philosophy />
       <OurApproach />
+      <Philosophy />
       <Founder />
       <Markets />
       <CTA />

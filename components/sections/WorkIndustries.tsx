@@ -5,6 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { projects, type Project } from "@/lib/projects";
 import Tilt from "@/components/motion/Tilt";
+import AfricanFootprint from "@/components/sections/AfricanFootprint";
 
 // Map each project slug -> real client logo + project photo
 const assets: Record<string, { logo?: string; image?: string }> = {
@@ -41,17 +42,6 @@ const shortLabel: Record<string, string> = {
   "Sports & Tourism": "Sports & Tourism",
 };
 
-const flags = [
-  { name: "Kenya", code: "ke" },
-  { name: "Uganda", code: "ug" },
-  { name: "Rwanda", code: "rw" },
-  { name: "Ethiopia", code: "et" },
-  { name: "South Sudan", code: "ss" },
-  { name: "Zambia", code: "zm" },
-  { name: "Ghana", code: "gh" },
-  { name: "Tanzania", code: "tz" },
-];
-
 function ProjectCard({ p, index }: { p: Project; index: number }) {
   const a = assets[p.slug] ?? {};
   return (
@@ -81,7 +71,6 @@ function ProjectCard({ p, index }: { p: Project; index: number }) {
           <span style={{ position: "absolute", bottom: "0.7rem", right: "0.9rem", fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "1rem", color: "rgba(255,255,255,0.85)", textShadow: "0 1px 4px rgba(0,0,0,0.4)", transform: "translateZ(30px)" }}>
             {String(index + 1).padStart(2, "0")}
           </span>
-          {/* unique animated hover border */}
           <span aria-hidden className="wc-frame" />
           <span aria-hidden className="wc-corner wc-tl" />
           <span aria-hidden className="wc-corner wc-tr" />
@@ -120,7 +109,6 @@ export default function WorkIndustries() {
   return (
     <section id="work" style={{ backgroundColor: "#f7ecc4", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
       <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
-        {/* Header */}
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "2rem", flexWrap: "wrap", marginBottom: "clamp(1.8rem,3.5vw,2.5rem)" }}>
           <div>
             <motion.span
@@ -135,23 +123,26 @@ export default function WorkIndustries() {
             <motion.h2
               initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
               animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
-              transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2.2rem,5vw,4rem)", color: "#1a1a1a", marginTop: "0.8rem", lineHeight: 1 }}
             >
               Work across 10+ industries.
             </motion.h2>
           </div>
 
-          <Link href="/work" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(26,26,26,0.6)", fontWeight: 500, whiteSpace: "nowrap", textDecoration: "none", transition: "color 0.3s" }}
+          <Link
+            href="/work"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(26,26,26,0.6)", fontWeight: 500, whiteSpace: "nowrap", textDecoration: "none", transition: "color 0.3s" }}
             onMouseEnter={(e) => (e.currentTarget.style.color = "#5B0E14")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(26,26,26,0.6)")}
           >
             All case studies
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
           </Link>
         </div>
 
-        {/* Industry filter tabs */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -165,9 +156,13 @@ export default function WorkIndustries() {
                 key={t}
                 onClick={() => setActive(t)}
                 style={{
-                  fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 500,
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.74rem",
+                  fontWeight: 500,
                   letterSpacing: "0.04em",
-                  padding: "0.55rem 1.1rem", borderRadius: "999px", cursor: "pointer",
+                  padding: "0.55rem 1.1rem",
+                  borderRadius: "999px",
+                  cursor: "pointer",
                   border: `1px solid ${on ? "#5B0E14" : "rgba(26,26,26,0.18)"}`,
                   backgroundColor: on ? "#5B0E14" : "transparent",
                   color: on ? "#fff" : "rgba(26,26,26,0.7)",
@@ -180,7 +175,6 @@ export default function WorkIndustries() {
           })}
         </motion.div>
 
-        {/* Filtered grid */}
         <motion.div layout className="work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(1.5rem,3vw,2.5rem)", minHeight: "200px" }}>
           <AnimatePresence mode="popLayout">
             {filtered.map((p, i) => (
@@ -189,37 +183,13 @@ export default function WorkIndustries() {
           </AnimatePresence>
         </motion.div>
 
-        {/* African footprint + flags */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-          style={{ marginTop: "clamp(3rem,6vw,5rem)", backgroundColor: "#2a0508", borderLeft: "3px solid #F1E194", padding: "clamp(2rem,4vw,3.4rem)" }}
-        >
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#F1E194" }}>
-            <span style={{ width: "26px", height: "1px", background: "#F1E194", opacity: 0.7 }} />
-            African footprint
-          </span>
-          <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, color: "#F5F2EC", fontSize: "clamp(1.5rem,3vw,2.3rem)", lineHeight: 1.12, letterSpacing: "-0.015em", maxWidth: "24ch", margin: "1rem 0 1.6rem" }}>
-            8+ markets across East &amp; Southern Africa — and beyond.
-          </h3>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.7rem" }}>
-            {flags.map((c) => (
-              <span key={c.code} style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", border: "1px solid rgba(217,171,136,0.22)", padding: "0.45rem 0.85rem", borderRadius: "999px", fontFamily: "var(--font-body)", fontSize: "0.78rem", color: "rgba(245,242,236,0.85)" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={`https://flagcdn.com/w40/${c.code}.png`} alt={`${c.name} flag`} width={22} height={15} loading="lazy" style={{ width: "22px", height: "15px", objectFit: "cover", borderRadius: "1px", flexShrink: 0 }} />
-                {c.name}
-              </span>
-            ))}
-          </div>
-        </motion.div>
+        <AfricanFootprint />
       </div>
 
       <style>{`
         .work-card:hover .work-card-img { transform: scale(1.05); }
         .work-card:hover .work-card-title { color: #5B0E14 !important; }
 
-        /* animated rotating gradient frame */
         .wc-frame { position: absolute; inset: 0; z-index: 4; pointer-events: none; opacity: 0;
           padding: 2px; border-radius: 2px;
           background: conic-gradient(from var(--wc-a, 0deg), transparent 0 55%, #F1E194 70%, #5B0E14 85%, transparent 100%);
@@ -229,7 +199,6 @@ export default function WorkIndustries() {
         .work-card:hover .wc-frame { opacity: 1; animation: wc-spin 2.8s linear infinite; }
         @keyframes wc-spin { to { --wc-a: 360deg; } }
 
-        /* corner ticks that shoot out on hover */
         .wc-corner { position: absolute; width: 10px; height: 10px; z-index: 5; pointer-events: none;
           border-color: #F1E194; opacity: 0; transition: opacity 0.35s ease, width 0.35s ease, height 0.35s ease; }
         .work-card:hover .wc-corner { opacity: 1; width: 18px; height: 18px; }

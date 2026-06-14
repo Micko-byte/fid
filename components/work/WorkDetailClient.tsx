@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import type { Project } from "@/lib/projects";
 
 interface Props {
@@ -60,8 +60,18 @@ function ImagePlaceholder({ index, height, colSpan, offset = false }: {
 
 export default function WorkDetailClient({ project }: Props) {
   const bodyRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
   const inView = useInView(bodyRef, { once: true, margin: "-80px" });
   const [hovering, setHovering] = useState(false);
+  const { scrollYProgress } = useScroll({
+    target: galleryRef,
+    offset: ["start end", "end start"],
+  });
+
+  const heroY = useTransform(scrollYProgress, [0, 1], ["0vh", "-8vh"]);
+  const leftY = useTransform(scrollYProgress, [0, 1], ["0vh", "-18vh"]);
+  const rightY = useTransform(scrollYProgress, [0, 1], ["0vh", "-12vh"]);
+  const lowerY = useTransform(scrollYProgress, [0, 1], ["0vh", "-10vh"]);
 
   return (
     <main style={{ backgroundColor: "#f2f2f2", color: "#292a2c", minHeight: "100vh" }}>
@@ -169,7 +179,7 @@ export default function WorkDetailClient({ project }: Props) {
       </div>
 
       {/* ── Editorial image gallery ── */}
-      <div style={{
+      <div ref={galleryRef} style={{
         maxWidth: "1440px",
         margin: "0 auto",
         paddingLeft: "clamp(1.5rem, 5vw, 5rem)",
@@ -182,6 +192,7 @@ export default function WorkDetailClient({ project }: Props) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.15 }}
           style={{
+            y: heroY,
             width: "100%",
             height: "clamp(300px, 42vw, 580px)",
             backgroundColor: "#d6d6d6",
@@ -219,6 +230,7 @@ export default function WorkDetailClient({ project }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.22 }}
             style={{
+              y: leftY,
               height: "clamp(280px, 36vw, 500px)",
               backgroundColor: "#c8c8c8",
               position: "relative",
@@ -234,6 +246,7 @@ export default function WorkDetailClient({ project }: Props) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.28 }}
             style={{
+              y: rightY,
               height: "clamp(200px, 28vw, 380px)",
               backgroundColor: "#e0e0e0",
               position: "relative",
@@ -259,6 +272,7 @@ export default function WorkDetailClient({ project }: Props) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.32 + i * 0.07 }}
               style={{
+                y: lowerY,
                 height: "clamp(160px, 22vw, 300px)",
                 backgroundColor: item.bg,
                 position: "relative",

@@ -95,7 +95,7 @@ function WorkCard({ project }: { project: WorkProject }) {
 
   return (
     <Link
-      href={`/work?p=${encodeURIComponent(project.slug)}`}
+      href={`/work/${project.slug}`}
       className="group block overflow-hidden border-t pt-5"
       style={{ borderColor: COLORS.line }}
     >
@@ -305,7 +305,7 @@ function ProjectHero({
 
         <div className="mt-10 flex flex-wrap items-center gap-[29px]">
           <PillLink href="/work">View all work</PillLink>
-          {nextProject ? <PillLink href={`/work?p=${encodeURIComponent(nextProject.slug)}`}>Next case study</PillLink> : null}
+          {nextProject ? <PillLink href={`/work/${nextProject.slug}`}>Next case study</PillLink> : null}
         </div>
       </section>
 
@@ -397,7 +397,7 @@ function ProjectHero({
               </span>
             </PillLink>
             {nextProject ? (
-              <PillLink href={`/work?p=${encodeURIComponent(nextProject.slug)}`}>
+              <PillLink href={`/work/${nextProject.slug}`}>
                 <span className="inline-flex items-center gap-2">
                   <span>View next</span>
                   <ArrowRight size={14} weight="bold" />
