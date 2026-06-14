@@ -1,33 +1,97 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useMemo, useRef, useState } from "react";
 
-type Flag = {
+type Country = {
   name: string;
   code: string;
-  focus: {
-    scale: number;
-    x: string;
-    y: string;
-  };
 };
 
-const flags: Flag[] = [
-  { name: "Kenya", code: "KE", focus: { scale: 2.9, x: "-8%", y: "-16%" } },
-  { name: "Uganda", code: "UG", focus: { scale: 2.7, x: "-6%", y: "-8%" } },
-  { name: "Rwanda", code: "RW", focus: { scale: 2.8, x: "-8%", y: "-8%" } },
-  { name: "Ethiopia", code: "ET", focus: { scale: 2.15, x: "24%", y: "-40%" } },
-  { name: "South Sudan", code: "SS", focus: { scale: 2.25, x: "12%", y: "-18%" } },
-  { name: "Zambia", code: "ZM", focus: { scale: 1.95, x: "2%", y: "20%" } },
-  { name: "Ghana", code: "GH", focus: { scale: 1.8, x: "-80%", y: "-10%" } },
-  { name: "Tanzania", code: "TZ", focus: { scale: 2.2, x: "-8%", y: "14%" } },
+const countries: Country[] = [
+  { name: "Kenya", code: "KE" },
+  { name: "Uganda", code: "UG" },
+  { name: "Rwanda", code: "RW" },
+  { name: "Ethiopia", code: "ET" },
+  { name: "South Sudan", code: "SS" },
+  { name: "Zambia", code: "ZM" },
+  { name: "Ghana", code: "GH" },
+  { name: "Tanzania", code: "TZ" },
 ];
 
-export default function AfricanFootprint() {
-  const [active, setActive] = useState<Flag>(flags[0]);
+const ROOT_WIDTH = 239.05701;
+const ROOT_HEIGHT = 217.31789;
 
-  const activeFocus = useMemo(() => active.focus, [active]);
+function injectViewBox(svg: string) {
+  const withViewBox = svg.replace(
+    /<svg\b([^>]*)>/,
+    `<svg$1 viewBox="0 0 ${ROOT_WIDTH} ${ROOT_HEIGHT}" preserveAspectRatio="xMidYMid meet">`
+  );
+  return withViewBox.replace(/width="[^"]*"/, 'width="100%"').replace(/height="[^"]*"/, 'height="100%"');
+}
+
+export default function AfricanFootprint() {
+  const [svgMarkup, setSvgMarkup] = useState("");
+  const [active, setActive] = useState<string | null>(null);
+  const [focus, setFocus] = useState({ x: 0, y: 0, scale: 1 });
+  const mapHostRef = useRef<HTMLDivElement>(null);
+
+  const activeCountry = useMemo(
+    () => countries.find((country) => country.code === active) ?? null,
+    [active]
+  );
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      const res = await fetch("/africa.svg", { cache: "force-cache" });
+      const raw = await res.text();
+      if (!mounted) return;
+      setSvgMarkup(injectViewBox(raw));
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateFocus = () => {
+      const host = mapHostRef.current;
+      if (!host || !active) {
+        setFocus({ x: 0, y: 0, scale: 1 });
+        return;
+      }
+
+      const svgEl = host.querySelector("svg");
+      const target = svgEl?.querySelector(`#${active}`) as SVGGraphicsElement | null;
+      if (!svgEl || !target) {
+        setFocus({ x: 0, y: 0, scale: 1 });
+        return;
+      }
+
+      const svgRect = svgEl.getBoundingClientRect();
+      const box = target.getBBox();
+      const scaleX = svgRect.width / ROOT_WIDTH;
+      const scaleY = svgRect.height / ROOT_HEIGHT;
+      const scale = Math.min((svgRect.width / (box.width * scaleX)) * 0.82, (svgRect.height / (box.height * scaleY)) * 0.82, 6);
+      const centerX = (box.x + box.width / 2) * scaleX;
+      const centerY = (box.y + box.height / 2) * scaleY;
+      const tx = -(centerX - svgRect.width / 2) * scale;
+      const ty = -(centerY - svgRect.height / 2) * scale;
+
+      setFocus({ x: tx, y: ty, scale });
+    };
+
+    updateFocus();
+
+    const resizeObserver = new ResizeObserver(updateFocus);
+    if (mapHostRef.current) resizeObserver.observe(mapHostRef.current);
+    window.addEventListener("resize", updateFocus);
+
+    return () => {
+      resizeObserver.disconnect();
+      window.removeEventListener("resize", updateFocus);
+    };
+  }, [active, svgMarkup]);
 
   return (
     <section className="af-footprint" style={{ marginTop: "clamp(3rem,6vw,5rem)", paddingTop: 0 }}>
@@ -35,7 +99,7 @@ export default function AfricanFootprint() {
         className="af-grid"
         style={{
           display: "grid",
-          gridTemplateColumns: "minmax(0, 0.85fr) minmax(320px, 1.15fr)",
+          gridTemplateColumns: "minmax(0, 0.9fr) minmax(320px, 1.1fr)",
           gap: "clamp(2rem,5vw,4rem)",
           alignItems: "center",
         }}
@@ -70,21 +134,8 @@ export default function AfricanFootprint() {
               margin: "1rem 0 0.9rem",
             }}
           >
-            8+ markets across East &amp; Southern Africa - and beyond.
+            8+ markets across East &amp; Southern Africa — and beyond.
           </h3>
-
-          <p
-            style={{
-              maxWidth: "34ch",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.96rem",
-              lineHeight: 1.55,
-              color: "rgba(245,242,236,0.75)",
-              marginBottom: "1.5rem",
-            }}
-          >
-            Hover a flag to zoom the map into that market. The map pulses while it focuses, keeping the section alive without overwhelming the page.
-          </p>
 
           <div
             className="af-flags"
@@ -92,24 +143,16 @@ export default function AfricanFootprint() {
               display: "grid",
               gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
               gap: "0.7rem",
+              maxWidth: "30rem",
             }}
           >
-            {flags.map((flag) => {
-              const activeState = active.code === flag.code;
+            {countries.map((country) => {
+              const activeState = active === country.code;
               return (
                 <button
-                  key={flag.code}
+                  key={country.code}
                   type="button"
-                  onMouseEnter={() => setActive(flag)}
-                  onFocus={() => setActive(flag)}
-                  onMouseLeave={() => setActive(flags[0])}
-                  onBlur={() => setActive(flags[0])}
-                  onMouseOver={(e) => {
-                    e.currentTarget.style.transform = "translateX(4px)";
-                  }}
-                  onMouseOut={(e) => {
-                    e.currentTarget.style.transform = "translateX(0)";
-                  }}
+                  onClick={() => setActive((current) => (current === country.code ? null : country.code))}
                   style={{
                     display: "inline-flex",
                     alignItems: "center",
@@ -120,15 +163,16 @@ export default function AfricanFootprint() {
                     borderRadius: "999px",
                     fontFamily: "var(--font-body)",
                     fontSize: "0.8rem",
-                    color: "rgba(245,242,236,0.9)",
+                    color: "rgba(245,242,236,0.92)",
                     textAlign: "left",
+                    cursor: "pointer",
                     transition: "transform 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease",
                   }}
-                  >
+                >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={`https://flagcdn.com/w40/${flag.code.toLowerCase()}.png`}
-                    alt={`${flag.name} flag`}
+                    src={`https://flagcdn.com/w40/${country.code.toLowerCase()}.png`}
+                    alt={`${country.name} flag`}
                     width={22}
                     height={15}
                     loading="lazy"
@@ -141,7 +185,7 @@ export default function AfricanFootprint() {
                       flexShrink: 0,
                     }}
                   />
-                  {flag.name}
+                  {country.name}
                 </button>
               );
             })}
@@ -150,20 +194,19 @@ export default function AfricanFootprint() {
 
         <div
           className="af-map"
+          ref={mapHostRef}
+          onClick={() => setActive(null)}
           style={{
             position: "relative",
             minHeight: "clamp(320px, 44vw, 520px)",
             background: "linear-gradient(180deg, rgba(241,225,148,0.04), rgba(255,255,255,0.02))",
             border: "1px solid rgba(217,171,136,0.18)",
             overflow: "hidden",
+            cursor: active ? "zoom-out" : "default",
           }}
-          onMouseLeave={() => setActive(flags[0])}
         >
-          <motion.div
+          <div
             aria-hidden="true"
-            initial={{ opacity: 0, scale: 0.92 }}
-            animate={{ opacity: [0.28, 0.62, 0.28], scale: [0.98, 1.04, 0.98] }}
-            transition={{ duration: 2.8, repeat: Infinity, ease: "easeInOut" }}
             style={{
               position: "absolute",
               inset: "10%",
@@ -171,38 +214,34 @@ export default function AfricanFootprint() {
               border: "1px solid rgba(241,225,148,0.14)",
               boxShadow: "0 0 90px rgba(241,225,148,0.08)",
               pointerEvents: "none",
+              opacity: active ? 0.6 : 0.25,
+              animation: active ? "af-pulse 3s ease-in-out infinite" : "none",
             }}
           />
 
-          <motion.img
-            src="/africa.svg"
-            alt="Africa map"
-            initial={false}
-            animate={{
-              scale: activeFocus.scale,
-              x: activeFocus.x,
-              y: activeFocus.y,
-            }}
-            transition={{ type: "spring", stiffness: 70, damping: 18, mass: 1.1 }}
+          <div
             style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              objectPosition: "center center",
+              position: "absolute",
+              inset: 0,
+              transform: `translate(${focus.x}px, ${focus.y}px) scale(${focus.scale})`,
               transformOrigin: "center center",
-              filter: "drop-shadow(0 0 20px rgba(241,225,148,0.06))",
+              transition: "transform 850ms cubic-bezier(0.16, 1, 0.3, 1)",
               willChange: "transform",
             }}
-            draggable={false}
-          />
+          >
+            {svgMarkup ? (
+              <div
+                dangerouslySetInnerHTML={{ __html: svgMarkup }}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
+              />
+            ) : null}
+          </div>
 
-          <motion.div
+          <div
             aria-hidden="true"
-            animate={{
-              opacity: [0.28, 0.62, 0.28],
-              scale: [0.98, 1.04, 0.98],
-            }}
-            transition={{ duration: 3.2, repeat: Infinity, ease: "easeInOut" }}
             style={{
               position: "absolute",
               inset: "auto 12% 12% auto",
@@ -212,38 +251,38 @@ export default function AfricanFootprint() {
               border: "1px solid rgba(241,225,148,0.24)",
               filter: "blur(0.2px)",
               pointerEvents: "none",
+              opacity: active ? 0.45 : 0.25,
+              animation: active ? "af-pulse 3.2s ease-in-out infinite" : "none",
             }}
           />
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={active.code}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.35 }}
-              style={{
-                position: "absolute",
-                left: "1rem",
-                bottom: "1rem",
-                padding: "0.65rem 0.9rem",
-                borderRadius: "999px",
-                backgroundColor: "rgba(42,5,8,0.82)",
-                color: "#F5F2EC",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.72rem",
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                border: "1px solid rgba(241,225,148,0.18)",
-              }}
-            >
-              {active.name}
-            </motion.div>
-          </AnimatePresence>
+          <div
+            key={activeCountry?.code ?? "all"}
+            style={{
+              position: "absolute",
+              left: "1rem",
+              bottom: "1rem",
+              padding: "0.65rem 0.9rem",
+              borderRadius: "999px",
+              backgroundColor: "rgba(42,5,8,0.82)",
+              color: "#F5F2EC",
+              fontFamily: "var(--font-body)",
+              fontSize: "0.72rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              border: "1px solid rgba(241,225,148,0.18)",
+            }}
+          >
+            {activeCountry ? activeCountry.name : "Full map"}
+          </div>
         </div>
       </div>
 
       <style>{`
+        @keyframes af-pulse {
+          0%, 100% { transform: scale(0.98); opacity: 0.25; }
+          50% { transform: scale(1.04); opacity: 0.6; }
+        }
         @media (max-width: 900px) {
           .af-grid { grid-template-columns: 1fr !important; }
           .af-map { min-height: 340px !important; }
@@ -251,6 +290,11 @@ export default function AfricanFootprint() {
         @media (max-width: 560px) {
           .af-flags { grid-template-columns: 1fr !important; }
           .af-map { min-height: 280px !important; }
+        }
+        .af-map svg {
+          width: 100% !important;
+          height: 100% !important;
+          display: block;
         }
       `}</style>
     </section>
