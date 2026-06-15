@@ -18,6 +18,7 @@ interface FlowingMenuProps {
   marqueeBgColor?: string;
   marqueeTextColor?: string;
   borderColor?: string;
+  onHoverItem?: (index: number | null) => void;
 }
 
 interface MenuItemProps extends MenuItemData {
@@ -27,6 +28,8 @@ interface MenuItemProps extends MenuItemData {
   marqueeTextColor: string;
   borderColor: string;
   isFirst: boolean;
+  index: number;
+  onHoverItem?: (index: number | null) => void;
 }
 
 const FlowingMenu: React.FC<FlowingMenuProps> = ({
@@ -37,6 +40,7 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({
   marqueeBgColor = "#fff",
   marqueeTextColor = "#120F17",
   borderColor = "#fff",
+  onHoverItem,
 }) => {
   return (
     <div className="w-full h-full overflow-hidden" style={{ backgroundColor: bgColor }}>
@@ -51,6 +55,8 @@ const FlowingMenu: React.FC<FlowingMenuProps> = ({
             marqueeTextColor={marqueeTextColor}
             borderColor={borderColor}
             isFirst={idx === 0}
+            index={idx}
+            onHoverItem={onHoverItem}
           />
         ))}
       </nav>
@@ -69,6 +75,8 @@ const MenuItem: React.FC<MenuItemProps> = ({
   marqueeTextColor,
   borderColor,
   isFirst,
+  index,
+  onHoverItem,
 }) => {
   const itemRef = useRef<HTMLDivElement>(null);
   const marqueeRef = useRef<HTMLDivElement>(null);
@@ -146,6 +154,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
       .set(marqueeRef.current, { y: edge === "top" ? "-101%" : "101%" }, 0)
       .set(marqueeInnerRef.current, { y: edge === "top" ? "101%" : "-101%" }, 0)
       .to([marqueeRef.current, marqueeInnerRef.current], { y: "0%" }, 0);
+    onHoverItem?.(index);
   };
 
   const handleMouseLeave = (ev: React.MouseEvent<HTMLAnchorElement>) => {
@@ -166,6 +175,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         { y: edge === "top" ? "101%" : "-101%" },
         0
       );
+    onHoverItem?.(null);
   };
 
   return (

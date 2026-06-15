@@ -4,9 +4,6 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CountUp from "@/components/animations/CountUp";
 import { Calendar, Buildings, GlobeHemisphereEast, Megaphone } from "@phosphor-icons/react";
-import BrandMark from "@/components/graphics/BrandMark";
-import CornerBrackets from "@/components/ui/CornerBrackets";
-import BorderGlow from "@/components/ui/BorderGlow";
 
 const stats = [
   { value: "15+", label: "Years Experience", Icon: Calendar },
@@ -88,117 +85,65 @@ export default function About() {
             </motion.div>
           </div>
 
-          {/* RIGHT: real photo */}
+          {/* RIGHT: floating illustration */}
           <motion.div
             initial={{ opacity: 0, x: 32 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 1.0, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             className="about-img-col"
-            style={{ position: "relative" }}
+            style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
-            <div style={{ position: "relative", width: "100%", aspectRatio: "4/5", overflow: "hidden", backgroundColor: "#f0ece5" }}>
+            {/* Gold gradient blob behind illustration */}
+            <div
+              style={{
+                position: "absolute",
+                width: "75%",
+                aspectRatio: "1/1",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(209,171,68,0.22) 0%, rgba(241,225,148,0.1) 50%, transparent 75%)",
+                filter: "blur(48px)",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                pointerEvents: "none",
+              }}
+            />
+            {/* Illustration with parallax drift */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              style={{ position: "relative", width: "92%", maxWidth: "500px" }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/photos/editorial/studio-microphone.jpg"
-                alt="FID & Co. studio"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-              <CornerBrackets color="rgba(255,255,255,0.55)" size={24} weight={1.5} inset={14} />
-              <div
+                src="/illustrations/svc-strategic-comms.png"
+                alt="Strategic communications illustration"
+                loading="lazy"
                 style={{
-                  position: "absolute",
-                  inset: "auto 1rem 1rem auto",
-                  width: "min(85%, 330px)",
+                  width: "100%",
+                  height: "auto",
+                  mixBlendMode: "multiply",
                 }}
-              >
-                <BorderGlow
-                  animated
-                  borderRadius={18}
-                  backgroundColor="rgba(245,242,236,0.9)"
-                  colors={["#F1E194", "#D9AB88", "#5B0E14"]}
-                  fillOpacity={0.32}
-                  className="about-signal-glow"
-                  style={{ width: "100%" }}
-                >
-                  <div style={{ padding: "1rem" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "0.9rem" }}>
-                      <BrandMark size={52} spin={false} color="#1a1a1a" accent="#5B0E14" />
-                      <div>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-body)",
-                            fontSize: "0.66rem",
-                            letterSpacing: "0.2em",
-                            textTransform: "uppercase",
-                            color: "#5B0E14",
-                            marginBottom: "0.35rem",
-                          }}
-                        >
-                          Built for influence
-                        </p>
-                        <p
-                          style={{
-                            fontFamily: "var(--font-body)",
-                            fontSize: "0.86rem",
-                            lineHeight: 1.5,
-                            color: "rgba(26,26,26,0.72)",
-                          }}
-                        >
-                          Editorial thinking, cultural fluency, and execution that travels across markets.
-                        </p>
-                      </div>
-                    </div>
-                    <div
-                      style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
-                        gap: "0.5rem",
-                        marginTop: "0.9rem",
-                      }}
-                    >
-                      {["Narrative", "Reach", "Trust"].map((item) => (
-                        <div
-                          key={item}
-                          style={{
-                            padding: "0.5rem 0.6rem",
-                            backgroundColor: "#fff",
-                            border: "1px solid rgba(26,26,26,0.08)",
-                            fontFamily: "var(--font-body)",
-                            fontSize: "0.62rem",
-                            letterSpacing: "0.16em",
-                            textTransform: "uppercase",
-                            textAlign: "center",
-                            color: "rgba(26,26,26,0.68)",
-                          }}
-                        >
-                          {item}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </BorderGlow>
-              </div>
-            </div>
-            {/* Accent badge bottom-left */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.88 }}
-              animate={inView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                position: "absolute", bottom: "-1.2rem", left: "-1rem", zIndex: 10,
-                backgroundColor: "#5B0E14", color: "#fff",
-                padding: "1rem 1.4rem",
-                fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600,
-                fontSize: "0.78rem", letterSpacing: "0.16em", textTransform: "uppercase",
-              }}
-            >
-              Est. 2010 · Nairobi
+              />
             </motion.div>
           </motion.div>
         </div>
 
-        {/* Stats row with icons */}
-        <div className="about-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", marginTop: "clamp(3.5rem, 7vw, 6rem)", borderTop: "1px solid rgba(26,26,26,0.1)" }}>
+        {/* Thin divider between text and stats */}
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={inView ? { scaleX: 1 } : {}}
+          transition={{ duration: 1.0, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            transformOrigin: "left",
+            height: "1px",
+            background: "rgba(26,26,26,0.1)",
+            marginTop: "clamp(3.5rem, 7vw, 6rem)",
+          }}
+        />
+
+        {/* Stats row with icons — larger Atra-style numbers */}
+        <div className="about-stats" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", marginTop: "0" }}>
           {stats.map((s, i) => {
             const Icon = s.Icon;
             return (
@@ -208,15 +153,15 @@ export default function About() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{
-                  padding: "1.8rem 1.6rem 0",
+                  padding: "2.2rem 1.6rem 0",
                   borderLeft: i === 0 ? "none" : "1px solid rgba(26,26,26,0.08)",
                 }}
               >
                 <Icon size={26} weight="light" color="#5B0E14" />
-                <div style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600, color: "#1a1a1a", fontSize: "clamp(2.4rem, 5vw, 3.8rem)", lineHeight: 0.9, letterSpacing: "-0.03em", marginTop: "1rem" }}>
+                <div style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 700, color: "#1a1a1a", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: "-0.04em", marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>
-                <div style={{ fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(26,26,26,0.45)", marginTop: "0.7rem", fontFamily: "var(--font-body)", lineHeight: 1.4 }}>
+                <div style={{ fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(26,26,26,0.45)", marginTop: "0.9rem", fontFamily: "var(--font-body)", lineHeight: 1.4 }}>
                   {s.label}
                 </div>
               </motion.div>

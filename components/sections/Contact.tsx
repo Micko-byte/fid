@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { FacebookLogo, InstagramLogo, YoutubeLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import { fireConfetti } from "@/components/motion/confetti";
+import TextType from "@/components/ui/TextType";
 
 const services = [
   "Strategic Communications & Public Relations",
@@ -74,21 +75,55 @@ export default function Contact() {
   const errStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.72rem", marginTop: "0.4rem", color: "#c0392b" };
 
   return (
-    <section id="contact" style={{ backgroundColor: "#f7ecc4", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}>
-      <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+    <section id="contact" style={{ backgroundColor: "#f7ecc4", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative", overflow: "hidden" }}>
+      {/* SVG decorative divider */}
+      <div style={{ position: "absolute", top: 0, left: 0, width: "100%" }}>
+        <svg viewBox="0 0 1440 2" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", display: "block" }}>
+          <line x1="0" y1="1" x2="1440" y2="1" stroke="url(#contact-divider)" strokeWidth="1" />
+          <defs>
+            <linearGradient id="contact-divider" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor="rgba(91,14,20,0)" />
+              <stop offset="30%" stopColor="rgba(91,14,20,0.25)" />
+              <stop offset="50%" stopColor="rgba(91,14,20,0.4)" />
+              <stop offset="70%" stopColor="rgba(91,14,20,0.25)" />
+              <stop offset="100%" stopColor="rgba(91,14,20,0)" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Decorative background illustration — right side */}
+      <div aria-hidden="true" style={{ position: "absolute", top: 0, right: 0, bottom: 0, width: "55%", pointerEvents: "none", opacity: 0.09, mixBlendMode: "multiply" }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/illustrations/iconography-accents.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center" }} />
+      </div>
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(circle at 15% 18%, rgba(91,14,20,0.1), transparent 24%), radial-gradient(circle at 88% 78%, rgba(241,225,148,0.16), transparent 24%)" }} />
+
+      <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", position: "relative", zIndex: 1 }}>
         <div className="contact-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(2.5rem,6vw,5rem)", alignItems: "start" }}>
           {/* Left: info */}
           <div>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "1.2rem", fontWeight: 500 }}>
-              Get in touch
-            </p>
+            <div style={{ position: "relative", display: "inline-block" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "1.2rem", fontWeight: 500 }}>
+                Get in touch
+              </p>
+              {/* Floating ring decoration */}
+              <motion.img
+                src="/illustrations/hero-cta-rings.png"
+                alt=""
+                aria-hidden="true"
+                animate={{ rotate: 360 }}
+                transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+                style={{ position: "absolute", top: "-20px", right: "-60px", width: "100px", height: "100px", opacity: 0.2, pointerEvents: "none" }}
+              />
+            </div>
             <motion.h2
               initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
               animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
               transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2.4rem,5.5vw,4.5rem)", color: "#1a1a1a", letterSpacing: "-0.02em", lineHeight: 1.02, textWrap: "balance", marginBottom: "2.5rem" } as React.CSSProperties}
+              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 700, fontSize: "clamp(2.8rem,6.5vw,5.2rem)", backgroundImage: "linear-gradient(135deg, #1a1a1a 40%, #5B0E14 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: "-0.02em", lineHeight: 1.02, textWrap: "balance", marginBottom: "2.5rem" } as React.CSSProperties}
             >
-              Let&apos;s build something meaningful.
+              <TextType text="Let's start a conversation." as="span" typingSpeed={42} pauseDuration={1800} deletingSpeed={18} cursorCharacter="✦" />
             </motion.h2>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1.6rem" }}>
@@ -135,7 +170,7 @@ export default function Contact() {
             initial={{ opacity: 0, y: 32 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ backgroundColor: "#fff", border: "1px solid rgba(26,26,26,0.1)", borderRadius: "4px", padding: "clamp(1.6rem,3.5vw,2.8rem)", boxShadow: "0 18px 50px rgba(26,26,26,0.06)" }}
+            style={{ backgroundColor: "rgba(255,255,255,0.72)", border: "1px solid rgba(26,26,26,0.1)", borderRadius: "4px", padding: "clamp(1.6rem,3.5vw,2.8rem)", boxShadow: "0 18px 50px rgba(26,26,26,0.06)", backdropFilter: "blur(10px)" }}
           >
             {state === "success" ? (
               <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem", padding: "3rem 0" }}>

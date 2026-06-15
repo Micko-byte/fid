@@ -13,12 +13,18 @@ export default function Footer() {
 
   return (
     <footer ref={ref} style={{ backgroundColor: "#1a0306", color: "#F5F2EC", position: "relative", overflow: "hidden" }}>
+      {/* Decorative landscape illustration strip */}
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.06 }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/illustrations/hero-landscape.png" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+      </div>
+
       {/* subtle animated gold wash */}
       <motion.div aria-hidden animate={{ opacity: [0.25, 0.5, 0.25] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(60% 50% at 80% 0%, rgba(241,225,148,0.08) 0%, transparent 55%), radial-gradient(60% 50% at 10% 100%, rgba(241,225,148,0.05) 0%, transparent 55%)" }} />
 
       {/* ── Columns ── */}
-      <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(3rem,6vw,4.5rem)" }}>
+      <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(4rem,8vw,6rem)" }}>
         <div className="ft-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "clamp(2rem,5vw,4rem)" }}>
           <div className="ft-brand">
             <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", alignItems: "center", background: "#F5F2EC", padding: "12px 18px", borderRadius: "4px" }}>
@@ -45,8 +51,8 @@ export default function Footer() {
             <a href="tel:+254797690609" style={{ display: "block", color: "rgba(245,242,236,0.75)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>+254 797 690 609</a>
             <a href="https://www.fidco.africa" style={{ display: "block", color: "rgba(245,242,236,0.75)", fontSize: "0.9rem", marginBottom: "1.2rem", textDecoration: "none" }}>www.fidco.africa</a>
             {[{ name: "Instagram", href: "https://instagram.com/fidpr/" }, { name: "Facebook", href: "https://facebook.com/profile.php?id=100070330230678" }, { name: "YouTube", href: "https://youtube.com/@FIDPR" }].map((s) => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", color: "rgba(245,242,236,0.6)", fontSize: "0.78rem", letterSpacing: "0.04em", marginRight: "1rem", textDecoration: "none", transition: "color 0.3s" }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#F1E194")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,242,236,0.6)")}>
+              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", color: "rgba(245,242,236,0.6)", fontSize: "0.78rem", letterSpacing: "0.04em", marginRight: "1rem", textDecoration: "none", transition: "color 0.3s, transform 0.3s" }}
+                onMouseEnter={(e) => { e.currentTarget.style.color = "#5B0E14"; e.currentTarget.style.transform = "scale(1.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(245,242,236,0.6)"; e.currentTarget.style.transform = "scale(1)"; }}>
                 {s.name}<ArrowUpRight size={12} />
               </a>
             ))}

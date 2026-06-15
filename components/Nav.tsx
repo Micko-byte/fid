@@ -44,9 +44,9 @@ export default function Nav() {
           }}
         >
           {/* Logo — metallic lockup as-is on a tight cream chip */}
-          <Link href="/" aria-label="FID &amp; Co. — home" style={{ display: "inline-flex", alignItems: "center", background: "#F5F2EC", padding: "8px 14px", borderRadius: "4px" }} className="nav-logo-chip">
+          <Link href="/" aria-label="FID &amp; Co. — home" style={{ display: "inline-flex", alignItems: "center", background: "#F5F2EC", padding: "10px 18px", borderRadius: "4px", boxShadow: "0 0 20px rgba(91,14,20,0.15), 0 4px 12px rgba(0,0,0,0.1)", transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)" }} className="nav-logo-chip">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: scrolled ? "30px" : "36px", width: "auto", display: "block", transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)" }} />
+            <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: scrolled ? "38px" : "48px", width: "auto", display: "block", transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)" }} />
           </Link>
 
           {/* Desktop links */}
@@ -111,9 +111,9 @@ export default function Nav() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.6rem clamp(1.5rem,5vw,6rem)", borderBottom: "1px solid rgba(217,171,136,0.09)" }}>
-              <span style={{ background: "#F5F2EC", padding: "7px 12px", borderRadius: "4px", display: "inline-flex" }}>
+              <span style={{ background: "#F5F2EC", padding: "10px 18px", borderRadius: "4px", display: "inline-flex", boxShadow: "0 0 20px rgba(91,14,20,0.15), 0 4px 12px rgba(0,0,0,0.1)" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: "30px" }} />
+                <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: "38px" }} />
               </span>
               <button onClick={() => setMenuOpen(false)} style={{ color: "#D9AB88", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px" }} aria-label="Close menu">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ width: "26px", height: "26px" }}>
@@ -151,7 +151,7 @@ export default function Nav() {
       </AnimatePresence>
 
       <style>{`
-        .nav-logo-chip:hover { transform: translateY(-1px) !important; }
+        .nav-logo-chip:hover { transform: translateY(-1px) scale(1.04) !important; }
         @media (max-width: 768px) {
           .nav-links-desktop { display: none !important; }
           .nav-burger-btn { display: flex !important; }

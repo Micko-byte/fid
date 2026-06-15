@@ -1,7 +1,8 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, type MutableRefObject } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import VariableProximity from "@/components/ui/VariableProximity";
 
 export default function Founder() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -134,7 +135,24 @@ export default function Founder() {
               }}
             >
               <span style={{ color: "#5B0E14", fontStyle: "normal" }}>&ldquo;</span>
-              Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people and communities they serve.
+              <span style={{ display: "inline-block", maxWidth: "34ch" }}>
+                <VariableProximity
+                  label="Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people and communities they serve."
+                  containerRef={sectionRef as MutableRefObject<HTMLElement | null>}
+                  radius={160}
+                  falloff="gaussian"
+                  fromFontVariationSettings="'wght' 350, 'opsz' 16"
+                  toFontVariationSettings="'wght' 900, 'opsz' 42"
+                  style={{
+                    fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
+                    fontWeight: 500,
+                    letterSpacing: "-0.01em",
+                    textTransform: "none",
+                    lineHeight: 1.28,
+                    color: "#1a1a1a",
+                  }}
+                />
+              </span>
               <span style={{ color: "#5B0E14", fontStyle: "normal" }}>&rdquo;</span>
             </motion.blockquote>
 

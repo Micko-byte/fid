@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import Parallax from "@/components/motion/Parallax";
 import Button from "@/components/ui/Button";
 import VariableProximity from "@/components/ui/VariableProximity";
 
@@ -12,7 +11,7 @@ export default function FeatureBand() {
 
   return (
     <section
-      id="feature"
+      id="hero"
       style={{
         backgroundColor: "#f7ecc4",
         color: "#1a1a1a",
@@ -34,20 +33,34 @@ export default function FeatureBand() {
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "clamp(1.5rem,3vw,2.5rem)", fontWeight: 500 }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14", marginBottom: "1rem", fontWeight: 500 }}
             >
               The FID approach
             </motion.p>
 
+            {/* Decorative SVG line divider */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "left", marginBottom: "clamp(1.2rem,2.5vw,2rem)" }}
+            >
+              <svg width="80" height="6" viewBox="0 0 80 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <line x1="0" y1="3" x2="52" y2="3" stroke="#5B0E14" strokeWidth="1.5" />
+                <circle cx="60" cy="3" r="2.5" fill="none" stroke="#5B0E14" strokeWidth="1" />
+                <line x1="64" y1="3" x2="80" y2="3" stroke="#5B0E14" strokeWidth="1" strokeOpacity="0.4" />
+              </svg>
+            </motion.div>
+
             <h2 style={{ maxWidth: "14ch", margin: 0 }}>
               <VariableProximity
                 label="We treat communication as influence — not a function."
-                containerRef={ref as React.MutableRefObject<HTMLElement | null>}
+                containerRef={ref as import("react").MutableRefObject<HTMLElement | null>}
                 radius={140}
                 falloff="gaussian"
                 fromFontVariationSettings="'wght' 400, 'opsz' 12"
                 toFontVariationSettings="'wght' 900, 'opsz' 40"
-                style={{ fontFamily: "'Roboto Flex', var(--font-heading,'Oswald')", textTransform: "uppercase", color: "#1a1a1a", fontSize: "clamp(2.4rem,5.5vw,5rem)", lineHeight: 0.98, letterSpacing: "-0.03em" }}
+                style={{ fontFamily: "'Roboto Flex', var(--font-heading,'Oswald')", textTransform: "uppercase", color: "#1a1a1a", fontSize: "clamp(2.8rem,6vw,5.6rem)", lineHeight: 0.96, letterSpacing: "-0.03em" }}
               />
             </h2>
 
@@ -78,28 +91,55 @@ export default function FeatureBand() {
             </motion.div>
           </div>
 
-          {/* RIGHT: real photo */}
+          {/* RIGHT: decorative illustration */}
           <motion.div
             initial={{ opacity: 0, x: 32 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.95, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
-            style={{ position: "relative" }}
+            style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
-            <div style={{ width: "100%", aspectRatio: "3/4", overflow: "hidden", backgroundColor: "#ece7df" }}>
-              <Parallax speed={0.14} style={{ width: "100%", height: "112%", marginTop: "-6%" }}>
+            {/* Floating burgundy gradient blob */}
+            <div
+              style={{
+                position: "absolute",
+                width: "80%",
+                aspectRatio: "1/1",
+                borderRadius: "50%",
+                background: "radial-gradient(circle, rgba(91,14,20,0.18) 0%, rgba(91,14,20,0.04) 60%, transparent 80%)",
+                filter: "blur(40px)",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                pointerEvents: "none",
+              }}
+            />
+            {/* Illustration with rotation + float */}
+            <motion.div
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+              style={{ position: "relative", width: "90%", maxWidth: "480px" }}
+            >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/photos/editorial/crowd-audience.jpg" alt="Audience engagement" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              </Parallax>
-            </div>
-            {/* Offset accent square */}
-            <div style={{ position: "absolute", bottom: "-1.5rem", right: "-1.5rem", width: "42%", aspectRatio: "1/1", backgroundColor: "#5B0E14", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <span style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, fontSize: "clamp(0.7rem,1.5vw,1rem)", letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(245,242,236,0.85)", textAlign: "center", padding: "0.5rem" }}>Nairobi<br />· Africa</span>
-            </div>
+              <img
+                src="/illustrations/hero-cta-rings.png"
+                alt="Abstract decorative rings"
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  animation: "fb-spin 40s linear infinite",
+                }}
+              />
+            </motion.div>
           </motion.div>
         </div>
       </div>
 
       <style>{`
+        @keyframes fb-spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
         @media (max-width: 900px) {
           .fb-grid { grid-template-columns: 1fr !important; }
         }
