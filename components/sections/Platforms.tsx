@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import Parallax from "@/components/motion/Parallax";
 import SplitText from "@/components/ui/SplitText";
@@ -9,7 +10,7 @@ const platforms = [
   {
     name: "The Tribe Vibe",
     tag: "Lifestyle • Music • Culture • Community",
-    href: "#contact",
+    href: "/platforms/the-tribe-vibe",
     desc: "FID & Co.'s flagship experiential lifestyle platform, bringing together music, hospitality, creator culture and socially engaged urban audiences through curated day experiences.",
     num: "01",
     image: "/photos/projects/tribe-vibe.jpg",
@@ -17,7 +18,7 @@ const platforms = [
   {
     name: "Suhba Series",
     tag: "Curated Conversations • Modern Identity • Thoughtful Experiences",
-    href: "#contact",
+    href: "/platforms/suhba-series",
     desc: "An intimate conversation platform created to foster meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences.",
     num: "02",
     image: "/photos/editorial/cultural-festival.jpg",
@@ -25,7 +26,7 @@ const platforms = [
   {
     name: "The Capital Room",
     tag: "Leadership • Business • Influence • African Perspectives",
-    href: "#contact",
+    href: "/platforms/the-capital-room",
     desc: "A conversation-led platform focused on leadership, entrepreneurship, business and the realities of building within African markets — bringing together founders, executives and changemakers.",
     num: "03",
     image: "/photos/editorial/podcast-set.jpg",
@@ -59,32 +60,35 @@ function PlatformPlate({ p, i }: { p: typeof platforms[0]; i: number }) {
       <div style={{ display: "flex", flexDirection: "column", gap: "1rem", order: reverse ? 2 : 1 }} className="plat-text">
         <div style={{ display: "flex", alignItems: "baseline", gap: "1rem" }}>
           <span style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.22em", color: "rgba(117,0,6,0.55)", flexShrink: 0 }}>{p.num}</span>
-          <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1.6rem,3.2vw,2.6rem)", color: "#1a1a1a", letterSpacing: "-0.01em", lineHeight: 1.04 }}>
-            {p.name}
-          </h3>
+          <Link href={p.href} style={{ textDecoration: "none", color: "inherit" }}>
+            <h3 className="plat-title" style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1.6rem,3.2vw,2.6rem)", color: "#1a1a1a", letterSpacing: "-0.01em", lineHeight: 1.04, transition: "color 0.3s" }}>
+              {p.name}
+            </h3>
+          </Link>
         </div>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.06em", color: "#5B0E14", lineHeight: 1.4, textTransform: "uppercase" }}>{p.tag}</p>
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.7, color: "rgba(26,26,26,0.6)", maxWidth: "42ch" }}>{p.desc}</p>
-        <a
+        <Link
           href={p.href}
+          data-cursor="Explore"
           style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#5B0E14", textDecoration: "none", marginTop: "0.5rem", fontWeight: 600, transition: "gap 0.3s" }}
           onMouseEnter={e => { e.currentTarget.style.gap = "0.85rem"; }}
           onMouseLeave={e => { e.currentTarget.style.gap = "0.5rem"; }}
         >
-          Partner with us
+          Explore {p.name}
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-        </a>
+        </Link>
       </div>
 
       {/* Image */}
-      <div style={{ position: "relative", order: reverse ? 1 : 2 }}>
+      <Link href={p.href} data-cursor="Explore" style={{ position: "relative", order: reverse ? 1 : 2, display: "block", textDecoration: "none" }}>
         <div style={{ width: "100%", aspectRatio: "4/3", overflow: "hidden", backgroundColor: "#ece7df" }}>
           <Parallax speed={0.12} style={{ width: "100%", height: "116%", marginTop: "-8%" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={p.image} alt={p.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <img src={p.image} alt={p.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.6s cubic-bezier(0.16,1,0.3,1)" }} className="plat-img" />
           </Parallax>
         </div>
-      </div>
+      </Link>
     </motion.div>
   );
 }
@@ -127,10 +131,12 @@ export default function Platforms() {
       </div>
 
       <style>{`
+        .platform-card a:hover .plat-title { color: #5B0E14; }
+        .platform-card a:hover .plat-img { transform: scale(1.05); }
         @media (max-width: 768px) {
           .platform-card { grid-template-columns: 1fr !important; }
           .platform-card .plat-text { order: 2 !important; }
-          .platform-card > div:last-child { order: 1 !important; }
+          .platform-card > a:last-child { order: 1 !important; }
         }
       `}</style>
     </section>

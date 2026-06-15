@@ -94,11 +94,7 @@ function WorkCard({ project }: { project: WorkProject }) {
   const preview = project.images?.[0]?.src ? toSrc(project.images[0].src) : "";
 
   return (
-    <Link
-      href={`/work/${project.slug}`}
-      className="group block overflow-hidden border-t pt-5"
-      style={{ borderColor: COLORS.line }}
-    >
+    <Link href={`/work/${project.slug}`} className="group block overflow-hidden border-t pt-5" style={{ borderColor: COLORS.line }}>
       <div className="grid gap-[29px] md:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-5">
           <div>
@@ -148,8 +144,29 @@ function WorkCard({ project }: { project: WorkProject }) {
 
 function WorkListing({ projects }: { projects: WorkProject[] }) {
   return (
-    <main className="min-h-screen" style={{ backgroundColor: COLORS.bg, color: COLORS.text }}>
-      <header className="mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-6 md:px-[29px]">
+    <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: COLORS.bg, color: COLORS.text }}>
+      <motion.div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <motion.div
+          animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute -left-32 top-16 h-80 w-80 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(91,14,20,0.08), transparent 70%)", filter: "blur(8px)" }}
+        />
+        <motion.div
+          animate={{ x: [0, -25, 0], y: [0, 18, 0] }}
+          transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-0 top-1/3 h-[28rem] w-[28rem] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(240,194,160,0.18), transparent 68%)", filter: "blur(14px)" }}
+        />
+      </motion.div>
+
+      <header className="relative z-10 mx-auto flex w-full max-w-[1440px] items-center justify-between px-6 py-6 md:px-[29px]">
         <Link href="/FID%20%26%20Co%20-%20Home.html" className="text-[12px] uppercase tracking-[0.18em]" style={typeStyles.caption}>
           FID & Co.
         </Link>
@@ -163,19 +180,19 @@ function WorkListing({ projects }: { projects: WorkProject[] }) {
         </div>
       </header>
 
-      <section className="mx-auto max-w-[1440px] px-6 pb-[96px] pt-[64px] md:px-[29px] md:pt-[80px]">
-        <p className="mb-6 text-[12px] uppercase tracking-[0.18em]" style={typeStyles.caption}>
+      <section className="relative z-10 mx-auto max-w-[1440px] px-6 pb-[96px] pt-[64px] md:px-[29px] md:pt-[80px]">
+        <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mb-6 text-[12px] uppercase tracking-[0.18em]" style={typeStyles.caption}>
           Selected work
-        </p>
-        <h1 className="max-w-[12ch] text-[clamp(70px,8vw,101px)]" style={{ ...typeStyles.title, color: COLORS.text }}>
+        </motion.p>
+        <motion.h1 initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }} className="max-w-[12ch] text-[clamp(70px,8vw,101px)]" style={{ ...typeStyles.title, color: COLORS.text }}>
           The work pages now open properly.
-        </h1>
-        <p className="mt-8 max-w-[48ch] text-[16px]" style={{ ...typeStyles.body, color: COLORS.text, opacity: 0.82 }}>
+        </motion.h1>
+        <motion.p initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.08 }} className="mt-8 max-w-[48ch] text-[16px]" style={{ ...typeStyles.body, color: COLORS.text, opacity: 0.82 }}>
           Open any project to see the case-study route, the scroll choreography, and the uploaded image sequence when those files are added.
-        </p>
+        </motion.p>
       </section>
 
-      <section className="mx-auto max-w-[1440px] px-6 pb-[120px] md:px-[29px]">
+      <section className="relative z-10 mx-auto max-w-[1440px] px-6 pb-[120px] md:px-[29px]">
         <div className="grid gap-[29px]">
           {projects.map((project) => (
             <WorkCard key={project.slug} project={project} />

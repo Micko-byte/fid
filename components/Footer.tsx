@@ -4,9 +4,6 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
-import ScrollVelocity from "@/components/ui/ScrollVelocity";
-
-const SERVICES = ["Strategic Communications", "Media Management", "Influencer & Creator", "Digital Strategy", "Experiential Marketing", "Owned Platforms"];
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -19,16 +16,6 @@ export default function Footer() {
       {/* subtle animated gold wash */}
       <motion.div aria-hidden animate={{ opacity: [0.25, 0.5, 0.25] }} transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(60% 50% at 80% 0%, rgba(241,225,148,0.08) 0%, transparent 55%), radial-gradient(60% 50% at 10% 100%, rgba(241,225,148,0.05) 0%, transparent 55%)" }} />
-
-      {/* ── Services scroll-velocity strip ── */}
-      <div style={{ position: "relative", zIndex: 2, overflow: "hidden", borderBottom: "1px solid rgba(241,225,148,0.12)", paddingTop: "clamp(4rem,9vw,7rem)", paddingBottom: "1.6rem", color: "#F1E194" }}>
-        <ScrollVelocity
-          texts={[SERVICES.join("  ✦  ") + "  ✦"]}
-          velocity={55}
-          numCopies={4}
-          className="footer-vel"
-        />
-      </div>
 
       {/* ── Columns ── */}
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(3rem,6vw,4.5rem)" }}>

@@ -60,13 +60,18 @@ export default function BounceCards({
       gsap.killTweensOf(sel);
       const base = transformStyles[i] || "none";
       if (i === hoveredIdx) {
-        gsap.to(sel, { transform: getNoRotationTransform(base), duration: 0.4, ease: "back.out(1.4)", overwrite: "auto" });
+        gsap.to(sel, {
+          transform: `${getNoRotationTransform(base)} scale(1.06)`,
+          duration: 0.45,
+          ease: "back.out(1.6)",
+          overwrite: "auto",
+        });
       } else {
-        const offsetX = i < hoveredIdx ? -160 : 160;
+        const offsetX = i < hoveredIdx ? -240 : 240;
         gsap.to(sel, {
           transform: getPushedTransform(base, offsetX),
-          duration: 0.4,
-          ease: "back.out(1.4)",
+          duration: 0.45,
+          ease: "back.out(1.5)",
           delay: Math.abs(hoveredIdx - i) * 0.05,
           overwrite: "auto",
         });
@@ -80,7 +85,7 @@ export default function BounceCards({
     images.forEach((_, i) => {
       const sel = q(`.card-${i}`);
       gsap.killTweensOf(sel);
-      gsap.to(sel, { transform: transformStyles[i] || "none", duration: 0.4, ease: "back.out(1.4)", overwrite: "auto" });
+      gsap.to(sel, { transform: transformStyles[i] || "none", duration: 0.45, ease: "back.out(1.4)", overwrite: "auto" });
     });
   };
 
