@@ -2,6 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import BrandMark from "@/components/graphics/BrandMark";
+import OrbitalRings from "@/components/graphics/OrbitalRings";
+import BorderGlow from "@/components/ui/BorderGlow";
+import CornerBrackets from "@/components/ui/CornerBrackets";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -53,70 +57,208 @@ export default function CTABanner() {
 
       <div
         ref={ref}
+        className="cta-layout"
         style={{
           position: "relative", zIndex: 1,
           maxWidth: "1320px", margin: "0 auto",
           paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
           paddingRight: "clamp(1.5rem, 5vw, 6rem)",
-          display: "flex", alignItems: "flex-end",
-          justifyContent: "space-between",
+          display: "grid",
+          gridTemplateColumns: "minmax(0, 1.05fr) minmax(320px, 0.95fr)",
+          alignItems: "end",
           gap: "clamp(2rem, 5vw, 4rem)",
-          flexWrap: "wrap",
         }}
       >
-        <motion.h2
-          initial={{ opacity: 0, y: 32 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 500,
-            color: "#F5F2EC",
-            fontSize: "clamp(2.6rem, 6.5vw, 5.6rem)",
-            lineHeight: 0.96, letterSpacing: "-0.025em",
-            maxWidth: "15ch",
-          } as React.CSSProperties}
-        >
-          Let&apos;s build something{" "}
-          <em style={{ fontStyle: "normal", color: "#D9AB88" }}>meaningful.</em>
-        </motion.h2>
+        <div>
+          <motion.h2
+            initial={{ opacity: 0, y: 32 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 500,
+              color: "#F5F2EC",
+              fontSize: "clamp(2.6rem, 6.5vw, 5.6rem)",
+              lineHeight: 0.96, letterSpacing: "-0.025em",
+              maxWidth: "15ch",
+            } as React.CSSProperties}
+          >
+            Let&apos;s build something{" "}
+            <em style={{ fontStyle: "normal", color: "#D9AB88" }}>meaningful.</em>
+          </motion.h2>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.25 }}
+            style={{ display: "flex", gap: "1rem", flexWrap: "wrap", flexShrink: 0, marginTop: "1.6rem" }}
+          >
+            <a
+              href="/#contact"
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
+                backgroundColor: "#f7ecc4", color: "#5B0E14",
+                fontFamily: "var(--font-body)", textDecoration: "none",
+                transition: "background 0.3s, color 0.3s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#2a0508"; e.currentTarget.style.color = "#F5F2EC"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#F5F2EC"; e.currentTarget.style.color = "#5B0E14"; }}
+            >
+              Book us
+            </a>
+            <a
+              href="mailto:info@fidco.africa"
+              style={{
+                display: "inline-flex", alignItems: "center", justifyContent: "center",
+                padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
+                backgroundColor: "transparent",
+                border: "1px solid rgba(245,242,236,0.45)", color: "#F5F2EC",
+                fontFamily: "var(--font-body)", textDecoration: "none",
+                transition: "border-color 0.3s, color 0.3s",
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.9)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.45)"; }}
+            >
+              info@fidco.africa
+            </a>
+          </motion.div>
+        </div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 26 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          style={{ display: "flex", gap: "1rem", flexWrap: "wrap", flexShrink: 0 }}
+          transition={{ duration: 0.85, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+          style={{ minHeight: "280px" }}
         >
-          <a
-            href="/#contact"
-            style={{
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-              padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
-              backgroundColor: "#f7ecc4", color: "#5B0E14",
-              fontFamily: "var(--font-body)", textDecoration: "none",
-              transition: "background 0.3s, color 0.3s",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.background = "#2a0508"; e.currentTarget.style.color = "#F5F2EC"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.background = "#F5F2EC"; e.currentTarget.style.color = "#5B0E14"; }}
+          <BorderGlow
+            animated
+            borderRadius={24}
+            backgroundColor="rgba(245,242,236,0.05)"
+            colors={["#F1E194", "#D9AB88", "#F5F2EC"]}
+            fillOpacity={0.22}
+            className="cta-visual"
+            style={{ height: "100%" }}
           >
-            Book us
-          </a>
-          <a
-            href="mailto:info@fidco.africa"
-            style={{
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-              padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
-              backgroundColor: "transparent",
-              border: "1px solid rgba(245,242,236,0.45)", color: "#F5F2EC",
-              fontFamily: "var(--font-body)", textDecoration: "none",
-              transition: "border-color 0.3s, color 0.3s",
-            }}
-            onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.9)"; }}
-            onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.45)"; }}
-          >
-            info@fidco.africa
-          </a>
+            <div
+              style={{
+                position: "relative",
+                minHeight: "280px",
+                padding: "1.2rem",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "space-between",
+              }}
+            >
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: "-10% -8% auto auto",
+                  width: "min(92%, 480px)",
+                  height: "min(92%, 480px)",
+                  opacity: 0.45,
+                }}
+              >
+                <OrbitalRings color="#F1E194" opacity={0.18} className="absolute inset-0 w-full h-full" />
+              </div>
+              <CornerBrackets color="rgba(245,242,236,0.45)" size={24} weight={1.4} inset={12} />
+
+              <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem" }}>
+                <div>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      fontSize: "0.66rem",
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                      color: "#D9AB88",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    Next step
+                  </p>
+                  <p
+                    style={{
+                      fontFamily: "var(--font-heading, 'Oswald')",
+                      fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                      lineHeight: 1,
+                      letterSpacing: "-0.02em",
+                      color: "#F5F2EC",
+                      maxWidth: "10ch",
+                    }}
+                  >
+                    Share your brief and we&apos;ll shape the route.
+                  </p>
+                </div>
+                <BrandMark size={64} spin={false} color="#F5F2EC" accent="#D9AB88" />
+              </div>
+
+              <div
+                style={{
+                  position: "relative",
+                  zIndex: 1,
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                  gap: "0.7rem",
+                  marginTop: "1rem",
+                }}
+              >
+                {[
+                  { label: "Brief", copy: "Tell us the mission." },
+                  { label: "Build", copy: "We map the idea." },
+                  { label: "Launch", copy: "We get it moving." },
+                ].map((item) => (
+                  <div
+                    key={item.label}
+                    style={{
+                      padding: "0.85rem 0.8rem",
+                      backgroundColor: "rgba(245,242,236,0.06)",
+                      border: "1px solid rgba(245,242,236,0.12)",
+                      borderRadius: "1px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.62rem",
+                        letterSpacing: "0.22em",
+                        textTransform: "uppercase",
+                        color: "#D9AB88",
+                        marginBottom: "0.45rem",
+                      }}
+                    >
+                      {item.label}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.82rem",
+                        lineHeight: 1.45,
+                        color: "rgba(245,242,236,0.8)",
+                      }}
+                    >
+                      {item.copy}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </BorderGlow>
         </motion.div>
       </div>
+
+      <style>{`
+        @media (max-width: 960px) {
+          .cta-visual { min-height: 240px !important; }
+          .cta-layout {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .cta-visual { min-height: 220px !important; }
+        }
+      `}</style>
     </section>
   );
 }

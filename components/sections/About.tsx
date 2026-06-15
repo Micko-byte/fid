@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CountUp from "@/components/animations/CountUp";
 import { Calendar, Buildings, GlobeHemisphereEast, Megaphone } from "@phosphor-icons/react";
+import BrandMark from "@/components/graphics/BrandMark";
+import CornerBrackets from "@/components/ui/CornerBrackets";
+import BorderGlow from "@/components/ui/BorderGlow";
 
 const stats = [
   { value: "15+", label: "Years Experience", Icon: Calendar },
@@ -100,6 +103,81 @@ export default function About() {
                 alt="FID & Co. studio"
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
+              <CornerBrackets color="rgba(255,255,255,0.55)" size={24} weight={1.5} inset={14} />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: "auto 1rem 1rem auto",
+                  width: "min(85%, 330px)",
+                }}
+              >
+                <BorderGlow
+                  animated
+                  borderRadius={18}
+                  backgroundColor="rgba(245,242,236,0.9)"
+                  colors={["#F1E194", "#D9AB88", "#5B0E14"]}
+                  fillOpacity={0.32}
+                  className="about-signal-glow"
+                  style={{ width: "100%" }}
+                >
+                  <div style={{ padding: "1rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "0.9rem" }}>
+                      <BrandMark size={52} spin={false} color="#1a1a1a" accent="#5B0E14" />
+                      <div>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-body)",
+                            fontSize: "0.66rem",
+                            letterSpacing: "0.2em",
+                            textTransform: "uppercase",
+                            color: "#5B0E14",
+                            marginBottom: "0.35rem",
+                          }}
+                        >
+                          Built for influence
+                        </p>
+                        <p
+                          style={{
+                            fontFamily: "var(--font-body)",
+                            fontSize: "0.86rem",
+                            lineHeight: 1.5,
+                            color: "rgba(26,26,26,0.72)",
+                          }}
+                        >
+                          Editorial thinking, cultural fluency, and execution that travels across markets.
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      style={{
+                        display: "grid",
+                        gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                        gap: "0.5rem",
+                        marginTop: "0.9rem",
+                      }}
+                    >
+                      {["Narrative", "Reach", "Trust"].map((item) => (
+                        <div
+                          key={item}
+                          style={{
+                            padding: "0.5rem 0.6rem",
+                            backgroundColor: "#fff",
+                            border: "1px solid rgba(26,26,26,0.08)",
+                            fontFamily: "var(--font-body)",
+                            fontSize: "0.62rem",
+                            letterSpacing: "0.16em",
+                            textTransform: "uppercase",
+                            textAlign: "center",
+                            color: "rgba(26,26,26,0.68)",
+                          }}
+                        >
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </BorderGlow>
+              </div>
             </div>
             {/* Accent badge bottom-left */}
             <motion.div

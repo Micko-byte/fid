@@ -4,6 +4,9 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import dynamic from "next/dynamic";
 import Button from "@/components/ui/Button";
+import BrandMark from "@/components/graphics/BrandMark";
+import CornerBrackets from "@/components/ui/CornerBrackets";
+import OrbitalRings from "@/components/graphics/OrbitalRings";
 
 const SplashCursor = dynamic(() => import("@/components/ui/SplashCursor"), { ssr: false });
 const GridMotion = dynamic(() => import("@/components/ui/GridMotion"), { ssr: false });
@@ -179,6 +182,77 @@ export default function HeroApproach() {
                   See our work
                 </Button>
               </div>
+
+              <div
+                style={{
+                  marginTop: "clamp(1.5rem, 3vw, 2.25rem)",
+                  width: "100%",
+                  maxWidth: "34rem",
+                  padding: "1rem",
+                  border: "1px solid rgba(26,26,26,0.12)",
+                  backgroundColor: "rgba(245,242,236,0.72)",
+                  backdropFilter: "blur(10px)",
+                  boxShadow: "0 14px 40px rgba(26,3,6,0.08)",
+                  position: "relative",
+                }}
+              >
+                <CornerBrackets color="rgba(91,14,20,0.42)" size={18} weight={1.25} inset={8} />
+                <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
+                  <BrandMark size={64} spin={false} color="#1a1a1a" accent="#5B0E14" />
+                  <div>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.68rem",
+                        letterSpacing: "0.22em",
+                        textTransform: "uppercase",
+                        color: "#5B0E14",
+                        marginBottom: "0.45rem",
+                      }}
+                    >
+                      Ready for launch
+                    </p>
+                    <p
+                      style={{
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.92rem",
+                        lineHeight: 1.55,
+                        color: "rgba(26,26,26,0.7)",
+                        maxWidth: "28ch",
+                      }}
+                    >
+                      Campaign systems, editorial assets, and launch kits shaped for institutions, brands, and cultural moments.
+                    </p>
+                  </div>
+                </div>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+                    gap: "0.6rem",
+                    marginTop: "0.95rem",
+                  }}
+                >
+                  {["Strategy", "Production", "Amplification"].map((item) => (
+                    <div
+                      key={item}
+                      style={{
+                        padding: "0.6rem 0.7rem",
+                        backgroundColor: "#fff",
+                        border: "1px solid rgba(26,26,26,0.08)",
+                        fontFamily: "var(--font-body)",
+                        fontSize: "0.66rem",
+                        letterSpacing: "0.18em",
+                        textTransform: "uppercase",
+                        color: "rgba(26,26,26,0.7)",
+                        textAlign: "center",
+                      }}
+                    >
+                      {item}
+                    </div>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
             <motion.div
@@ -207,6 +281,31 @@ export default function HeroApproach() {
                 }}
               >
                 <GridMotion items={GRID_ITEMS} gradientColor="#ece2c9" />
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "1rem",
+                    right: "1rem",
+                    width: "clamp(110px, 13vw, 160px)",
+                    aspectRatio: "1",
+                    padding: "0.85rem",
+                    backgroundColor: "rgba(245,242,236,0.86)",
+                    border: "1px solid rgba(26,26,26,0.1)",
+                    backdropFilter: "blur(10px)",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <div style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#5B0E14" }}>
+                    Narrative map
+                  </div>
+                  <div style={{ display: "grid", placeItems: "center", minHeight: 0, flex: 1 }}>
+                    <div style={{ width: "100%", height: "100%", opacity: 0.9 }}>
+                      <OrbitalRings color="#5B0E14" opacity={0.18} className="absolute inset-0 w-full h-full" />
+                    </div>
+                  </div>
+                </div>
                 <div
                   style={{
                     position: "absolute",
@@ -244,6 +343,7 @@ export default function HeroApproach() {
                     pointerEvents: "none",
                   }}
                 />
+                <CornerBrackets color="rgba(91,14,20,0.24)" size={20} weight={1.4} inset={12} />
               </div>
             </motion.div>
           </div>
