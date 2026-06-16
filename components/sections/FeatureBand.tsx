@@ -2,6 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
+import Link from "next/link";
 import Button from "@/components/ui/Button";
 import VariableProximity from "@/components/ui/VariableProximity";
 import { Lightbulb, Compass, Target } from "@phosphor-icons/react";
