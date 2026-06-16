@@ -18,28 +18,32 @@ export default function FeatureBand() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // On page load, loop only the 1.6s–4.8s segment of the hero video.
+  // On load, start the hero video at 1.4s and loop it (1.4s → end → 1.4s).
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    const LOOP_START = 1.3;
-    const LOOP_END = 4.0;
+    const LOOP_START = 1.4;
 
     const start = () => {
       el.currentTime = LOOP_START;
       el.play().catch(() => {});
     };
+    const onEnded = () => {
+      el.currentTime = LOOP_START;
+      el.play().catch(() => {});
+    };
     const onTimeUpdate = () => {
-      if (el.currentTime >= LOOP_END || el.currentTime < LOOP_START) {
-        el.currentTime = LOOP_START;
-        el.play().catch(() => {});
-      }
+      if (el.currentTime < LOOP_START) el.currentTime = LOOP_START;
     };
 
     if (el.readyState >= 1) start();
     else el.addEventListener("loadedmetadata", start, { once: true });
+    el.addEventListener("ended", onEnded);
     el.addEventListener("timeupdate", onTimeUpdate);
-    return () => el.removeEventListener("timeupdate", onTimeUpdate);
+    return () => {
+      el.removeEventListener("ended", onEnded);
+      el.removeEventListener("timeupdate", onTimeUpdate);
+    };
   }, []);
 
   return (
@@ -122,7 +126,7 @@ export default function FeatureBand() {
             >
               {PILLARS.map(({ Icon, label, note }) => (
                 <div key={label} style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "16ch" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "46px", height: "46px", borderRadius: "12px", border: "1px solid rgba(116,47,20,0.22)", background: "rgba(116,47,20,0.05)", color: "#742F14" }}>
+                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", borderRadius: "14px", border: "1px solid rgba(90,132,172,0.32)", background: "rgba(90,132,172,0.1)", color: "#5A84AC" }}>
                     <Icon size={22} weight="light" />
                   </span>
                   <span style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 600, fontSize: "0.95rem", letterSpacing: "0.02em", textTransform: "uppercase", color: "#1a1a1a" }}>{label}</span>
@@ -149,8 +153,23 @@ export default function FeatureBand() {
             transition={{ duration: 0.95, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(1.4rem,3vw,2.2rem)", justifyContent: "center" }}
           >
-            {/* Animation slot — new animation will be placed here */}
-            <div ref={videoRef as unknown as React.RefObject<HTMLDivElement>} aria-hidden="true" style={{ width: "100%", minHeight: "clamp(180px,22vw,260px)" }} />
+            {/* Hero animation — loops 1.4s → end */}
+            <motion.div
+              animate={{ y: [0, -14, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+              style={{ position: "relative", width: "100%" }}
+            >
+              <video
+                ref={videoRef}
+                src="/illustrations/hero-influence-animated.mp4"
+                muted
+                autoPlay
+                playsInline
+                preload="auto"
+                aria-label="Influence through strategic communication — animated"
+                style={{ width: "100%", height: "auto", display: "block", borderRadius: "16px" }}
+              />
+            </motion.div>
 
             {/* CTA — orange, matches the header / footer accent */}
             <motion.div

@@ -6,7 +6,6 @@ import Link from "next/link";
 import FallingText from "@/components/ui/FallingText";
 import VariableProximity from "@/components/ui/VariableProximity";
 import ScrollVideo from "@/components/ui/ScrollVideo";
-import { ServiceIcon } from "@/components/graphics/BrandIcons";
 
 const services = [
   {
@@ -165,26 +164,6 @@ function ServiceRow({
         </motion.span>
 
         <div style={{ position: "relative", zIndex: 1 }}>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.6, rotate: -8 }}
-            animate={inView ? { opacity: 1, scale: 1, rotate: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.08, ease }}
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              width: "clamp(48px, 4vw, 60px)",
-              height: "clamp(48px, 4vw, 60px)",
-              borderRadius: "14px",
-              border: "1px solid rgba(116,47,20,0.22)",
-              background: "rgba(116,47,20,0.05)",
-              color: "#742F14",
-              marginBottom: "1.1rem",
-            }}
-          >
-            <ServiceIcon slug={service.slug} size="55%" strokeWidth={1.5} />
-          </motion.div>
-
           <motion.span
             initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}

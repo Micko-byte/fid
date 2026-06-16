@@ -29,11 +29,10 @@ export default function Nav() {
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 8000,
           transition: "background 0.5s, backdrop-filter 0.5s, border-color 0.5s, padding 0.4s",
-          borderTop: "3px solid #FC9C44",
-          borderBottom: scrolled ? "1px solid rgba(92,60,44,0.1)" : "1px solid transparent",
-          background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.86)",
+          borderBottom: scrolled ? "1px solid rgba(58,31,16,0.18)" : "1px solid transparent",
+          background: scrolled ? "rgba(252,156,68,0.98)" : "rgba(252,156,68,0.92)",
           backdropFilter: "blur(20px) saturate(1.3)",
-          boxShadow: scrolled ? "0 10px 40px rgba(92,60,44,0.1)" : "none",
+          boxShadow: scrolled ? "0 10px 40px rgba(58,31,16,0.18)" : "none",
         }}
       >
         <div
@@ -59,12 +58,12 @@ export default function Nav() {
                 href={link.href}
                 className="nav-link-item"
                 style={{
-                  fontSize: "0.82rem", letterSpacing: "0.04em", color: "#5C3C2C",
+                  fontSize: "0.82rem", letterSpacing: "0.04em", color: "#3a1f10", fontWeight: 500,
                   position: "relative", padding: "0.4rem 0",
                   transition: "color 0.3s", textDecoration: "none",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#742F14")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#5C3C2C")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#FFFFFF")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#3a1f10")}
               >
                 {link.label}
               </Link>
@@ -73,14 +72,14 @@ export default function Nav() {
               href="/#contact"
               style={{
                 fontSize: "0.8rem", letterSpacing: "0.08em", fontWeight: 700,
-                padding: "0.85em 1.8em", background: "#FC9C44",
-                color: "#3a1f10", position: "relative", overflow: "hidden",
+                padding: "0.85em 1.8em", background: "#3a1f10",
+                color: "#FC9C44", position: "relative", overflow: "hidden",
                 textDecoration: "none", display: "inline-block", borderRadius: "999px",
-                boxShadow: "0 8px 22px rgba(252,156,68,0.35)",
+                boxShadow: "0 8px 22px rgba(58,31,16,0.3)",
                 transition: "background 0.3s, transform 0.2s, box-shadow 0.3s",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#ffae5e"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 28px rgba(252,156,68,0.45)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "#FC9C44"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 22px rgba(252,156,68,0.35)"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#5C3C2C"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 28px rgba(58,31,16,0.4)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#3a1f10"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 22px rgba(58,31,16,0.3)"; }}
               onPointerDown={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
               onPointerUp={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
             >
