@@ -8,7 +8,7 @@ interface Props {
   className?: string;
 }
 
-export default function OrbitalRings({ color = "#D9AB88", opacity = 0.1, className = "" }: Props) {
+export default function OrbitalRings({ color = "#C7AC9F", opacity = 0.1, className = "" }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

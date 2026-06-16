@@ -78,14 +78,14 @@ const BorderGlow: React.FC<BorderGlowProps> = ({
   className = "",
   edgeSensitivity = 30,
   // wine/gold defaults
-  glowColor = "50 76 76",                    // gold #F1E194 in HSL
+  glowColor = "50 76 76",                    // gold #FC9C44 in HSL
   backgroundColor = "transparent",
   borderRadius = 4,
   glowRadius = 36,
   glowIntensity = 1.0,
   coneSpread = 25,
   animated = false,
-  colors = ["#F1E194", "#D9AB88", "#5B0E14"],
+  colors = ["#FC9C44", "#C7AC9F", "#742F14"],
   fillOpacity = 0.4,
   style,
 }) => {

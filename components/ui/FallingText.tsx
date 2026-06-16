@@ -26,7 +26,7 @@ export default function FallingText({ text, className = "", highlightWords = [] 
             transition={{ duration: 0.7, delay: i * 0.04, ease: [0.16, 1, 0.3, 1] }}
             style={{
               display: "inline-block",
-              color: highlighted ? "#5B0E14" : "inherit",
+              color: highlighted ? "#742F14" : "inherit",
             }}
           >
             {word}

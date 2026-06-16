@@ -1,10 +1,11 @@
-import HeroApproach from "@/components/sections/HeroApproach";
 import FeatureBand from "@/components/sections/FeatureBand";
-import Services from "@/components/sections/Services";
-import WorkIndustries from "@/components/sections/WorkIndustries";
 import About from "@/components/sections/About";
-import Platforms from "@/components/sections/Platforms";
+import Services from "@/components/sections/Services";
 import BrandFlow from "@/components/sections/BrandFlow";
+import CTABanner from "@/components/sections/CTABanner";
+import WorkIndustries from "@/components/sections/WorkIndustries";
+import StatsBand from "@/components/sections/StatsBand";
+import Platforms from "@/components/sections/Platforms";
 import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
 import InstagramFeed from "@/components/sections/InstagramFeed";
@@ -15,22 +16,21 @@ import Footer from "@/components/Footer";
 export default function HomePage() {
   return (
     <>
-      {/* Hero + Our Approach: one scroll-choreographed stage.
-          Logo starts full-screen, shrinks to the right through Insight →
-          Strategy → Impact, then the rest of the site flows. */}
-      <HeroApproach />
+      {/* Atra-style flow: hero → about → services → CTA → work → stats → testimonial → logos → contact */}
       <FeatureBand />
-      <Services />
-      <WorkIndustries />
       <About />
-      <Platforms />
+      <Services />
       <BrandFlow />
+      <CTABanner />
+      <WorkIndustries />
+      <StatsBand />
+      <Platforms />
       <Founder />
       <Insights />
       <InstagramFeed />
       <Contact />
       {/* Service ribbon above footer */}
-      <div style={{ backgroundColor: "#1a0306", paddingTop: "clamp(2rem,5vw,4rem)", paddingBottom: "clamp(1rem,3vw,2rem)" }}>
+      <div style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(2rem,5vw,4rem)", paddingBottom: "clamp(1rem,3vw,2rem)", borderTop: "1px solid rgba(92,60,44,0.1)" }}>
         <CurvedLoop
           marqueeText="Strategic Communications ✦ Media Management ✦ Influencer & Creator ✦ Digital Strategy ✦ Experiential Marketing ✦"
           speed={1.6}

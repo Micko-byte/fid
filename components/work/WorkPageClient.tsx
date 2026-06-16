@@ -156,7 +156,7 @@ function WorkListing({ projects }: { projects: WorkProject[] }) {
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
           className="absolute -left-32 top-16 h-80 w-80 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(91,14,20,0.08), transparent 70%)", filter: "blur(8px)" }}
+          style={{ background: "radial-gradient(circle, rgba(116,47,20,0.08), transparent 70%)", filter: "blur(8px)" }}
         />
         <motion.div
           animate={{ x: [0, -25, 0], y: [0, 18, 0] }}

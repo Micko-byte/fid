@@ -22,7 +22,7 @@ interface BrandMarkProps {
 export default function BrandMark({
   size = 120,
   color = "#1C1C1C",
-  accent = "#5B0E14",
+  accent = "#742F14",
   className,
   spin = true,
 }: BrandMarkProps) {

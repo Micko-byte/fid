@@ -61,16 +61,16 @@ function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#2a0508" }}
+      style={{ backgroundColor: "#5C3C2C" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 30% 80%, rgba(117,0,6,0.18) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse 80% 60% at 30% 80%, rgba(116,47,20,0.18) 0%, transparent 70%)" }}
       />
       {/* Animated orb — right half, desktop only */}
       <WireframeOrb
-        color="#5B0E14"
-        accentColor="#5B0E14"
+        color="#742F14"
+        accentColor="#742F14"
         opacity={0.13}
         className="absolute right-0 top-0 h-full w-1/2 hidden md:block"
       />
@@ -80,7 +80,7 @@ function PageHero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-8"
-          style={{ color: "#5B0E14" }}
+          style={{ color: "#742F14" }}
         >
           About FID &amp; Co.
         </motion.p>
@@ -91,7 +91,7 @@ function PageHero() {
           className="font-heading leading-none"
           style={{
             fontSize: "clamp(3rem, 8vw, 7rem)",
-            color: "#F5F2EC",
+            color: "#FFFFFF",
             letterSpacing: "-0.03em",
             maxWidth: "14ch",
           }}
@@ -108,7 +108,7 @@ function WhoWeAre() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#FFFFFF" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
           <motion.div
@@ -116,12 +116,12 @@ function WhoWeAre() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#5B0E14" }}>
+            <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#742F14" }}>
               Who we are
             </p>
             <h2
               className="font-heading leading-tight"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "#2a0508", letterSpacing: "-0.02em" }}
+              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "#5C3C2C", letterSpacing: "-0.02em" }}
             >
               We treat communication as influence — not a function.
             </h2>
@@ -146,7 +146,7 @@ function WhoWeAre() {
         </div>
 
         {/* Stats */}
-        <div className="mt-24 grid grid-cols-2 md:grid-cols-4 border-t" style={{ borderColor: "rgba(38,0,0,0.1)" }}>
+        <div className="mt-24 grid grid-cols-2 md:grid-cols-4 border-t" style={{ borderColor: "rgba(92,60,44,0.1)" }}>
           {stats.map((s, i) => (
             <motion.div
               key={i}
@@ -157,11 +157,11 @@ function WhoWeAre() {
             >
               <p
                 className="font-heading leading-none mb-2"
-                style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", color: "#5B0E14", letterSpacing: "-0.03em" }}
+                style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", color: "#742F14", letterSpacing: "-0.03em" }}
               >
                 {s.value}
               </p>
-              <p className="font-body text-xs uppercase tracking-[0.15em]" style={{ color: "rgba(38,0,0,0.4)" }}>
+              <p className="font-body text-xs uppercase tracking-[0.15em]" style={{ color: "rgba(92,60,44,0.4)" }}>
                 {s.label}
               </p>
             </motion.div>
@@ -178,9 +178,9 @@ function Philosophy() {
 
   return (
     <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#1C1C1C" }}>
-      <OrbitalRings color="#D9AB88" opacity={0.07} className="absolute inset-0 w-full h-full" />
+      <OrbitalRings color="#C7AC9F" opacity={0.07} className="absolute inset-0 w-full h-full" />
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#5B0E14" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#742F14" }}>
           Our philosophy
         </p>
         <div className="space-y-0">
@@ -191,26 +191,26 @@ function Philosophy() {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
               className="grid md:grid-cols-3 gap-6 py-12 border-t"
-              style={{ borderColor: "rgba(245,242,236,0.08)" }}
+              style={{ borderColor: "rgba(255,255,255,0.08)" }}
             >
               <div>
-                <span className="font-body text-xs" style={{ color: "rgba(245,242,236,0.3)" }}>{p.num}</span>
+                <span className="font-body text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>{p.num}</span>
                 <h3
                   className="font-heading mt-3"
-                  style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: "#F5F2EC", letterSpacing: "-0.03em" }}
+                  style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: "#FFFFFF", letterSpacing: "-0.03em" }}
                 >
                   {p.word}
                 </h3>
               </div>
               <p
                 className="font-body text-base leading-relaxed md:col-span-2 md:pt-8"
-                style={{ color: "rgba(245,242,236,0.6)" }}
+                style={{ color: "rgba(255,255,255,0.6)" }}
               >
                 {p.body}
               </p>
             </motion.div>
           ))}
-          <div className="border-t" style={{ borderColor: "rgba(245,242,236,0.08)" }} />
+          <div className="border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }} />
         </div>
       </div>
     </section>
@@ -222,9 +222,9 @@ function OurApproach() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#FFFFFF" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#5B0E14" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#742F14" }}>
           How we work
         </p>
         <motion.h2
@@ -232,7 +232,7 @@ function OurApproach() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="font-heading mb-20 max-w-2xl"
-          style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", color: "#2a0508", letterSpacing: "-0.02em" }}
+          style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", color: "#5C3C2C", letterSpacing: "-0.02em" }}
         >
           Principled by design. Accountable by default.
         </motion.h2>
@@ -245,11 +245,11 @@ function OurApproach() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
               className="py-10 pr-0 md:pr-16 border-t"
-              style={{ borderColor: "rgba(38,0,0,0.1)" }}
+              style={{ borderColor: "rgba(92,60,44,0.1)" }}
             >
               <h3
                 className="font-heading mb-4"
-                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#2a0508", letterSpacing: "-0.01em" }}
+                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#5C3C2C", letterSpacing: "-0.01em" }}
               >
                 {v.title}
               </h3>
@@ -258,7 +258,7 @@ function OurApproach() {
               </p>
             </motion.div>
           ))}
-          <div className="border-t col-span-2" style={{ borderColor: "rgba(38,0,0,0.1)" }} />
+          <div className="border-t col-span-2" style={{ borderColor: "rgba(92,60,44,0.1)" }} />
         </div>
       </div>
     </section>
@@ -270,17 +270,17 @@ function Founder() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#2a0508" }}>
+    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#5C3C2C" }}>
       <div
         aria-hidden="true"
         className="absolute top-1/2 right-0 -translate-y-1/2 font-heading select-none pointer-events-none"
-        style={{ fontSize: "clamp(14rem, 32vw, 24rem)", color: "rgba(117,0,6,0.06)", lineHeight: 0.85 }}
+        style={{ fontSize: "clamp(14rem, 32vw, 24rem)", color: "rgba(116,47,20,0.06)", lineHeight: 0.85 }}
       >
         F.I.
       </div>
 
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#5B0E14" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#742F14" }}>
           Founder
         </p>
 
@@ -291,7 +291,7 @@ function Founder() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               className="font-heading leading-none mb-4"
-              style={{ fontSize: "clamp(3rem, 7vw, 6rem)", color: "#F5F2EC", letterSpacing: "-0.03em" }}
+              style={{ fontSize: "clamp(3rem, 7vw, 6rem)", color: "#FFFFFF", letterSpacing: "-0.03em" }}
             >
               Farida Idris
             </motion.h2>
@@ -300,7 +300,7 @@ function Founder() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="font-body text-xs tracking-[0.2em] uppercase"
-              style={{ color: "#5B0E14" }}
+              style={{ color: "#742F14" }}
             >
               Founder &amp; Lead Strategist
             </motion.p>
@@ -316,16 +316,16 @@ function Founder() {
               className="font-heading leading-tight mb-8"
               style={{
                 fontSize: "clamp(1.4rem, 3vw, 2.2rem)",
-                color: "#F5F2EC",
+                color: "#FFFFFF",
                 letterSpacing: "-0.01em",
               }}
             >
               &ldquo;Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people they serve.&rdquo;
             </blockquote>
-            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(217,171,136,0.7)" }}>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
               Farida Idris founded FID &amp; Co. with a conviction that African organisations deserve communications that are strategic, culturally grounded and genuinely effective. With over 15 years of experience spanning government mandates, lifestyle brands, multinational retail and social impact work, she has built an agency that leads with insight and delivers with precision.
             </p>
-            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(217,171,136,0.7)" }}>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
               Her approach is defined by a refusal to treat communication as peripheral. At FID &amp; Co., strategy comes first — and every campaign, every placement, every piece of content is accountable to a result.
             </p>
           </motion.div>
@@ -340,9 +340,9 @@ function Markets() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#f7ecc4" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#FFFFFF" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#5B0E14" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#742F14" }}>
           African footprint
         </p>
         <motion.h2
@@ -350,7 +350,7 @@ function Markets() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
           className="font-heading mb-20"
-          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: "#2a0508", letterSpacing: "-0.02em" }}
+          style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: "#5C3C2C", letterSpacing: "-0.02em" }}
         >
           Operating across 8+ markets
         </motion.h2>
@@ -363,11 +363,11 @@ function Markets() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.4, delay: i * 0.06 }}
               className="border-r border-b px-8 py-6"
-              style={{ borderColor: "rgba(38,0,0,0.1)" }}
+              style={{ borderColor: "rgba(92,60,44,0.1)" }}
             >
               <p
                 className="font-heading"
-                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#2a0508", letterSpacing: "-0.01em" }}
+                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#5C3C2C", letterSpacing: "-0.01em" }}
               >
                 {m}
               </p>
@@ -383,12 +383,12 @@ function CTA() {
   return (
     <section
       className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#5B0E14" }}
+      style={{ backgroundColor: "#742F14" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: "repeating-linear-gradient(135deg, rgba(245,242,236,0.03) 0px, rgba(245,242,236,0.03) 1px, transparent 1px, transparent 60px)",
+          backgroundImage: "repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px)",
         }}
       />
       <div className="relative max-w-[1280px] mx-auto px-6 md:px-16">
@@ -397,7 +397,7 @@ function CTA() {
             className="font-heading leading-none mb-8 md:mb-0"
             style={{
               fontSize: "clamp(2.8rem, 7vw, 6rem)",
-              color: "#F5F2EC",
+              color: "#FFFFFF",
               letterSpacing: "-0.02em",
               maxWidth: "16ch",
             }}
@@ -408,18 +408,18 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#f7ecc4", color: "#5B0E14", letterSpacing: "0.05em" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#742F14", letterSpacing: "0.05em" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#F5F2EC")}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
             >
               Book us
             </Link>
             <a
               href="mailto:info@fidco.africa"
               className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
-              style={{ borderColor: "rgba(245,242,236,0.3)", color: "#F5F2EC", letterSpacing: "0.05em" }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(245,242,236,0.8)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(245,242,236,0.3)")}
+              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em" }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.8)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)")}
             >
               info@fidco.africa
             </a>

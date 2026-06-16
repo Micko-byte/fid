@@ -26,14 +26,14 @@ export default function IntroLoader() {
         <motion.div
           role="presentation"
           className="fixed inset-0 z-[10000] overflow-hidden"
-          style={{ backgroundColor: "#f7ecc4", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.6rem" }}
+          style={{ backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.6rem" }}
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }}
         >
-          <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(60% 50% at 50% 45%, rgba(217,128,56,0.06) 0%, transparent 70%)" }} />
+          <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(60% 50% at 50% 45%, rgba(252,156,68,0.06) 0%, transparent 70%)" }} />
 
-          <BrandMark size={110} color="#1C1C1C" accent="#5B0E14" spin={false} />
+          <BrandMark size={110} color="#1C1C1C" accent="#742F14" spin={false} />
 
           <motion.p
             initial={{ opacity: 0, y: 8 }}

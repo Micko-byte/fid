@@ -29,9 +29,11 @@ export default function Nav() {
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 8000,
           transition: "background 0.5s, backdrop-filter 0.5s, border-color 0.5s, padding 0.4s",
-          borderBottom: scrolled ? "1px solid rgba(217,171,136,0.12)" : "1px solid transparent",
-          background: scrolled ? "rgba(26,3,6,0.9)" : "linear-gradient(180deg, rgba(26,3,6,0.6) 0%, rgba(26,3,6,0.2) 60%, transparent 100%)",
-          backdropFilter: scrolled ? "blur(18px) saturate(1.2)" : "blur(2px)",
+          borderTop: "3px solid #FC9C44",
+          borderBottom: scrolled ? "1px solid rgba(92,60,44,0.1)" : "1px solid transparent",
+          background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.86)",
+          backdropFilter: "blur(20px) saturate(1.3)",
+          boxShadow: scrolled ? "0 10px 40px rgba(92,60,44,0.1)" : "none",
         }}
       >
         <div
@@ -39,14 +41,14 @@ export default function Nav() {
             maxWidth: "1320px", margin: "0 auto",
             padding: "0 clamp(1.5rem, 5vw, 6rem)",
             display: "flex", alignItems: "center", justifyContent: "space-between",
-            height: scrolled ? "66px" : "84px",
+            height: scrolled ? "74px" : "100px",
             transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          {/* Logo — metallic lockup as-is on a tight cream chip */}
-          <Link href="/" aria-label="FID &amp; Co. — home" style={{ display: "inline-flex", alignItems: "center", background: "#F5F2EC", padding: "10px 18px", borderRadius: "4px", boxShadow: "0 0 20px rgba(91,14,20,0.15), 0 4px 12px rgba(0,0,0,0.1)", transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)" }} className="nav-logo-chip">
+          {/* Logo — directly on the white header, no background chip */}
+          <Link href="/" aria-label="FID &amp; Co. — home" style={{ display: "inline-flex", alignItems: "center", transition: "all 0.4s cubic-bezier(0.16,1,0.3,1)" }} className="nav-logo-chip">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: scrolled ? "38px" : "48px", width: "auto", display: "block", transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)" }} />
+            <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: scrolled ? "62px" : "82px", width: "auto", display: "block", transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)" }} />
           </Link>
 
           {/* Desktop links */}
@@ -57,12 +59,12 @@ export default function Nav() {
                 href={link.href}
                 className="nav-link-item"
                 style={{
-                  fontSize: "0.82rem", letterSpacing: "0.04em", color: "#D9AB88",
+                  fontSize: "0.82rem", letterSpacing: "0.04em", color: "#5C3C2C",
                   position: "relative", padding: "0.4rem 0",
                   transition: "color 0.3s", textDecoration: "none",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#F5F2EC")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = "#D9AB88")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#742F14")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#5C3C2C")}
               >
                 {link.label}
               </Link>
@@ -70,14 +72,17 @@ export default function Nav() {
             <Link
               href="/#contact"
               style={{
-                fontSize: "0.8rem", letterSpacing: "0.08em",
-                padding: "0.85em 1.7em", background: "#5B0E14",
-                color: "#F5F2EC", position: "relative", overflow: "hidden",
-                textDecoration: "none", display: "inline-block",
-                transition: "background 0.3s",
+                fontSize: "0.8rem", letterSpacing: "0.08em", fontWeight: 700,
+                padding: "0.85em 1.8em", background: "#FC9C44",
+                color: "#3a1f10", position: "relative", overflow: "hidden",
+                textDecoration: "none", display: "inline-block", borderRadius: "999px",
+                boxShadow: "0 8px 22px rgba(252,156,68,0.35)",
+                transition: "background 0.3s, transform 0.2s, box-shadow 0.3s",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#8a0a10")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "#5B0E14")}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#ffae5e"; e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = "0 12px 28px rgba(252,156,68,0.45)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#FC9C44"; e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 8px 22px rgba(252,156,68,0.35)"; }}
+              onPointerDown={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
+              onPointerUp={(e) => (e.currentTarget.style.transform = "translateY(-2px)")}
             >
               Book us
             </Link>
@@ -86,7 +91,7 @@ export default function Nav() {
           {/* Mobile hamburger */}
           <button
             className="nav-burger-btn"
-            style={{ color: "#F5F2EC", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px", display: "flex", alignItems: "center", justifyContent: "center" }}
+            style={{ color: "#5C3C2C", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px", display: "flex", alignItems: "center", justifyContent: "center" }}
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
@@ -106,16 +111,16 @@ export default function Nav() {
             exit={{ x: "100%" }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              position: "fixed", inset: 0, zIndex: 8500, backgroundColor: "#1d0202",
+              position: "fixed", inset: 0, zIndex: 8500, backgroundColor: "#FFFFFF",
               display: "flex", flexDirection: "column",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.6rem clamp(1.5rem,5vw,6rem)", borderBottom: "1px solid rgba(217,171,136,0.09)" }}>
-              <span style={{ background: "#F5F2EC", padding: "10px 18px", borderRadius: "4px", display: "inline-flex", boxShadow: "0 0 20px rgba(91,14,20,0.15), 0 4px 12px rgba(0,0,0,0.1)" }}>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.6rem clamp(1.5rem,5vw,6rem)", borderBottom: "1px solid rgba(92,60,44,0.12)" }}>
+              <span style={{ display: "inline-flex" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src="/fid-logo.png" alt="FID &amp; Co. — Insight. Strategy. Impact." style={{ height: "38px" }} />
               </span>
-              <button onClick={() => setMenuOpen(false)} style={{ color: "#D9AB88", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px" }} aria-label="Close menu">
+              <button onClick={() => setMenuOpen(false)} style={{ color: "#5C3C2C", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px" }} aria-label="Close menu">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" style={{ width: "26px", height: "26px" }}>
                   <line x1="5" y1="5" x2="19" y2="19" /><line x1="19" y1="5" x2="5" y2="19" />
                 </svg>
@@ -131,11 +136,11 @@ export default function Nav() {
                     style={{
                       fontFamily: "var(--font-heading, 'Oswald')",
                       fontSize: "clamp(2.2rem, 9vw, 3.6rem)",
-                      color: "#F5F2EC", lineHeight: 1.15, fontWeight: 500,
+                      color: "#1a1a1a", lineHeight: 1.15, fontWeight: 500,
                       display: "block", textDecoration: "none",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#5B0E14")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "#F5F2EC")}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#742F14")}
+                    onMouseLeave={(e) => (e.currentTarget.style.color = "#1a1a1a")}
                   >
                     {link.label}
                   </Link>
@@ -143,7 +148,7 @@ export default function Nav() {
               ))}
             </div>
 
-            <div style={{ padding: "2rem clamp(1.5rem,5vw,6rem)", borderTop: "1px solid rgba(217,171,136,0.09)", color: "rgba(217,171,136,0.7)", fontSize: "0.8rem" }}>
+            <div style={{ padding: "2rem clamp(1.5rem,5vw,6rem)", borderTop: "1px solid rgba(92,60,44,0.12)", color: "rgba(92,60,44,0.7)", fontSize: "0.8rem" }}>
               info@fidco.africa · +254 797 690 609
             </div>
           </motion.div>

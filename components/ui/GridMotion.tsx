@@ -44,7 +44,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = "#ede2ca"
         style={{
           background: `
             radial-gradient(circle at 25% 20%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 22%, transparent 60%),
-            radial-gradient(circle at 78% 18%, rgba(241,225,148,0.22) 0%, transparent 28%),
+            radial-gradient(circle at 78% 18%, rgba(252,156,68,0.22) 0%, transparent 28%),
             radial-gradient(circle, ${gradientColor} 0%, transparent 72%)
           `,
         }}
@@ -83,7 +83,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = "#ede2ca"
                         className="absolute inset-0"
                         style={{
                           background:
-                            "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 45%, rgba(91,14,20,0.05) 100%)",
+                            "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 45%, rgba(116,47,20,0.05) 100%)",
                         }}
                       />
                     </div>

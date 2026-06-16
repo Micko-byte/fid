@@ -33,11 +33,11 @@ function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
         style={{ position: "relative", order: reverse ? 2 : 1 }}
         className="event-img"
       >
-        <div style={{ width: "100%", aspectRatio: "4/3", overflow: "hidden", backgroundColor: "#ece7df" }}>
+        <div style={{ width: "100%", aspectRatio: "4/3", overflow: "hidden", backgroundColor: "#FFFFFF" }}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={ev.image} alt={ev.name} loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
         </div>
-        <div style={{ position: "absolute", top: "1rem", left: "1rem", backgroundColor: "#5B0E14", color: "#fff", padding: "0.4rem 0.9rem", fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600 }}>
+        <div style={{ position: "absolute", top: "1rem", left: "1rem", backgroundColor: "#742F14", color: "#fff", padding: "0.4rem 0.9rem", fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", fontWeight: 600 }}>
           {ev.status === "upcoming" ? "Upcoming" : "Recurring"}
         </div>
       </motion.div>
@@ -50,17 +50,17 @@ function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
         style={{ order: reverse ? 1 : 2, display: "flex", flexDirection: "column", gap: "1rem" }}
         className="event-text"
       >
-        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.06em", color: "#5B0E14", textTransform: "uppercase" }}>{ev.tagline}</span>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.06em", color: "#742F14", textTransform: "uppercase" }}>{ev.tagline}</span>
         <h2 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1.8rem,3.6vw,2.8rem)", color: "#1a1a1a", letterSpacing: "-0.02em", lineHeight: 1.02 }}>
           {ev.name}
         </h2>
 
         <div style={{ display: "flex", gap: "1.6rem", flexWrap: "wrap", marginTop: "0.2rem" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(26,26,26,0.6)" }}>
-            <CalendarBlank size={18} weight="light" color="#5B0E14" /> {ev.date}
+            <CalendarBlank size={18} weight="light" color="#742F14" /> {ev.date}
           </span>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(26,26,26,0.6)" }}>
-            <MapPin size={18} weight="light" color="#5B0E14" /> {ev.location}
+            <MapPin size={18} weight="light" color="#742F14" /> {ev.location}
           </span>
         </div>
 
@@ -70,9 +70,9 @@ function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
 
         <a
           href={ev.ticketUrl}
-          style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", marginTop: "0.6rem", backgroundColor: "#5B0E14", color: "#fff", padding: "0.85rem 1.5rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, textDecoration: "none", borderRadius: "2px", alignSelf: "flex-start", transition: "background 0.25s, gap 0.25s" }}
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", marginTop: "0.6rem", backgroundColor: "#742F14", color: "#fff", padding: "0.85rem 1.5rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, textDecoration: "none", borderRadius: "2px", alignSelf: "flex-start", transition: "background 0.25s, gap 0.25s" }}
           onMouseEnter={(e) => { e.currentTarget.style.background = "#8a0007"; e.currentTarget.style.gap = "0.9rem"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "#5B0E14"; e.currentTarget.style.gap = "0.6rem"; }}
+          onMouseLeave={(e) => { e.currentTarget.style.background = "#742F14"; e.currentTarget.style.gap = "0.6rem"; }}
         >
           <Ticket size={18} weight="fill" /> Get tickets
         </a>
@@ -86,16 +86,16 @@ export default function EventsClient() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <main style={{ backgroundColor: "#f7ecc4", color: "#1a1a1a", minHeight: "100vh" }}>
+    <main style={{ backgroundColor: "#FFFFFF", color: "#1a1a1a", minHeight: "100vh" }}>
       <section style={{ paddingTop: "clamp(8rem,16vw,12rem)", paddingBottom: "clamp(4rem,8vw,7rem)" }}>
         <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14" }}
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#742F14" }}
           >
-            <span style={{ width: "26px", height: "1px", background: "#5B0E14", opacity: 0.6 }} />
+            <span style={{ width: "26px", height: "1px", background: "#742F14", opacity: 0.6 }} />
             Events &amp; experiences
           </motion.span>
 
@@ -129,7 +129,7 @@ export default function EventsClient() {
             <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(26,26,26,0.55)" }}>
               Interested in partnering or sponsoring an upcoming edition?
             </p>
-            <Link href="/#contact" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#5B0E14", fontWeight: 600, textDecoration: "none" }}>
+            <Link href="/#contact" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#742F14", fontWeight: 600, textDecoration: "none" }}>
               Get in touch
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
             </Link>

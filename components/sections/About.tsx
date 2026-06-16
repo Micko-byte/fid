@@ -20,7 +20,7 @@ export default function About() {
     <section
       id="about"
       style={{
-        backgroundColor: "#f7ecc4",
+        backgroundColor: "#FFFFFF",
         color: "#1a1a1a",
         paddingTop: "clamp(5.5rem, 12vw, 11rem)",
         paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
@@ -37,7 +37,7 @@ export default function About() {
       >
         <div className="about-grid">
           {/* LEFT: text */}
-          <div>
+          <div style={{ textAlign: "center" }}>
             <motion.span
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -45,10 +45,10 @@ export default function About() {
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.7rem",
                 fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
-                letterSpacing: "0.28em", textTransform: "uppercase", color: "#5B0E14",
+                letterSpacing: "0.28em", textTransform: "uppercase", color: "#742F14",
               }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#5B0E14", opacity: 0.6, flexShrink: 0 }} />
+              <span style={{ width: "26px", height: "1px", background: "#742F14", opacity: 0.6, flexShrink: 0 }} />
               Who we are
             </motion.span>
 
@@ -57,13 +57,13 @@ export default function About() {
               animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
               transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600, color: "#1a1a1a",
-                fontSize: "clamp(2rem, 4.6vw, 3.7rem)", lineHeight: 1.05, letterSpacing: "-0.025em",
-                maxWidth: "20ch", textWrap: "balance", marginTop: "1.6rem",
+                fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 800, color: "#1a1a1a",
+                fontSize: "clamp(2.2rem, 5vw, 4rem)", lineHeight: 1.04, letterSpacing: "-0.025em",
+                maxWidth: "20ch", textWrap: "balance", marginTop: "1.6rem", marginLeft: "auto", marginRight: "auto",
               } as React.CSSProperties}
             >
               A communications partner built for influence at{" "}
-              <em style={{ fontStyle: "normal", color: "#5B0E14" }}>scale</em>.
+              <em style={{ fontStyle: "normal", color: "#742F14" }}>scale</em>.
             </motion.h2>
 
             {/* Exact copy from company profile */}
@@ -71,7 +71,7 @@ export default function About() {
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              style={{ marginTop: "1.8rem", maxWidth: "46ch", display: "flex", flexDirection: "column", gap: "1.1rem" }}
+              style={{ marginTop: "1.8rem", maxWidth: "52ch", marginLeft: "auto", marginRight: "auto", display: "flex", flexDirection: "column", gap: "1.1rem" }}
             >
               <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.92rem,1.2vw,1.05rem)", lineHeight: 1.7, color: "rgba(26,26,26,0.66)" }}>
                 FID &amp; Co. is a full-service strategic communications and brand experience firm delivering public relations, media engagement, digital storytelling, influencer marketing and experiential activations across Kenya and the wider African region.
@@ -93,21 +93,6 @@ export default function About() {
             className="about-img-col"
             style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
-            {/* Gold gradient blob behind illustration */}
-            <div
-              style={{
-                position: "absolute",
-                width: "75%",
-                aspectRatio: "1/1",
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(209,171,68,0.22) 0%, rgba(241,225,148,0.1) 50%, transparent 75%)",
-                filter: "blur(48px)",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                pointerEvents: "none",
-              }}
-            />
             {/* Illustration with parallax drift */}
             <motion.div
               animate={{ y: [0, -10, 0] }}
@@ -157,7 +142,7 @@ export default function About() {
                   borderLeft: i === 0 ? "none" : "1px solid rgba(26,26,26,0.08)",
                 }}
               >
-                <Icon size={26} weight="light" color="#5B0E14" />
+                <Icon size={26} weight="light" color="#742F14" />
                 <div style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 700, color: "#1a1a1a", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: "-0.04em", marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>

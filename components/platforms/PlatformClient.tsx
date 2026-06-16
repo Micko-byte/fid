@@ -7,13 +7,14 @@ import { ArrowUpLeft } from "@phosphor-icons/react";
 import Button from "@/components/ui/Button";
 import Footer from "@/components/Footer";
 import SplitText from "@/components/ui/SplitText";
+import ScrollVideo from "@/components/ui/ScrollVideo";
 import type { OwnedPlatform } from "@/lib/platforms";
 
 const HERO_FLOATING_SHAPES = [
-  { size: 380, x: "5%", y: "10%", color: "rgba(91,14,20,0.09)", dur: 24, dx: 25, dy: 18 },
+  { size: 380, x: "5%", y: "10%", color: "rgba(116,47,20,0.09)", dur: 24, dx: 25, dy: 18 },
   { size: 300, x: "68%", y: "8%", color: "rgba(201,170,60,0.11)", dur: 30, dx: -20, dy: 30 },
-  { size: 260, x: "50%", y: "60%", color: "rgba(91,14,20,0.07)", dur: 28, dx: 18, dy: -25 },
-  { size: 320, x: "15%", y: "68%", color: "rgba(241,225,148,0.13)", dur: 34, dx: -30, dy: -18 },
+  { size: 260, x: "50%", y: "60%", color: "rgba(116,47,20,0.07)", dur: 28, dx: 18, dy: -25 },
+  { size: 320, x: "15%", y: "68%", color: "rgba(252,156,68,0.13)", dur: 34, dx: -30, dy: -18 },
 ];
 
 export default function PlatformClient({ platform: p }: { platform: OwnedPlatform }) {
@@ -26,11 +27,11 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
 
   return (
     <>
-      <main style={{ backgroundColor: "#f7ecc4", color: "#1a1a1a", minHeight: "100vh" }}>
+      <main style={{ backgroundColor: "#FFFFFF", color: "#1a1a1a", minHeight: "100vh" }}>
         {/* ── HERO ── */}
         <section ref={heroRef} style={{ position: "relative", paddingTop: "clamp(8rem,16vw,12rem)", paddingBottom: "clamp(4rem,8vw,7rem)", overflow: "hidden" }}>
           {/* warm ambient wash */}
-          <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(60% 70% at 80% 0%, ${p.accent}22 0%, transparent 55%), radial-gradient(60% 70% at 10% 100%, rgba(91,14,20,0.08) 0%, transparent 55%)` }} />
+          <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(60% 70% at 80% 0%, ${p.accent}22 0%, transparent 55%), radial-gradient(60% 70% at 10% 100%, rgba(116,47,20,0.08) 0%, transparent 55%)` }} />
 
           {/* floating abstract shapes */}
           {HERO_FLOATING_SHAPES.map((s, i) => (
@@ -56,9 +57,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
 
           {/* Suhba festival illustration — decorative background */}
           {p.slug === "suhba-series" && (
-            <motion.img
-              src="/illustrations/suhba-festival.png"
-              alt=""
+            <motion.div
               aria-hidden="true"
               animate={{ y: [0, -12, 0], x: [0, 6, 0] }}
               transition={{ duration: 20, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
@@ -67,13 +66,17 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                 right: "-4%",
                 top: "5%",
                 width: "clamp(320px, 40vw, 600px)",
-                height: "auto",
-                opacity: 0.18,
-                mixBlendMode: "multiply",
+                opacity: 0.9,
                 pointerEvents: "none",
                 zIndex: 1,
               }}
-            />
+            >
+              <ScrollVideo
+                src="/illustrations/suhba-festival.mp4"
+                poster="/illustrations/suhba-festival.png"
+                style={{ width: "100%", height: "auto", display: "block" }}
+              />
+            </motion.div>
           )}
 
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
@@ -128,11 +131,11 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
           <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
             <motion.div
               initial={{ opacity: 0, scale: 0.97 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true, margin: "-10%" }} transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-              style={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", backgroundColor: "#ece7df", borderRadius: "4px", boxShadow: "0 30px 80px rgba(91,14,20,0.15)" }}
+              style={{ position: "relative", width: "100%", aspectRatio: "16/9", overflow: "hidden", backgroundColor: "#FFFFFF", borderRadius: "4px", boxShadow: "0 30px 80px rgba(116,47,20,0.15)" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 60%, rgba(26,3,6,0.55))" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 60%, rgba(92,60,44,0.55))" }} />
               <span style={{ position: "absolute", left: "1.6rem", bottom: "1.4rem", fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)" }}>
                 Asset placeholder — replace with hero image
               </span>
@@ -227,7 +230,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                     key={i}
                     whileHover={{ scale: 1.02, borderLeftColor: p.accent }}
                     transition={{ duration: 0.25, ease: "easeOut" }}
-                    style={{ padding: "1.4rem 1.5rem", backgroundColor: "#f7ecc4", border: "1px solid rgba(91,14,20,0.1)", borderLeft: `3px solid transparent`, borderRadius: "6px", cursor: "default" }}
+                    style={{ padding: "1.4rem 1.5rem", backgroundColor: "#FFFFFF", border: "1px solid rgba(116,47,20,0.1)", borderLeft: `3px solid transparent`, borderRadius: "6px", cursor: "default" }}
                   >
                     <p style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "1.05rem", color: "#1a1a1a", textTransform: "uppercase", letterSpacing: "0.02em", margin: 0 }}>
                       {pt.name}

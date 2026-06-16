@@ -203,7 +203,7 @@ export default function WorkDetailClient({ project }: Props) {
         >
           <div style={{
             position: "absolute", inset: 0,
-            background: `linear-gradient(135deg, rgba(${project.color === "#5B0E14" ? "117,0,6" : project.color === "#5B0E14" ? "217,128,56" : "217,171,136"},0.12) 0%, transparent 60%)`,
+            background: `linear-gradient(135deg, rgba(${project.color === "#742F14" ? "117,0,6" : project.color === "#742F14" ? "217,128,56" : "217,171,136"},0.12) 0%, transparent 60%)`,
           }} />
           <span style={{
             position: "absolute",

@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import TextType from "@/components/ui/TextType";
-import { InstitutionsGraphic } from "@/components/graphics/AbstractGraphics";
 
 const logos = [
   "/logos/executive-office-president.png",
@@ -54,28 +53,9 @@ export default function BrandFlow() {
         overflow: "hidden",
         paddingTop: "clamp(4.5rem,9vw,7rem)",
         paddingBottom: "clamp(4.5rem,9vw,7rem)",
-        backgroundColor: "#f7ecc4",
+        backgroundColor: "#FFFFFF",
       }}
     >
-      <div
-        aria-hidden="true"
-        style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.24, mixBlendMode: "multiply" }}
-      >
-        <InstitutionsGraphic />
-      </div>
-
-      <motion.div
-        aria-hidden
-        animate={{ opacity: [0.35, 0.7, 0.35] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        style={{
-          position: "absolute",
-          inset: 0,
-          pointerEvents: "none",
-          background:
-            "radial-gradient(50% 80% at 15% 50%, rgba(91,14,20,0.10) 0%, transparent 60%), radial-gradient(50% 80% at 85% 50%, rgba(91,14,20,0.08) 0%, transparent 60%)",
-        }}
-      />
 
       <div
         ref={ref}
@@ -103,10 +83,10 @@ export default function BrandFlow() {
             fontWeight: 600,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: "#5B0E14",
+            color: "#742F14",
           }}
         >
-          <span style={{ width: "24px", height: "1px", background: "#5B0E14", opacity: 0.7 }} /> Trusted by
+          <span style={{ width: "24px", height: "1px", background: "#742F14", opacity: 0.7 }} /> Trusted by
         </motion.span>
 
         <motion.h2
@@ -128,7 +108,7 @@ export default function BrandFlow() {
         </motion.h2>
       </div>
 
-      <div style={{ position: "relative", zIndex: 2, color: "rgba(91,14,20,0.18)", marginBottom: "clamp(2rem,4vw,3rem)" }}>
+      <div style={{ position: "relative", zIndex: 2, color: "rgba(116,47,20,0.18)", marginBottom: "clamp(2rem,4vw,3rem)" }}>
         <TextType text="Follow the work in motion." as="p" className="bf-type" typingSpeed={42} pauseDuration={1400} deletingSpeed={18} cursorCharacter="✦" />
         <ScrollVelocity texts={["Government • Retail • Hospitality • Healthcare • Finance • Culture • Sport •"]} velocity={45} numCopies={3} className="bf-vel" />
       </div>
@@ -146,7 +126,7 @@ export default function BrandFlow() {
           font-size: 0.72rem;
           letter-spacing: 0.24em;
           text-transform: uppercase;
-          color: #5B0E14;
+          color: #742F14;
         }
         .bf-vel { font-family: '"Nohemi", var(--font-heading, "Oswald")'; font-weight: 700; text-transform: uppercase; font-size: clamp(2rem,5vw,4rem); letter-spacing: -0.01em; }
         .bf-strip { animation-name: bf-move; animation-timing-function: linear; animation-iteration-count: infinite; }
@@ -162,16 +142,16 @@ export default function BrandFlow() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(247,236,196,0.72);
+          background: rgba(255,255,255,0.72);
           border-radius: 8px;
           padding: 0.9rem 1.3rem;
-          box-shadow: 0 6px 20px rgba(91,14,20,0.08);
-          border: 1px solid rgba(91,14,20,0.08);
+          box-shadow: 0 6px 20px rgba(116,47,20,0.08);
+          border: 1px solid rgba(116,47,20,0.08);
           backdrop-filter: blur(10px);
           transition: transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s;
         }
         .bf-chip img { max-width: 100%; max-height: 100%; object-fit: contain; opacity: 1; image-rendering: auto; }
-        .bf-chip:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(91,14,20,0.2); }
+        .bf-chip:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(116,47,20,0.2); }
       `}</style>
     </section>
   );

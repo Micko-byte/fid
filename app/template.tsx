@@ -28,7 +28,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: [0, 1, 0], y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 700, fontSize: "clamp(2rem,6vw,4rem)", letterSpacing: "-0.02em", color: "#F5F2EC" }}
+            style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 700, fontSize: "clamp(2rem,6vw,4rem)", letterSpacing: "-0.02em", color: "#FFFFFF" }}
           >
             FID &amp; Co.
           </motion.span>
