@@ -23,10 +23,10 @@ const assets: Record<string, { logo?: string; image?: string }> = {
 
 const storyOrder = [
   "national-minorities-day",
-  "utamaduni-day",
   "lc-waikiki-africa",
   "thrive-hospitality-group",
-  "africa-forum-on-displacements",
+  "columbia-africa-healthcare",
+  "wrc-safari-rally",
 ];
 
 const storyLeads = storyOrder

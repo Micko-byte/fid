@@ -7,7 +7,6 @@ import { ArrowUpLeft } from "@phosphor-icons/react";
 import Button from "@/components/ui/Button";
 import Footer from "@/components/Footer";
 import SplitText from "@/components/ui/SplitText";
-import ScrollVideo from "@/components/ui/ScrollVideo";
 import type { OwnedPlatform } from "@/lib/platforms";
 
 const HERO_FLOATING_SHAPES = [
@@ -55,29 +54,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
             />
           ))}
 
-          {/* Suhba festival illustration — decorative background */}
-          {p.slug === "suhba-series" && (
-            <motion.div
-              aria-hidden="true"
-              animate={{ y: [0, -12, 0], x: [0, 6, 0] }}
-              transition={{ duration: 20, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
-              style={{
-                position: "absolute",
-                right: "-4%",
-                top: "5%",
-                width: "clamp(320px, 40vw, 600px)",
-                opacity: 0.9,
-                pointerEvents: "none",
-                zIndex: 1,
-              }}
-            >
-              <ScrollVideo
-                src="/illustrations/suhba-festival.mp4"
-                poster="/illustrations/suhba-festival.png"
-                style={{ width: "100%", height: "auto", display: "block" }}
-              />
-            </motion.div>
-          )}
+          {/* Suhba animation slot — awaiting new animation from client */}
 
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
             {/* breadcrumb */}
