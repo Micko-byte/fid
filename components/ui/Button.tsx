@@ -59,7 +59,7 @@ const Arrow = () => (
 
 export default function Button({
   children, href, onClick, variant = "primary", size = "md",
-  arrow = true, magnetic = false, cursor, external = false, className, type = "button",
+  arrow = true, magnetic = true, cursor, external = false, className, type = "button",
 }: ButtonProps) {
   const style = styleFor(variant, size);
   const common = {

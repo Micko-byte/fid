@@ -4,6 +4,8 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import TextType from "@/components/ui/TextType";
+import { InfiniteSlider } from "@/components/core/infinite-slider";
+import { TextRoll } from "@/components/core/text-roll";
 
 const logos = [
   "/logos/executive-office-president.png",
@@ -22,29 +24,9 @@ const logos = [
   "/logos/2nu-kollexion.png",
 ];
 
-function Strip({ items, reverse, dur }: { items: string[]; reverse?: boolean; dur: number }) {
-  const track = [...items, ...items];
-  return (
-    <div style={{ overflow: "hidden", padding: "0.5rem 0" }}>
-      <div
-        className={reverse ? "bf-strip bf-rev" : "bf-strip"}
-        style={{ display: "flex", width: "max-content", animationDuration: `${dur}s` }}
-      >
-        {track.map((src, i) => (
-          <div key={i} className="bf-chip">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={src} alt="" loading="lazy" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export default function BrandFlow() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const half = Math.ceil(logos.length / 2);
 
   return (
     <section
@@ -104,7 +86,7 @@ export default function BrandFlow() {
             textTransform: "uppercase",
           }}
         >
-          Governments, global brands &amp; institutions.
+          <TextRoll>Governments, global brands &amp; institutions.</TextRoll>
         </motion.h2>
       </div>
 
@@ -113,9 +95,15 @@ export default function BrandFlow() {
         <ScrollVelocity texts={["Government • Retail • Hospitality • Healthcare • Finance • Culture • Sport •"]} velocity={45} numCopies={3} className="bf-vel" />
       </div>
 
-      <div style={{ position: "relative", zIndex: 2, display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-        <Strip items={logos.slice(0, half)} dur={32} />
-        <Strip items={logos.slice(half)} reverse dur={38} />
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <InfiniteSlider gap={24} speed={40} speedOnHover={20}>
+          {logos.map((src, i) => (
+            <div key={i} className="bf-chip">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt="" loading="lazy" />
+            </div>
+          ))}
+        </InfiniteSlider>
       </div>
 
       <style>{`

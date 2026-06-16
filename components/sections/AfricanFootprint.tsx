@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { TextRoll } from "@/components/core/text-roll";
 
 type Country = {
   name: string;
@@ -109,7 +110,7 @@ export default function AfricanFootprint() {
           African footprint
         </span>
         <h3 style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, color: "#1a1a1a", fontSize: "clamp(1.9rem, 3.6vw, 3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
-          8+ markets across East &amp; Southern Africa — and beyond.
+          <TextRoll>8+ markets across East &amp; Southern Africa — and beyond.</TextRoll>
         </h3>
       </div>
 

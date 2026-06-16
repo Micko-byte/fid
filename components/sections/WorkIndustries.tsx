@@ -1,8 +1,9 @@
 "use client";
 
-import { useMemo, useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useMemo, useRef, useState } from "react";
+import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { InView } from "@/components/core/in-view";
 import { projects, type Project } from "@/lib/projects";
 import Tilt from "@/components/motion/Tilt";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
@@ -266,24 +267,41 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
  * vertical offsets (set via CSS classes) break the uniform-tile "gallery" feel
  * and give the Atra-style staggered, mixed-size composition.
  */
+const cardReveal = {
+  hidden: { opacity: 0, scale: 0.9, y: 24, filter: "blur(10px)" },
+  visible: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
+};
+
 function MosaicCard({ p, index, variant }: { p: Project; index: number; variant: "lg" | "sm" }) {
   const a = assets[p.slug] ?? {};
+  const [isOpen, setIsOpen] = useState(false);
+  const spring = { type: "spring", stiffness: 200, damping: 26, mass: 0.6 } as const;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-12% 0px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      variants={cardReveal}
+      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
       className={`work-mosaic-card work-mosaic-${variant}`}
     >
-      <Link href={`/work/${p.slug}`} data-cursor="View" className="work-mosaic-link" style={{ display: "block", position: "relative", width: "100%", height: "100%", textDecoration: "none", overflow: "hidden", borderRadius: "14px" }}>
+      <div
+        data-cursor="View"
+        onClick={() => setIsOpen((v) => !v)}
+        className="work-mosaic-link"
+        style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: "14px", cursor: "pointer" }}
+      >
         <div style={{ position: "absolute", inset: 0, background: p.color ?? "#5C3C2C" }} />
         {a.image && (
-          /* eslint-disable-next-line @next/next/no-img-element */
-          <img src={a.image} alt={p.client} loading="lazy" className="work-mosaic-img" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.8s cubic-bezier(0.16,1,0.3,1)" }} />
+          <motion.img
+            src={a.image}
+            alt={p.client}
+            loading="lazy"
+            animate={{ scale: isOpen ? 1.1 : 1, filter: isOpen ? "blur(3px)" : "blur(0px)" }}
+            transition={spring}
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
+          />
         )}
         {/* readable gradient scrim */}
-        <div aria-hidden="true" style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(92,60,44,0) 32%, rgba(92,60,44,0.82) 100%)" }} />
+        <motion.div aria-hidden="true" animate={{ opacity: isOpen ? 0.95 : 1 }} style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(92,60,44,0) 28%, rgba(58,31,16,0.9) 100%)" }} />
 
         {/* index marker */}
         <span style={{ position: "absolute", top: "1rem", right: "1.1rem", fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 700, fontSize: variant === "lg" ? "1.4rem" : "1.05rem", color: "rgba(255,255,255,0.55)" }}>
@@ -297,8 +315,8 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
           </div>
         )}
 
-        {/* caption */}
-        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: variant === "lg" ? "clamp(1.4rem,2.4vw,2.2rem)" : "1.2rem 1.3rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        {/* caption / disclosure panel */}
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: variant === "lg" ? "clamp(1.3rem,2.2vw,2rem)" : "1.1rem 1.2rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#FC9C44" }}>
             <IndustryIcon sector={p.sector} size={15} strokeWidth={1.6} />
             {p.sector}
@@ -306,17 +324,36 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
           <h3 style={{ margin: 0, fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.02em", lineHeight: 1.04, color: "#FFFFFF", fontSize: variant === "lg" ? "clamp(1.6rem,2.6vw,2.5rem)" : "clamp(1.1rem,1.6vw,1.4rem)", maxWidth: "18ch" }}>
             {p.client}
           </h3>
-          {variant === "lg" && (
-            <p style={{ margin: 0, fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.55, color: "rgba(255,255,255,0.78)", maxWidth: "46ch" }}>
-              {p.impact}
-            </p>
+
+          {/* disclosure content — reveals on click */}
+          <AnimatePresence initial={false}>
+            {isOpen && (
+              <motion.div
+                key="disclosure"
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: "auto", opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                style={{ overflow: "hidden" }}
+              >
+                <p style={{ margin: "0.4rem 0 0.9rem", fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.55, color: "rgba(255,255,255,0.82)", maxWidth: "46ch" }}>
+                  {p.impact}
+                </p>
+                <Link href={`/work/${p.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: "#3a1f10", background: "#FC9C44", padding: "0.6rem 1.1rem", borderRadius: "999px", textDecoration: "none" }}>
+                  Read the story
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </Link>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {!isOpen && (
+            <span className="work-mosaic-cta" style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)", fontWeight: 600, marginTop: "0.2rem" }}>
+              Tap to explore
+            </span>
           )}
-          <span className="work-mosaic-cta" style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#FFFFFF", fontWeight: 600, marginTop: "0.2rem" }}>
-            Read the story
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-          </span>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 }
@@ -480,8 +517,12 @@ export default function WorkIndustries() {
         {/* Lead story — large editorial feature */}
         <StoryChapter p={lead} index={0} />
 
-        {/* Remaining work — asymmetric, mixed-size mosaic (not a uniform gallery) */}
-        <div className="work-mosaic">
+        {/* Remaining work — asymmetric mosaic with staggered scroll reveal */}
+        <InView
+          className="work-mosaic"
+          variants={{ hidden: { opacity: 1 }, visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
+          viewOptions={{ once: true, margin: "0px 0px -120px 0px" }}
+        >
           {rest.map((p, index) => (
             <MosaicCard
               key={p.slug}
@@ -490,7 +531,7 @@ export default function WorkIndustries() {
               variant={index === 0 || index === 3 ? "lg" : "sm"}
             />
           ))}
-        </div>
+        </InView>
 
         <div style={{ marginTop: "clamp(2rem, 4vw, 3rem)" }}>
           <AfricanFootprint />

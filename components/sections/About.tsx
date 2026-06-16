@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import CountUp from "@/components/animations/CountUp";
 import { Calendar, Buildings, GlobeHemisphereEast, Megaphone } from "@phosphor-icons/react";
+import { ImageComparison, ImageComparisonImage, ImageComparisonSlider } from "@/components/core/image-comparison";
 
 const stats = [
   { value: "15+", label: "Years Experience", Icon: Calendar },
@@ -20,8 +21,8 @@ export default function About() {
     <section
       id="about"
       style={{
-        backgroundColor: "#FFFFFF",
-        color: "#1a1a1a",
+        backgroundColor: "#0c0c0c",
+        color: "#FFFFFF",
         paddingTop: "clamp(5.5rem, 12vw, 11rem)",
         paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
       }}
@@ -45,10 +46,10 @@ export default function About() {
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.7rem",
                 fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
-                letterSpacing: "0.28em", textTransform: "uppercase", color: "#742F14",
+                letterSpacing: "0.28em", textTransform: "uppercase", color: "#FC9C44",
               }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#742F14", opacity: 0.6, flexShrink: 0 }} />
+              <span style={{ width: "26px", height: "1px", background: "#FC9C44", opacity: 0.7, flexShrink: 0 }} />
               Who we are
             </motion.span>
 
@@ -57,13 +58,13 @@ export default function About() {
               animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
               transition={{ duration: 1.0, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{
-                fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 800, color: "#1a1a1a",
+                fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 800, color: "#FFFFFF",
                 fontSize: "clamp(2.2rem, 5vw, 4rem)", lineHeight: 1.04, letterSpacing: "-0.025em",
                 maxWidth: "20ch", textWrap: "balance", marginTop: "1.6rem", marginLeft: "auto", marginRight: "auto",
               } as React.CSSProperties}
             >
               A communications partner built for influence at{" "}
-              <em style={{ fontStyle: "normal", color: "#742F14" }}>scale</em>.
+              <em style={{ fontStyle: "normal", color: "#FC9C44" }}>scale</em>.
             </motion.h2>
 
             {/* Exact copy from company profile */}
@@ -73,13 +74,13 @@ export default function About() {
               transition={{ duration: 0.8, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
               style={{ marginTop: "1.8rem", maxWidth: "52ch", marginLeft: "auto", marginRight: "auto", display: "flex", flexDirection: "column", gap: "1.1rem" }}
             >
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.92rem,1.2vw,1.05rem)", lineHeight: 1.7, color: "rgba(26,26,26,0.66)" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.92rem,1.2vw,1.05rem)", lineHeight: 1.7, color: "rgba(255,255,255,0.72)" }}>
                 FID &amp; Co. is a full-service strategic communications and brand experience firm delivering public relations, media engagement, digital storytelling, influencer marketing and experiential activations across Kenya and the wider African region.
               </p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.92rem,1.2vw,1.05rem)", lineHeight: 1.7, color: "rgba(26,26,26,0.66)" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.92rem,1.2vw,1.05rem)", lineHeight: 1.7, color: "rgba(255,255,255,0.72)" }}>
                 Established in 2010, we have evolved into a trusted partner for government institutions, multinational brands, corporates, hospitality groups, healthcare providers, sports organisations, investment firms and social impact initiatives.
               </p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.95rem,1.3vw,1.1rem)", lineHeight: 1.7, color: "#1a1a1a", fontWeight: 500 }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.95rem,1.3vw,1.1rem)", lineHeight: 1.7, color: "#FFFFFF", fontWeight: 500 }}>
                 Our work is grounded in insight, shaped by strategy, and delivered with precision.
               </p>
             </motion.div>
@@ -93,24 +94,16 @@ export default function About() {
             className="about-img-col"
             style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center" }}
           >
-            {/* Illustration with parallax drift */}
-            <motion.div
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-              style={{ position: "relative", width: "92%", maxWidth: "500px" }}
+            {/* Before / after image comparison — drag or hover */}
+            <ImageComparison
+              enableHover
+              springOptions={{ bounce: 0.3 }}
+              className="about-compare"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/illustrations/svc-strategic-comms.png"
-                alt="Strategic communications illustration"
-                loading="lazy"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  mixBlendMode: "multiply",
-                }}
-              />
-            </motion.div>
+              <ImageComparisonImage src="/illustrations/hero-landscape.png" alt="FID & Co. — colour" position="left" />
+              <ImageComparisonImage src="/illustrations/hero-landscape.png" alt="FID & Co. — inverse" position="right" style={{ filter: "invert(1) hue-rotate(180deg)" }} />
+              <ImageComparisonSlider className="about-compare-slider" />
+            </ImageComparison>
           </motion.div>
         </div>
 
@@ -122,7 +115,7 @@ export default function About() {
           style={{
             transformOrigin: "left",
             height: "1px",
-            background: "rgba(26,26,26,0.1)",
+            background: "rgba(255,255,255,0.15)",
             marginTop: "clamp(3.5rem, 7vw, 6rem)",
           }}
         />
@@ -139,14 +132,14 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{
                   padding: "2.2rem 1.6rem 0",
-                  borderLeft: i === 0 ? "none" : "1px solid rgba(26,26,26,0.08)",
+                  borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.12)",
                 }}
               >
-                <Icon size={26} weight="light" color="#742F14" />
-                <div style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 700, color: "#1a1a1a", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: "-0.04em", marginTop: "1rem" }}>
+                <Icon size={26} weight="light" color="#FC9C44" />
+                <div style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 700, color: "#FFFFFF", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: "-0.04em", marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>
-                <div style={{ fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(26,26,26,0.45)", marginTop: "0.9rem", fontFamily: "var(--font-body)", lineHeight: 1.4 }}>
+                <div style={{ fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(255,255,255,0.5)", marginTop: "0.9rem", fontFamily: "var(--font-body)", lineHeight: 1.4 }}>
                   {s.label}
                 </div>
               </motion.div>
@@ -161,6 +154,15 @@ export default function About() {
           grid-template-columns: 1.1fr 0.9fr;
           gap: clamp(3rem, 7vw, 7rem);
           align-items: center;
+        }
+        .about-compare {
+          width: 100%;
+          max-width: 520px;
+          aspect-ratio: 16 / 10;
+          border-radius: 14px;
+          overflow: hidden;
+          border: 1px solid rgba(255,255,255,0.16);
+          margin: 0 auto;
         }
         @media (max-width: 1024px) {
           .about-grid { grid-template-columns: 1fr; }

@@ -3,6 +3,7 @@
 import { useRef, type MutableRefObject } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import VariableProximity from "@/components/ui/VariableProximity";
+import { TextRoll } from "@/components/core/text-roll";
 
 export default function Founder() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -89,7 +90,7 @@ export default function Founder() {
               transition={{ duration: 0.75, delay: 0.14 }}
               style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600, color: "#1a1a1a", fontSize: "clamp(2.6rem, 6vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.01em", marginTop: "1.4rem", textTransform: "uppercase" }}
             >
-              Farida Idris
+              <TextRoll>Farida Idris</TextRoll>
             </motion.div>
 
             <motion.div
@@ -98,7 +99,7 @@ export default function Founder() {
               transition={{ duration: 0.65, delay: 0.22 }}
               style={{ fontSize: "0.74rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#742F14", marginTop: "1rem", fontFamily: "var(--font-body)", fontWeight: 500 }}
             >
-              Founder &amp; Lead Strategist
+              <TextRoll>Founder &amp; Lead Strategist</TextRoll>
             </motion.div>
 
             <motion.blockquote

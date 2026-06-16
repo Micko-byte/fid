@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import VariableProximity from "@/components/ui/VariableProximity";
+import { TextScramble } from "@/components/core/text-scramble";
 import { Lightbulb, Compass, Target } from "@phosphor-icons/react";
 
 const PILLARS = [
@@ -183,12 +184,15 @@ export default function FeatureBand() {
                 boxShadow: "0 26px 70px rgba(252,156,68,0.35)",
               }}
             >
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.24em", textTransform: "uppercase", fontWeight: 700, opacity: 0.8, marginBottom: "0.9rem" }}>
-                Ready when you are
-              </p>
+              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.24em", textTransform: "uppercase", fontWeight: 700, opacity: 0.8, marginBottom: "0.9rem" }}>
+                Next step
+              </TextScramble>
               <h3 style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(1.9rem,3.2vw,2.8rem)", lineHeight: 1.0, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
                 Let&apos;s build something meaningful.
               </h3>
+              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.5, color: "#3a1f10", opacity: 0.85, marginTop: "0.9rem" }}>
+                Share your brief and we&apos;ll shape the route.
+              </TextScramble>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1.2rem", marginTop: "1.8rem" }}>
                 <Link
                   href="/#contact"
