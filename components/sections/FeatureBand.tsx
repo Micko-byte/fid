@@ -6,13 +6,6 @@ import Link from "next/link";
 import Button from "@/components/ui/Button";
 import VariableProximity from "@/components/ui/VariableProximity";
 import { TextScramble } from "@/components/core/text-scramble";
-import { Lightbulb, Compass, Target } from "@phosphor-icons/react";
-
-const PILLARS = [
-  { Icon: Lightbulb, label: "Insight", note: "We start by understanding." },
-  { Icon: Compass, label: "Strategy", note: "We shape the direction." },
-  { Icon: Target, label: "Impact", note: "We deliver measurable results." },
-];
 
 export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
@@ -52,10 +45,10 @@ export default function FeatureBand() {
       id="hero"
       style={{
         backgroundColor: "#FFFFFF",
-        color: "#1a1a1a",
+        color: "#1c1c1c",
         position: "relative",
         overflow: "hidden",
-        paddingTop: "clamp(9rem, 14vw, 13rem)",
+        paddingTop: "clamp(6.5rem, 9vw, 8.5rem)",
         paddingBottom: "clamp(6rem, 12vw, 10rem)",
       }}
     >
@@ -63,7 +56,7 @@ export default function FeatureBand() {
         ref={ref}
         style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}
       >
-        <div className="fb-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(3rem,7vw,7rem)", alignItems: "center" }}>
+        <div className="fb-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(3rem,7vw,7rem)", alignItems: "start" }}>
 
           {/* LEFT: editorial text */}
           <div>
@@ -71,7 +64,7 @@ export default function FeatureBand() {
               initial={{ opacity: 0, y: 10 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#742F14", marginBottom: "1rem", fontWeight: 500 }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006", marginBottom: "1rem", fontWeight: 500 }}
             >
               The FID approach
             </motion.p>
@@ -84,13 +77,13 @@ export default function FeatureBand() {
               style={{ transformOrigin: "left", marginBottom: "clamp(1.2rem,2.5vw,2rem)" }}
             >
               <svg width="80" height="6" viewBox="0 0 80 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <line x1="0" y1="3" x2="52" y2="3" stroke="#742F14" strokeWidth="1.5" />
-                <circle cx="60" cy="3" r="2.5" fill="none" stroke="#742F14" strokeWidth="1" />
-                <line x1="64" y1="3" x2="80" y2="3" stroke="#742F14" strokeWidth="1" strokeOpacity="0.4" />
+                <line x1="0" y1="3" x2="52" y2="3" stroke="#750006" strokeWidth="1.5" />
+                <circle cx="60" cy="3" r="2.5" fill="none" stroke="#750006" strokeWidth="1" />
+                <line x1="64" y1="3" x2="80" y2="3" stroke="#750006" strokeWidth="1" strokeOpacity="0.4" />
               </svg>
             </motion.div>
 
-            <h2 style={{ maxWidth: "20ch", margin: 0 }}>
+            <h2 style={{ maxWidth: "28ch", margin: 0 }}>
               <VariableProximity
                 label="We treat communication as influence — not a function."
                 containerRef={ref as import("react").MutableRefObject<HTMLElement | null>}
@@ -98,7 +91,7 @@ export default function FeatureBand() {
                 falloff="gaussian"
                 fromFontVariationSettings="'wght' 400"
                 toFontVariationSettings="'wght' 900"
-                style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', textTransform: "uppercase", color: "#1a1a1a", fontSize: "clamp(2.1rem,4.2vw,4rem)", lineHeight: 0.98, letterSpacing: "-0.03em" }}
+                style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', textTransform: "uppercase", color: "#1c1c1c", fontSize: "clamp(2.3rem,4.45vw,4.85rem)", lineHeight: 0.96, letterSpacing: "-0.03em" }}
               />
             </h2>
 
@@ -106,35 +99,17 @@ export default function FeatureBand() {
               initial={{ scaleX: 0 }}
               animate={inView ? { scaleX: 1 } : {}}
               transition={{ duration: 1.0, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: "left", height: "1px", background: "rgba(26,26,26,0.15)", marginTop: "clamp(2rem,5vw,4rem)", marginBottom: "clamp(2rem,5vw,4rem)" }}
+              style={{ transformOrigin: "left", height: "1px", background: "rgba(28,28,28,0.15)", marginTop: "clamp(2rem,5vw,4rem)", marginBottom: "clamp(2rem,5vw,4rem)" }}
             />
 
             <motion.p
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              style={{ color: "rgba(26,26,26,0.62)", fontSize: "clamp(0.95rem,1.3vw,1.15rem)", lineHeight: 1.65, fontFamily: "var(--font-body)", maxWidth: "48ch", marginBottom: "clamp(1.8rem,3.5vw,3rem)" }}
+              style={{ color: "#1c1c1c", fontSize: "clamp(0.95rem,1.3vw,1.15rem)", lineHeight: 1.65, fontFamily: "var(--font-body)", maxWidth: "48ch", marginBottom: "clamp(1.8rem,3.5vw,3rem)" }}
             >
               Every engagement begins with insight, is guided by strategy, executed with precision and evaluated for impact. We build reputation, credibility and cultural relevance for the organisations shaping Africa&apos;s future.
             </motion.p>
-
-            {/* Insight · Strategy · Impact — icon pillars */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: "flex", flexWrap: "wrap", gap: "clamp(1.2rem,3vw,2.4rem)", marginBottom: "clamp(1.8rem,3.5vw,2.6rem)" }}
-            >
-              {PILLARS.map(({ Icon, label, note }) => (
-                <div key={label} style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "16ch" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", borderRadius: "14px", border: "1px solid rgba(90,132,172,0.32)", background: "rgba(90,132,172,0.1)", color: "#5A84AC" }}>
-                    <Icon size={22} weight="light" />
-                  </span>
-                  <span style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 600, fontSize: "0.95rem", letterSpacing: "0.02em", textTransform: "uppercase", color: "#1a1a1a" }}>{label}</span>
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(26,26,26,0.55)" }}>{note}</span>
-                </div>
-              ))}
-            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 12 }}
@@ -177,11 +152,11 @@ export default function FeatureBand() {
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
               style={{
-                background: "#FC9C44",
+                background: "#d98038",
                 borderRadius: "22px",
                 padding: "clamp(2rem,3.5vw,3rem)",
-                color: "#3a1f10",
-                boxShadow: "0 26px 70px rgba(252,156,68,0.35)",
+                color: "#260000",
+                boxShadow: "0 26px 70px rgba(217,128,56,0.35)",
               }}
             >
               <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.24em", textTransform: "uppercase", fontWeight: 700, opacity: 0.8, marginBottom: "0.9rem" }}>
@@ -190,19 +165,19 @@ export default function FeatureBand() {
               <h3 style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(1.9rem,3.2vw,2.8rem)", lineHeight: 1.0, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
                 Let&apos;s build something meaningful.
               </h3>
-              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.5, color: "#3a1f10", opacity: 0.85, marginTop: "0.9rem" }}>
+              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.5, color: "#260000", opacity: 0.85, marginTop: "0.9rem" }}>
                 Share your brief and we&apos;ll shape the route.
               </TextScramble>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1.2rem", marginTop: "1.8rem" }}>
                 <Link
                   href="/#contact"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "#3a1f10", color: "#FC9C44", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.95rem 1.8rem", borderRadius: "999px", textDecoration: "none", transition: "transform 0.2s" }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "#260000", color: "#d98038", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.95rem 1.8rem", borderRadius: "var(--button-radius)", textDecoration: "none", transition: "transform 0.2s" }}
                   onPointerDown={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
                   onPointerUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
                 >
                   Book us
                 </Link>
-                <a href="mailto:info@fidco.africa" style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.92rem", color: "#3a1f10", textDecoration: "none", borderBottom: "1px solid rgba(58,31,16,0.4)" }}>
+                <a href="mailto:info@fidco.africa" style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.92rem", color: "#260000", textDecoration: "none", borderBottom: "1px solid rgba(38,0,0,0.4)" }}>
                   info@fidco.africa
                 </a>
               </div>

@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { InView } from "@/components/core/in-view";
-import { projects, type Project } from "@/lib/projects";
+import { projects, type Project } from "@/components/lib/projects";
 import Tilt from "@/components/motion/Tilt";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
 import { IndustryIcon } from "@/components/graphics/BrandIcons";
@@ -63,7 +63,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
         overflow: "hidden",
         padding: "clamp(1.4rem, 2.6vw, 2.2rem)",
         borderRadius: "16px",
-        border: "1px solid rgba(26,26,26,0.06)",
+        border: "1px solid rgba(28,28,28,0.06)",
         background: "rgba(255,255,255,0.2)",
         backdropFilter: "blur(10px)",
       }}
@@ -80,7 +80,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
           fontWeight: 800,
           fontSize: "clamp(7rem, 16vw, 14rem)",
           lineHeight: 0.8,
-          color: "rgba(116,47,20,0.06)",
+          color: "rgba(117,0,6,0.06)",
           letterSpacing: "-0.04em",
           pointerEvents: "none",
           userSelect: "none",
@@ -90,7 +90,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
         {String(index + 1).padStart(2, "0")}
       </span>
       {/* Accent bar that grows on hover */}
-      <span aria-hidden="true" className="work-chapter-accent" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "3px", background: "#742F14", transform: "scaleY(0)", transformOrigin: "top", transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1)", zIndex: 1 }} />
+      <span aria-hidden="true" className="work-chapter-accent" style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "3px", background: "#750006", transform: "scaleY(0)", transformOrigin: "top", transition: "transform 0.5s cubic-bezier(0.16,1,0.3,1)", zIndex: 1 }} />
 
       <div style={{ order: reversed ? 2 : 1, position: "relative", zIndex: 2 }}>
         <p
@@ -102,11 +102,11 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontSize: "0.64rem",
             letterSpacing: "0.22em",
             textTransform: "uppercase",
-            color: "#742F14",
+            color: "#750006",
             marginBottom: "0.8rem",
           }}
         >
-          <span style={{ display: "inline-flex", color: "#742F14" }}>
+          <span style={{ display: "inline-flex", color: "#750006" }}>
             <IndustryIcon sector={p.sector} size={18} strokeWidth={1.5} />
           </span>
           Chapter {String(index + 1).padStart(2, "0")} - {p.sector}
@@ -120,7 +120,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             lineHeight: 1.06,
             letterSpacing: "-0.03em",
             textTransform: "uppercase",
-            color: "#1a1a1a",
+            color: "#1c1c1c",
             margin: 0,
             maxWidth: "16ch",
           }}
@@ -134,7 +134,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontWeight: 500,
             fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
             lineHeight: 1.22,
-            color: "#742F14",
+            color: "#750006",
             marginTop: "0.85rem",
             maxWidth: "22ch",
           }}
@@ -147,7 +147,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.92rem",
             lineHeight: 1.7,
-            color: "rgba(26,26,26,0.64)",
+            color: "#1c1c1c",
             maxWidth: "48ch",
             marginTop: "1rem",
           }}
@@ -160,7 +160,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.72rem",
             lineHeight: 1.6,
-            color: "rgba(26,26,26,0.52)",
+            color: "#1c1c1c",
             textTransform: "uppercase",
             letterSpacing: "0.16em",
             marginTop: "1.2rem",
@@ -181,7 +181,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontSize: "0.72rem",
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color: "#1a1a1a",
+            color: "#1c1c1c",
             textDecoration: "none",
             marginTop: "1.4rem",
             fontWeight: 600,
@@ -202,7 +202,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
           aspectRatio: "16/10",
           overflow: "hidden",
           borderRadius: "12px",
-          background: "linear-gradient(135deg, rgba(116,47,20,0.08), rgba(252,156,68,0.16))",
+          background: "linear-gradient(135deg, rgba(117,0,6,0.08), rgba(217,128,56,0.16))",
         }}
       >
         {a.image ? (
@@ -215,7 +215,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.7s cubic-bezier(0.16,1,0.3,1)", mixBlendMode: "multiply" }}
           />
         ) : (
-          <div style={{ position: "absolute", inset: 0, backgroundColor: p.color ?? "#5C3C2C", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <div style={{ position: "absolute", inset: 0, backgroundColor: p.color ?? "#260000", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <span style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "2rem", color: "rgba(255,255,255,0.25)", textTransform: "uppercase" }}>
               {p.client.split(" ")[0]}
             </span>
@@ -234,7 +234,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
               display: "flex",
               alignItems: "center",
               borderRadius: "8px",
-              border: "1px solid rgba(116,47,20,0.08)",
+              border: "1px solid rgba(117,0,6,0.08)",
               backdropFilter: "blur(8px)",
             }}
           >
@@ -289,7 +289,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
         className="work-mosaic-link"
         style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: "14px", cursor: "pointer" }}
       >
-        <div style={{ position: "absolute", inset: 0, background: p.color ?? "#5C3C2C" }} />
+        <div style={{ position: "absolute", inset: 0, background: p.color ?? "#260000" }} />
         {a.image && (
           <motion.img
             src={a.image}
@@ -301,7 +301,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
           />
         )}
         {/* readable gradient scrim */}
-        <motion.div aria-hidden="true" animate={{ opacity: isOpen ? 0.95 : 1 }} style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(92,60,44,0) 28%, rgba(58,31,16,0.9) 100%)" }} />
+        <motion.div aria-hidden="true" animate={{ opacity: isOpen ? 0.95 : 1 }} style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0) 28%, rgba(38,0,0,0.9) 100%)" }} />
 
         {/* index marker */}
         <span style={{ position: "absolute", top: "1rem", right: "1.1rem", fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 700, fontSize: variant === "lg" ? "1.4rem" : "1.05rem", color: "rgba(255,255,255,0.55)" }}>
@@ -317,7 +317,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
 
         {/* caption / disclosure panel */}
         <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: variant === "lg" ? "clamp(1.3rem,2.2vw,2rem)" : "1.1rem 1.2rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#FC9C44" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#d98038" }}>
             <IndustryIcon sector={p.sector} size={15} strokeWidth={1.6} />
             {p.sector}
           </span>
@@ -339,7 +339,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
                 <p style={{ margin: "0.4rem 0 0.9rem", fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.55, color: "rgba(255,255,255,0.82)", maxWidth: "46ch" }}>
                   {p.impact}
                 </p>
-                <Link href={`/work/${p.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: "#3a1f10", background: "#FC9C44", padding: "0.6rem 1.1rem", borderRadius: "999px", textDecoration: "none" }}>
+                <Link href={`/work/${p.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: "#260000", background: "#d98038", padding: "0.6rem 1.1rem", borderRadius: "var(--button-radius)", textDecoration: "none" }}>
                   Read the story
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </Link>
@@ -415,10 +415,10 @@ export default function WorkIndustries() {
                 fontWeight: 500,
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
-                color: "#742F14",
+                color: "#750006",
               }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#742F14", opacity: 0.6 }} />
+              <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} />
               Our work
             </motion.span>
 
@@ -431,7 +431,7 @@ export default function WorkIndustries() {
                 fontFamily: "var(--font-heading,'Oswald')",
                 fontWeight: 800,
                 fontSize: "clamp(2.4rem,5.5vw,4.4rem)",
-                color: "#1a1a1a",
+                color: "#1c1c1c",
                 lineHeight: 1,
               }}
             >
@@ -445,7 +445,7 @@ export default function WorkIndustries() {
                 style={{
                   fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
                   textTransform: "uppercase",
-                  color: "#1a1a1a",
+                  color: "#1c1c1c",
                   fontSize: "clamp(2.2rem,5vw,4rem)",
                   lineHeight: 1,
                   letterSpacing: "-0.03em",
@@ -465,7 +465,7 @@ export default function WorkIndustries() {
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(0.95rem,1.35vw,1.1rem)",
                 lineHeight: 1.65,
-                color: "rgba(26,26,26,0.62)",
+                color: "#1c1c1c",
               }}
             >
               Communication is not a gallery of assets. It is a sequence of public moments, each with a purpose, an audience and a point of view. These selected projects show how FID & Co. moves from national observation to cultural platform building, and from brand launches to sustained reputation work.
@@ -488,10 +488,10 @@ export default function WorkIndustries() {
                   fontSize: "0.68rem",
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
-                  color: "rgba(26,26,26,0.6)",
+                  color: "#1c1c1c",
                   padding: "0.6rem 0.9rem",
                   borderRadius: "999px",
-                  border: "1px solid rgba(116,47,20,0.12)",
+                  border: "1px solid rgba(117,0,6,0.12)",
                   background: "rgba(255,255,255,0.55)",
                 }}
               >
@@ -508,7 +508,7 @@ export default function WorkIndustries() {
           style={{
             transformOrigin: "left",
             height: "1px",
-            background: "rgba(26,26,26,0.1)",
+            background: "rgba(28,28,28,0.1)",
             marginTop: "clamp(2rem, 5vw, 3.5rem)",
             marginBottom: "clamp(2rem, 5vw, 4rem)",
           }}
@@ -546,9 +546,9 @@ export default function WorkIndustries() {
           .work-chapter > div { order: 2 !important; }
         }
         .work-chapter { transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), background 0.5s ease; }
-        .work-chapter:hover { transform: translateY(-6px); box-shadow: 0 30px 70px rgba(116,47,20,0.14); background: rgba(255,255,255,0.5); }
+        .work-chapter:hover { transform: translateY(-6px); box-shadow: 0 30px 70px rgba(117,0,6,0.14); background: rgba(255,255,255,0.5); }
         .work-chapter:hover .work-card-img { transform: scale(1.06); }
-        .work-chapter:hover h3 { color: #742F14 !important; }
+        .work-chapter:hover h3 { color: #750006 !important; }
         .work-chapter:hover .work-chapter-accent { transform: scaleY(1); }
 
         /* Asymmetric work mosaic — mixed sizes + vertical stagger so it reads as
@@ -566,10 +566,10 @@ export default function WorkIndustries() {
         .work-mosaic-card:nth-child(2) { grid-column: span 5; margin-top: clamp(2.5rem, 5vw, 4.5rem); }
         .work-mosaic-card:nth-child(3) { grid-column: span 5; }
         .work-mosaic-card:nth-child(4) { grid-column: span 7; margin-top: clamp(2.5rem, 5vw, 4.5rem); }
-        .work-mosaic-link { box-shadow: 0 18px 50px rgba(116,47,20,0.12); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease; }
-        .work-mosaic-link:hover { transform: translateY(-6px); box-shadow: 0 34px 80px rgba(116,47,20,0.22); }
+        .work-mosaic-link { box-shadow: 0 18px 50px rgba(117,0,6,0.12); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease; }
+        .work-mosaic-link:hover { transform: translateY(-6px); box-shadow: 0 34px 80px rgba(117,0,6,0.22); }
         .work-mosaic-link:hover .work-mosaic-img { transform: scale(1.07); }
-        .work-mosaic-link:hover .work-mosaic-cta { color: #FC9C44; }
+        .work-mosaic-link:hover .work-mosaic-cta { color: #d98038; }
         @media (max-width: 900px) {
           .work-mosaic { grid-template-columns: 1fr; }
           .work-mosaic-card:nth-child(n) { grid-column: 1 / -1; margin-top: 0; }

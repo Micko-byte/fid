@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import type { Service } from "@/lib/services";
+import type { Service } from "@/components/lib/services";
 import Footer from "@/components/Footer";
 
 interface Props {
@@ -52,7 +52,7 @@ function ProjectCard({
       {/* Top-left content block — Clase bcn standard */}
       <div style={{ position: "relative", zIndex: 1 }}>
         <p style={{
-          fontFamily: "'Noto Sans', system-ui, sans-serif",
+          fontFamily: "var(--font-body)",
           fontWeight: 400,
           fontSize: "28px",
           lineHeight: 1.21,
@@ -62,7 +62,7 @@ function ProjectCard({
           {label}
         </p>
         <p style={{
-          fontFamily: "'Noto Sans', system-ui, sans-serif",
+          fontFamily: "var(--font-body)",
           fontWeight: 400,
           fontSize: "24px",
           lineHeight: 1.17,
@@ -77,7 +77,7 @@ function ProjectCard({
         position: "absolute",
         bottom: "20px",
         right: "20px",
-        fontFamily: "'Noto Sans', system-ui, sans-serif",
+        fontFamily: "var(--font-body)",
         fontWeight: 400,
         fontSize: "24px",
         color: textColor,
@@ -112,7 +112,7 @@ export default function ServiceDetailClient({ service }: Props) {
           <Link
             href="/"
             style={{
-              fontFamily: "'Noto Sans', system-ui, sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 400,
               fontSize: "24px",
               color: "#000000",
@@ -126,7 +126,7 @@ export default function ServiceDetailClient({ service }: Props) {
           <Link
             href="/services"
             style={{
-              fontFamily: "'Noto Sans', system-ui, sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 400,
               fontSize: "24px",
               color: "#939393",
@@ -141,7 +141,7 @@ export default function ServiceDetailClient({ service }: Props) {
         <Link
           href="/#contact"
           style={{
-            fontFamily: "'Noto Sans', system-ui, sans-serif",
+            fontFamily: "var(--font-body)",
             fontWeight: 400,
             fontSize: "24px",
             color: "#939393",
@@ -170,7 +170,7 @@ export default function ServiceDetailClient({ service }: Props) {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
           style={{
-            fontFamily: "'Noto Sans', system-ui, sans-serif",
+            fontFamily: "var(--font-body)",
             fontWeight: 400,
             fontSize: "24px",
             color: "#939393",
@@ -186,7 +186,7 @@ export default function ServiceDetailClient({ service }: Props) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            fontFamily: "'Noto Sans', system-ui, sans-serif",
+            fontFamily: "var(--font-body)",
             fontWeight: 400,
             fontSize: "clamp(2.2rem, 5vw, 45px)",
             lineHeight: 1.11,
@@ -203,7 +203,7 @@ export default function ServiceDetailClient({ service }: Props) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.16 }}
           style={{
-            fontFamily: "'Noto Sans', system-ui, sans-serif",
+            fontFamily: "var(--font-body)",
             fontWeight: 400,
             fontSize: "24px",
             lineHeight: 1.79,
@@ -255,7 +255,7 @@ export default function ServiceDetailClient({ service }: Props) {
             transition={{ duration: 0.7 }}
           >
             <p style={{
-              fontFamily: "'Noto Sans', system-ui, sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 400,
               fontSize: "clamp(1.1rem, 1.8vw, 24px)",
               lineHeight: 1.79,
@@ -272,7 +272,7 @@ export default function ServiceDetailClient({ service }: Props) {
             transition={{ duration: 0.7, delay: 0.1 }}
           >
             <p style={{
-              fontFamily: "'Noto Sans', system-ui, sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 400,
               fontSize: "24px",
               color: "#939393",
@@ -288,7 +288,7 @@ export default function ServiceDetailClient({ service }: Props) {
                   animate={inView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.15 + i * 0.05 }}
                   style={{
-                    fontFamily: "'Noto Sans', system-ui, sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontWeight: 400,
                     fontSize: "clamp(0.9rem, 1.4vw, 20px)",
                     lineHeight: 1.5,
@@ -327,7 +327,7 @@ export default function ServiceDetailClient({ service }: Props) {
           <Link
             href="/services"
             style={{
-              fontFamily: "'Noto Sans', system-ui, sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 400,
               fontSize: "24px",
               color: "#000000",
@@ -339,7 +339,7 @@ export default function ServiceDetailClient({ service }: Props) {
           <Link
             href="/#contact"
             style={{
-              fontFamily: "'Noto Sans', system-ui, sans-serif",
+              fontFamily: "var(--font-body)",
               fontWeight: 400,
               fontSize: "24px",
               color: "#000000",

@@ -99,7 +99,7 @@ export default function BounceCards({
         <div
           key={idx}
           className={`card card-${idx} absolute w-[200px] aspect-square border-[6px] border-white rounded-[24px] overflow-hidden`}
-          style={{ boxShadow: "0 8px 24px rgba(116,47,20,0.22)", transform: transformStyles[idx] || "none" }}
+          style={{ boxShadow: "0 8px 24px rgba(117,0,6,0.22)", transform: transformStyles[idx] || "none" }}
           onMouseEnter={() => pushSiblings(idx)}
           onMouseLeave={resetSiblings}
         >

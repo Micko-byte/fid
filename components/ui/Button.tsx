@@ -21,8 +21,8 @@ interface ButtonProps {
   type?: "button" | "submit";
 }
 
-const WINE = "#742F14";
-const GOLD = "#FC9C44";
+const WINE = "#750006";
+const GOLD = "#d98038";
 
 function styleFor(variant: Variant, size: Size): React.CSSProperties {
   const pad = size === "sm" ? "0.7rem 1.2rem" : "0.95rem 1.6rem";
@@ -31,25 +31,25 @@ function styleFor(variant: Variant, size: Size): React.CSSProperties {
     display: "inline-flex", alignItems: "center", gap: "0.6rem",
     fontFamily: "var(--font-body)", fontSize: fs, fontWeight: 600,
     letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none",
-    padding: pad, borderRadius: "2px", cursor: "pointer", whiteSpace: "nowrap",
+    padding: pad, borderRadius: "var(--button-radius)", cursor: "pointer", whiteSpace: "nowrap",
     transition: "background 0.3s, color 0.3s, border-color 0.3s, gap 0.3s, transform 0.12s cubic-bezier(0.16,1,0.3,1)",
     border: "1px solid transparent",
   };
   if (variant === "primary") return { ...base, backgroundColor: WINE, color: GOLD };
-  if (variant === "outline") return { ...base, backgroundColor: "transparent", color: WINE, borderColor: "rgba(116,47,20,0.4)" };
+  if (variant === "outline") return { ...base, backgroundColor: "transparent", color: WINE, borderColor: "rgba(117,0,6,0.4)" };
   return { ...base, backgroundColor: "transparent", color: WINE, padding: "0.2rem 0", letterSpacing: "0.14em" };
 }
 
 function hoverIn(variant: Variant, el: HTMLElement) {
   el.style.gap = "0.9rem";
-  if (variant === "primary") el.style.backgroundColor = "#5e2410";
+  if (variant === "primary") el.style.backgroundColor = "#260000";
   if (variant === "outline") { el.style.backgroundColor = WINE; el.style.color = GOLD; el.style.borderColor = WINE; }
-  if (variant === "ghost") el.style.color = "#1a1a1a";
+  if (variant === "ghost") el.style.color = "#1c1c1c";
 }
 function hoverOut(variant: Variant, el: HTMLElement) {
   el.style.gap = variant === "ghost" ? "0.6rem" : "0.6rem";
   if (variant === "primary") el.style.backgroundColor = WINE;
-  if (variant === "outline") { el.style.backgroundColor = "transparent"; el.style.color = WINE; el.style.borderColor = "rgba(116,47,20,0.4)"; }
+  if (variant === "outline") { el.style.backgroundColor = "transparent"; el.style.color = WINE; el.style.borderColor = "rgba(117,0,6,0.4)"; }
   if (variant === "ghost") el.style.color = WINE;
 }
 

@@ -41,7 +41,7 @@ export const platforms: OwnedPlatform[] = [
       "Digital amplification partnerships",
     ],
     image: "/photos/projects/tribe-vibe.jpg",
-    accent: "#D98038",
+    accent: "#d98038",
   },
   {
     slug: "suhba-series",
@@ -78,7 +78,7 @@ export const platforms: OwnedPlatform[] = [
       { name: "Dessert Galore", role: "Experience Partner" },
     ],
     image: "/photos/editorial/cultural-festival.jpg",
-    accent: "#5B0E14",
+    accent: "#750006",
   },
   {
     slug: "the-capital-room",
@@ -105,7 +105,7 @@ export const platforms: OwnedPlatform[] = [
       "Premium networking experiences",
     ],
     image: "/photos/editorial/podcast-set.jpg",
-    accent: "#1a1a1a",
+    accent: "#1c1c1c",
   },
 ];
 

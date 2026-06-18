@@ -14,9 +14,9 @@ const SplashCursor = dynamic(() => import("@/components/ui/SplashCursor"), { ssr
 const HEADING_TEXT = "We shape communication into influence.";
 
 const BLOBS = [
-  { size: 540, x: "2%", y: "10%", color: "rgba(116,47,20,0.08)", dur: 24, dx: 28, dy: 24 },
-  { size: 440, x: "62%", y: "4%", color: "rgba(252,156,68,0.12)", dur: 30, dx: -26, dy: 32 },
-  { size: 360, x: "72%", y: "56%", color: "rgba(116,47,20,0.06)", dur: 28, dx: 20, dy: -26 },
+  { size: 540, x: "2%", y: "10%", color: "rgba(117,0,6,0.08)", dur: 24, dx: 28, dy: 24 },
+  { size: 440, x: "62%", y: "4%", color: "rgba(217,128,56,0.12)", dur: 30, dx: -26, dy: 32 },
+  { size: 360, x: "72%", y: "56%", color: "rgba(117,0,6,0.06)", dur: 28, dx: 20, dy: -26 },
 ];
 
 const singleWordVariants = {
@@ -46,7 +46,7 @@ export default function HeroApproach() {
         minHeight: "100vh",
         overflow: "hidden",
         background:
-          "radial-gradient(circle at 8% 14%, rgba(116,47,20,0.12), transparent 22%), radial-gradient(circle at 84% 10%, rgba(252,156,68,0.16), transparent 20%), linear-gradient(180deg, #FFFFFF 0%, #f4e3b7 100%)",
+          "radial-gradient(circle at 8% 14%, rgba(117,0,6,0.12), transparent 22%), radial-gradient(circle at 84% 10%, rgba(217,128,56,0.16), transparent 20%), linear-gradient(180deg, #FFFFFF 0%, #f4e3b7 100%)",
       }}
     >
       {BLOBS.map((b, i) => (
@@ -76,7 +76,7 @@ export default function HeroApproach() {
           position: "absolute",
           inset: 0,
           background:
-            "radial-gradient(ellipse at 70% 45%, rgba(252,156,68,0.16), transparent 60%)",
+            "radial-gradient(ellipse at 70% 45%, rgba(217,128,56,0.16), transparent 60%)",
           pointerEvents: "none",
           zIndex: 0,
         }}
@@ -128,7 +128,7 @@ export default function HeroApproach() {
               fontSize: "0.72rem",
               letterSpacing: "0.35em",
               textTransform: "uppercase",
-              color: "#742F14",
+              color: "#750006",
               marginBottom: "clamp(1.25rem, 2.5vh, 2rem)",
             }}
           >
@@ -148,7 +148,7 @@ export default function HeroApproach() {
               fontSize: "clamp(3rem, 6.8vw, 7.2rem)",
               lineHeight: 0.88,
               letterSpacing: "-0.05em",
-              color: "#1a1a1a",
+              color: "#1c1c1c",
               textTransform: "uppercase",
               maxWidth: "12ch",
               textWrap: "balance",
@@ -171,7 +171,7 @@ export default function HeroApproach() {
                 lineHeight: 0.88,
                 letterSpacing: "-0.05em",
                 textTransform: "uppercase",
-                color: "#1a1a1a",
+                color: "#1c1c1c",
               }}
             />
           </motion.h1>
@@ -186,7 +186,7 @@ export default function HeroApproach() {
               fontFamily: "var(--font-body)",
               fontSize: "clamp(1rem, 1.2vw, 1.18rem)",
               lineHeight: 1.6,
-              color: "rgba(26,26,26,0.72)",
+              color: "rgba(28,28,28,0.72)",
             }}
           >
             FID &amp; Co. is a full-service strategic communications and brand
@@ -246,8 +246,8 @@ export default function HeroApproach() {
               inset: "8% 2% 2% 2%",
               borderRadius: "28px",
               background:
-                "radial-gradient(circle at 30% 20%, rgba(116,47,20,0.26), transparent 28%), radial-gradient(circle at 78% 18%, rgba(252,156,68,0.22), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.04))",
-              boxShadow: "0 36px 90px rgba(92,60,44,0.08)",
+                "radial-gradient(circle at 30% 20%, rgba(117,0,6,0.26), transparent 28%), radial-gradient(circle at 78% 18%, rgba(217,128,56,0.22), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.04))",
+              boxShadow: "0 36px 90px rgba(38,0,0,0.08)",
             }}
           />
           <Image
@@ -273,12 +273,12 @@ export default function HeroApproach() {
               left: "1rem",
               padding: "0.7rem 0.9rem",
               backgroundColor: "rgba(255,255,255,0.8)",
-              color: "#742F14",
+              color: "#750006",
               fontFamily: "var(--font-body)",
               fontSize: "0.62rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              border: "1px solid rgba(116,47,20,0.12)",
+              border: "1px solid rgba(117,0,6,0.12)",
             }}
           >
             Story-led opening
@@ -291,17 +291,17 @@ export default function HeroApproach() {
               bottom: "1rem",
               width: "clamp(170px, 18vw, 250px)",
               aspectRatio: "1",
-              color: "#742F14",
+              color: "#750006",
             }}
           >
-            <CircularText text="STORY*IN MOTION*STORY*IN MOTION*" reverse onHover="speedUp" className="text-[#742F14]" />
+            <CircularText text="STORY*IN MOTION*STORY*IN MOTION*" reverse onHover="speedUp" className="text-[#750006]" />
           </div>
           <div
             aria-hidden="true"
             style={{
               position: "absolute",
               inset: "7%",
-              border: "1px solid rgba(116,47,20,0.14)",
+              border: "1px solid rgba(117,0,6,0.14)",
               pointerEvents: "none",
             }}
           />
@@ -314,7 +314,7 @@ export default function HeroApproach() {
           font-size: 0.78rem;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: #742F14;
+          color: #750006;
         }
         @media (max-width: 960px) {
           .hero-inner {

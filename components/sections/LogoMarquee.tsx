@@ -11,7 +11,7 @@ export default function LogoMarquee() {
   const row = [...logos, ...logos];
   return (
     <section style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(4rem,8vw,6.5rem)", paddingBottom: "clamp(4rem,8vw,6.5rem)", overflow: "hidden" }}>
-      <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#5A84AC", marginBottom: "clamp(2.4rem,5vw,3.4rem)" }}>
+      <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#d98038", marginBottom: "clamp(2.4rem,5vw,3.4rem)" }}>
         Trusted by institutions, governments &amp; brands across Africa
       </p>
 

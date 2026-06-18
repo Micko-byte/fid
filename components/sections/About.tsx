@@ -46,10 +46,10 @@ export default function About() {
               style={{
                 display: "inline-flex", alignItems: "center", gap: "0.7rem",
                 fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500,
-                letterSpacing: "0.28em", textTransform: "uppercase", color: "#FC9C44",
+                letterSpacing: "0.28em", textTransform: "uppercase", color: "#d98038",
               }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#FC9C44", opacity: 0.7, flexShrink: 0 }} />
+              <span style={{ width: "26px", height: "1px", background: "#d98038", opacity: 0.7, flexShrink: 0 }} />
               Who we are
             </motion.span>
 
@@ -64,7 +64,7 @@ export default function About() {
               } as React.CSSProperties}
             >
               A communications partner built for influence at{" "}
-              <em style={{ fontStyle: "normal", color: "#FC9C44" }}>scale</em>.
+              <em style={{ fontStyle: "normal", color: "#d98038" }}>scale</em>.
             </motion.h2>
 
             {/* Exact copy from company profile */}
@@ -135,7 +135,7 @@ export default function About() {
                   borderLeft: i === 0 ? "none" : "1px solid rgba(255,255,255,0.12)",
                 }}
               >
-                <Icon size={26} weight="light" color="#FC9C44" />
+                <Icon size={26} weight="light" color="#d98038" />
                 <div style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 700, color: "#FFFFFF", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: "-0.04em", marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>

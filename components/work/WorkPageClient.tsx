@@ -7,14 +7,14 @@ import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ScrollChoreography } from "@/components/ScrollChoreography";
 import { useWorkData } from "@/components/work/useWorkData";
-import type { WorkImage, WorkProject } from "@/lib/work-types";
+import type { WorkImage, WorkProject } from "@/components/lib/work-types";
 import type { ReactNode } from "react";
 
 const COLORS = {
-  bg: "#f0f0f0",
-  text: "#2a2a2a",
-  pill: "#2a2a2a",
-  line: "rgba(42,42,42,0.12)",
+  bg: "#f5f2ec",
+  text: "#1c1c1c",
+  pill: "#1c1c1c",
+  line: "rgba(28,28,28,0.12)",
 };
 
 const typeStyles = {
@@ -33,13 +33,13 @@ const typeStyles = {
     textWrap: "balance" as const,
   },
   body: {
-    fontFamily: '"Noto Sans", system-ui, -apple-system, sans-serif',
+    fontFamily: 'var(--font-body)',
     fontWeight: 400,
     letterSpacing: "-0.01em",
     lineHeight: 1.2,
   },
   caption: {
-    fontFamily: '"Noto Sans", system-ui, -apple-system, sans-serif',
+    fontFamily: 'var(--font-body)',
     fontWeight: 400,
     letterSpacing: "0.16em",
     lineHeight: 1.4,
@@ -82,8 +82,8 @@ function PillLink({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center rounded-full px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0] ${className}`}
-      style={{ backgroundColor: COLORS.pill, fontFamily: '"Noto Sans", system-ui, sans-serif' }}
+      className={`inline-flex items-center justify-center rounded-[14px] px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec] ${className}`}
+      style={{ backgroundColor: COLORS.pill, fontFamily: 'var(--font-body)' }}
     >
       {children}
     </Link>
@@ -113,8 +113,8 @@ function WorkCard({ project }: { project: WorkProject }) {
               {project.title}
             </span>
             <span
-              className="rounded-full px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]"
-              style={{ backgroundColor: COLORS.pill, fontFamily: '"Noto Sans", system-ui, sans-serif' }}
+              className="rounded-[14px] px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]"
+              style={{ backgroundColor: COLORS.pill, fontFamily: 'var(--font-body)' }}
             >
               VIEW CASE STUDY
             </span>
@@ -127,13 +127,13 @@ function WorkCard({ project }: { project: WorkProject }) {
               <img src={preview} alt={project.title} className="h-full w-full object-cover" />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#e5e5e5,#f3f3f3)]">
-                <span className="rounded-full bg-[#2a2a2a] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]">
+                <span className="rounded-[14px] bg-[#1c1c1c] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]">
                   MORE +
                 </span>
               </div>
             )}
           </div>
-          <div className="absolute left-4 top-4 rounded-full bg-[#2a2a2a] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]">
+          <div className="absolute left-4 top-4 rounded-[14px] bg-[#1c1c1c] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]">
             MORE +
           </div>
         </div>
@@ -156,7 +156,7 @@ function WorkListing({ projects }: { projects: WorkProject[] }) {
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
           className="absolute -left-32 top-16 h-80 w-80 rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(116,47,20,0.08), transparent 70%)", filter: "blur(8px)" }}
+          style={{ background: "radial-gradient(circle, rgba(117,0,6,0.08), transparent 70%)", filter: "blur(8px)" }}
         />
         <motion.div
           animate={{ x: [0, -25, 0], y: [0, 18, 0] }}
@@ -242,7 +242,7 @@ function ProjectImageFlow({ images, title }: { images: WorkImage[]; title: strin
               <motion.figure
                 key={`${title}-${index}`}
                 style={{ y }}
-                className="relative overflow-hidden border border-[rgba(42,42,42,0.12)] bg-[#ececec]"
+                className="relative overflow-hidden border border-[rgba(28,28,28,0.12)] bg-[#ececec]"
               >
                 <div className="aspect-[4/3] w-full overflow-hidden">
                   {image.src ? (
@@ -264,7 +264,7 @@ function ProjectImageFlow({ images, title }: { images: WorkImage[]; title: strin
                       {image.label}
                     </p>
                   </div>
-                  <span className="rounded-full bg-[#2a2a2a] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]">
+                  <span className="rounded-[14px] bg-[#1c1c1c] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]">
                     MORE +
                   </span>
                 </div>

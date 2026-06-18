@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { platforms, getPlatformBySlug } from "@/lib/platforms";
+import { platforms, getPlatformBySlug } from "@/components/lib/platforms";
 import PlatformClient from "@/components/platforms/PlatformClient";
 
 export function generateStaticParams() {

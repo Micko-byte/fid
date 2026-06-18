@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import type { WorkProject, WorkSector } from "@/lib/work-types";
+import type { WorkProject, WorkSector } from "@/components/lib/work-types";
 
 let loaderPromise: Promise<void> | null = null;
 

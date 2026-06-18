@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 
-const BLUE = "#5A84AC";
+const BLUE = "#d98038";
 
 const stats = [
   { value: 15, suffix: "+", label: "Years shaping reputation" },
@@ -36,7 +36,7 @@ export default function StatsBand() {
   const inView = useInView(ref, { once: true, margin: "-15% 0px" });
 
   return (
-    <section style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(4.5rem,9vw,8rem)", paddingBottom: "clamp(4.5rem,9vw,8rem)", borderTop: "1px solid rgba(92,60,44,0.1)", borderBottom: "1px solid rgba(92,60,44,0.1)" }}>
+    <section style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(4.5rem,9vw,8rem)", paddingBottom: "clamp(4.5rem,9vw,8rem)", borderTop: "1px solid rgba(38,0,0,0.1)", borderBottom: "1px solid rgba(38,0,0,0.1)" }}>
       <div
         ref={ref}
         style={{
@@ -58,7 +58,7 @@ export default function StatsBand() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.05 }}
-          style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(1.8rem,3.6vw,2.8rem)", lineHeight: 1.05, letterSpacing: "-0.02em", color: "#1a1a1a", textTransform: "uppercase", margin: "0 auto clamp(2.6rem,5vw,4rem)", maxWidth: "20ch" }}
+          style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(1.8rem,3.6vw,2.8rem)", lineHeight: 1.05, letterSpacing: "-0.02em", color: "#1c1c1c", textTransform: "uppercase", margin: "0 auto clamp(2.6rem,5vw,4rem)", maxWidth: "20ch" }}
         >
           A decade and a half of measurable impact.
         </motion.h2>
@@ -72,11 +72,11 @@ export default function StatsBand() {
               transition={{ duration: 0.7, delay: 0.12 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem" }}
             >
-              <span style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(3rem,7vw,5.5rem)", lineHeight: 0.9, letterSpacing: "-0.03em", color: "#742F14" }}>
+              <span style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(3rem,7vw,5.5rem)", lineHeight: 0.9, letterSpacing: "-0.03em", color: "#750006" }}>
                 <Counter value={s.value} suffix={s.suffix} run={inView} />
               </span>
               <span aria-hidden style={{ width: "34px", height: "3px", background: BLUE, borderRadius: "2px" }} />
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.78rem,1vw,0.92rem)", fontWeight: 500, letterSpacing: "0.04em", color: "rgba(26,26,26,0.66)", maxWidth: "16ch" }}>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.78rem,1vw,0.92rem)", fontWeight: 500, letterSpacing: "0.04em", color: "rgba(28,28,28,0.66)", maxWidth: "16ch" }}>
                 {s.label}
               </span>
             </motion.div>

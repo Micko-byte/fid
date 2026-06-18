@@ -30,7 +30,7 @@ export default function HomePage() {
       <InstagramFeed />
       <Contact />
       {/* Service ribbon above footer */}
-      <div style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(2rem,5vw,4rem)", paddingBottom: "clamp(1rem,3vw,2rem)", borderTop: "1px solid rgba(92,60,44,0.1)" }}>
+      <div style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(2rem,5vw,4rem)", paddingBottom: "clamp(1rem,3vw,2rem)", borderTop: "1px solid rgba(38,0,0,0.1)" }}>
         <CurvedLoop
           marqueeText="Strategic Communications ✦ Media Management ✦ Influencer & Creator ✦ Digital Strategy ✦ Experiential Marketing ✦"
           speed={1.6}

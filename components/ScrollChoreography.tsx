@@ -37,13 +37,13 @@ function Tile({ src, alt, className }: { src: string; alt: string; className?: s
       ) : (
         <div className="flex h-full w-full items-end justify-start bg-[linear-gradient(135deg,#ececec,#f6f6f6)] p-5">
           <div className="max-w-[16ch]">
-            <p className="mb-3 text-[12px] uppercase tracking-[0.18em] text-[#2a2a2a]/70">Image upload</p>
-            <p className="text-[27px] leading-[0.88] text-[#2a2a2a]">{alt}</p>
+            <p className="mb-3 text-[12px] uppercase tracking-[0.18em] text-[#1c1c1c]/70">Image upload</p>
+            <p className="text-[27px] leading-[0.88] text-[#1c1c1c]">{alt}</p>
           </div>
         </div>
       )}
-      <div className="absolute inset-0 border border-[rgba(42,42,42,0.12)]" />
-      <div className="absolute left-4 top-4 rounded-full bg-[#2a2a2a] px-3 py-1 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]">
+      <div className="absolute inset-0 border border-[rgba(28,28,28,0.12)]" />
+      <div className="absolute left-4 top-4 rounded-full bg-[#1c1c1c] px-3 py-1 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]">
         MORE +
       </div>
     </div>

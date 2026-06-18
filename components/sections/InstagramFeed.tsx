@@ -94,7 +94,7 @@ export default function InstagramFeed() {
   }, []);
 
   return (
-    <section style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(5rem,10vw,9rem)", paddingBottom: "clamp(5rem,10vw,9rem)" }}>
+    <section style={{ backgroundColor: "#ffffff", paddingTop: "clamp(5rem,10vw,9rem)", paddingBottom: "clamp(5rem,10vw,9rem)" }}>
       <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", gap: "1.5rem", flexWrap: "wrap", marginBottom: "clamp(2rem,4vw,3rem)" }}>
           <div>
@@ -102,16 +102,16 @@ export default function InstagramFeed() {
               initial={{ opacity: 0, y: 12 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#742F14" }}
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006" }}
             >
-              <span style={{ width: "26px", height: "1px", background: "#742F14", opacity: 0.6 }} />
+              <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} />
               {live ? "Live from Instagram" : "On the grid"}
             </motion.span>
             <motion.h2
               initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
               animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
               transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1.8rem,3.6vw,2.8rem)", color: "#1a1a1a", marginTop: "0.7rem", letterSpacing: "-0.01em" }}
+              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(1.8rem,3.6vw,2.8rem)", color: "#1c1c1c", marginTop: "0.7rem", letterSpacing: "-0.01em" }}
             >
               Follow the work in motion.
             </motion.h2>
@@ -122,9 +122,9 @@ export default function InstagramFeed() {
             target="_blank"
             rel="noopener noreferrer"
             data-cursor="Follow"
-            style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "#742F14", color: "#fff", padding: "0.8rem 1.4rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, textDecoration: "none", borderRadius: "2px", transition: "background 0.25s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "#8a0007")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "#742F14")}
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", backgroundColor: "#750006", color: "#ffffff", padding: "0.8rem 1.4rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.1em", textTransform: "uppercase", fontWeight: 600, textDecoration: "none", borderRadius: "var(--button-radius)", transition: "background 0.25s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#750006")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "#750006")}
           >
             <InstagramLogo size={18} weight="fill" /> @{HANDLE}
           </a>

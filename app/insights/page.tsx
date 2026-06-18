@@ -62,16 +62,16 @@ function PageHero() {
     >
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 80%, rgba(252,156,68,0.07) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse 80% 60% at 50% 80%, rgba(217,128,56,0.07) 0%, transparent 70%)" }}
       />
-      <ParticleField color="#1C1C1C" count={80} opacity={0.12} className="absolute inset-0 w-full h-full" />
+      <ParticleField color="#1c1c1c" count={80} opacity={0.12} className="absolute inset-0 w-full h-full" />
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-8"
-          style={{ color: "#742F14" }}
+          style={{ color: "#750006" }}
         >
           Our Thinking
         </motion.p>
@@ -82,7 +82,7 @@ function PageHero() {
           className="font-heading leading-none"
           style={{
             fontSize: "clamp(3rem, 8vw, 7rem)",
-            color: "#1a1a1a",
+            color: "#1c1c1c",
             letterSpacing: "-0.03em",
             maxWidth: "16ch",
           }}
@@ -106,7 +106,7 @@ function ArticlesSection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-4"
-          style={{ color: "#742F14" }}
+          style={{ color: "#750006" }}
         >
           Latest articles
         </motion.p>
@@ -124,7 +124,7 @@ function ArticlesSection() {
           {articles.map((a, i) => (
             <ArticleRow key={i} article={a} index={i} />
           ))}
-          <div className="border-t" style={{ borderColor: "rgba(92,60,44,0.1)" }} />
+          <div className="border-t" style={{ borderColor: "rgba(38,0,0,0.1)" }} />
         </div>
       </div>
     </section>
@@ -145,14 +145,14 @@ function ArticleRow({ article, index }: { article: typeof articles[0]; index: nu
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5, delay: index * 0.06 }}
       className="group block py-10 border-t"
-      style={{ borderColor: "rgba(92,60,44,0.1)" }}
+      style={{ borderColor: "rgba(38,0,0,0.1)" }}
     >
       <div className="grid md:grid-cols-3 gap-6 items-start">
         <div>
-          <p className="font-body text-xs tracking-[0.15em] uppercase mb-1" style={{ color: "#742F14" }}>
+          <p className="font-body text-xs tracking-[0.15em] uppercase mb-1" style={{ color: "#750006" }}>
             {article.category}
           </p>
-          <p className="font-body text-xs" style={{ color: "rgba(92,60,44,0.35)" }}>
+          <p className="font-body text-xs" style={{ color: "rgba(38,0,0,0.35)" }}>
             {article.date}
           </p>
         </div>
@@ -160,8 +160,8 @@ function ArticleRow({ article, index }: { article: typeof articles[0]; index: nu
           <div className="flex items-start justify-between gap-6">
             <div>
               <h3
-                className="font-heading leading-tight mb-3 group-hover:text-[#742F14] transition-colors duration-200"
-                style={{ fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "#5C3C2C", letterSpacing: "-0.01em" }}
+                className="font-heading leading-tight mb-3 group-hover:text-[#750006] transition-colors duration-200"
+                style={{ fontSize: "clamp(1.1rem, 2.2vw, 1.6rem)", color: "#260000", letterSpacing: "-0.01em" }}
               >
                 {article.title}
               </h3>
@@ -177,8 +177,8 @@ function ArticleRow({ article, index }: { article: typeof articles[0]; index: nu
             >
               <ArrowUpRight
                 size={20}
-                className="transition-colors duration-200 group-hover:text-[#742F14]"
-                style={{ color: "rgba(92,60,44,0.2)" }}
+                className="transition-colors duration-200 group-hover:text-[#750006]"
+                style={{ color: "rgba(38,0,0,0.2)" }}
               />
             </motion.div>
           </div>
@@ -192,7 +192,7 @@ function CTA() {
   return (
     <section
       className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#742F14" }}
+      style={{ backgroundColor: "#750006" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -217,7 +217,7 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#FFFFFF", color: "#742F14", letterSpacing: "0.05em" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#750006", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
             >
@@ -226,7 +226,7 @@ function CTA() {
             <Link
               href="/work"
               className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
-              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em" }}
+              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.8)")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)")}
             >

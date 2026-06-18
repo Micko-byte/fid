@@ -208,7 +208,7 @@ function ServiceRow({
               fontFamily: "var(--font-body)",
               fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
               lineHeight: 1.55,
-              color: "rgba(33,27,24,0.62)",
+              color: "#1c1c1c",
               maxWidth: "40ch",
               marginTop: "1.1rem",
               marginBottom: 0,
@@ -395,14 +395,14 @@ export default function Services() {
                 fontSize: "0.74rem",
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "rgba(33,27,24,0.6)",
+                color: "#1c1c1c",
                 fontWeight: 500,
                 whiteSpace: "nowrap",
                 transition: "color 0.3s",
                 textDecoration: "none",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.color = "#742F14")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(33,27,24,0.6)")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "#1c1c1c")}
             >
               All services
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -411,25 +411,37 @@ export default function Services() {
             </Link>
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              maxWidth: "62ch",
-              color: "rgba(33,27,24,0.6)",
-              fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)",
-              lineHeight: 1.5,
-              fontFamily: "var(--font-body)",
-              marginBottom: "clamp(3rem, 6vw, 5rem)",
-            }}
-          >
-            FID &amp; Co. is a 360 degree communications partner - bringing strategic
-            counsel, cultural fluency and cut-through creativity to deliver ideas
-            that move audiences, shape perception and earn lasting credibility
-            across Africa.
-          </motion.p>
-
+<div
+  style={{
+    display: "flex",
+    justifyContent: "center",
+    marginBottom: "clamp(3rem, 6vw, 5rem)",
+  }}
+>
+  <motion.p
+    initial={{ opacity: 0, y: 12 }}
+    animate={inView ? { opacity: 1, y: 0 } : {}}
+    transition={{
+      duration: 0.7,
+      delay: 0.22,
+      ease: [0.16, 1, 0.3, 1],
+    }}
+    style={{
+      maxWidth: "48ch",
+      color: "#1c1c1c",
+      fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)",
+      lineHeight: 1.5,
+      fontFamily: "var(--font-body)",
+      textAlign: "center",
+      margin: 0,
+    }}
+  >
+    FID &amp; Co. is a 360 degree communications partner, bringing strategic
+    counsel, cultural fluency and cut-through creativity to deliver ideas
+    that move audiences, shape perception and earn lasting credibility
+    across Africa.
+  </motion.p>
+</div>
           <div
             style={{
               position: "relative",

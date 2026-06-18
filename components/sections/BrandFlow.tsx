@@ -65,10 +65,10 @@ export default function BrandFlow() {
             fontWeight: 600,
             letterSpacing: "0.28em",
             textTransform: "uppercase",
-            color: "#742F14",
+            color: "#750006",
           }}
         >
-          <span style={{ width: "24px", height: "1px", background: "#742F14", opacity: 0.7 }} /> Trusted by
+          <span style={{ width: "24px", height: "1px", background: "#750006", opacity: 0.7 }} /> Trusted by
         </motion.span>
 
         <motion.h2
@@ -79,7 +79,7 @@ export default function BrandFlow() {
             fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
             fontWeight: 700,
             fontSize: "clamp(2.4rem,5.5vw,4.2rem)",
-            color: "#1a1a1a",
+            color: "#1c1c1c",
             marginTop: "0.9rem",
             letterSpacing: "-0.02em",
             lineHeight: 1.0,
@@ -90,7 +90,7 @@ export default function BrandFlow() {
         </motion.h2>
       </div>
 
-      <div style={{ position: "relative", zIndex: 2, color: "rgba(116,47,20,0.18)", marginBottom: "clamp(2rem,4vw,3rem)" }}>
+      <div style={{ position: "relative", zIndex: 2, color: "rgba(117,0,6,0.18)", marginBottom: "clamp(2rem,4vw,3rem)" }}>
         <TextType text="Follow the work in motion." as="p" className="bf-type" typingSpeed={42} pauseDuration={1400} deletingSpeed={18} cursorCharacter="✦" />
         <ScrollVelocity texts={["Government • Retail • Hospitality • Healthcare • Finance • Culture • Sport •"]} velocity={45} numCopies={3} className="bf-vel" />
       </div>
@@ -114,7 +114,7 @@ export default function BrandFlow() {
           font-size: 0.72rem;
           letter-spacing: 0.24em;
           text-transform: uppercase;
-          color: #742F14;
+          color: #750006;
         }
         .bf-vel { font-family: '"Nohemi", var(--font-heading, "Oswald")'; font-weight: 700; text-transform: uppercase; font-size: clamp(2rem,5vw,4rem); letter-spacing: -0.01em; }
         .bf-strip { animation-name: bf-move; animation-timing-function: linear; animation-iteration-count: infinite; }
@@ -133,13 +133,13 @@ export default function BrandFlow() {
           background: rgba(255,255,255,0.72);
           border-radius: 8px;
           padding: 0.9rem 1.3rem;
-          box-shadow: 0 6px 20px rgba(116,47,20,0.08);
-          border: 1px solid rgba(116,47,20,0.08);
+          box-shadow: 0 6px 20px rgba(117,0,6,0.08);
+          border: 1px solid rgba(117,0,6,0.08);
           backdrop-filter: blur(10px);
           transition: transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s;
         }
         .bf-chip img { max-width: 100%; max-height: 100%; object-fit: contain; opacity: 1; image-rendering: auto; }
-        .bf-chip:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(116,47,20,0.2); }
+        .bf-chip:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(117,0,6,0.2); }
       `}</style>
     </section>
   );

@@ -35,11 +35,11 @@ interface MenuItemProps extends MenuItemData {
 const FlowingMenu: React.FC<FlowingMenuProps> = ({
   items = [],
   speed = 15,
-  textColor = "#fff",
+  textColor = "#ffffff",
   bgColor = "#120F17",
-  marqueeBgColor = "#fff",
+  marqueeBgColor = "#ffffff",
   marqueeTextColor = "#120F17",
-  borderColor = "#fff",
+  borderColor = "#ffffff",
   onHoverItem,
 }) => {
   return (
@@ -205,7 +205,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
               fontFamily: "var(--font-body)",
               fontSize: "0.62rem",
               letterSpacing: "0.22em",
-              color: "rgba(199,172,159,0.4)",
+              color: "rgba(217,171,136,0.4)",
               flexShrink: 0,
             }}
           >

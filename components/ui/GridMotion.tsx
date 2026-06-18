@@ -44,7 +44,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = "#ede2ca"
         style={{
           background: `
             radial-gradient(circle at 25% 20%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.55) 22%, transparent 60%),
-            radial-gradient(circle at 78% 18%, rgba(252,156,68,0.22) 0%, transparent 28%),
+            radial-gradient(circle at 78% 18%, rgba(217,128,56,0.22) 0%, transparent 28%),
             radial-gradient(circle, ${gradientColor} 0%, transparent 72%)
           `,
         }}
@@ -54,7 +54,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = "#ede2ca"
           className="absolute inset-0"
           style={{
             backgroundImage:
-              "repeating-linear-gradient(120deg, rgba(26,26,26,0.04) 0, rgba(26,26,26,0.04) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(0deg, rgba(26,26,26,0.035) 0, rgba(26,26,26,0.035) 1px, transparent 1px, transparent 64px)",
+              "repeating-linear-gradient(120deg, rgba(28,28,28,0.04) 0, rgba(28,28,28,0.04) 1px, transparent 1px, transparent 60px), repeating-linear-gradient(0deg, rgba(28,28,28,0.035) 0, rgba(28,28,28,0.035) 1px, transparent 1px, transparent 64px)",
             opacity: 0.55,
             mixBlendMode: "multiply",
           }}
@@ -67,9 +67,9 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = "#ede2ca"
                 return (
                   <div key={itemIndex} className="relative">
                     <div
-                      className="relative w-full h-full overflow-hidden rounded-[0px] border border-white/30 bg-[rgba(255,255,255,0.18)] flex items-center justify-center text-[#1a1a1a] text-[1.5rem]"
+                      className="relative w-full h-full overflow-hidden rounded-[0px] border border-white/30 bg-[rgba(255,255,255,0.18)] flex items-center justify-center text-[#1c1c1c] text-[1.5rem]"
                       style={{
-                        boxShadow: "0 12px 40px rgba(26,26,26,0.08)",
+                        boxShadow: "0 12px 40px rgba(28,28,28,0.08)",
                         backdropFilter: "blur(6px)",
                       }}
                     >
@@ -83,7 +83,7 @@ const GridMotion: FC<GridMotionProps> = ({ items = [], gradientColor = "#ede2ca"
                         className="absolute inset-0"
                         style={{
                           background:
-                            "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 45%, rgba(116,47,20,0.05) 100%)",
+                            "linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 45%, rgba(117,0,6,0.05) 100%)",
                         }}
                       />
                     </div>

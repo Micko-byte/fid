@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Plus, Minus, Megaphone, Television, UsersThree, DeviceMobileCamera, Confetti, type Icon } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
-import { services } from "@/lib/services";
+import { services } from "@/components/lib/services";
 
 const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
@@ -39,7 +39,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
       animate={inView ? { opacity: 1 } : {}}
       transition={{ duration: 0.5, delay: index * 0.06 }}
       className="border-t"
-      style={{ borderColor: "rgba(92,60,44,0.1)" }}
+      style={{ borderColor: "rgba(38,0,0,0.1)" }}
     >
       <button
         onClick={() => setOpen(!open)}
@@ -47,13 +47,13 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
       >
         <div className="flex-1">
           <div className="flex items-center gap-5 mb-2">
-            <span className="font-body text-xs flex-shrink-0" style={{ color: "rgba(92,60,44,0.25)" }}>
+            <span className="font-body text-xs flex-shrink-0" style={{ color: "rgba(38,0,0,0.25)" }}>
               {service.num}
             </span>
-            {(() => { const Ico = iconMap[service.iconName]; return Ico ? <Ico size={28} weight="light" color="#742F14" style={{ flexShrink: 0 }} /> : null; })()}
+            {(() => { const Ico = iconMap[service.iconName]; return Ico ? <Ico size={28} weight="light" color="#750006" style={{ flexShrink: 0 }} /> : null; })()}
             <h3
-              className="font-heading leading-tight group-hover:text-[#742F14] transition-colors duration-200"
-              style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)", color: "#5C3C2C", letterSpacing: "-0.02em" }}
+              className="font-heading leading-tight group-hover:text-[#750006] transition-colors duration-200"
+              style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)", color: "#260000", letterSpacing: "-0.02em" }}
             >
               {service.title}
             </h3>
@@ -62,7 +62,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
             {service.summary}
           </p>
         </div>
-        <div className="flex-shrink-0 mt-2" style={{ color: open ? "#742F14" : "rgba(92,60,44,0.3)" }}>
+        <div className="flex-shrink-0 mt-2" style={{ color: open ? "#750006" : "rgba(38,0,0,0.3)" }}>
           {open ? <Minus size={18} /> : <Plus size={18} />}
         </div>
       </button>
@@ -81,13 +81,13 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
                 {service.body}
               </p>
               <div>
-                <p className="font-body text-xs tracking-[0.2em] uppercase mb-5" style={{ color: "#742F14" }}>
+                <p className="font-body text-xs tracking-[0.2em] uppercase mb-5" style={{ color: "#750006" }}>
                   What&apos;s included
                 </p>
                 <ul className="space-y-2.5">
                   {service.capabilities.map((c, i) => (
                     <li key={i} className="font-body text-sm flex gap-3" style={{ color: "rgba(28,28,28,0.7)" }}>
-                      <span className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: "#742F14" }} />
+                      <span className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: "#750006" }} />
                       {c}
                     </li>
                   ))}
@@ -109,16 +109,16 @@ function PageHero() {
     >
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 70% 80%, rgba(252,156,68,0.07) 0%, transparent 70%)" }}
+        style={{ background: "radial-gradient(ellipse 80% 60% at 70% 80%, rgba(217,128,56,0.07) 0%, transparent 70%)" }}
       />
-      <OrbitalRings color="#1C1C1C" opacity={0.06} className="absolute right-0 top-0 h-full w-2/3 hidden md:block" />
+      <OrbitalRings color="#1c1c1c" opacity={0.06} className="absolute right-0 top-0 h-full w-2/3 hidden md:block" />
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-8"
-          style={{ color: "#742F14" }}
+          style={{ color: "#750006" }}
         >
           Our Expertise
         </motion.p>
@@ -129,7 +129,7 @@ function PageHero() {
           className="font-heading leading-none"
           style={{
             fontSize: "clamp(3rem, 8vw, 7rem)",
-            color: "#1a1a1a",
+            color: "#1c1c1c",
             letterSpacing: "-0.03em",
             maxWidth: "14ch",
           }}
@@ -154,7 +154,7 @@ function ServicesSection() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6 }}
           className="font-body text-xs tracking-[0.25em] uppercase mb-4"
-          style={{ color: "#742F14" }}
+          style={{ color: "#750006" }}
         >
           What we do
         </motion.p>
@@ -172,7 +172,7 @@ function ServicesSection() {
           {services.map((svc, i) => (
             <ServiceAccordion key={i} service={svc} index={i} />
           ))}
-          <div className="border-t" style={{ borderColor: "rgba(92,60,44,0.1)" }} />
+          <div className="border-t" style={{ borderColor: "rgba(38,0,0,0.1)" }} />
         </div>
       </div>
     </section>
@@ -184,10 +184,10 @@ function SectorsSection() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#1C1C1C" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#1c1c1c" }}>
       <div className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div ref={ref} className="mb-16">
-          <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: "#742F14" }}>
+          <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: "#750006" }}>
             Industries we serve
           </p>
           <motion.h2
@@ -208,10 +208,10 @@ function SectorsSection() {
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.4, delay: i * 0.04 }}
-              className="group p-6 border-r border-b cursor-default transition-all duration-300 hover:bg-[#742F14]"
+              className="group p-6 border-r border-b cursor-default transition-all duration-300 hover:bg-[#750006]"
               style={{ borderColor: "rgba(255,255,255,0.08)" }}
             >
-              <div className="font-body text-xl mb-3 transition-colors duration-300 group-hover:text-[#FFFFFF]" style={{ color: "#742F14" }}>
+              <div className="font-body text-xl mb-3 transition-colors duration-300 group-hover:text-[#FFFFFF]" style={{ color: "#750006" }}>
                 {s.icon}
               </div>
               <p className="font-body text-xs leading-snug transition-colors duration-300 group-hover:text-[#FFFFFF]" style={{ color: "rgba(255,255,255,0.7)" }}>
@@ -229,7 +229,7 @@ function CTA() {
   return (
     <section
       className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#742F14" }}
+      style={{ backgroundColor: "#750006" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -254,7 +254,7 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#FFFFFF", color: "#742F14", letterSpacing: "0.05em" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#750006", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
             >
@@ -263,7 +263,7 @@ function CTA() {
             <Link
               href="/work"
               className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
-              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em" }}
+              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.8)")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)")}
             >

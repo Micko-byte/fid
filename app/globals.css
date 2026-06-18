@@ -1,11 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&family=Oswald:wght@300;400;500;600;700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap");
-/* Satoshi — premium body sans (free, Fontshare). All weights loaded. */
-@import url("https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900,1,2&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 @source "../components/**/*.tsx";
 @source "../app/**/*.tsx";
 
-/* ─── Nohemi — premium display face, variable (100–900) ─────────────────── */
+/* ─── Font fallbacks while official Maragsa Display files are not bundled ─── */
 @font-face {
   font-family: "Nohemi";
   src: url("/fonts/Nohemi-VF.ttf") format("truetype-variations");
@@ -31,33 +29,38 @@
 /* ─── FID & Co. Design System ─────────────────────────────────────────── */
 
 
-/* ─── 14islands-inspired editorial tokens (FID palette) ──────────────── */
+/* ─── FID & Co. official brand tokens ─────────────────────────────────── */
 
 :root {
-  --red-mark:      #742F14;
-  --deep-current:  #5C3C2C;
-  --quite-light:   #FFFFFF;
-  --off-white:     #FFFFFF;
-  --anchor:        #1C1C1C;
-  --signal:        #FC9C44;
-  --earthline:     #C7AC9F;
-  /* Luxury wine + gold direction */
-  --wine:          #742F14;
-  --gold-soft:     #FC9C44;
-  --gold-field:    #FFFFFF;
+  --red-signal:    #750006;
+  --deep-current:  #260000;
+  --quite-light:   #f5f2ec;
+  --pure-light:    #ffffff;
+  --anchor:        #1c1c1c;
+  --amber:         #d98038;
+  --earthline:     #d9ab88;
+  --red-mark:      var(--red-signal);
+  --signal:        var(--amber);
+  --wine:          var(--red-signal);
+  --gold-soft:     var(--amber);
+  --gold-field:    var(--quite-light);
+  --button-radius: 14px;
 }
 
 @theme inline {
-  --color-red-mark:     #742F14;
-  --color-deep-current: #5C3C2C;
-  --color-quite-light:  #FFFFFF;
-  --color-off-white:    #FFFFFF;
-  --color-anchor:       #1C1C1C;
-  --color-signal:       #FC9C44;
-  --color-earthline:    #C7AC9F;
-  --font-display:       "Nohemi", "Satoshi", "Oswald", "Arial Narrow", sans-serif;
-  --font-heading:       "Nohemi", "Satoshi", "Oswald", "Arial Narrow", sans-serif;
-  --font-body:          "Nohemi", "Satoshi", "Noto Sans", system-ui, -apple-system, sans-serif;
+  --color-red-signal:   #750006;
+  --color-red-mark:     #750006;
+  --color-deep-current: #260000;
+  --color-quite-light:  #f5f2ec;
+  --color-off-white:    #f5f2ec;
+  --color-pure-light:   #ffffff;
+  --color-anchor:       #1c1c1c;
+  --color-signal:       #d98038;
+  --color-amber:        #d98038;
+  --color-earthline:    #d9ab88;
+  --font-display:       "Maragsa Display", "Maragsa", "Nohemi", Georgia, serif;
+  --font-heading:       "Maragsa Display", "Maragsa", "Nohemi", Georgia, serif;
+  --font-body:          "Funnel Display", "Nohemi", system-ui, -apple-system, sans-serif;
 }
 
 html {
@@ -66,7 +69,7 @@ html {
 }
 
 body {
-  background: #FFFFFF;
+  background: #ffffff;
   color: var(--anchor);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -76,13 +79,21 @@ body {
   overflow-x: hidden;
 }
 
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+a[data-button] {
+  border-radius: var(--button-radius) !important;
+}
+
 /* ─── Typography utilities ─────────────────────────────────────────────── */
 
 .font-heading  { font-family: var(--font-heading); }
 .font-body     { font-family: var(--font-body); }
 
 /* CurvedLoop service ribbon */
-.curved-ribbon { fill: #FC9C44; font-family: var(--font-heading, "Oswald"); font-weight: 700; font-size: 5.5rem; }
+.curved-ribbon { fill: #d98038; font-family: var(--font-heading, "Oswald"); font-weight: 700; font-size: 5.5rem; }
 
 /* animatable angle for the Work card rotating border */
 @property --wc-a {
@@ -158,7 +169,7 @@ html.lenis body {
 /* ─── Branded icons — animate on hover, slate-blue accent ──────────────── */
 
 .brand-icon {
-  color: #5A84AC; /* all icons slate-blue by default */
+  color: #d98038; /* all icons slate-blue by default */
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
   transform-origin: center;
   will-change: transform;
@@ -173,7 +184,7 @@ button:hover .brand-icon,
 .work-mosaic-link:hover .brand-icon,
 .icon-pop:hover .brand-icon {
   transform: scale(1.16) rotate(-6deg);
-  color: #FC9C44; /* → orange on hover */
+  color: #d98038; /* → orange on hover */
 }
 
 /* "Push" press feedback for any interactive element opting in */

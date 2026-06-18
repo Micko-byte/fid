@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { services, getServiceBySlug } from "@/lib/services";
+import { services, getServiceBySlug } from "@/components/lib/services";
 import ServiceDetailClient from "@/components/services/ServiceDetailClient";
 
 export function generateStaticParams() {

@@ -3,7 +3,7 @@
 import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
-import type { Project } from "@/lib/projects";
+import type { Project } from "@/components/lib/projects";
 
 interface Props {
   project: Project;
@@ -46,11 +46,11 @@ function ImagePlaceholder({ index, height, colSpan, offset = false }: {
         position: "absolute",
         bottom: "1rem",
         right: "1rem",
-        fontFamily: "'Noto Sans', sans-serif",
+        fontFamily: "var(--font-body)",
         fontSize: "0.6rem",
         letterSpacing: "0.18em",
         textTransform: "uppercase",
-        color: "rgba(41,42,44,0.3)",
+        color: "rgba(28,28,28,0.3)",
       }}>
         {String(index + 1).padStart(2, "0")}
       </span>
@@ -74,7 +74,7 @@ export default function WorkDetailClient({ project }: Props) {
   const lowerY = useTransform(scrollYProgress, [0, 1], ["0vh", "-10vh"]);
 
   return (
-    <main style={{ backgroundColor: "#f2f2f2", color: "#292a2c", minHeight: "100vh" }}>
+    <main style={{ backgroundColor: "#f2f2f2", color: "#1c1c1c", minHeight: "100vh" }}>
 
       {/* ── Top nav strip ── */}
       <div style={{
@@ -92,11 +92,11 @@ export default function WorkDetailClient({ project }: Props) {
         <Link
           href="/#work"
           style={{
-            fontFamily: "'Noto Sans', sans-serif",
+            fontFamily: "var(--font-body)",
             fontSize: "0.75rem",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "#292a2c",
+            color: "#1c1c1c",
             textDecoration: "none",
             display: "inline-flex",
             alignItems: "center",
@@ -104,17 +104,17 @@ export default function WorkDetailClient({ project }: Props) {
             borderBottom: "1px solid transparent",
             transition: "border-color 0.2s",
           }}
-          onMouseEnter={e => (e.currentTarget.style.borderColor = "#292a2c")}
+          onMouseEnter={e => (e.currentTarget.style.borderColor = "#1c1c1c")}
           onMouseLeave={e => (e.currentTarget.style.borderColor = "transparent")}
         >
           ← All work
         </Link>
         <span style={{
-          fontFamily: "'Noto Sans', sans-serif",
+          fontFamily: "var(--font-body)",
           fontSize: "0.75rem",
           letterSpacing: "0.18em",
           textTransform: "uppercase",
-          color: "rgba(41,42,44,0.35)",
+          color: "rgba(28,28,28,0.35)",
         }}>
           FID &amp; Co.
         </span>
@@ -126,7 +126,7 @@ export default function WorkDetailClient({ project }: Props) {
         paddingLeft: "clamp(1.5rem, 5vw, 5rem)",
         paddingRight: "clamp(1.5rem, 5vw, 5rem)",
         paddingBottom: "clamp(3rem, 6vw, 5rem)",
-        borderBottom: "1px solid #292a2c",
+        borderBottom: "1px solid #1c1c1c",
         maxWidth: "1440px",
         margin: "0 auto",
       }}>
@@ -146,11 +146,11 @@ export default function WorkDetailClient({ project }: Props) {
             <span
               key={i}
               style={{
-                fontFamily: "'Noto Sans', sans-serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "0.7rem",
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
-                color: "rgba(41,42,44,0.45)",
+                color: "rgba(28,28,28,0.45)",
               }}
             >
               {tag}{i < 1 ? " /" : ""}
@@ -169,12 +169,12 @@ export default function WorkDetailClient({ project }: Props) {
             fontSize: "clamp(2.8rem, 7vw, 6.5rem)",
             lineHeight: 1.06,
             letterSpacing: "-0.036em",
-            color: "#292a2c",
+            color: "#1c1c1c",
             maxWidth: "18ch",
           }}
         >
           {project.client}
-          <em style={{ fontStyle: "italic", color: "rgba(41,42,44,0.45)" }}> — {project.title}</em>
+          <em style={{ fontStyle: "italic", color: "rgba(28,28,28,0.45)" }}> — {project.title}</em>
         </motion.h1>
       </div>
 
@@ -203,17 +203,17 @@ export default function WorkDetailClient({ project }: Props) {
         >
           <div style={{
             position: "absolute", inset: 0,
-            background: `linear-gradient(135deg, rgba(${project.color === "#742F14" ? "117,0,6" : project.color === "#742F14" ? "217,128,56" : "217,171,136"},0.12) 0%, transparent 60%)`,
+            background: `linear-gradient(135deg, rgba(${project.color === "#750006" ? "117,0,6" : project.color === "#750006" ? "217,128,56" : "217,171,136"},0.12) 0%, transparent 60%)`,
           }} />
           <span style={{
             position: "absolute",
             bottom: "1.5rem",
             left: "1.5rem",
-            fontFamily: "'Noto Sans', sans-serif",
+            fontFamily: "var(--font-body)",
             fontSize: "0.6rem",
             letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: "rgba(41,42,44,0.3)",
+            color: "rgba(28,28,28,0.3)",
           }}>Campaign imagery / 01</span>
         </motion.div>
 
@@ -238,7 +238,7 @@ export default function WorkDetailClient({ project }: Props) {
               marginTop: "clamp(2rem, 5vw, 4rem)",
             }}
           >
-            <span style={{ position: "absolute", bottom: "1rem", right: "1rem", fontFamily: "'Noto Sans', sans-serif", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(41,42,44,0.3)" }}>02</span>
+            <span style={{ position: "absolute", bottom: "1rem", right: "1rem", fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(28,28,28,0.3)" }}>02</span>
           </motion.div>
           {/* Right — shorter */}
           <motion.div
@@ -253,7 +253,7 @@ export default function WorkDetailClient({ project }: Props) {
               overflow: "hidden",
             }}
           >
-            <span style={{ position: "absolute", bottom: "1rem", right: "1rem", fontFamily: "'Noto Sans', sans-serif", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(41,42,44,0.3)" }}>03</span>
+            <span style={{ position: "absolute", bottom: "1rem", right: "1rem", fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(28,28,28,0.3)" }}>03</span>
           </motion.div>
         </div>
 
@@ -280,7 +280,7 @@ export default function WorkDetailClient({ project }: Props) {
                 marginTop: i === 1 ? "clamp(1rem, 3vw, 2.5rem)" : 0,
               }}
             >
-              <span style={{ position: "absolute", bottom: "1rem", right: "1rem", fontFamily: "'Noto Sans', sans-serif", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(41,42,44,0.3)" }}>{item.num}</span>
+              <span style={{ position: "absolute", bottom: "1rem", right: "1rem", fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(28,28,28,0.3)" }}>{item.num}</span>
             </motion.div>
           ))}
         </div>
@@ -295,11 +295,11 @@ export default function WorkDetailClient({ project }: Props) {
           top: "50%",
           transform: "translateY(-50%) rotate(90deg)",
           transformOrigin: "center center",
-          fontFamily: "'Noto Sans', sans-serif",
+          fontFamily: "var(--font-body)",
           fontSize: "0.55rem",
           letterSpacing: "0.22em",
           textTransform: "uppercase",
-          color: "rgba(41,42,44,0.18)",
+          color: "rgba(28,28,28,0.18)",
           pointerEvents: "none",
           zIndex: 50,
           whiteSpace: "nowrap",
@@ -325,7 +325,7 @@ export default function WorkDetailClient({ project }: Props) {
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: "clamp(3rem, 8vw, 8rem)",
-          borderTop: "1px solid #292a2c",
+          borderTop: "1px solid #1c1c1c",
           paddingTop: "clamp(2.5rem, 5vw, 4rem)",
         }}
           className="work-body-grid"
@@ -337,11 +337,11 @@ export default function WorkDetailClient({ project }: Props) {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
             <p style={{
-              fontFamily: "'Noto Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.7rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "rgba(41,42,44,0.4)",
+              color: "rgba(28,28,28,0.4)",
               marginBottom: "1.5rem",
             }}>Overview</p>
             <p style={{
@@ -350,7 +350,7 @@ export default function WorkDetailClient({ project }: Props) {
               fontSize: "clamp(1.4rem, 2.4vw, 2rem)",
               lineHeight: 1.25,
               letterSpacing: "-0.02em",
-              color: "#292a2c",
+              color: "#1c1c1c",
             }}>
               {project.desc}
             </p>
@@ -363,11 +363,11 @@ export default function WorkDetailClient({ project }: Props) {
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
           >
             <p style={{
-              fontFamily: "'Noto Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.7rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "rgba(41,42,44,0.4)",
+              color: "rgba(28,28,28,0.4)",
               marginBottom: "1.5rem",
             }}>Scope of work</p>
             <ul style={{ listStyle: "none", padding: 0, margin: 0, marginBottom: "3rem" }}>
@@ -378,18 +378,18 @@ export default function WorkDetailClient({ project }: Props) {
                   animate={inView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.15 + i * 0.04 }}
                   style={{
-                    fontFamily: "'Noto Sans', sans-serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: "0.88rem",
                     lineHeight: 1.6,
-                    color: "#292a2c",
+                    color: "#1c1c1c",
                     padding: "0.75rem 0",
-                    borderBottom: "1px solid rgba(41,42,44,0.12)",
+                    borderBottom: "1px solid rgba(28,28,28,0.12)",
                     display: "flex",
                     alignItems: "flex-start",
                     gap: "0.75rem",
                   }}
                 >
-                  <span style={{ color: "rgba(41,42,44,0.3)", flexShrink: 0, marginTop: "0.1rem" }}>—</span>
+                  <span style={{ color: "rgba(28,28,28,0.3)", flexShrink: 0, marginTop: "0.1rem" }}>—</span>
                   {item}
                 </motion.li>
               ))}
@@ -397,11 +397,11 @@ export default function WorkDetailClient({ project }: Props) {
 
             {/* Impact */}
             <p style={{
-              fontFamily: "'Noto Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.7rem",
               letterSpacing: "0.22em",
               textTransform: "uppercase",
-              color: "rgba(41,42,44,0.4)",
+              color: "rgba(28,28,28,0.4)",
               marginBottom: "1rem",
             }}>Impact</p>
             <p style={{
@@ -410,7 +410,7 @@ export default function WorkDetailClient({ project }: Props) {
               fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)",
               lineHeight: 1.3,
               letterSpacing: "-0.015em",
-              color: "#292a2c",
+              color: "#1c1c1c",
             }}>
               {project.impact}
             </p>
@@ -420,7 +420,7 @@ export default function WorkDetailClient({ project }: Props) {
         {/* Footer nav */}
         <div style={{
           marginTop: "clamp(4rem, 8vw, 7rem)",
-          borderTop: "1px solid rgba(41,42,44,0.12)",
+          borderTop: "1px solid rgba(28,28,28,0.12)",
           paddingTop: "2rem",
           display: "flex",
           justifyContent: "space-between",
@@ -431,13 +431,13 @@ export default function WorkDetailClient({ project }: Props) {
           <Link
             href="/#work"
             style={{
-              fontFamily: "'Noto Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.8rem",
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "#292a2c",
+              color: "#1c1c1c",
               textDecoration: "none",
-              borderBottom: "1px solid #292a2c",
+              borderBottom: "1px solid #1c1c1c",
               paddingBottom: "0.15rem",
             }}
           >
@@ -446,13 +446,13 @@ export default function WorkDetailClient({ project }: Props) {
           <Link
             href="/#contact"
             style={{
-              fontFamily: "'Noto Sans', sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.8rem",
               letterSpacing: "0.14em",
               textTransform: "uppercase",
-              color: "#292a2c",
+              color: "#1c1c1c",
               textDecoration: "none",
-              borderBottom: "1px solid #292a2c",
+              borderBottom: "1px solid #1c1c1c",
               paddingBottom: "0.15rem",
             }}
           >

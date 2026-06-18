@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { projects, getProjectBySlug } from "@/lib/projects";
+import { projects, getProjectBySlug } from "@/components/lib/projects";
 import WorkDetailClient from "@/components/work/WorkDetailClient";
 
 export function generateStaticParams() {

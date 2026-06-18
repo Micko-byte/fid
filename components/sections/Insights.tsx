@@ -33,17 +33,17 @@ export default function Insights() {
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "1.5rem", marginBottom: "clamp(2.5rem,5vw,4rem)" }}>
           <div>
             <motion.span initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#742F14" }}>
+              style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006" }}>
               <span style={{ fontVariantNumeric: "tabular-nums" }}>(06)</span>
-              <span style={{ width: "26px", height: "1px", background: "#742F14", opacity: 0.6 }} /> Our Thinking
+              <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} /> Our Thinking
             </motion.span>
             <motion.h2 initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }} animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}} transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2.4rem,6vw,5rem)", color: "#1a1a1a", marginTop: "0.8rem", letterSpacing: "-0.02em", lineHeight: 0.95, textTransform: "uppercase" }}>
+              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2.4rem,6vw,5rem)", color: "#1c1c1c", marginTop: "0.8rem", letterSpacing: "-0.02em", lineHeight: 0.95, textTransform: "uppercase" }}>
               Perspectives &amp;<br />Intelligence
             </motion.h2>
           </div>
-          <Link href="/insights" style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(26,26,26,0.5)", textDecoration: "none", transition: "color 0.3s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#742F14")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(26,26,26,0.5)")}>
+          <Link href="/insights" style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(28,28,28,0.5)", textDecoration: "none", transition: "color 0.3s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(28,28,28,0.5)")}>
             All articles →
           </Link>
         </div>
@@ -54,17 +54,17 @@ export default function Insights() {
             <motion.a key={i} href={a.href} target="_blank" rel="noopener noreferrer" data-cursor="Read"
               initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.05 + i * 0.06, ease: [0.16, 1, 0.3, 1] }}
               onMouseEnter={() => setHovered(i)} onMouseLeave={() => setHovered(null)}
-              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1.5rem", padding: "clamp(1.3rem,2.6vw,2.1rem) 0", borderTop: "1px solid rgba(116,47,20,0.18)", textDecoration: "none", position: "relative" }}>
+              style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1.5rem", padding: "clamp(1.3rem,2.6vw,2.1rem) 0", borderTop: "1px solid rgba(117,0,6,0.18)", textDecoration: "none", position: "relative" }}>
               <div style={{ display: "flex", alignItems: "baseline", gap: "clamp(1rem,2vw,2rem)", position: "relative", zIndex: 1 }}>
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(26,26,26,0.4)", flexShrink: 0, width: "5.5rem" }}>{a.date}</span>
-                <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, fontSize: "clamp(1.2rem,2.6vw,2.1rem)", lineHeight: 1.04, letterSpacing: "-0.01em", color: hovered === i ? "#742F14" : "#1a1a1a", transition: "color 0.3s, transform 0.4s", transform: hovered === i ? "translateX(12px)" : "translateX(0)", textTransform: "uppercase" }}>
+                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(28,28,28,0.4)", flexShrink: 0, width: "5.5rem" }}>{a.date}</span>
+                <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, fontSize: "clamp(1.2rem,2.6vw,2.1rem)", lineHeight: 1.04, letterSpacing: "-0.01em", color: hovered === i ? "#750006" : "#1c1c1c", transition: "color 0.3s, transform 0.4s", transform: hovered === i ? "translateX(12px)" : "translateX(0)", textTransform: "uppercase" }}>
                   {a.title}
                 </h3>
               </div>
-              <ArrowUpRight size={20} weight="light" color={hovered === i ? "#742F14" : "rgba(26,26,26,0.3)"} style={{ flexShrink: 0, transition: "transform 0.3s, color 0.3s", transform: hovered === i ? "translate(3px,-3px)" : "none" }} />
+              <ArrowUpRight size={20} weight="light" color={hovered === i ? "#750006" : "rgba(28,28,28,0.3)"} style={{ flexShrink: 0, transition: "transform 0.3s, color 0.3s", transform: hovered === i ? "translate(3px,-3px)" : "none" }} />
             </motion.a>
           ))}
-          <div style={{ borderTop: "1px solid rgba(116,47,20,0.18)" }} />
+          <div style={{ borderTop: "1px solid rgba(117,0,6,0.18)" }} />
         </div>
       </div>
 

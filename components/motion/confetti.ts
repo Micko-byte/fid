@@ -3,7 +3,7 @@
  * Call fireConfetti() (optionally with an origin element) on a success moment.
  */
 
-const COLORS = ["#D98038", "#D9AB88", "#1C1C1C", "#F5F2EC", "#b5651d"];
+const COLORS = ["#d98038", "#d9ab88", "#1c1c1c", "#f5f2ec", "#750006"];
 
 interface Particle {
   x: number; y: number; vx: number; vy: number;
