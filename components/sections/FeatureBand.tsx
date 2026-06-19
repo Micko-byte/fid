@@ -147,37 +147,43 @@ export default function FeatureBand() {
               />
             </motion.div>
 
-            {/* CTA — orange, matches the header / footer accent */}
+            {/* CTA — patterned brand prompt */}
             <motion.div
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
               style={{
-                background: "#d98038",
+                position: "relative",
+                overflow: "hidden",
+                backgroundImage: "linear-gradient(rgba(38,0,0,0.72), rgba(38,0,0,0.72)), url('/photos/pattern.jpeg')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
                 borderRadius: "22px",
                 padding: "clamp(2rem,3.5vw,3rem)",
-                color: "#260000",
-                boxShadow: "0 26px 70px rgba(217,128,56,0.35)",
+                color: "#ffffff",
+                boxShadow: "0 26px 70px rgba(38,0,0,0.28)",
               }}
             >
-              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.24em", textTransform: "uppercase", fontWeight: 700, opacity: 0.8, marginBottom: "0.9rem" }}>
+              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.24em", textTransform: "uppercase", fontWeight: 700, color: "#ffffff", opacity: 0.82, marginBottom: "0.9rem" }}>
                 Next step
               </TextScramble>
-              <h3 style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(1.9rem,3.2vw,2.8rem)", lineHeight: 1.0, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
+              <h3 style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, fontSize: "clamp(1.9rem,3.2vw,2.8rem)", lineHeight: 1.0, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase", color: "#ffffff" }}>
                 Let&apos;s build something meaningful.
               </h3>
-              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.5, color: "#260000", opacity: 0.85, marginTop: "0.9rem" }}>
+              <TextScramble as="p" style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.5, color: "#ffffff", opacity: 0.88, marginTop: "0.9rem" }}>
                 Share your brief and we&apos;ll shape the route.
               </TextScramble>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1.2rem", marginTop: "1.8rem" }}>
                 <Link
                   href="/#contact"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "#260000", color: "#d98038", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.95rem 1.8rem", borderRadius: "var(--button-radius)", textDecoration: "none", transition: "transform 0.2s" }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "#ffffff", color: "#1c1c1c", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.95rem 1.8rem", borderRadius: "var(--button-radius)", textDecoration: "none", transition: "transform 0.2s, background 0.2s, color 0.2s" }}
                   onPointerDown={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
                   onPointerUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = "#f5f2ec"; e.currentTarget.style.color = "#750006"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = "#ffffff"; e.currentTarget.style.color = "#1c1c1c"; }}
                 >
                   Book us
                 </Link>
-                <a href="mailto:info@fidco.africa" style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.92rem", color: "#260000", textDecoration: "none", borderBottom: "1px solid rgba(38,0,0,0.4)" }}>
+                <a href="mailto:info@fidco.africa" style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.92rem", color: "#ffffff", textDecoration: "none", borderBottom: "1px solid rgba(255,255,255,0.58)" }}>
                   info@fidco.africa
                 </a>
               </div>
