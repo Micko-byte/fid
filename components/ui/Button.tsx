@@ -35,7 +35,7 @@ function styleFor(variant: Variant, size: Size): React.CSSProperties {
     transition: "background 0.3s, color 0.3s, border-color 0.3s, gap 0.3s, transform 0.12s cubic-bezier(0.16,1,0.3,1)",
     border: "1px solid transparent",
   };
-  if (variant === "primary") return { ...base, backgroundColor: WINE, color: GOLD };
+  if (variant === "primary") return { ...base, backgroundColor: WINE, color: "#ffffff" };
   if (variant === "outline") return { ...base, backgroundColor: "transparent", color: WINE, borderColor: "rgba(117,0,6,0.4)" };
   return { ...base, backgroundColor: "transparent", color: WINE, padding: "0.2rem 0", letterSpacing: "0.14em" };
 }
