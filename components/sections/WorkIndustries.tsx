@@ -1,14 +1,13 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { InView } from "@/components/core/in-view";
 import { projects, type Project } from "@/components/lib/projects";
 import Tilt from "@/components/motion/Tilt";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
 import { IndustryIcon } from "@/components/graphics/BrandIcons";
-import VariableProximity from "@/components/ui/VariableProximity";
+import { TextRoll } from "@/components/core/text-roll";
 
 const assets: Record<string, { logo?: string; image?: string }> = {
   "national-minorities-day": { logo: "/logos/executive-office-president.png", image: "/photos/projects/national-minorities-day.jpg" },
@@ -63,7 +62,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
         overflow: "hidden",
         padding: "clamp(1.4rem, 2.6vw, 2.2rem)",
         borderRadius: "16px",
-        border: "1px solid rgba(28,28,28,0.06)",
+        border: "1px solid rgba(26,26,26,0.06)",
         background: "rgba(255,255,255,0.2)",
         backdropFilter: "blur(10px)",
       }}
@@ -76,7 +75,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
           position: "absolute",
           top: "-0.3em",
           [reversed ? "left" : "right"]: "0.2em",
-          fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
+          fontFamily: 'var(--font-heading, var(--font-heading))',
           fontWeight: 800,
           fontSize: "clamp(7rem, 16vw, 14rem)",
           lineHeight: 0.8,
@@ -114,13 +113,13 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
 
         <h3
           style={{
-            fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
+            fontFamily: 'var(--font-heading, var(--font-heading))',
             fontWeight: 700,
             fontSize: "clamp(1.45rem, 2.5vw, 2.3rem)",
             lineHeight: 1.06,
             letterSpacing: "-0.03em",
             textTransform: "uppercase",
-            color: "#1c1c1c",
+            color: "#1a1a1a",
             margin: 0,
             maxWidth: "16ch",
           }}
@@ -147,7 +146,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.92rem",
             lineHeight: 1.7,
-            color: "#1c1c1c",
+            color: "rgba(26,26,26,0.64)",
             maxWidth: "48ch",
             marginTop: "1rem",
           }}
@@ -160,7 +159,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.72rem",
             lineHeight: 1.6,
-            color: "#1c1c1c",
+            color: "rgba(26,26,26,0.52)",
             textTransform: "uppercase",
             letterSpacing: "0.16em",
             marginTop: "1.2rem",
@@ -181,7 +180,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontSize: "0.72rem",
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color: "#1c1c1c",
+            color: "#1a1a1a",
             textDecoration: "none",
             marginTop: "1.4rem",
             fontWeight: 600,
@@ -248,7 +247,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             position: "absolute",
             bottom: "0.7rem",
             right: "0.9rem",
-            fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
+            fontFamily: 'var(--font-heading, var(--font-heading))',
             fontWeight: 700,
             fontSize: "1rem",
             color: "rgba(255,255,255,0.85)",
@@ -268,7 +267,9 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
  * and give the Atra-style staggered, mixed-size composition.
  */
 const cardReveal = {
-  hidden: { opacity: 0, scale: 0.9, y: 24, filter: "blur(10px)" },
+  // Visible-by-default (opacity stays 1) — a subtle rise/scale settle that can
+  // never hide content, even if the scroll-reveal never fires. Demo-safe.
+  hidden: { opacity: 1, scale: 0.98, y: 18, filter: "blur(0px)" },
   visible: { opacity: 1, scale: 1, y: 0, filter: "blur(0px)" },
 };
 
@@ -280,14 +281,18 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
   return (
     <motion.div
       variants={cardReveal}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "0px 0px -80px 0px" }}
+      transition={{ duration: 0.7, delay: (index % 4) * 0.08, ease: [0.16, 1, 0.3, 1] }}
       className={`work-mosaic-card work-mosaic-${variant}`}
+      style={{ position: "relative" }}
     >
       <div
         data-cursor="View"
         onClick={() => setIsOpen((v) => !v)}
         className="work-mosaic-link"
-        style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden", borderRadius: "14px", cursor: "pointer" }}
+        style={{ position: "absolute", inset: 0, overflow: "hidden", borderRadius: "14px", cursor: "pointer" }}
       >
         <div style={{ position: "absolute", inset: 0, background: p.color ?? "#260000" }} />
         {a.image && (
@@ -301,10 +306,10 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
           />
         )}
         {/* readable gradient scrim */}
-        <motion.div aria-hidden="true" animate={{ opacity: isOpen ? 0.95 : 1 }} style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0) 28%, rgba(38,0,0,0.9) 100%)" }} />
+        <motion.div aria-hidden="true" animate={{ opacity: isOpen ? 0.95 : 1 }} style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(92,60,44,0) 28%, rgba(38,0,0,0.9) 100%)" }} />
 
         {/* index marker */}
-        <span style={{ position: "absolute", top: "1rem", right: "1.1rem", fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 700, fontSize: variant === "lg" ? "1.4rem" : "1.05rem", color: "rgba(255,255,255,0.55)" }}>
+        <span style={{ position: "absolute", top: "1rem", right: "1.1rem", fontFamily: 'var(--font-heading, var(--font-heading))', fontWeight: 700, fontSize: variant === "lg" ? "1.4rem" : "1.05rem", color: "rgba(255,255,255,0.55)" }}>
           {String(index + 1).padStart(2, "0")}
         </span>
 
@@ -321,7 +326,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
             <IndustryIcon sector={p.sector} size={15} strokeWidth={1.6} />
             {p.sector}
           </span>
-          <h3 style={{ margin: 0, fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.02em", lineHeight: 1.04, color: "#FFFFFF", fontSize: variant === "lg" ? "clamp(1.6rem,2.6vw,2.5rem)" : "clamp(1.1rem,1.6vw,1.4rem)", maxWidth: "18ch" }}>
+          <h3 style={{ margin: 0, fontFamily: 'var(--font-heading, var(--font-heading))', fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.02em", lineHeight: 1.04, color: "#FFFFFF", fontSize: variant === "lg" ? "clamp(1.6rem,2.6vw,2.5rem)" : "clamp(1.1rem,1.6vw,1.4rem)", maxWidth: "18ch" }}>
             {p.client}
           </h3>
 
@@ -339,7 +344,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
                 <p style={{ margin: "0.4rem 0 0.9rem", fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.55, color: "rgba(255,255,255,0.82)", maxWidth: "46ch" }}>
                   {p.impact}
                 </p>
-                <Link href={`/work/${p.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: "#260000", background: "#d98038", padding: "0.6rem 1.1rem", borderRadius: "var(--button-radius)", textDecoration: "none" }}>
+                <Link href={`/work/${p.slug}`} style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: "#260000", background: "#d98038", padding: "0.6rem 1.1rem", borderRadius: "999px", textDecoration: "none" }}>
                   Read the story
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </Link>
@@ -362,8 +367,9 @@ export default function WorkIndustries() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const lead = storyLeads[0];
-  const rest = storyLeads.slice(1);
+  const lead = storyLeads[0] ?? projects[0];
+  // Show ALL remaining projects in the mosaic so the full body of work is visible.
+  const rest = projects.filter((p) => p.slug !== lead.slug);
 
   const leadFacts = useMemo(
     () => [
@@ -431,26 +437,11 @@ export default function WorkIndustries() {
                 fontFamily: "var(--font-heading,'Oswald')",
                 fontWeight: 800,
                 fontSize: "clamp(2.4rem,5.5vw,4.4rem)",
-                color: "#1c1c1c",
+                color: "#1a1a1a",
                 lineHeight: 1,
               }}
             >
-              <VariableProximity
-                label="Stories shaped by culture, institutions and public attention."
-                containerRef={ref as import("react").MutableRefObject<HTMLElement | null>}
-                radius={130}
-                falloff="gaussian"
-                fromFontVariationSettings="'wght' 500, 'opsz' 16"
-                toFontVariationSettings="'wght' 900, 'opsz' 42"
-                style={{
-                  fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
-                  textTransform: "uppercase",
-                  color: "#1c1c1c",
-                  fontSize: "clamp(2.2rem,5vw,4rem)",
-                  lineHeight: 1,
-                  letterSpacing: "-0.03em",
-                }}
-              />
+              <TextRoll style={{ color: "#1a1a1a" }}>Stories shaped by culture, institutions and public attention.</TextRoll>
             </motion.h2>
 
             <motion.p
@@ -465,7 +456,7 @@ export default function WorkIndustries() {
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(0.95rem,1.35vw,1.1rem)",
                 lineHeight: 1.65,
-                color: "#1c1c1c",
+                color: "rgba(26,26,26,0.62)",
               }}
             >
               Communication is not a gallery of assets. It is a sequence of public moments, each with a purpose, an audience and a point of view. These selected projects show how FID & Co. moves from national observation to cultural platform building, and from brand launches to sustained reputation work.
@@ -488,7 +479,7 @@ export default function WorkIndustries() {
                   fontSize: "0.68rem",
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
-                  color: "#1c1c1c",
+                  color: "rgba(26,26,26,0.6)",
                   padding: "0.6rem 0.9rem",
                   borderRadius: "999px",
                   border: "1px solid rgba(117,0,6,0.12)",
@@ -508,30 +499,23 @@ export default function WorkIndustries() {
           style={{
             transformOrigin: "left",
             height: "1px",
-            background: "rgba(28,28,28,0.1)",
+            background: "rgba(26,26,26,0.1)",
             marginTop: "clamp(2rem, 5vw, 3.5rem)",
             marginBottom: "clamp(2rem, 5vw, 4rem)",
           }}
         />
 
-        {/* Lead story — large editorial feature */}
-        <StoryChapter p={lead} index={0} />
-
-        {/* Remaining work — asymmetric mosaic with staggered scroll reveal */}
-        <InView
-          className="work-mosaic"
-          variants={{ hidden: { opacity: 1 }, visible: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.15 } } }}
-          viewOptions={{ once: true, margin: "0px 0px -120px 0px" }}
-        >
-          {rest.map((p, index) => (
+        {/* All work — asymmetric mosaic of disclosure cards, staggered reveal */}
+        <div className="work-mosaic">
+          {[lead, ...rest].map((p, index) => (
             <MosaicCard
               key={p.slug}
               p={p}
-              index={index + 1}
-              variant={index === 0 || index === 3 ? "lg" : "sm"}
+              index={index}
+              variant={index % 4 === 0 || index % 4 === 3 ? "lg" : "sm"}
             />
           ))}
-        </InView>
+        </div>
 
         <div style={{ marginTop: "clamp(2rem, 4vw, 3rem)" }}>
           <AfricanFootprint />
@@ -562,10 +546,10 @@ export default function WorkIndustries() {
         }
         .work-mosaic-lg { min-height: clamp(380px, 40vw, 560px); }
         .work-mosaic-sm { min-height: clamp(300px, 30vw, 440px); }
-        .work-mosaic-card:nth-child(1) { grid-column: span 7; }
-        .work-mosaic-card:nth-child(2) { grid-column: span 5; margin-top: clamp(2.5rem, 5vw, 4.5rem); }
-        .work-mosaic-card:nth-child(3) { grid-column: span 5; }
-        .work-mosaic-card:nth-child(4) { grid-column: span 7; margin-top: clamp(2.5rem, 5vw, 4.5rem); }
+        .work-mosaic-card:nth-child(4n+1) { grid-column: span 7; }
+        .work-mosaic-card:nth-child(4n+2) { grid-column: span 5; margin-top: clamp(2.5rem, 5vw, 4.5rem); }
+        .work-mosaic-card:nth-child(4n+3) { grid-column: span 5; }
+        .work-mosaic-card:nth-child(4n+4) { grid-column: span 7; margin-top: clamp(2.5rem, 5vw, 4.5rem); }
         .work-mosaic-link { box-shadow: 0 18px 50px rgba(117,0,6,0.12); transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease; }
         .work-mosaic-link:hover { transform: translateY(-6px); box-shadow: 0 34px 80px rgba(117,0,6,0.22); }
         .work-mosaic-link:hover .work-mosaic-img { transform: scale(1.07); }

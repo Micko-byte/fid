@@ -1,66 +1,53 @@
+/* ─── FID & Co. Official Brand Fonts ─────────────────────────────────── */
+/* Maragsa Display — display serif (headlines, key statements) */
+@import url("https://fonts.googleapis.com/css2?family=Maragsa&display=swap");
+/* Funnel Display — supporting sans (subheadings, body, UI) */
 @import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 @source "../components/**/*.tsx";
 @source "../app/**/*.tsx";
 
-/* ─── Font fallbacks while official Maragsa Display files are not bundled ─── */
-@font-face {
-  font-family: "Nohemi";
-  src: url("/fonts/Nohemi-VF.ttf") format("truetype-variations");
-  font-weight: 100 900;
-  font-stretch: 100%;
-  font-display: swap;
-  font-style: normal;
-}
-/* Static fallbacks for browsers without variable-font support */
-@font-face {
-  font-family: "Nohemi";
-  src: url("/fonts/Nohemi-Regular.woff") format("woff");
-  font-weight: 400;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Nohemi";
-  src: url("/fonts/Nohemi-Bold.woff") format("woff");
-  font-weight: 700;
-  font-display: swap;
-}
-
 /* ─── FID & Co. Design System ─────────────────────────────────────────── */
 
 
-/* ─── FID & Co. official brand tokens ─────────────────────────────────── */
+/* ─── 14islands-inspired editorial tokens (FID palette) ──────────────── */
 
 :root {
-  --red-signal:    #750006;
-  --deep-current:  #260000;
-  --quite-light:   #f5f2ec;
-  --pure-light:    #ffffff;
-  --anchor:        #1c1c1c;
-  --amber:         #d98038;
-  --earthline:     #d9ab88;
-  --red-mark:      var(--red-signal);
-  --signal:        var(--amber);
-  --wine:          var(--red-signal);
-  --gold-soft:     var(--amber);
-  --gold-field:    var(--quite-light);
-  --button-radius: 14px;
+  /* ── Official FID & Co. brand palette ── */
+  --red-mark:      #750006;   /* Primary — deep red */
+  --deep-current:  #260000;   /* Secondary — near-black red */
+  --tertiary:      #f5f2ec;   /* Cream — warm light background */
+  --off-white:     #fafafa;
+  --anchor:        #1c1c1c;   /* Text — near black */
+  --signal:        #d98038;   /* Amber accent */
+  --earthline:     #d9ab88;   /* Sandy warm tone */
+
+  --site-max: 1320px;
+  --site-gutter: clamp(1.5rem, 5vw, 6rem);
+  --section-y: clamp(5.5rem, 12vw, 10rem);
+  --section-y-hero: clamp(7.5rem, 14vw, 12rem);
+
+  --type-display: clamp(3.2rem, 7vw, 6.8rem);
+  --type-h2: clamp(2.2rem, 5vw, 4.4rem);
+  --type-h3: clamp(1.65rem, 3vw, 2.7rem);
+  --type-body: clamp(0.98rem, 1.2vw, 1.12rem);
+  --type-eyebrow: 0.72rem;
+  --leading-tight: 0.98;
+  --leading-body: 1.65;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @theme inline {
-  --color-red-signal:   #750006;
   --color-red-mark:     #750006;
   --color-deep-current: #260000;
-  --color-quite-light:  #f5f2ec;
-  --color-off-white:    #f5f2ec;
-  --color-pure-light:   #ffffff;
+  --color-tertiary:     #f5f2ec;
+  --color-off-white:    #fafafa;
   --color-anchor:       #1c1c1c;
   --color-signal:       #d98038;
-  --color-amber:        #d98038;
   --color-earthline:    #d9ab88;
-  --font-display:       "Maragsa Display", "Maragsa", "Nohemi", Georgia, serif;
-  --font-heading:       "Maragsa Display", "Maragsa", "Nohemi", Georgia, serif;
-  --font-body:          "Funnel Display", "Nohemi", system-ui, -apple-system, sans-serif;
+  --font-display:       "Maragsa", "Playfair Display", Georgia, serif;
+  --font-heading:       "Maragsa", "Playfair Display", Georgia, serif;
+  --font-body:          "Funnel Display", "Inter", system-ui, -apple-system, sans-serif;
 }
 
 html {
@@ -69,7 +56,7 @@ html {
 }
 
 body {
-  background: #ffffff;
+  background: #FFFFFF;
   color: var(--anchor);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -79,21 +66,140 @@ body {
   overflow-x: hidden;
 }
 
-button,
-input[type="button"],
-input[type="submit"],
-input[type="reset"],
-a[data-button] {
-  border-radius: var(--button-radius) !important;
-}
-
 /* ─── Typography utilities ─────────────────────────────────────────────── */
 
 .font-heading  { font-family: var(--font-heading); }
 .font-body     { font-family: var(--font-body); }
 
+.section-shell {
+  max-width: var(--site-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-gutter);
+  padding-right: var(--site-gutter);
+}
+
+.type-display,
+.type-h2,
+.type-h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.type-display {
+  font-size: var(--type-display);
+  line-height: 0.92;
+}
+
+.type-h2 {
+  font-size: var(--type-h2);
+  line-height: var(--leading-tight);
+}
+
+.type-h3 {
+  font-size: var(--type-h3);
+  line-height: 1.03;
+}
+
+.type-body {
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+}
+
+.type-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-body);
+  font-size: var(--type-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.type-eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  flex-shrink: 0;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.fid-section {
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+.fid-section-tight {
+  padding-top: clamp(3.5rem, 8vw, 6rem);
+  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+}
+
+.fid-editorial-head {
+  display: grid;
+  grid-template-columns: minmax(5rem, 0.16fr) minmax(0, 0.84fr);
+  gap: clamp(1.25rem, 4vw, 4rem);
+  align-items: start;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.fid-section-num {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 0.9;
+  color: rgba(117, 0, 6, 0.18);
+  letter-spacing: 0;
+}
+
+.fid-art-panel {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: 0 22px 70px rgba(58, 31, 16, 0.12);
+}
+
+.fid-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fid-rise {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fid-caption {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.fid-rule {
+  height: 1px;
+  background: rgba(26, 26, 26, 0.1);
+}
+
+@media (max-width: 760px) {
+  .fid-editorial-head {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* CurvedLoop service ribbon */
-.curved-ribbon { fill: #d98038; font-family: var(--font-heading, "Oswald"); font-weight: 700; font-size: 5.5rem; }
+.curved-ribbon { fill: #d98038; font-family: var(--font-heading); font-weight: 700; font-size: 5.5rem; }
 
 /* animatable angle for the Work card rotating border */
 @property --wc-a {
@@ -119,13 +225,13 @@ h3 {
 /* ─── Scrollbar ────────────────────────────────────────────────────────── */
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--deep-current); }
+::-webkit-scrollbar-track { background: var(--tertiary); }
 ::-webkit-scrollbar-thumb { background: var(--red-mark); border-radius: 2px; }
 
 /* ─── Brand pattern texture ────────────────────────────────────────────── */
 
 .brand-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23742F14' fill-opacity='0.08'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23750006' fill-opacity='0.08'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
 }
 
 .brand-pattern-light {
@@ -169,7 +275,7 @@ html.lenis body {
 /* ─── Branded icons — animate on hover, slate-blue accent ──────────────── */
 
 .brand-icon {
-  color: #d98038; /* all icons slate-blue by default */
+  color: #d9ab88; /* earthline default */
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
   transform-origin: center;
   will-change: transform;
@@ -183,8 +289,8 @@ button:hover .brand-icon,
 .svc-row:hover .brand-icon,
 .work-mosaic-link:hover .brand-icon,
 .icon-pop:hover .brand-icon {
-  transform: scale(1.16) rotate(-6deg);
-  color: #d98038; /* → orange on hover */
+  transform: scale(1.08);
+  color: #d98038; /* → amber on hover */
 }
 
 /* "Push" press feedback for any interactive element opting in */

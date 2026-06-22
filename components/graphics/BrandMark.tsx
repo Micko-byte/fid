@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import { motion, useInView, useReducedMotion } from "framer-motion";
@@ -21,7 +21,7 @@ interface BrandMarkProps {
  */
 export default function BrandMark({
   size = 120,
-  color = "#1c1c1c",
+  color = "#1C1C1C",
   accent = "#750006",
   className,
   spin = true,

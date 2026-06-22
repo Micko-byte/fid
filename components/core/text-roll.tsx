@@ -26,10 +26,10 @@ export function TextRoll({ children, duration = 0.5, className, style, once = tr
         <motion.span
           key={i}
           aria-hidden
-          style={{ display: "inline-block", transformOrigin: "bottom", whiteSpace: "pre" }}
-          initial={{ rotateX: 90, y: "40%", opacity: 0, filter: "blur(4px)" }}
-          animate={inView ? { rotateX: 0, y: "0%", opacity: 1, filter: "blur(0px)" } : {}}
-          transition={{ duration, delay: i * 0.03, ease: [0.16, 1, 0.3, 1] }}
+          style={{ display: "inline-block", whiteSpace: "pre" }}
+          initial={{ y: "0.32em", opacity: 0 }}
+          animate={inView ? { y: "0em", opacity: 1 } : {}}
+          transition={{ duration, delay: i * 0.016, ease: [0.16, 1, 0.3, 1] }}
         >
           {ch === " " ? " " : ch}
         </motion.span>

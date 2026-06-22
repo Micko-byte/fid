@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
@@ -33,13 +33,13 @@ export default function IntroLoader() {
         >
           <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(60% 50% at 50% 45%, rgba(217,128,56,0.06) 0%, transparent 70%)" }} />
 
-          <BrandMark size={110} color="#1c1c1c" accent="#750006" spin={false} />
+          <BrandMark size={110} color="#1C1C1C" accent="#750006" spin={false} />
 
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "rgba(28,28,28,0.5)" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "rgba(26,26,26,0.5)" }}
           >
             Insight. Strategy. Impact.
           </motion.p>
@@ -49,7 +49,7 @@ export default function IntroLoader() {
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: DURATION_MS / 1000, ease: "linear" }}
-            style={{ width: "120px", height: "1px", background: "#1c1c1c", transformOrigin: "left", opacity: 0.4 }}
+            style={{ width: "120px", height: "1px", background: "#1C1C1C", transformOrigin: "left", opacity: 0.4 }}
           />
         </motion.div>
       )}

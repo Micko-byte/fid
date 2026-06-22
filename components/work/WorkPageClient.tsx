@@ -1,20 +1,22 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useRef } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ScrollChoreography } from "@/components/ScrollChoreography";
 import { useWorkData } from "@/components/work/useWorkData";
+import ThreeDHoverGallery from "@/components/ui/ThreeDHoverGallery";
+import CoolBentoEffect from "@/components/ui/CoolBentoEffect";
 import type { WorkImage, WorkProject } from "@/components/lib/work-types";
 import type { ReactNode } from "react";
 
 const COLORS = {
-  bg: "#f5f2ec",
-  text: "#1c1c1c",
-  pill: "#1c1c1c",
-  line: "rgba(28,28,28,0.12)",
+  bg: "#f0f0f0",
+  text: "#2a2a2a",
+  pill: "#2a2a2a",
+  line: "rgba(42,42,42,0.12)",
 };
 
 const typeStyles = {
@@ -33,13 +35,13 @@ const typeStyles = {
     textWrap: "balance" as const,
   },
   body: {
-    fontFamily: 'var(--font-body)',
+    fontFamily: '"Noto Sans", system-ui, -apple-system, sans-serif',
     fontWeight: 400,
     letterSpacing: "-0.01em",
     lineHeight: 1.2,
   },
   caption: {
-    fontFamily: 'var(--font-body)',
+    fontFamily: '"Noto Sans", system-ui, -apple-system, sans-serif',
     fontWeight: 400,
     letterSpacing: "0.16em",
     lineHeight: 1.4,
@@ -82,8 +84,8 @@ function PillLink({
   return (
     <Link
       href={href}
-      className={`inline-flex items-center justify-center rounded-[14px] px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec] ${className}`}
-      style={{ backgroundColor: COLORS.pill, fontFamily: 'var(--font-body)' }}
+      className={`inline-flex items-center justify-center rounded-full px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0] ${className}`}
+      style={{ backgroundColor: COLORS.pill, fontFamily: '"Noto Sans", system-ui, sans-serif' }}
     >
       {children}
     </Link>
@@ -113,8 +115,8 @@ function WorkCard({ project }: { project: WorkProject }) {
               {project.title}
             </span>
             <span
-              className="rounded-[14px] px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]"
-              style={{ backgroundColor: COLORS.pill, fontFamily: 'var(--font-body)' }}
+              className="rounded-full px-5 py-3 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]"
+              style={{ backgroundColor: COLORS.pill, fontFamily: '"Noto Sans", system-ui, sans-serif' }}
             >
               VIEW CASE STUDY
             </span>
@@ -127,13 +129,13 @@ function WorkCard({ project }: { project: WorkProject }) {
               <img src={preview} alt={project.title} className="h-full w-full object-cover" />
             ) : (
               <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#e5e5e5,#f3f3f3)]">
-                <span className="rounded-[14px] bg-[#1c1c1c] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]">
+                <span className="rounded-full bg-[#2a2a2a] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]">
                   MORE +
                 </span>
               </div>
             )}
           </div>
-          <div className="absolute left-4 top-4 rounded-[14px] bg-[#1c1c1c] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]">
+          <div className="absolute left-4 top-4 rounded-full bg-[#2a2a2a] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]">
             MORE +
           </div>
         </div>
@@ -143,6 +145,10 @@ function WorkCard({ project }: { project: WorkProject }) {
 }
 
 function WorkListing({ projects }: { projects: WorkProject[] }) {
+  const router = useRouter();
+  const featuredProjects = projects.slice(0, 6);
+  const featuredImages = featuredProjects.map((project) => toSrc(project.images?.[0]?.src ?? ""));
+
   return (
     <main className="relative min-h-screen overflow-hidden" style={{ backgroundColor: COLORS.bg, color: COLORS.text }}>
       <motion.div
@@ -191,6 +197,25 @@ function WorkListing({ projects }: { projects: WorkProject[] }) {
           Open any project to see the case-study route, the scroll choreography, and the uploaded image sequence when those files are added.
         </motion.p>
       </section>
+
+      {featuredImages.length ? (
+        <section className="relative z-10 mx-auto max-w-[1440px] px-6 pb-[96px] md:px-[29px]">
+          <ThreeDHoverGallery
+            images={featuredImages}
+            itemWidth={8}
+            itemHeight={14}
+            activeWidth={34}
+            brightnessLevel={0.58}
+            grayscaleStrength={0.55}
+            backgroundColor="transparent"
+            className="min-h-[420px] bg-transparent"
+            onImageClick={(index) => {
+              const project = featuredProjects[index];
+              if (project) router.push(`/work/${project.slug}`);
+            }}
+          />
+        </section>
+      ) : null}
 
       <section className="relative z-10 mx-auto max-w-[1440px] px-6 pb-[120px] md:px-[29px]">
         <div className="grid gap-[29px]">
@@ -242,7 +267,7 @@ function ProjectImageFlow({ images, title }: { images: WorkImage[]; title: strin
               <motion.figure
                 key={`${title}-${index}`}
                 style={{ y }}
-                className="relative overflow-hidden border border-[rgba(28,28,28,0.12)] bg-[#ececec]"
+                className="relative overflow-hidden border border-[rgba(42,42,42,0.12)] bg-[#ececec]"
               >
                 <div className="aspect-[4/3] w-full overflow-hidden">
                   {image.src ? (
@@ -264,7 +289,7 @@ function ProjectImageFlow({ images, title }: { images: WorkImage[]; title: strin
                       {image.label}
                     </p>
                   </div>
-                  <span className="rounded-[14px] bg-[#1c1c1c] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f5f2ec]">
+                  <span className="rounded-full bg-[#2a2a2a] px-4 py-2 text-[12px] uppercase tracking-[0.18em] text-[#f0f0f0]">
                     MORE +
                   </span>
                 </div>
@@ -335,6 +360,10 @@ function ProjectHero({
             bottomRight: images[3].src,
           }}
         />
+      </section>
+
+      <section className="mx-auto max-w-[1440px] px-6 pb-[120px] md:px-[29px]">
+        <CoolBentoEffect images={project.images ?? []} title={`${project.client} bento case-study grid`} />
       </section>
 
       <ProjectImageFlow images={project.images ?? []} title={project.title} />

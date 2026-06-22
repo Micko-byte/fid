@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import { type ReactNode } from "react";
@@ -31,20 +31,20 @@ function styleFor(variant: Variant, size: Size): React.CSSProperties {
     display: "inline-flex", alignItems: "center", gap: "0.6rem",
     fontFamily: "var(--font-body)", fontSize: fs, fontWeight: 600,
     letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none",
-    padding: pad, borderRadius: "var(--button-radius)", cursor: "pointer", whiteSpace: "nowrap",
+    padding: pad, borderRadius: "2px", cursor: "pointer", whiteSpace: "nowrap",
     transition: "background 0.3s, color 0.3s, border-color 0.3s, gap 0.3s, transform 0.12s cubic-bezier(0.16,1,0.3,1)",
     border: "1px solid transparent",
   };
-  if (variant === "primary") return { ...base, backgroundColor: WINE, color: "#ffffff" };
+  if (variant === "primary") return { ...base, backgroundColor: WINE, color: GOLD };
   if (variant === "outline") return { ...base, backgroundColor: "transparent", color: WINE, borderColor: "rgba(117,0,6,0.4)" };
   return { ...base, backgroundColor: "transparent", color: WINE, padding: "0.2rem 0", letterSpacing: "0.14em" };
 }
 
 function hoverIn(variant: Variant, el: HTMLElement) {
   el.style.gap = "0.9rem";
-  if (variant === "primary") el.style.backgroundColor = "#260000";
+  if (variant === "primary") el.style.backgroundColor = "#5e2410";
   if (variant === "outline") { el.style.backgroundColor = WINE; el.style.color = GOLD; el.style.borderColor = WINE; }
-  if (variant === "ghost") el.style.color = "#1c1c1c";
+  if (variant === "ghost") el.style.color = "#1a1a1a";
 }
 function hoverOut(variant: Variant, el: HTMLElement) {
   el.style.gap = variant === "ghost" ? "0.6rem" : "0.6rem";

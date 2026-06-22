@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef, useCallback, useState, useEffect, type ReactNode, type CSSProperties } from "react";
 
@@ -85,7 +85,7 @@ const BorderGlow: React.FC<BorderGlowProps> = ({
   glowIntensity = 1.0,
   coneSpread = 25,
   animated = false,
-  colors = ["#d98038", "#d9ab88", "#750006"],
+  colors = ["#d98038", "#C7AC9F", "#750006"],
   fillOpacity = 0.4,
   style,
 }) => {

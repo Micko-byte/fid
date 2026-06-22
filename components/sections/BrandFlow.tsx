@@ -1,11 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import ScrollVelocity from "@/components/ui/ScrollVelocity";
-import TextType from "@/components/ui/TextType";
 import { InfiniteSlider } from "@/components/core/infinite-slider";
-import { TextRoll } from "@/components/core/text-roll";
 
 const logos = [
   "/logos/executive-office-president.png",
@@ -24,122 +21,133 @@ const logos = [
   "/logos/2nu-kollexion.png",
 ];
 
+const proof = [
+  { label: "Government", image: "/photos/projects/national-minorities-day.jpg" },
+  { label: "Culture", image: "/photos/projects/tribe-vibe.jpg" },
+  { label: "Healthcare", image: "/photos/projects/columbia-building.jpg" },
+];
+
 export default function BrandFlow() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section
-      style={{
-        position: "relative",
-        overflow: "hidden",
-        paddingTop: "clamp(4.5rem,9vw,7rem)",
-        paddingBottom: "clamp(4.5rem,9vw,7rem)",
-        backgroundColor: "#FFFFFF",
-      }}
-    >
+    <section className="fid-section brand-proof" style={{ backgroundColor: "#F7F3EF" }}>
+      <div ref={ref} className="section-shell">
+        <div className="fid-editorial-head">
+          <span className="fid-section-num">03</span>
+          <div>
+            <motion.span
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+              className="type-eyebrow"
+              style={{ color: "#750006" }}
+            >
+              Trusted by
+            </motion.span>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.85, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className="type-h2"
+              style={{ maxWidth: "17ch", margin: "1rem 0 0", color: "#1a1a1a" }}
+            >
+              Proof across public, private and cultural life.
+            </motion.h2>
+          </div>
+        </div>
 
-      <div
-        ref={ref}
-        style={{
-          position: "relative",
-          zIndex: 2,
-          textAlign: "center",
-          maxWidth: "820px",
-          margin: "0 auto",
-          paddingLeft: "1.5rem",
-          paddingRight: "1.5rem",
-          marginBottom: "clamp(2.5rem,5vw,3.5rem)",
-        }}
-      >
-        <motion.span
-          initial={{ opacity: 0, y: 12 }}
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.6rem",
-            fontFamily: "var(--font-body)",
-            fontSize: "0.72rem",
-            fontWeight: 600,
-            letterSpacing: "0.28em",
-            textTransform: "uppercase",
-            color: "#750006",
-          }}
+          transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+          className="proof-grid"
         >
-          <span style={{ width: "24px", height: "1px", background: "#750006", opacity: 0.7 }} /> Trusted by
-        </motion.span>
-
-        <motion.h2
-          initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-          animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
-          transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          style={{
-            fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
-            fontWeight: 700,
-            fontSize: "clamp(2.4rem,5.5vw,4.2rem)",
-            color: "#1c1c1c",
-            marginTop: "0.9rem",
-            letterSpacing: "-0.02em",
-            lineHeight: 1.0,
-            textTransform: "uppercase",
-          }}
-        >
-          <TextRoll>Governments, global brands &amp; institutions.</TextRoll>
-        </motion.h2>
-      </div>
-
-      <div style={{ position: "relative", zIndex: 2, color: "rgba(117,0,6,0.18)", marginBottom: "clamp(2rem,4vw,3rem)" }}>
-        <TextType text="Follow the work in motion." as="p" className="bf-type" typingSpeed={42} pauseDuration={1400} deletingSpeed={18} cursorCharacter="✦" />
-        <ScrollVelocity texts={["Government • Retail • Hospitality • Healthcare • Finance • Culture • Sport •"]} velocity={45} numCopies={3} className="bf-vel" />
-      </div>
-
-      <div style={{ position: "relative", zIndex: 2 }}>
-        <InfiniteSlider gap={24} speed={40} speedOnHover={20}>
-          {logos.map((src, i) => (
-            <div key={i} className="bf-chip">
+          {proof.map((item) => (
+            <figure key={item.label} className="fid-art-panel proof-card">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" loading="lazy" />
-            </div>
+              <img src={item.image} alt={item.label} loading="lazy" className="fid-image" />
+              <figcaption className="fid-caption">{item.label}</figcaption>
+            </figure>
           ))}
-        </InfiniteSlider>
+        </motion.div>
+
+        <div className="logo-flow" aria-label="Selected client logos">
+          <InfiniteSlider gap={18} speed={32} speedOnHover={16}>
+            {logos.map((src, i) => (
+              <div key={i} className="logo-chip">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={src} alt="" loading="lazy" />
+              </div>
+            ))}
+          </InfiniteSlider>
+        </div>
       </div>
 
       <style>{`
-        .bf-type {
-          text-align: center;
-          margin-bottom: 0.75rem;
-          font-family: var(--font-body);
-          font-size: 0.72rem;
-          letter-spacing: 0.24em;
-          text-transform: uppercase;
-          color: #750006;
+        .proof-grid {
+          display: grid;
+          grid-template-columns: 1.2fr 0.9fr 0.9fr;
+          gap: clamp(1rem, 2vw, 1.4rem);
+          align-items: stretch;
         }
-        .bf-vel { font-family: '"Nohemi", var(--font-heading, "Oswald")'; font-weight: 700; text-transform: uppercase; font-size: clamp(2rem,5vw,4rem); letter-spacing: -0.01em; }
-        .bf-strip { animation-name: bf-move; animation-timing-function: linear; animation-iteration-count: infinite; }
-        .bf-rev { animation-name: bf-move-rev; }
-        @keyframes bf-move { to { transform: translateX(-50%); } }
-        @keyframes bf-move-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
-        .bf-strip:hover { animation-play-state: paused; }
-        .bf-chip {
+        .proof-card {
+          position: relative;
+          min-height: clamp(280px, 32vw, 440px);
+          margin: 0;
+          background: #1a1a1a;
+        }
+        .proof-card:nth-child(2) { margin-top: clamp(2rem, 5vw, 4rem); }
+        .proof-card:nth-child(3) { margin-top: clamp(1rem, 3vw, 2rem); }
+        .proof-card img {
+          filter: saturate(0.92) contrast(1.04);
+          transition: transform 0.8s var(--ease-out), filter 0.8s var(--ease-out);
+        }
+        .proof-card:hover img {
+          transform: scale(1.04);
+          filter: saturate(1.06) contrast(1.04);
+        }
+        .proof-card::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(26,26,26,0.06), rgba(26,26,26,0.62));
+        }
+        .proof-card figcaption {
+          position: absolute;
+          left: clamp(1rem, 2vw, 1.4rem);
+          bottom: clamp(1rem, 2vw, 1.4rem);
+          z-index: 1;
+          color: #FFFFFF;
+        }
+        .logo-flow {
+          margin-top: clamp(2rem, 5vw, 4rem);
+          padding: clamp(1rem, 2vw, 1.4rem) 0;
+          border-top: 1px solid rgba(117,0,6,0.14);
+          border-bottom: 1px solid rgba(117,0,6,0.14);
+        }
+        .logo-chip {
           flex-shrink: 0;
-          height: clamp(64px,7.5vw,88px);
-          width: clamp(160px,17vw,210px);
-          margin: 0 0.6rem;
+          height: clamp(60px, 7vw, 82px);
+          width: clamp(146px, 16vw, 196px);
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255,255,255,0.72);
-          border-radius: 8px;
-          padding: 0.9rem 1.3rem;
-          box-shadow: 0 6px 20px rgba(117,0,6,0.08);
+          background: rgba(255,255,255,0.78);
           border: 1px solid rgba(117,0,6,0.08);
-          backdrop-filter: blur(10px);
-          transition: transform .35s cubic-bezier(0.16,1,0.3,1), box-shadow .35s;
+          border-radius: 8px;
+          padding: 0.9rem 1.2rem;
         }
-        .bf-chip img { max-width: 100%; max-height: 100%; object-fit: contain; opacity: 1; image-rendering: auto; }
-        .bf-chip:hover { transform: translateY(-6px) scale(1.05); box-shadow: 0 16px 36px rgba(117,0,6,0.2); }
+        .logo-chip img {
+          max-width: 100%;
+          max-height: 100%;
+          object-fit: contain;
+        }
+        @media (max-width: 820px) {
+          .proof-grid { grid-template-columns: 1fr; }
+          .proof-card:nth-child(n) { margin-top: 0; min-height: 280px; }
+        }
       `}</style>
     </section>
   );

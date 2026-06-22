@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -83,7 +83,7 @@ export default function CTABanner() {
             } as React.CSSProperties}
           >
             Let&apos;s build something{" "}
-            <em style={{ fontStyle: "normal", color: "#d9ab88" }}>meaningful.</em>
+            <em style={{ fontStyle: "normal", color: "#C7AC9F" }}>meaningful.</em>
           </motion.h2>
 
           <motion.div
@@ -99,7 +99,6 @@ export default function CTABanner() {
                 padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
                 backgroundColor: "#FFFFFF", color: "#750006",
                 fontFamily: "var(--font-body)", textDecoration: "none",
-                borderRadius: "var(--button-radius)",
                 transition: "background 0.3s, color 0.3s",
               }}
               onMouseEnter={(e) => { e.currentTarget.style.background = "#260000"; e.currentTarget.style.color = "#FFFFFF"; }}
@@ -115,7 +114,6 @@ export default function CTABanner() {
                 backgroundColor: "transparent",
                 border: "1px solid rgba(255,255,255,0.45)", color: "#FFFFFF",
                 fontFamily: "var(--font-body)", textDecoration: "none",
-                borderRadius: "var(--button-radius)",
                 transition: "border-color 0.3s, color 0.3s",
               }}
               onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.9)"; }}
@@ -136,7 +134,7 @@ export default function CTABanner() {
             animated
             borderRadius={24}
             backgroundColor="rgba(255,255,255,0.05)"
-            colors={["#d98038", "#d9ab88", "#FFFFFF"]}
+            colors={["#d98038", "#C7AC9F", "#FFFFFF"]}
             fillOpacity={0.22}
             className="cta-visual"
             style={{ height: "100%" }}
@@ -174,7 +172,7 @@ export default function CTABanner() {
                       fontSize: "0.66rem",
                       letterSpacing: "0.22em",
                       textTransform: "uppercase",
-                      color: "#d9ab88",
+                      color: "#C7AC9F",
                       marginBottom: "0.5rem",
                     }}
                   >
@@ -193,7 +191,7 @@ export default function CTABanner() {
                     Share your brief and we&apos;ll shape the route.
                   </p>
                 </div>
-                <BrandMark size={64} spin={false} color="#FFFFFF" accent="#d9ab88" />
+                <BrandMark size={64} spin={false} color="#FFFFFF" accent="#C7AC9F" />
               </div>
 
               <div
@@ -226,7 +224,7 @@ export default function CTABanner() {
                         fontSize: "0.62rem",
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
-                        color: "#d9ab88",
+                        color: "#C7AC9F",
                         marginBottom: "0.45rem",
                       }}
                     >

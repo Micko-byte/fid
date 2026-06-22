@@ -1,10 +1,8 @@
-"use client";
+﻿"use client";
 
-import { useRef, type MutableRefObject } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import FallingText from "@/components/ui/FallingText";
-import VariableProximity from "@/components/ui/VariableProximity";
 import ScrollVideo from "@/components/ui/ScrollVideo";
 
 const services = [
@@ -80,8 +78,8 @@ function ServiceRow({
       className="svc-row"
     >
       <motion.div
-        initial={{ opacity: 0, x: illoLeft ? -64 : 64 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
+        initial={{ opacity: 0, y: 28 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.9, ease }}
         style={{
           position: "relative",
@@ -105,7 +103,7 @@ function ServiceRow({
               position: "relative",
               width: "92%",
               height: "92%",
-              borderRadius: "20px",
+          borderRadius: "10px",
               overflow: "hidden",
               background: "transparent",
             }}
@@ -148,11 +146,11 @@ function ServiceRow({
             top: "-0.35em",
             left: illoLeft ? "-0.06em" : "auto",
             right: illoLeft ? "auto" : "-0.06em",
-            fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
+            fontFamily: 'var(--font-heading, var(--font-heading))',
             fontWeight: 700,
             fontSize: "clamp(7rem, 16vw, 13rem)",
             lineHeight: 0.8,
-            color: "rgba(116,47,20,0.07)",
+            color: "rgba(117,0,6,0.07)",
             letterSpacing: "-0.02em",
             pointerEvents: "none",
             userSelect: "none",
@@ -169,35 +167,26 @@ function ServiceRow({
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.12, ease }}
             style={{
-              display: "block",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.7rem",
-              fontWeight: 500,
-              letterSpacing: "0.24em",
-              textTransform: "uppercase",
-              color: "#742F14",
+              color: "#750006",
               marginBottom: "0.9rem",
             }}
+            className="type-eyebrow"
           >
             {service.num} - Expertise
           </motion.span>
 
           <motion.h3
-            initial={{ opacity: 0, y: 22, filter: "blur(10px)" }}
-            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            initial={{ opacity: 0, y: 22 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.18, ease }}
+            className="type-h3"
             style={{
-              fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
-              fontWeight: 700,
-              fontSize: "clamp(1.9rem, 3.6vw, 3.2rem)",
-              lineHeight: 1.04,
-              color: "#5C3C2C",
-              textTransform: "uppercase",
-              letterSpacing: "-0.02em",
+              color: "#260000",
               margin: 0,
+              maxWidth: "16ch",
             }}
           >
-            <FallingText text={service.title} className="svc-title-fall" />
+            {service.title}
           </motion.h3>
 
           <motion.p
@@ -205,14 +194,12 @@ function ServiceRow({
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.26, ease }}
             style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "clamp(1rem, 1.4vw, 1.2rem)",
-              lineHeight: 1.55,
-              color: "#1c1c1c",
+              color: "rgba(33,27,24,0.62)",
               maxWidth: "40ch",
               marginTop: "1.1rem",
               marginBottom: 0,
             }}
+            className="type-body"
           >
             {service.description}
           </motion.p>
@@ -239,11 +226,11 @@ function ServiceRow({
                   fontWeight: 500,
                   letterSpacing: "0.04em",
                   textTransform: "uppercase",
-                  color: "#742F14",
-                  border: "1px solid rgba(116,47,20,0.25)",
+                  color: "#750006",
+                  border: "1px solid rgba(117,0,6,0.25)",
                   borderRadius: "999px",
                   padding: "0.45rem 0.95rem",
-                  background: "rgba(116,47,20,0.04)",
+                  background: "rgba(117,0,6,0.04)",
                   whiteSpace: "nowrap",
                 }}
               >
@@ -270,7 +257,7 @@ function ServiceRow({
                 fontWeight: 600,
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
-                color: "#5C3C2C",
+                color: "#260000",
                 textDecoration: "none",
                 transition: "gap 0.3s ease, color 0.3s ease",
               }}
@@ -294,9 +281,7 @@ export default function Services() {
   return (
     <>
       <style>{`
-        .svc-title-fall { display: inline-flex; flex-wrap: wrap; gap: 0.14em 0.18em; }
-        .svc-title-fall span { will-change: transform, opacity, filter; }
-        .svc-explore:hover { gap: 1rem !important; color: #742F14 !important; }
+        .svc-explore:hover { gap: 1rem !important; color: #750006 !important; }
       `}</style>
 
       <section
@@ -306,82 +291,38 @@ export default function Services() {
           overflow: "hidden",
           backgroundColor: "#FFFFFF",
           color: "#211b18",
-          paddingTop: "clamp(5.5rem, 12vw, 11rem)",
-          paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
         }}
+        className="fid-section"
       >
         <div
           ref={ref}
+          className="section-shell"
           style={{
-            maxWidth: "1320px",
-            margin: "0 auto",
-            paddingLeft: "clamp(1.5rem, 5vw, 6rem)",
-            paddingRight: "clamp(1.5rem, 5vw, 6rem)",
             position: "relative",
             zIndex: 1,
           }}
         >
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              textAlign: "center",
-              gap: "1.5rem",
-              marginBottom: "clamp(1.6rem, 3vw, 2.6rem)",
-            }}
-          >
+          <div className="fid-editorial-head">
+            <span className="fid-section-num">02</span>
             <div>
               <motion.span
                 initial={{ opacity: 0, y: 12 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  display: "inline-flex",
-                  alignItems: "center",
-                  gap: "0.7rem",
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.72rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.28em",
-                  textTransform: "uppercase",
-                  color: "#742F14",
-                }}
+                className="type-eyebrow"
+                style={{ color: "#750006" }}
               >
-                <span style={{ width: "26px", height: "1px", background: "#742F14", opacity: 0.7, flexShrink: 0 }} />
                 What we do
               </motion.span>
 
               <motion.h2
-                initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-                animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
-                  fontWeight: 800,
-                  fontSize: "clamp(2.4rem, 5.5vw, 4.4rem)",
-                  color: "#5C3C2C",
-                  marginTop: "0.8rem",
-                  letterSpacing: 0,
-                  lineHeight: 1,
-                }}
+                className="type-h2"
+                style={{ color: "#1a1a1a", marginTop: "0.8rem", maxWidth: "14ch" }}
               >
-                <VariableProximity
-                  label="Our Expertise"
-                  containerRef={ref as MutableRefObject<HTMLElement | null>}
-                  radius={110}
-                  falloff="gaussian"
-                  fromFontVariationSettings="'wght' 500, 'opsz' 16"
-                  toFontVariationSettings="'wght' 900, 'opsz' 42"
-                  style={{
-                    fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
-                    textTransform: "uppercase",
-                    color: "#1a1a1a",
-                    fontSize: "clamp(2.2rem, 5vw, 4rem)",
-                    lineHeight: 1,
-                    letterSpacing: "-0.03em",
-                  }}
-                />
+                Our Expertise
               </motion.h2>
             </div>
 
@@ -395,14 +336,14 @@ export default function Services() {
                 fontSize: "0.74rem",
                 letterSpacing: "0.16em",
                 textTransform: "uppercase",
-                color: "#1c1c1c",
+                color: "rgba(33,27,24,0.6)",
                 fontWeight: 500,
                 whiteSpace: "nowrap",
                 transition: "color 0.3s",
                 textDecoration: "none",
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#742F14")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "#1c1c1c")}
+              onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
+              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(33,27,24,0.6)")}
             >
               All services
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
@@ -411,37 +352,23 @@ export default function Services() {
             </Link>
           </div>
 
-<div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    marginBottom: "clamp(3rem, 6vw, 5rem)",
-  }}
->
-  <motion.p
-    initial={{ opacity: 0, y: 12 }}
-    animate={inView ? { opacity: 1, y: 0 } : {}}
-    transition={{
-      duration: 0.7,
-      delay: 0.22,
-      ease: [0.16, 1, 0.3, 1],
-    }}
-    style={{
-      maxWidth: "48ch",
-      color: "#1c1c1c",
-      fontSize: "clamp(1.05rem, 1.6vw, 1.4rem)",
-      lineHeight: 1.5,
-      fontFamily: "var(--font-body)",
-      textAlign: "center",
-      margin: 0,
-    }}
-  >
-    FID &amp; Co. is a 360 degree communications partner, bringing strategic
-    counsel, cultural fluency and cut-through creativity to deliver ideas
-    that move audiences, shape perception and earn lasting credibility
-    across Africa.
-  </motion.p>
-</div>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            style={{
+              maxWidth: "62ch",
+              color: "rgba(33,27,24,0.6)",
+              marginBottom: "clamp(3rem, 6vw, 5rem)",
+            }}
+            className="type-body"
+          >
+            FID &amp; Co. is a 360 degree communications partner - bringing strategic
+            counsel, cultural fluency and cut-through creativity to deliver ideas
+            that move audiences, shape perception and earn lasting credibility
+            across Africa.
+          </motion.p>
+
           <div
             style={{
               position: "relative",
@@ -462,7 +389,7 @@ export default function Services() {
                 width: "1px",
                 transform: "translateX(-50%)",
                 background:
-                  "linear-gradient(to bottom, transparent 0%, rgba(116,47,20,0.22) 12%, rgba(116,47,20,0.22) 88%, transparent 100%)",
+                  "linear-gradient(to bottom, transparent 0%, rgba(117,0,6,0.22) 12%, rgba(117,0,6,0.22) 88%, transparent 100%)",
                 zIndex: 0,
               }}
             />
@@ -479,7 +406,7 @@ export default function Services() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             style={{
               textAlign: "center",
-              fontFamily: '"Nohemi", var(--font-heading, "Oswald")',
+              fontFamily: 'var(--font-heading, var(--font-heading))',
               fontStyle: "italic",
               fontWeight: 400,
               fontSize: "clamp(1.3rem, 3vw, 2.2rem)",

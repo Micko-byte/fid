@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { TextRoll } from "@/components/core/text-roll";
@@ -106,10 +106,10 @@ export default function AfricanFootprint() {
     <section className="af-footprint" style={{ marginTop: "clamp(3rem,6vw,5rem)", paddingTop: 0 }}>
       {/* Centered header */}
       <div style={{ textAlign: "center", maxWidth: "44rem", margin: "0 auto clamp(2.4rem,5vw,3.6rem)" }}>
-        <span style={{ display: "inline-block", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.9rem" }}>
+        <span style={{ display: "inline-block", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#d9ab88", marginBottom: "0.9rem" }}>
           African footprint
         </span>
-        <h3 style={{ fontFamily: '"Nohemi", var(--font-heading, "Oswald")', fontWeight: 800, color: "#1c1c1c", fontSize: "clamp(1.9rem, 3.6vw, 3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
+        <h3 style={{ fontFamily: 'var(--font-heading, var(--font-heading))', fontWeight: 800, color: "#1a1a1a", fontSize: "clamp(1.9rem, 3.6vw, 3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
           <TextRoll>8+ markets across East &amp; Southern Africa — and beyond.</TextRoll>
         </h3>
       </div>
@@ -163,7 +163,7 @@ export default function AfricanFootprint() {
               left: "1rem",
               bottom: "1rem",
               padding: "0.6rem 0.9rem",
-              borderRadius: "var(--button-radius)",
+              borderRadius: "999px",
               backgroundColor: "#FFFFFF",
               color: "#260000",
               fontFamily: "var(--font-body)",
@@ -171,7 +171,7 @@ export default function AfricanFootprint() {
               letterSpacing: "0.14em",
               fontWeight: 600,
               textTransform: "uppercase",
-              border: "1px solid rgba(38,0,0,0.16)",
+              border: "1px solid rgba(92,60,44,0.16)",
             }}
           >
             {activeCountry ? activeCountry.name : "Full map"}
@@ -201,14 +201,14 @@ export default function AfricanFootprint() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "0.6rem",
-                  border: `1px solid ${activeState ? "#d98038" : "rgba(38,0,0,0.16)"}`,
-                  backgroundColor: activeState ? "rgba(217,128,56,0.1)" : "#FFFFFF",
+                  border: `1px solid ${activeState ? "#d9ab88" : "rgba(92,60,44,0.16)"}`,
+                  backgroundColor: activeState ? "rgba(217,171,136,0.1)" : "#FFFFFF",
                   padding: "0.55rem 0.8rem",
-                  borderRadius: "var(--button-radius)",
+                  borderRadius: "999px",
                   fontFamily: "var(--font-body)",
                   fontSize: "0.8rem",
                   fontWeight: 500,
-                  color: "#1c1c1c",
+                  color: "#1a1a1a",
                   textAlign: "left",
                   cursor: "pointer",
                   transition: "transform 0.35s ease, border-color 0.35s ease, background-color 0.35s ease",
@@ -251,8 +251,8 @@ export default function AfricanFootprint() {
           display: block;
         }
         .af-map svg path {
-          fill: rgba(38,0,0,0.10);
-          stroke: rgba(38,0,0,0.28);
+          fill: rgba(92,60,44,0.10);
+          stroke: rgba(92,60,44,0.28);
           stroke-width: 0.45;
           transition:
             fill 1800ms cubic-bezier(0.22, 1, 0.36, 1),
@@ -270,9 +270,9 @@ export default function AfricanFootprint() {
         .af-map[data-active="GH"] svg path#GH,
         .af-map[data-active="TZ"] svg path#TZ {
           opacity: 1;
-          fill: #d98038;
+          fill: #d9ab88;
           stroke: #750006;
-          filter: drop-shadow(0 0 10px rgba(217,128,56,0.35));
+          filter: drop-shadow(0 0 10px rgba(217,171,136,0.35));
         }
       `}</style>
     </section>

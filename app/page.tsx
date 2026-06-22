@@ -10,13 +10,12 @@ import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
 import InstagramFeed from "@/components/sections/InstagramFeed";
 import Contact from "@/components/sections/Contact";
-import CurvedLoop from "@/components/ui/CurvedLoop";
+import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import Footer from "@/components/Footer";
 
 export default function HomePage() {
   return (
     <>
-      {/* Atra-style flow: hero → about → services → CTA → work → stats → testimonial → logos → contact */}
       <FeatureBand />
       <About />
       <Services />
@@ -29,14 +28,35 @@ export default function HomePage() {
       <Insights />
       <InstagramFeed />
       <Contact />
-      {/* Service ribbon above footer */}
-      <div style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(2rem,5vw,4rem)", paddingBottom: "clamp(1rem,3vw,2rem)", borderTop: "1px solid rgba(38,0,0,0.1)" }}>
-        <CurvedLoop
-          marqueeText="Strategic Communications ✦ Media Management ✦ Influencer & Creator ✦ Digital Strategy ✦ Experiential Marketing ✦"
-          speed={1.6}
-          curveAmount={90}
-          className="curved-ribbon"
+      <div className="footer-capability-strip" aria-label="FID & Co. capabilities">
+        <ScrollVelocity
+          texts={["Strategic Communications / Media Management / Influencer & Creator / Digital Strategy / Experiential Marketing / "]}
+          velocity={42}
+          numCopies={4}
+          className="footer-capability-text"
         />
+        <style>{`
+          .footer-capability-strip {
+            overflow: hidden;
+            background: #750006;
+            color: #d98038;
+            border-top: 1px solid rgba(217,128,56,0.22);
+            border-bottom: 1px solid rgba(38,0,0,0.28);
+            padding: clamp(0.85rem, 2vw, 1.15rem) 0;
+          }
+          .footer-capability-strip section {
+            scroll-margin-top: 0;
+          }
+          .footer-capability-text {
+            font-family: var(--font-heading);
+            font-size: clamp(1.4rem, 4.2vw, 3.6rem);
+            font-weight: 800;
+            line-height: 0.92;
+            letter-spacing: 0;
+            text-transform: uppercase;
+            white-space: nowrap;
+          }
+        `}</style>
       </div>
       <Footer />
     </>

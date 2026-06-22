@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useEffect, useRef } from "react";
 
 /* Subtle WebGL fluid cursor — scoped to its (relative) parent. Tuned gold + low force. */

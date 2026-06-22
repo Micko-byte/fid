@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
@@ -6,8 +6,7 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 
-const WireframeOrb = dynamic(() => import("@/components/graphics/WireframeOrb"), { ssr: false });
-const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
+
 
 const stats = [
   { value: "15+", label: "Years of practice" },
@@ -61,115 +60,48 @@ function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#260000" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 80% 60% at 30% 80%, rgba(117,0,6,0.18) 0%, transparent 70%)" }}
-      />
-      {/* Animated orb — right half, desktop only */}
-      <WireframeOrb
-        color="#750006"
-        accentColor="#750006"
-        opacity={0.13}
-        className="absolute right-0 top-0 h-full w-1/2 hidden md:block"
-      />
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full">
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="font-body text-xs tracking-[0.25em] uppercase mb-8"
-          style={{ color: "#750006" }}
-        >
-          About FID &amp; Co.
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          className="font-heading leading-none"
-          style={{
-            fontSize: "clamp(3rem, 8vw, 7rem)",
-            color: "#FFFFFF",
-            letterSpacing: "-0.03em",
-            maxWidth: "14ch",
-          }}
-        >
-          Communication as influence.
-        </motion.h1>
+      {/* White background, no gradient */}
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full flex items-center justify-between">
+        <div>
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="font-body text-xs tracking-[0.25em] uppercase mb-8"
+            style={{ color: "#260000" }}
+          >
+            About FID &amp; Co.
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 32 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            className="font-heading leading-none"
+            style={{
+              fontSize: "clamp(3rem, 8vw, 7rem)",
+              color: "#260000",
+              letterSpacing: "-0.03em",
+              maxWidth: "14ch",
+            }}
+          >
+            Communication as influence.
+          </motion.h1>
+        </div>
+        {/* Video on the right side */}
+        <video
+          src="/videos/digital-marketing.webm"
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="hidden md:block w-1/2 h-auto object-cover"
+        />
       </div>
     </section>
   );
-}
-
-function WhoWeAre() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true });
-
-  return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#FFFFFF" }}>
-      <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
-        <div className="grid md:grid-cols-2 gap-16 md:gap-24 items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#750006" }}>
-              Who we are
-            </p>
-            <h2
-              className="font-heading leading-tight"
-              style={{ fontSize: "clamp(2rem, 4vw, 3.2rem)", color: "#260000", letterSpacing: "-0.02em" }}
-            >
-              We treat communication as influence — not a function.
-            </h2>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 24 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6"
-          >
-            <p className="font-body text-base leading-relaxed" style={{ color: "rgba(28,28,28,0.75)" }}>
-              FID &amp; Co. is a full-service strategic communications and brand experience firm based in Nairobi, Kenya. Founded by Farida Idris, the agency has spent over 15 years building reputations, launching brands and delivering campaigns that move people.
-            </p>
-            <p className="font-body text-base leading-relaxed" style={{ color: "rgba(28,28,28,0.75)" }}>
-              We operate across Kenya and East Africa — working across government, retail, hospitality, healthcare, sports and culture. Our work is grounded in local insight, shaped by global standards and driven by a belief that the best communications is indistinguishable from the truth.
-            </p>
-            <p className="font-body text-base leading-relaxed" style={{ color: "rgba(28,28,28,0.75)" }}>
-              From national government mandates to lifestyle brand launches, from continental multilateral forums to grassroots influencer campaigns — we apply the same rigour to every brief. Because every audience deserves to be communicated with, not at.
-            </p>
-          </motion.div>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-24 grid grid-cols-2 md:grid-cols-4 border-t" style={{ borderColor: "rgba(38,0,0,0.1)" }}>
-          {stats.map((s, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.4 + i * 0.07 }}
-              className="pt-8 pb-4 pr-8"
-            >
-              <p
-                className="font-heading leading-none mb-2"
-                style={{ fontSize: "clamp(2.5rem, 5vw, 3.5rem)", color: "#750006", letterSpacing: "-0.03em" }}
-              >
-                {s.value}
-              </p>
-              <p className="font-body text-xs uppercase tracking-[0.15em]" style={{ color: "rgba(38,0,0,0.4)" }}>
-                {s.label}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  
 }
 
 function Philosophy() {
@@ -177,8 +109,8 @@ function Philosophy() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#1c1c1c" }}>
-      <OrbitalRings color="#d9ab88" opacity={0.07} className="absolute inset-0 w-full h-full" />
+    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#1C1C1C" }}>
+      <OrbitalRings color="#C7AC9F" opacity={0.07} className="absolute inset-0 w-full h-full" />
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#750006" }}>
           Our philosophy
@@ -245,7 +177,7 @@ function OurApproach() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
               className="py-10 pr-0 md:pr-16 border-t"
-              style={{ borderColor: "rgba(38,0,0,0.1)" }}
+              style={{ borderColor: "rgba(92,60,44,0.1)" }}
             >
               <h3
                 className="font-heading mb-4"
@@ -258,7 +190,7 @@ function OurApproach() {
               </p>
             </motion.div>
           ))}
-          <div className="border-t col-span-2" style={{ borderColor: "rgba(38,0,0,0.1)" }} />
+          <div className="border-t col-span-2" style={{ borderColor: "rgba(92,60,44,0.1)" }} />
         </div>
       </div>
     </section>
@@ -322,10 +254,10 @@ function Founder() {
             >
               &ldquo;Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people they serve.&rdquo;
             </blockquote>
-            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(217,171,136,0.7)" }}>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
               Farida Idris founded FID &amp; Co. with a conviction that African organisations deserve communications that are strategic, culturally grounded and genuinely effective. With over 15 years of experience spanning government mandates, lifestyle brands, multinational retail and social impact work, she has built an agency that leads with insight and delivers with precision.
             </p>
-            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(217,171,136,0.7)" }}>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
               Her approach is defined by a refusal to treat communication as peripheral. At FID &amp; Co., strategy comes first — and every campaign, every placement, every piece of content is accountable to a result.
             </p>
           </motion.div>
@@ -363,7 +295,7 @@ function Markets() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.4, delay: i * 0.06 }}
               className="border-r border-b px-8 py-6"
-              style={{ borderColor: "rgba(38,0,0,0.1)" }}
+              style={{ borderColor: "rgba(92,60,44,0.1)" }}
             >
               <p
                 className="font-heading"
@@ -408,7 +340,7 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#FFFFFF", color: "#750006", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
+              style={{ backgroundColor: "#FFFFFF", color: "#750006", letterSpacing: "0.05em" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
             >
@@ -417,7 +349,7 @@ function CTA() {
             <a
               href="mailto:info@fidco.africa"
               className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
-              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
+              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em" }}
               onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.8)")}
               onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)")}
             >

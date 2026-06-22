@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type { WorkProject, WorkSector } from "@/components/lib/work-types";
+import { workProjects } from "@/lib/work-gallery";
 
 let loaderPromise: Promise<void> | null = null;
 
@@ -33,18 +34,18 @@ function ensureWorkDataScript() {
 }
 
 export function useWorkData() {
-  const [projects, setProjects] = useState<WorkProject[]>([]);
+  const [projects, setProjects] = useState<WorkProject[]>(workProjects);
   const [sectors, setSectors] = useState<WorkSector[]>([]);
-  const [ready, setReady] = useState(false);
+  const [ready, setReady] = useState(true);
 
   useEffect(() => {
     let alive = true;
 
     const sync = () => {
       if (!alive) return;
-      setProjects(window.FID_PROJECTS ?? []);
+      setProjects(workProjects);
       setSectors(window.FID_SECTORS ?? []);
-      setReady(Boolean(window.FID_PROJECTS?.length));
+      setReady(true);
     };
 
     if (window.FID_PROJECTS && window.FID_SECTORS) {
@@ -58,9 +59,9 @@ export function useWorkData() {
       .then(sync)
       .catch(() => {
         if (!alive) return;
-        setProjects([]);
+        setProjects(workProjects);
         setSectors([]);
-        setReady(false);
+        setReady(true);
       });
 
     return () => {
