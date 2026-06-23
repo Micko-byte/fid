@@ -153,18 +153,16 @@ export default function Platforms() {
 
       <style>{`
         .platforms-section {
-          background: #260000;
-          color: #ffffff;
+          background: #f5f2ec;
+          color: #1c1c1c;
           isolation: isolate;
         }
         .platforms-section::before {
           content: "";
           position: absolute;
           inset: 0;
-          background:
-            radial-gradient(60% 70% at 85% 10%, rgba(117,0,6,0.35), transparent 58%),
-            radial-gradient(55% 65% at 8% 92%, rgba(117,0,6,0.2), transparent 62%),
-            linear-gradient(180deg, #260000 0%, #1a0000 100%);
+          background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23750006' stroke-opacity='0.06' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
+          background-repeat: repeat;
           z-index: -2;
         }
         .platforms-bg-word {
@@ -176,7 +174,7 @@ export default function Platforms() {
           font-size: clamp(6rem, 18vw, 18rem);
           font-weight: 900;
           line-height: 0.8;
-          color: rgba(255,255,255,0.045);
+          color: rgba(117,0,6,0.04);
           letter-spacing: 0;
           white-space: nowrap;
           pointer-events: none;
@@ -201,12 +199,12 @@ export default function Platforms() {
           font-weight: 900;
           letter-spacing: 0;
           text-transform: uppercase;
-          color: #ffffff;
+          color: #1c1c1c;
           text-wrap: balance;
         }
         .platforms-intro {
           max-width: 34ch;
-          color: rgba(255,255,255,0.72);
+          color: rgba(28,28,28,0.65);
           margin: 0;
         }
         .platforms-layout {
@@ -219,9 +217,9 @@ export default function Platforms() {
           min-height: clamp(620px, 72vw, 840px);
           display: grid;
           grid-template-rows: minmax(0, 1fr) auto;
-          background: #1c1c1c;
-          border-color: rgba(255,255,255,0.12);
-          box-shadow: 0 34px 100px rgba(0,0,0,0.35);
+          background: #f5f2ec;
+          border-color: rgba(117,0,6,0.12);
+          box-shadow: 0 24px 80px rgba(38,0,0,0.12);
         }
         .platform-feature-media,
         .platform-tile-media {
@@ -322,16 +320,16 @@ export default function Platforms() {
           grid-template-rows: minmax(220px, 1fr) auto;
           overflow: hidden;
           border-radius: 10px;
-          border: 1px solid rgba(255,255,255,0.12);
-          background: rgba(255,255,255,0.06);
-          box-shadow: 0 24px 70px rgba(0,0,0,0.2);
+          border: 1px solid rgba(117,0,6,0.1);
+          background: #ffffff;
+          box-shadow: 0 12px 40px rgba(38,0,0,0.08);
         }
         .platform-tile-copy {
           padding: clamp(1.2rem, 2.4vw, 1.8rem);
         }
         .platform-tile h3 {
           margin: 1rem 0 0;
-          color: #ffffff;
+          color: #1c1c1c;
           font-family: var(--font-heading);
           font-size: clamp(1.75rem, 3vw, 2.8rem);
           line-height: 0.96;
@@ -342,7 +340,7 @@ export default function Platforms() {
         .platform-tile p {
           max-width: 34ch;
           margin: 0.85rem 0 0;
-          color: rgba(255,255,255,0.68);
+          color: rgba(28,28,28,0.6);
           font-family: var(--font-body);
           font-size: 0.7rem;
           letter-spacing: 0.12em;
