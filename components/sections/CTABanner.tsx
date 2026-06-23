@@ -1,8 +1,9 @@
 ﻿"use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import BrandMark from "@/components/graphics/BrandMark";
+import GradientHeading from "@/components/ui/GradientHeading";
 import OrbitalRings from "@/components/graphics/OrbitalRings";
 import BorderGlow from "@/components/ui/BorderGlow";
 import CornerBrackets from "@/components/ui/CornerBrackets";
@@ -75,7 +76,7 @@ export default function CTABanner() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 500,
+              fontFamily: "var(--font-heading)", fontWeight: 500,
               color: "#FFFFFF",
               fontSize: "clamp(2.6rem, 6.5vw, 5.6rem)",
               lineHeight: 0.96, letterSpacing: "-0.025em",
@@ -83,7 +84,13 @@ export default function CTABanner() {
             } as React.CSSProperties}
           >
             Let&apos;s build something{" "}
-            <em style={{ fontStyle: "normal", color: "#C7AC9F" }}>meaningful.</em>
+            <GradientHeading
+              as="span"
+              gradient="linear-gradient(135deg, #d9ab88 0%, #d98038 45%, #f5f2ec 100%)"
+              style={{ fontSize: "inherit", fontWeight: "inherit", lineHeight: "inherit", letterSpacing: "inherit" }}
+            >
+              meaningful.
+            </GradientHeading>
           </motion.h2>
 
           <motion.div
@@ -180,7 +187,7 @@ export default function CTABanner() {
                   </p>
                   <p
                     style={{
-                      fontFamily: "var(--font-heading, 'Oswald')",
+                      fontFamily: "var(--font-heading)",
                       fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
                       lineHeight: 1,
                       letterSpacing: "-0.02em",

@@ -56,7 +56,7 @@ html {
 }
 
 body {
-  background: #FFFFFF;
+  background: #f5f2ec;
   color: var(--anchor);
   font-family: var(--font-body);
   font-size: 1rem;
@@ -218,8 +218,25 @@ section {
 
 h1,
 h2,
-h3 {
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
   text-wrap: balance;
+}
+
+p,
+li,
+label,
+input,
+textarea,
+button,
+a,
+span,
+td,
+th {
+  font-family: var(--font-body);
 }
 
 /* ─── Scrollbar ────────────────────────────────────────────────────────── */
@@ -230,12 +247,93 @@ h3 {
 
 /* ─── Brand pattern texture ────────────────────────────────────────────── */
 
+/* Official FID brand pattern — interlocking geometric lines (from brand guidelines p.23) */
 .brand-pattern {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23750006' fill-opacity='0.08'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23750006' stroke-opacity='0.08' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 .brand-pattern-light {
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23FFFFFF' fill-opacity='0.05'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f5f2ec' stroke-opacity='0.07' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─── Brand section backgrounds ───────────────────────────────────────── */
+
+/* Warm cream with subtle red vignette from top-right */
+.bg-brand-warm {
+  background-color: #f5f2ec;
+  background-image:
+    radial-gradient(ellipse 55% 50% at 100% 0%, rgba(117,0,6,0.065) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 45% at 0% 100%, rgba(217,128,56,0.09) 0%, transparent 55%);
+}
+
+/* Deep Current dark with radial amber lift */
+.bg-brand-deep {
+  background: linear-gradient(160deg, #1a0000 0%, #260000 100%);
+  background-image:
+    radial-gradient(ellipse 50% 55% at 88% 12%, rgba(217,128,56,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 6% 92%, rgba(217,171,136,0.16) 0%, transparent 50%);
+}
+
+/* Cream with diamond pattern texture */
+.bg-brand-texture {
+  background-color: #f5f2ec;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23750006' fill-opacity='0.05'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(217,128,56,0.08) 0%, transparent 55%);
+}
+
+/* ─── Mobile & tablet responsive ──────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  :root {
+    --site-gutter: clamp(1.2rem, 4vw, 2.5rem);
+    --section-y: clamp(4rem, 9vw, 6.5rem);
+    --type-display: clamp(2.4rem, 8vw, 4.5rem);
+    --type-h2: clamp(1.8rem, 5.5vw, 3rem);
+    --type-h3: clamp(1.35rem, 3.5vw, 2rem);
+  }
+
+  /* ── Work mosaic ── */
+  .work-mosaic { grid-template-columns: 1fr !important; }
+  .work-mosaic-link { min-height: clamp(260px, 55vw, 400px) !important; }
+
+  /* ── Hero ── */
+  .hero-inner { grid-template-columns: 1fr !important; }
+  .hero-inner > *:last-child { display: none; } /* hide orb on small screens */
+
+  /* ── Brand flow ── */
+  .brand-flow-grid { grid-template-columns: 1fr !important; }
+
+  /* ── Proof / stats row ── */
+  .proof-row { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Platforms layout ── */
+  .platforms-layout { grid-template-columns: 1fr !important; }
+  .platforms-side { grid-template-columns: 1fr 1fr; display: grid; gap: 1rem; }
+  .platforms-head { grid-template-columns: 1fr !important; }
+  .platforms-title { max-width: 100% !important; }
+}
+
+@media (max-width: 580px) {
+  /* ── Nav pill full width on tiny screens ── */
+  nav[aria-label="Main navigation"] {
+    width: calc(100vw - 1.6rem) !important;
+    top: 0.6rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* ── Footer grid ── */
+  .ft-grid { grid-template-columns: 1fr !important; }
+
+  /* ── Work mosaic desc grid ── */
+  .radar-desc-grid { grid-template-columns: 1fr !important; }
+
+  /* ── Platforms side tiles ── */
+  .platforms-side { grid-template-columns: 1fr !important; }
+
+  /* ── Radar circles ─ stack on phone ── */
+  .radar-row { flex-wrap: wrap !important; justify-content: center !important; gap: 1rem !important; }
+  .radar-wrap + .radar-wrap { margin-left: 0 !important; }
 }
 
 /* ─── Reduced motion ───────────────────────────────────────────────────── */

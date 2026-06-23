@@ -109,7 +109,7 @@ export default function AfricanFootprint() {
         <span style={{ display: "inline-block", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#d9ab88", marginBottom: "0.9rem" }}>
           African footprint
         </span>
-        <h3 style={{ fontFamily: 'var(--font-heading, var(--font-heading))', fontWeight: 800, color: "#1a1a1a", fontSize: "clamp(1.9rem, 3.6vw, 3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
+        <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, color: "#1c1c1c", fontSize: "clamp(1.9rem, 3.6vw, 3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
           <TextRoll>8+ markets across East &amp; Southern Africa — and beyond.</TextRoll>
         </h3>
       </div>
@@ -164,14 +164,14 @@ export default function AfricanFootprint() {
               bottom: "1rem",
               padding: "0.6rem 0.9rem",
               borderRadius: "999px",
-              backgroundColor: "#FFFFFF",
+              backgroundColor: "#f5f2ec",
               color: "#260000",
               fontFamily: "var(--font-body)",
               fontSize: "0.72rem",
               letterSpacing: "0.14em",
               fontWeight: 600,
               textTransform: "uppercase",
-              border: "1px solid rgba(92,60,44,0.16)",
+              border: "1px solid rgba(117,0,6,0.16)",
             }}
           >
             {activeCountry ? activeCountry.name : "Full map"}
@@ -201,14 +201,14 @@ export default function AfricanFootprint() {
                   display: "inline-flex",
                   alignItems: "center",
                   gap: "0.6rem",
-                  border: `1px solid ${activeState ? "#d9ab88" : "rgba(92,60,44,0.16)"}`,
-                  backgroundColor: activeState ? "rgba(217,171,136,0.1)" : "#FFFFFF",
+                  border: `1px solid ${activeState ? "#d9ab88" : "rgba(117,0,6,0.16)"}`,
+                  backgroundColor: activeState ? "rgba(217,171,136,0.1)" : "#f5f2ec",
                   padding: "0.55rem 0.8rem",
                   borderRadius: "999px",
                   fontFamily: "var(--font-body)",
                   fontSize: "0.8rem",
                   fontWeight: 500,
-                  color: "#1a1a1a",
+                  color: "#1c1c1c",
                   textAlign: "left",
                   cursor: "pointer",
                   transition: "transform 0.35s ease, border-color 0.35s ease, background-color 0.35s ease",
@@ -251,8 +251,8 @@ export default function AfricanFootprint() {
           display: block;
         }
         .af-map svg path {
-          fill: rgba(92,60,44,0.10);
-          stroke: rgba(92,60,44,0.28);
+          fill: rgba(117,0,6,0.10);
+          stroke: rgba(117,0,6,0.28);
           stroke-width: 0.45;
           transition:
             fill 1800ms cubic-bezier(0.22, 1, 0.36, 1),

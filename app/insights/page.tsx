@@ -58,7 +58,7 @@ function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "#f5f2ec" }}
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -99,7 +99,7 @@ function ArticlesSection() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#FFFFFF" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#f5f2ec" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <motion.p
           initial={{ opacity: 0 }}
@@ -217,7 +217,7 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#FFFFFF", color: "#750006", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
+              style={{ backgroundColor: "#f5f2ec", color: "#750006", letterSpacing: "0.05em", borderRadius: "var(--button-radius)" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
             >

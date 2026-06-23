@@ -1,18 +1,18 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
-/**
- * Route transition. template.tsx remounts on every navigation, so we play a
- * one-shot "wipe away" of a burgundy panel revealing the new page, with the
- * FID mark flashing mid-wipe. Reduced-motion = no overlay.
- */
 export default function Template({ children }: { children: React.ReactNode }) {
   const reduce = useReducedMotion();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <>
-      {!reduce && (
+      {/* Only render overlay client-side to avoid SSR hydration mismatch */}
+      {mounted && !reduce && (
         <motion.div
           aria-hidden
           initial={{ scaleY: 1 }}
@@ -20,7 +20,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
           transition={{ duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.05 }}
           style={{
             position: "fixed", inset: 0, zIndex: 200, transformOrigin: "top",
-            backgroundColor: "#1C1C1C", pointerEvents: "none",
+            backgroundColor: "#260000", pointerEvents: "none",
             display: "flex", alignItems: "center", justifyContent: "center",
           }}
         >
@@ -28,7 +28,7 @@ export default function Template({ children }: { children: React.ReactNode }) {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: [0, 1, 0], y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 700, fontSize: "clamp(2rem,6vw,4rem)", letterSpacing: "-0.02em", color: "#FFFFFF" }}
+            style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(2rem,6vw,4rem)", letterSpacing: "-0.02em", color: "#f5f2ec" }}
           >
             FID &amp; Co.
           </motion.span>

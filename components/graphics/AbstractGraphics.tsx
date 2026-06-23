@@ -2,7 +2,7 @@
 
 /**
  * Branded abstract SVG graphics for FID & Co.
- * Palette: burgundy #750006 · gold #C9AA3C / #d98038 · sand #C7AC9F · ink #1a1a1a · cream #FFFFFF
+ * Palette: burgundy #750006 · gold #C9AA3C / #d98038 · sand #C7AC9F · ink #1c1c1c · cream #FFFFFF
  *
  * Each graphic is large, scalable, and only lightly animated (slow drift / gentle
  * opacity pulses) — deliberately NOT spinning. Pass `size` and `className`.
@@ -18,7 +18,7 @@ const BURGUNDY = "#750006";
 const GOLD = "#C9AA3C";
 const GOLD_SOFT = "#d98038";
 const SAND = "#C7AC9F";
-const INK = "#1a1a1a";
+const INK = "#1c1c1c";
 
 /* Shared keyframes — injected once per graphic instance (cheap, scoped by unique ids) */
 function Keyframes() {

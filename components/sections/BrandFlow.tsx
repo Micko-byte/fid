@@ -1,8 +1,12 @@
 ﻿"use client";
 
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { InfiniteSlider } from "@/components/core/infinite-slider";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const logos = [
   "/logos/executive-office-president.png",
@@ -29,10 +33,40 @@ const proof = [
 
 export default function BrandFlow() {
   const ref = useRef<HTMLDivElement>(null);
+  const proofGridRef = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
+  useEffect(() => {
+    if (!proofGridRef.current) return;
+    const ctx = gsap.context(() => {
+      const cards = proofGridRef.current!.querySelectorAll<HTMLElement>(".proof-card img");
+      // Each card image moves at a different vertical speed — creates depth parallax
+      const speeds = [0.55, 0.35, 0.45];
+      cards.forEach((img, i) => {
+        gsap.fromTo(
+          img,
+          { y: 0 },
+          {
+            y: -50 * speeds[i],
+            ease: "none",
+            scrollTrigger: {
+              trigger: proofGridRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
+    }, proofGridRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="fid-section brand-proof" style={{ backgroundColor: "#F7F3EF" }}>
+    <section className="fid-section brand-proof" style={{ backgroundColor: "#f5f2ec", position: "relative" }}>
+      {/* Brand texture overlay */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(ellipse 60% 50% at 0% 100%, rgba(217,128,56,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 100% 0%, rgba(117,0,6,0.06) 0%, transparent 55%)" }} />
+      <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.55 }} />
       <div ref={ref} className="section-shell">
         <div className="fid-editorial-head">
           <span className="fid-section-num">03</span>
@@ -51,7 +85,7 @@ export default function BrandFlow() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.85, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               className="type-h2"
-              style={{ maxWidth: "17ch", margin: "1rem 0 0", color: "#1a1a1a" }}
+              style={{ maxWidth: "17ch", margin: "1rem 0 0", color: "#1c1c1c" }}
             >
               Proof across public, private and cultural life.
             </motion.h2>
@@ -59,6 +93,7 @@ export default function BrandFlow() {
         </div>
 
         <motion.div
+          ref={proofGridRef}
           initial={{ opacity: 0, y: 26 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.85, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
@@ -96,7 +131,7 @@ export default function BrandFlow() {
           position: relative;
           min-height: clamp(280px, 32vw, 440px);
           margin: 0;
-          background: #1a1a1a;
+          background: #260000;
         }
         .proof-card:nth-child(2) { margin-top: clamp(2rem, 5vw, 4rem); }
         .proof-card:nth-child(3) { margin-top: clamp(1rem, 3vw, 2rem); }
@@ -112,7 +147,7 @@ export default function BrandFlow() {
           content: "";
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(26,26,26,0.06), rgba(26,26,26,0.62));
+          background: linear-gradient(180deg, rgba(38,0,0,0.06), rgba(38,0,0,0.72));
         }
         .proof-card figcaption {
           position: absolute;

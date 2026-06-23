@@ -5,6 +5,8 @@ import { usePathname } from "next/navigation";
 import GrainOverlay from "@/components/GrainOverlay";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
+import GlobalImageParallax from "@/components/motion/GlobalImageParallax";
+import LenisTextSkew from "@/components/motion/LenisTextSkew";
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname() || "";
@@ -31,6 +33,8 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
+      <GlobalImageParallax />
+      <LenisTextSkew />
       <ScrollProgress />
       <GrainOverlay />
       <Nav />

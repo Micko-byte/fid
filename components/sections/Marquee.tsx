@@ -52,7 +52,7 @@ export default function Marquee() {
         {track.map((item, i) => (
           <span key={i} className="marquee-item" style={{ display: "inline-flex", alignItems: "center", gap: "0.95rem", padding: "0 2.4rem" }}>
             <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.14em", color: "#d98038", fontVariantNumeric: "tabular-nums", opacity: 0.85 }}>{item.num}</span>
-            <span className="mq-txt" style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, fontSize: "clamp(0.95rem,1.5vw,1.25rem)", letterSpacing: "0.04em", textTransform: "uppercase", color: "#FFFFFF", whiteSpace: "nowrap", transition: "color 0.4s" }}>{item.label}</span>
+            <span className="mq-txt" style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "clamp(0.95rem,1.5vw,1.25rem)", letterSpacing: "0.04em", textTransform: "uppercase", color: "#FFFFFF", whiteSpace: "nowrap", transition: "color 0.4s" }}>{item.label}</span>
             <span aria-hidden style={{ width: "6px", height: "6px", flexShrink: 0, transform: "rotate(45deg)", border: "1px solid #d9ab88", opacity: 0.5 }} />
           </span>
         ))}

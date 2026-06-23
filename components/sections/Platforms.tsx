@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, Buildings, ChatsCircle, MusicNotes } from "@phosphor-icons/react";
+import CutoutCard from "@/components/ui/CutoutCard";
 
 const platforms = [
   {
@@ -76,33 +77,26 @@ function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number]
 }
 
 function PlatformTile({ platform: p, index }: { platform: (typeof platforms)[number]; index: number }) {
-  const Icon = p.Icon;
-
   return (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10% 0px" }}
       transition={{ duration: 0.75, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      className="platform-tile"
-      style={{ ["--tile-accent" as string]: p.accent }}
+      style={{ minHeight: "clamp(220px, 28vw, 360px)" }}
     >
-      <Link href={p.href} className="platform-tile-media" data-cursor="Explore">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={p.image} alt={p.name} loading="lazy" />
-      </Link>
-      <div className="platform-tile-copy">
-        <div className="platform-meta-row">
-          <span>{p.num} / Platform</span>
-          <Icon size={23} weight="light" />
-        </div>
-        <h3>{p.name}</h3>
-        <p>{p.tag}</p>
-        <Link href={p.href} className="platform-tile-link">
-          Explore <ArrowUpRight size={15} weight="bold" />
+      <CutoutCard
+        image={p.image}
+        label={p.name}
+        sublabel={`${p.num} · ${p.tag}`}
+        href={p.href}
+        style={{ height: "100%" }}
+      >
+        <Link href={p.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", marginTop: "0.8rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: p.accent, textDecoration: "none" }}>
+          Explore <ArrowUpRight size={14} weight="bold" />
         </Link>
-      </div>
-    </motion.article>
+      </CutoutCard>
+    </motion.div>
   );
 }
 
@@ -127,6 +121,7 @@ export default function Platforms() {
             </motion.span>
 
             <motion.h2
+              data-skew
               initial={{ opacity: 0, y: 26 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.85, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
@@ -158,7 +153,7 @@ export default function Platforms() {
 
       <style>{`
         .platforms-section {
-          background: #111111;
+          background: #260000;
           color: #ffffff;
           isolation: isolate;
         }
@@ -167,9 +162,9 @@ export default function Platforms() {
           position: absolute;
           inset: 0;
           background:
-            radial-gradient(60% 70% at 85% 10%, rgba(217,128,56,0.28), transparent 58%),
-            radial-gradient(55% 65% at 8% 92%, rgba(217,171,136,0.22), transparent 62%),
-            linear-gradient(180deg, #15110f 0%, #101010 100%);
+            radial-gradient(60% 70% at 85% 10%, rgba(117,0,6,0.35), transparent 58%),
+            radial-gradient(55% 65% at 8% 92%, rgba(117,0,6,0.2), transparent 62%),
+            linear-gradient(180deg, #260000 0%, #1a0000 100%);
           z-index: -2;
         }
         .platforms-bg-word {
@@ -201,7 +196,7 @@ export default function Platforms() {
           margin: 1rem 0 0;
           max-width: 12ch;
           font-family: var(--font-heading);
-          font-size: clamp(3.3rem, 9vw, 8.8rem);
+          font-size: clamp(2rem, 4vw, 3.5rem);
           line-height: 0.86;
           font-weight: 900;
           letter-spacing: 0;
@@ -224,7 +219,7 @@ export default function Platforms() {
           min-height: clamp(620px, 72vw, 840px);
           display: grid;
           grid-template-rows: minmax(0, 1fr) auto;
-          background: #1a1a1a;
+          background: #1c1c1c;
           border-color: rgba(255,255,255,0.12);
           box-shadow: 0 34px 100px rgba(0,0,0,0.35);
         }
@@ -234,7 +229,7 @@ export default function Platforms() {
           display: block;
           overflow: hidden;
           min-height: 0;
-          background: #0d0d0d;
+          background: #260000;
         }
         .platform-feature-media::after,
         .platform-tile-media::after {

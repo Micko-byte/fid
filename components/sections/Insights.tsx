@@ -32,7 +32,7 @@ export default function Insights() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="insights" style={{ backgroundColor: "#FFFFFF", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative" }}>
+    <section id="insights" className="bg-brand-texture" style={{ paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative" }}>
       <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         {/* Header */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "1.5rem", marginBottom: "clamp(2.5rem,5vw,4rem)" }}>
@@ -43,12 +43,12 @@ export default function Insights() {
               <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} /> Our Thinking
             </motion.span>
             <motion.h2 initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }} animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}} transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "clamp(2.4rem,6vw,5rem)", color: "#1a1a1a", marginTop: "0.8rem", letterSpacing: "-0.02em", lineHeight: 0.95, textTransform: "uppercase" }}>
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "clamp(2.4rem,6vw,5rem)", color: "#1c1c1c", marginTop: "0.8rem", letterSpacing: "-0.02em", lineHeight: 0.95, textTransform: "uppercase" }}>
               <TextRoll>Perspectives &amp;</TextRoll><br /><TextRoll>Intelligence</TextRoll>
             </motion.h2>
           </div>
-          <Link href="/insights" style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(26,26,26,0.5)", textDecoration: "none", transition: "color 0.3s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(26,26,26,0.5)")}>
+          <Link href="/insights" style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(28,28,28,0.5)", textDecoration: "none", transition: "color 0.3s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(28,28,28,0.5)")}>
             All articles →
           </Link>
         </div>
@@ -63,29 +63,29 @@ export default function Insights() {
                   className="insight-row"
                   style={{ display: "flex", alignItems: "center", gap: "clamp(1rem,2vw,2rem)", padding: "clamp(1.1rem,2.2vw,1.7rem) 0", borderTop: "1px solid rgba(117,0,6,0.18)" }}
                 >
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(26,26,26,0.4)", flexShrink: 0, width: "5.5rem" }}>{a.date}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(28,28,28,0.4)", flexShrink: 0, width: "5.5rem" }}>{a.date}</span>
                   <MorphingDialogImage src={a.img} alt={a.title} style={{ width: "72px", height: "56px", objectFit: "cover", borderRadius: "6px", flexShrink: 0 }} />
                   <MorphingDialogTitle style={{ flex: 1 }}>
-                    <h3 className="insight-title" style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 500, fontSize: "clamp(1.15rem,2.4vw,2rem)", lineHeight: 1.06, letterSpacing: "-0.01em", color: "#1a1a1a", transition: "color 0.3s", textTransform: "uppercase", margin: 0 }}>
+                    <h3 className="insight-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "clamp(1.15rem,2.4vw,2rem)", lineHeight: 1.06, letterSpacing: "-0.01em", color: "#1c1c1c", transition: "color 0.3s", textTransform: "uppercase", margin: 0 }}>
                       {a.title}
                     </h3>
                   </MorphingDialogTitle>
-                  <ArrowUpRight size={20} weight="light" color="rgba(26,26,26,0.3)" style={{ flexShrink: 0 }} />
+                  <ArrowUpRight size={20} weight="light" color="rgba(28,28,28,0.3)" style={{ flexShrink: 0 }} />
                 </MorphingDialogTrigger>
 
                 <MorphingDialogContainer>
-                  <MorphingDialogContent style={{ width: "min(560px, 92vw)", background: "#FFFFFF", borderRadius: "16px", border: "1px solid rgba(117,0,6,0.12)", boxShadow: "0 40px 100px rgba(12,12,12,0.4)", position: "relative" }}>
+                  <MorphingDialogContent style={{ width: "min(560px, 92vw)", background: "#f5f2ec", borderRadius: "16px", border: "1px solid rgba(117,0,6,0.12)", boxShadow: "0 40px 100px rgba(12,12,12,0.4)", position: "relative" }}>
                     <MorphingDialogImage src={a.img} alt={a.title} style={{ width: "100%", height: "300px", objectFit: "cover", display: "block" }} />
                     <div style={{ padding: "clamp(1.4rem,3vw,2.2rem)" }}>
                       <MorphingDialogSubtitle style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#d9ab88", fontWeight: 600, marginBottom: "0.7rem" }}>
                         {a.date}
                       </MorphingDialogSubtitle>
                       <MorphingDialogTitle>
-                        <h3 style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 700, fontSize: "clamp(1.5rem,3vw,2.2rem)", lineHeight: 1.05, letterSpacing: "-0.02em", color: "#1a1a1a", textTransform: "uppercase", margin: 0 }}>
+                        <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.5rem,3vw,2.2rem)", lineHeight: 1.05, letterSpacing: "-0.02em", color: "#1c1c1c", textTransform: "uppercase", margin: 0 }}>
                           {a.title}
                         </h3>
                       </MorphingDialogTitle>
-                      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.65, color: "rgba(26,26,26,0.66)", marginTop: "1rem" }}>
+                      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.65, color: "rgba(28,28,28,0.66)", marginTop: "1rem" }}>
                         {a.blurb}
                       </motion.p>
                       <motion.a

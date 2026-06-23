@@ -62,7 +62,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
         overflow: "hidden",
         padding: "clamp(1.4rem, 2.6vw, 2.2rem)",
         borderRadius: "16px",
-        border: "1px solid rgba(26,26,26,0.06)",
+        border: "1px solid rgba(28,28,28,0.06)",
         background: "rgba(255,255,255,0.2)",
         backdropFilter: "blur(10px)",
       }}
@@ -75,7 +75,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
           position: "absolute",
           top: "-0.3em",
           [reversed ? "left" : "right"]: "0.2em",
-          fontFamily: 'var(--font-heading, var(--font-heading))',
+          fontFamily: 'var(--font-heading)',
           fontWeight: 800,
           fontSize: "clamp(7rem, 16vw, 14rem)",
           lineHeight: 0.8,
@@ -113,13 +113,13 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
 
         <h3
           style={{
-            fontFamily: 'var(--font-heading, var(--font-heading))',
+            fontFamily: 'var(--font-heading)',
             fontWeight: 700,
             fontSize: "clamp(1.45rem, 2.5vw, 2.3rem)",
             lineHeight: 1.06,
             letterSpacing: "-0.03em",
             textTransform: "uppercase",
-            color: "#1a1a1a",
+            color: "#1c1c1c",
             margin: 0,
             maxWidth: "16ch",
           }}
@@ -129,7 +129,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
 
         <p
           style={{
-            fontFamily: "var(--font-heading,'Oswald')",
+            fontFamily: "var(--font-heading)",
             fontWeight: 500,
             fontSize: "clamp(1rem, 1.5vw, 1.25rem)",
             lineHeight: 1.22,
@@ -146,7 +146,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.92rem",
             lineHeight: 1.7,
-            color: "rgba(26,26,26,0.64)",
+            color: "rgba(28,28,28,0.64)",
             maxWidth: "48ch",
             marginTop: "1rem",
           }}
@@ -159,7 +159,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.72rem",
             lineHeight: 1.6,
-            color: "rgba(26,26,26,0.52)",
+            color: "rgba(28,28,28,0.52)",
             textTransform: "uppercase",
             letterSpacing: "0.16em",
             marginTop: "1.2rem",
@@ -180,7 +180,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontSize: "0.72rem",
             letterSpacing: "0.16em",
             textTransform: "uppercase",
-            color: "#1a1a1a",
+            color: "#1c1c1c",
             textDecoration: "none",
             marginTop: "1.4rem",
             fontWeight: 600,
@@ -215,7 +215,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
           />
         ) : (
           <div style={{ position: "absolute", inset: 0, backgroundColor: p.color ?? "#260000", display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <span style={{ fontFamily: "var(--font-heading,'Oswald')", fontWeight: 600, fontSize: "2rem", color: "rgba(255,255,255,0.25)", textTransform: "uppercase" }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "2rem", color: "rgba(255,255,255,0.25)", textTransform: "uppercase" }}>
               {p.client.split(" ")[0]}
             </span>
           </div>
@@ -247,7 +247,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             position: "absolute",
             bottom: "0.7rem",
             right: "0.9rem",
-            fontFamily: 'var(--font-heading, var(--font-heading))',
+            fontFamily: 'var(--font-heading)',
             fontWeight: 700,
             fontSize: "1rem",
             color: "rgba(255,255,255,0.85)",
@@ -306,10 +306,10 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
           />
         )}
         {/* readable gradient scrim */}
-        <motion.div aria-hidden="true" animate={{ opacity: isOpen ? 0.95 : 1 }} style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(92,60,44,0) 28%, rgba(38,0,0,0.9) 100%)" }} />
+        <motion.div aria-hidden="true" animate={{ opacity: isOpen ? 0.95 : 1 }} style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(117,0,6,0) 28%, rgba(38,0,0,0.9) 100%)" }} />
 
         {/* index marker */}
-        <span style={{ position: "absolute", top: "1rem", right: "1.1rem", fontFamily: 'var(--font-heading, var(--font-heading))', fontWeight: 700, fontSize: variant === "lg" ? "1.4rem" : "1.05rem", color: "rgba(255,255,255,0.55)" }}>
+        <span style={{ position: "absolute", top: "1rem", right: "1.1rem", fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: variant === "lg" ? "1.4rem" : "1.05rem", color: "rgba(255,255,255,0.55)" }}>
           {String(index + 1).padStart(2, "0")}
         </span>
 
@@ -326,9 +326,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
             <IndustryIcon sector={p.sector} size={15} strokeWidth={1.6} />
             {p.sector}
           </span>
-          <h3 style={{ margin: 0, fontFamily: 'var(--font-heading, var(--font-heading))', fontWeight: 700, textTransform: "uppercase", letterSpacing: "-0.02em", lineHeight: 1.04, color: "#FFFFFF", fontSize: variant === "lg" ? "clamp(1.6rem,2.6vw,2.5rem)" : "clamp(1.1rem,1.6vw,1.4rem)", maxWidth: "18ch" }}>
-            {p.client}
-          </h3>
+          <p style={{ margin: 0, fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: variant === "lg" ? "clamp(1.6rem,2.6vw,2.5rem)" : "clamp(1.1rem,1.6vw,1.4rem)", maxWidth: "18ch", textTransform: "uppercase", color: "#f5f2ec", lineHeight: 1.1 }}>{p.client}</p>
 
           {/* disclosure content — reveals on click */}
           <AnimatePresence initial={false}>
@@ -389,11 +387,14 @@ export default function WorkIndustries() {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#f5f2ec",
         paddingTop: "clamp(5.5rem,12vw,11rem)",
         paddingBottom: "clamp(5.5rem,12vw,11rem)",
       }}
     >
+      {/* Warm amber glow bottom-left, red glow top-right */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(ellipse 50% 55% at 0% 100%, rgba(217,128,56,0.12) 0%, transparent 60%), radial-gradient(ellipse 35% 40% at 100% 0%, rgba(117,0,6,0.07) 0%, transparent 55%)" }} />
+      <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.45 }} />
 
       <div
         ref={ref}
@@ -429,19 +430,20 @@ export default function WorkIndustries() {
             </motion.span>
 
             <motion.h2
+              data-skew
               initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
               animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
               transition={{ duration: 1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{
                 marginTop: "0.8rem",
-                fontFamily: "var(--font-heading,'Oswald')",
+                fontFamily: "var(--font-heading)",
                 fontWeight: 800,
                 fontSize: "clamp(2.4rem,5.5vw,4.4rem)",
-                color: "#1a1a1a",
+                color: "#1c1c1c",
                 lineHeight: 1,
               }}
             >
-              <TextRoll style={{ color: "#1a1a1a" }}>Stories shaped by culture, institutions and public attention.</TextRoll>
+              <TextRoll style={{ color: "#1c1c1c" }}>Stories shaped by culture, institutions and public attention.</TextRoll>
             </motion.h2>
 
             <motion.p
@@ -456,7 +458,7 @@ export default function WorkIndustries() {
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(0.95rem,1.35vw,1.1rem)",
                 lineHeight: 1.65,
-                color: "rgba(26,26,26,0.62)",
+                color: "rgba(28,28,28,0.62)",
               }}
             >
               Communication is not a gallery of assets. It is a sequence of public moments, each with a purpose, an audience and a point of view. These selected projects show how FID & Co. moves from national observation to cultural platform building, and from brand launches to sustained reputation work.
@@ -479,7 +481,7 @@ export default function WorkIndustries() {
                   fontSize: "0.68rem",
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
-                  color: "rgba(26,26,26,0.6)",
+                  color: "rgba(28,28,28,0.6)",
                   padding: "0.6rem 0.9rem",
                   borderRadius: "999px",
                   border: "1px solid rgba(117,0,6,0.12)",
@@ -499,7 +501,7 @@ export default function WorkIndustries() {
           style={{
             transformOrigin: "left",
             height: "1px",
-            background: "rgba(26,26,26,0.1)",
+            background: "rgba(28,28,28,0.1)",
             marginTop: "clamp(2rem, 5vw, 3.5rem)",
             marginBottom: "clamp(2rem, 5vw, 4rem)",
           }}

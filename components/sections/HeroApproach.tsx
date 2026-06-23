@@ -46,7 +46,7 @@ export default function HeroApproach() {
         minHeight: "100vh",
         overflow: "hidden",
         background:
-          "radial-gradient(circle at 8% 14%, rgba(117,0,6,0.12), transparent 22%), radial-gradient(circle at 84% 10%, rgba(217,128,56,0.16), transparent 20%), linear-gradient(180deg, #FFFFFF 0%, #f4e3b7 100%)",
+          "radial-gradient(circle at 8% 14%, rgba(117,0,6,0.12), transparent 22%), radial-gradient(circle at 84% 10%, rgba(217,128,56,0.16), transparent 20%), linear-gradient(180deg, #f5f2ec 0%, #f0dfc0 100%)",
       }}
     >
       {BLOBS.map((b, i) => (
@@ -143,12 +143,12 @@ export default function HeroApproach() {
             initial="hidden"
             animate="visible"
             style={{
-              fontFamily: 'var(--font-heading, var(--font-heading))',
+              fontFamily: 'var(--font-heading)',
               fontWeight: 500,
               fontSize: "clamp(3rem, 6.8vw, 7.2rem)",
               lineHeight: 0.88,
               letterSpacing: "-0.05em",
-              color: "#1a1a1a",
+              color: "#1c1c1c",
               textTransform: "uppercase",
               maxWidth: "12ch",
               textWrap: "balance",
@@ -166,12 +166,12 @@ export default function HeroApproach() {
               fromFontVariationSettings="'wght' 300, 'opsz' 16"
               toFontVariationSettings="'wght' 900, 'opsz' 54"
               style={{
-                fontFamily: 'var(--font-heading, var(--font-heading))',
+                fontFamily: 'var(--font-heading)',
                 fontWeight: 500,
                 lineHeight: 0.88,
                 letterSpacing: "-0.05em",
                 textTransform: "uppercase",
-                color: "#1a1a1a",
+                color: "#1c1c1c",
               }}
             />
           </motion.h1>
@@ -186,7 +186,7 @@ export default function HeroApproach() {
               fontFamily: "var(--font-body)",
               fontSize: "clamp(1rem, 1.2vw, 1.18rem)",
               lineHeight: 1.6,
-              color: "rgba(26,26,26,0.72)",
+              color: "rgba(28,28,28,0.72)",
             }}
           >
             FID &amp; Co. is a full-service strategic communications and brand
@@ -247,7 +247,7 @@ export default function HeroApproach() {
               borderRadius: "28px",
               background:
                 "radial-gradient(circle at 30% 20%, rgba(117,0,6,0.26), transparent 28%), radial-gradient(circle at 78% 18%, rgba(217,128,56,0.22), transparent 24%), linear-gradient(180deg, rgba(255,255,255,0.35), rgba(255,255,255,0.04))",
-              boxShadow: "0 36px 90px rgba(92,60,44,0.08)",
+              boxShadow: "0 36px 90px rgba(117,0,6,0.08)",
             }}
           />
           <Image

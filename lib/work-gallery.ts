@@ -1,5 +1,5 @@
-import { projects, type Project } from "@/lib/projects";
-import type { WorkImage, WorkProject } from "@/lib/work-types";
+import { projects, type Project } from "@/components/lib/projects";
+import type { WorkImage, WorkProject } from "@/components/lib/work-types";
 
 export const projectGalleryImages: Record<string, WorkImage[]> = {
   "national-minorities-day": [

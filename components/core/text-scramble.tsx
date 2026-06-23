@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType } from "react";
+import React, { useEffect, useRef, useState, type ElementType } from "react";
 
 type TextScrambleProps = {
   children: string;
@@ -65,11 +65,8 @@ export function TextScramble({
     return () => io.disconnect();
   }, [text, duration, speed, characterSet]);
 
-  return (
-    <Tag ref={ref} className={className} style={style}>
-      {display}
-    </Tag>
-  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return React.createElement(Tag as any, { ref, className, style }, display);
 }
 
 export default TextScramble;

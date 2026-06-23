@@ -1,10 +1,13 @@
 ﻿"use client";
 
 import { useRef, useEffect } from "react";
+import dynamic from "next/dynamic";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
 import { Lightbulb, Compass, Target } from "@phosphor-icons/react";
+
+const HeroOrb = dynamic(() => import("@/components/3d/HeroOrb"), { ssr: false });
 
 const PILLARS = [
   { Icon: Lightbulb, label: "Insight", note: "We start by understanding." },
@@ -49,14 +52,19 @@ export default function FeatureBand() {
     <section
       id="hero"
       style={{
-        backgroundColor: "#FFFFFF",
-        color: "#1a1a1a",
+        backgroundColor: "#f5f2ec",
+        color: "#1c1c1c",
         position: "relative",
         overflow: "hidden",
         paddingTop: "var(--section-y-hero)",
         paddingBottom: "var(--section-y)",
       }}
     >
+      {/* Brand background overlays */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(ellipse 65% 55% at 88% 20%, rgba(217,128,56,0.12) 0%, transparent 58%), radial-gradient(ellipse 50% 50% at 10% 85%, rgba(117,0,6,0.07) 0%, transparent 55%)" }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "repeating-linear-gradient(135deg, rgba(117,0,6,0.025) 0 1px, transparent 1px 72px)", zIndex: 0 }} />
+      {/* 3D floating orb — background decoration */}
+      <HeroOrb />
       <div
         ref={ref}
         className="section-shell"
@@ -64,12 +72,12 @@ export default function FeatureBand() {
       >
         <div className="fb-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(3rem,7vw,7rem)", alignItems: "center" }}>
 
-          {/* LEFT: editorial text */}
+          {/* LEFT: editorial text — slide-up-fade-in on mount */}
           <div>
             <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="type-eyebrow"
               style={{ color: "#750006", marginBottom: "1rem" }}
             >
@@ -79,8 +87,8 @@ export default function FeatureBand() {
             {/* Decorative SVG line divider */}
             <motion.div
               initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.9, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
               style={{ transformOrigin: "left", marginBottom: "clamp(1.2rem,2.5vw,2rem)" }}
             >
               <svg width="80" height="6" viewBox="0 0 80 6" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -90,32 +98,39 @@ export default function FeatureBand() {
               </svg>
             </motion.div>
 
-            <h2 className="type-h2" style={{ maxWidth: "20ch", margin: 0, color: "#1a1a1a" }}>
+            <motion.h2
+              data-skew
+              initial={{ opacity: 0, y: 52 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.0, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="type-h2"
+              style={{ maxWidth: "20ch", margin: 0, color: "#1c1c1c" }}
+            >
               We treat communication as influence, not a function.
-            </h2>
+            </motion.h2>
 
             <motion.div
               initial={{ scaleX: 0 }}
-              animate={inView ? { scaleX: 1 } : {}}
-              transition={{ duration: 1.0, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              style={{ transformOrigin: "left", height: "1px", background: "rgba(26,26,26,0.15)", marginTop: "clamp(2rem,5vw,4rem)", marginBottom: "clamp(2rem,5vw,4rem)" }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: "left", height: "1px", background: "rgba(28,28,28,0.15)", marginTop: "clamp(2rem,5vw,4rem)", marginBottom: "clamp(2rem,5vw,4rem)" }}
             />
 
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 36 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="type-body"
-              style={{ color: "rgba(26,26,26,0.62)", maxWidth: "48ch", marginBottom: "clamp(1.8rem,3.5vw,3rem)" }}
+              style={{ color: "rgba(28,28,28,0.62)", maxWidth: "48ch", marginBottom: "clamp(1.8rem,3.5vw,3rem)" }}
             >
               Every engagement begins with insight, is guided by strategy, executed with precision and evaluated for impact. We build reputation, credibility and cultural relevance for the organisations shaping Africa&apos;s future.
             </motion.p>
 
             {/* Insight · Strategy · Impact — icon pillars */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: "flex", flexWrap: "wrap", gap: "clamp(1.2rem,3vw,2.4rem)", marginBottom: "clamp(1.8rem,3.5vw,2.6rem)" }}
             >
               {PILLARS.map(({ Icon, label, note }) => (
@@ -123,16 +138,16 @@ export default function FeatureBand() {
                   <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", borderRadius: "14px", border: "1px solid rgba(117,0,6,0.2)", background: "rgba(117,0,6,0.06)", color: "#750006" }}>
                     <Icon size={22} weight="light" />
                   </span>
-                  <span style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.95rem", letterSpacing: "0.02em", textTransform: "uppercase", color: "#1a1a1a" }}>{label}</span>
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(26,26,26,0.55)" }}>{note}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.95rem", letterSpacing: "0.02em", textTransform: "uppercase", color: "#1c1c1c" }}>{label}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(28,28,28,0.55)" }}>{note}</span>
                 </div>
               ))}
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.42, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.74, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
             >
               <Button href="/#services" variant="primary" magnetic cursor="Expertise">Explore our expertise</Button>
@@ -140,11 +155,11 @@ export default function FeatureBand() {
             </motion.div>
           </div>
 
-          {/* RIGHT: animation slot (awaiting new Canva animation) + CTA */}
+          {/* RIGHT: animation slot + CTA */}
           <motion.div
-            initial={{ opacity: 0, x: 32 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.95, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, x: 48, y: 20 }}
+            animate={{ opacity: 1, x: 0, y: 0 }}
+            transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(1.4rem,3vw,2.2rem)", justifyContent: "center" }}
           >
             {/* Hero animation — loops 1.4s → end */}

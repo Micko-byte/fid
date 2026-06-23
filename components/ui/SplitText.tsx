@@ -103,12 +103,8 @@ const SplitText: React.FC<SplitTextProps> = ({
     { dependencies: [text, delay, duration, splitType, threshold, rootMargin, fontsLoaded], scope: ref }
   );
 
-  const Tag = tag as React.ElementType;
-  return (
-    <Tag ref={ref} style={{ textAlign, wordWrap: "break-word", willChange: "transform, opacity", ...style }} className={`split-parent ${className}`}>
-      {text}
-    </Tag>
-  );
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return React.createElement(tag as any, { ref, style: { textAlign, wordWrap: "break-word", willChange: "transform, opacity", ...style }, className: `split-parent ${className}` }, text);
 };
 
 export default SplitText;

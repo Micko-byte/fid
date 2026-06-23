@@ -23,11 +23,11 @@ export default function About() {
       id="about"
       className="fid-section"
       style={{
-        backgroundColor: "#FFFFFF",
-        color: "#1a1a1a",
-        ["--ink" as string]: "#1a1a1a",
-        ["--ink-soft" as string]: "rgba(26,26,26,0.66)",
-        ["--hairline" as string]: "rgba(26,26,26,0.12)",
+        backgroundColor: "#f5f2ec",
+        color: "#1c1c1c",
+        ["--ink" as string]: "#1c1c1c",
+        ["--ink-soft" as string]: "rgba(28,28,28,0.66)",
+        ["--hairline" as string]: "rgba(28,28,28,0.12)",
       }}
     >
       <div ref={ref} className="section-shell">
@@ -155,7 +155,7 @@ export default function About() {
           aspect-ratio: 16 / 10;
           border-radius: 10px;
           overflow: hidden;
-          border: 1px solid rgba(26,26,26,0.08);
+          border: 1px solid rgba(28,28,28,0.08);
           box-shadow: 0 24px 70px rgba(38,0,0,0.12);
           margin: 0 auto;
           background: #f4f0ec;

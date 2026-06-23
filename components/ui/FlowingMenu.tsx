@@ -214,7 +214,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         )}
         <span
           style={{
-            fontFamily: "var(--font-heading, 'Oswald')",
+            fontFamily: "var(--font-heading)",
             fontWeight: 600,
             textTransform: "uppercase",
             fontSize: "clamp(1.5rem, 3.8vw, 3.2rem)",
@@ -266,7 +266,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
                 style={{
                   whiteSpace: "nowrap",
                   textTransform: "uppercase",
-                  fontFamily: "var(--font-heading, 'Oswald')",
+                  fontFamily: "var(--font-heading)",
                   fontWeight: 600,
                   fontSize: "clamp(1.5rem, 3.8vw, 3.2rem)",
                   lineHeight: 1,

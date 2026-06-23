@@ -26,7 +26,7 @@ export default function IntroLoader() {
         <motion.div
           role="presentation"
           className="fixed inset-0 z-[10000] overflow-hidden"
-          style={{ backgroundColor: "#FFFFFF", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.6rem" }}
+          style={{ backgroundColor: "#f5f2ec", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1.6rem" }}
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }}
@@ -39,7 +39,7 @@ export default function IntroLoader() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "rgba(26,26,26,0.5)" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "rgba(28,28,28,0.5)" }}
           >
             Insight. Strategy. Impact.
           </motion.p>

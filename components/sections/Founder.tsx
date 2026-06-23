@@ -18,8 +18,8 @@ export default function Founder() {
       ref={sectionRef}
       id="founder"
       style={{
-        backgroundColor: "#FFFFFF",
-        color: "#1a1a1a",
+        backgroundColor: "#f5f2ec",
+        color: "#1c1c1c",
         paddingTop: "clamp(5.5rem, 12vw, 11rem)",
         paddingBottom: "clamp(5.5rem, 12vw, 11rem)",
         position: "relative",
@@ -32,7 +32,7 @@ export default function Founder() {
         style={{
           position: "absolute", top: "50%", right: "-2%",
           transform: "translateY(-50%)",
-          fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600,
+          fontFamily: "var(--font-heading)", fontWeight: 600,
           fontSize: "clamp(14rem, 34vw, 28rem)",
           color: "rgba(117,0,6,0.05)", lineHeight: 0.8,
           pointerEvents: "none", userSelect: "none", zIndex: 0,
@@ -72,7 +72,7 @@ export default function Founder() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.08 }}
           >
-            <div style={{ height: "clamp(360px, 46vw, 560px)", backgroundColor: "#FFFFFF", position: "relative", overflow: "hidden" }}>
+            <div style={{ height: "clamp(360px, 46vw, 560px)", backgroundColor: "#f5f2ec", position: "relative", overflow: "hidden" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/illustrations/founder-portrait.png"
@@ -88,7 +88,7 @@ export default function Founder() {
               initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.75, delay: 0.14 }}
-              style={{ fontFamily: "var(--font-heading, 'Oswald')", fontWeight: 600, color: "#1a1a1a", fontSize: "clamp(2.6rem, 6vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.01em", marginTop: "1.4rem", textTransform: "uppercase" }}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 600, color: "#1c1c1c", fontSize: "clamp(2.6rem, 6vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.01em", marginTop: "1.4rem", textTransform: "uppercase" }}
             >
               <TextRoll>Farida Idris</TextRoll>
             </motion.div>
@@ -106,7 +106,7 @@ export default function Founder() {
               initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
               animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
               transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontStyle: "italic", color: "#1a1a1a", fontSize: "clamp(1.4rem, 2.7vw, 2.1rem)", lineHeight: 1.34, letterSpacing: "-0.01em", marginTop: "2.4rem", maxWidth: "34ch" }}
+              style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontStyle: "italic", color: "#1c1c1c", fontSize: "clamp(1.4rem, 2.7vw, 2.1rem)", lineHeight: 1.34, letterSpacing: "-0.01em", marginTop: "2.4rem", maxWidth: "34ch" }}
             >
               <span style={{ color: "#750006", fontStyle: "normal" }}>&ldquo;</span>
               <span style={{ display: "inline-block", maxWidth: "34ch" }}>
@@ -117,7 +117,7 @@ export default function Founder() {
                   falloff="gaussian"
                   fromFontVariationSettings="'wght' 350, 'opsz' 16"
                   toFontVariationSettings="'wght' 900, 'opsz' 42"
-                  style={{ fontFamily: 'var(--font-heading, var(--font-heading))', fontWeight: 500, letterSpacing: "-0.01em", textTransform: "none", lineHeight: 1.28, color: "#1a1a1a" }}
+                  style={{ fontFamily: 'var(--font-heading)', fontWeight: 500, letterSpacing: "-0.01em", textTransform: "none", lineHeight: 1.28, color: "#1c1c1c" }}
                 />
               </span>
               <span style={{ color: "#750006", fontStyle: "normal" }}>&rdquo;</span>
@@ -127,7 +127,7 @@ export default function Founder() {
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.42 }}
-              style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.15vw,1rem)", lineHeight: 1.7, color: "rgba(26,26,26,0.6)", marginTop: "2rem", maxWidth: "48ch" }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.15vw,1rem)", lineHeight: 1.7, color: "rgba(28,28,28,0.6)", marginTop: "2rem", maxWidth: "48ch" }}
             >
               A communications strategist, entrepreneur and brand architect with more than a decade operating at the intersection of media, business, culture and public engagement across African markets. In 2010 she founded FID Public Relations Ltd, which has since evolved into FID &amp; Co.
             </motion.p>

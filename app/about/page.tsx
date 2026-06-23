@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
+import OrbitalRings from "@/components/graphics/OrbitalRings";
 
 
 
@@ -60,7 +61,7 @@ function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#FFFFFF" }}
+      style={{ backgroundColor: "#f5f2ec" }}
     >
       {/* White background, no gradient */}
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full flex items-center justify-between">
@@ -104,12 +105,59 @@ function PageHero() {
   
 }
 
+function WhoWeAre() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
+  return (
+    <section style={{ backgroundColor: "#f5f2ec", paddingTop: "clamp(5rem,10vw,9rem)", paddingBottom: "clamp(5rem,10vw,9rem)" }}>
+      <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6 }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006", marginBottom: "1.5rem" }}
+        >
+          Who we are
+        </motion.p>
+        <motion.h2
+          data-skew
+          initial={{ opacity: 0, y: 32 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.4rem,6vw,5.2rem)", lineHeight: 1, letterSpacing: "-0.03em", color: "#1c1c1c", maxWidth: "18ch", marginBottom: "clamp(2rem,4vw,3.5rem)" }}
+        >
+          A communications firm built for Africa&apos;s moment.
+        </motion.h2>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "clamp(1.5rem,3vw,2.5rem)" }}>
+          {[
+            { title: "Founded in Nairobi", body: "We began in Kenya and grew our practice across East Africa, building relationships with institutions, brands and governments." },
+            { title: "Pan-African perspective", body: "Our work spans more than 8 African markets — we understand how culture, politics and commerce interact differently in each context." },
+            { title: "Integrated practice", body: "We don't separate PR from strategy or digital from experiential. Every engagement draws on the full range of our disciplines." },
+          ].map((item, i) => (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.15 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              style={{ padding: "clamp(1.5rem,2.5vw,2.2rem)", borderRadius: "12px", border: "1px solid rgba(28,28,28,0.08)", background: "rgba(255,255,255,0.55)" }}
+            >
+              <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "#750006", marginBottom: "0.75rem" }}>{item.title}</h3>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.65, color: "rgba(28,28,28,0.65)" }}>{item.body}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Philosophy() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#1C1C1C" }}>
+    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#260000" }}>
       <OrbitalRings color="#C7AC9F" opacity={0.07} className="absolute inset-0 w-full h-full" />
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#750006" }}>
@@ -154,7 +202,7 @@ function OurApproach() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#FFFFFF" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#f5f2ec" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#750006" }}>
           How we work
@@ -177,7 +225,7 @@ function OurApproach() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
               className="py-10 pr-0 md:pr-16 border-t"
-              style={{ borderColor: "rgba(92,60,44,0.1)" }}
+              style={{ borderColor: "rgba(117,0,6,0.1)" }}
             >
               <h3
                 className="font-heading mb-4"
@@ -190,7 +238,7 @@ function OurApproach() {
               </p>
             </motion.div>
           ))}
-          <div className="border-t col-span-2" style={{ borderColor: "rgba(92,60,44,0.1)" }} />
+          <div className="border-t col-span-2" style={{ borderColor: "rgba(117,0,6,0.1)" }} />
         </div>
       </div>
     </section>
@@ -272,7 +320,7 @@ function Markets() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#FFFFFF" }}>
+    <section className="py-24 md:py-40" style={{ backgroundColor: "#f5f2ec" }}>
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#750006" }}>
           African footprint
@@ -295,7 +343,7 @@ function Markets() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.4, delay: i * 0.06 }}
               className="border-r border-b px-8 py-6"
-              style={{ borderColor: "rgba(92,60,44,0.1)" }}
+              style={{ borderColor: "rgba(117,0,6,0.1)" }}
             >
               <p
                 className="font-heading"
@@ -340,7 +388,7 @@ function CTA() {
             <Link
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#FFFFFF", color: "#750006", letterSpacing: "0.05em" }}
+              style={{ backgroundColor: "#f5f2ec", color: "#750006", letterSpacing: "0.05em" }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
             >

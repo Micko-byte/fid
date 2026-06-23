@@ -1,442 +1,498 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import ScrollVideo from "@/components/ui/ScrollVideo";
 
-const services = [
+/* ── Circle geometry ── */
+const SVG_SIZE = 280;
+const CX = 140;
+const CY = 140;
+const R = 118;
+const TICK_N = 80;
+
+type Tick = { x1: number; y1: number; x2: number; y2: number; weight: number; opacity: number };
+
+const TICKS: Tick[] = Array.from({ length: TICK_N }, (_, i) => {
+  const angle = (i / TICK_N) * 360;
+  const rad = (angle * Math.PI) / 180;
+  const long = i % 10 === 0;
+  const med = i % 5 === 0;
+  const inner = R - (long ? 22 : med ? 13 : 7);
+  return {
+    x1: CX + inner * Math.cos(rad),
+    y1: CY + inner * Math.sin(rad),
+    x2: CX + R * Math.cos(rad),
+    y2: CY + R * Math.sin(rad),
+    weight: long ? 1.4 : med ? 0.9 : 0.55,
+    opacity: long ? 0.55 : med ? 0.38 : 0.22,
+  };
+});
+
+function pos(angleDeg: number, r = R) {
+  const rad = (angleDeg * Math.PI) / 180;
+  return { x: CX + r * Math.cos(rad), y: CY + r * Math.sin(rad) };
+}
+
+/* ── Service definitions ── */
+const SERVICES = [
   {
     num: "01",
-    title: "Strategic Communications & PR",
+    lines: ["Strategic", "Communications"],
     slug: "strategic-communications",
-    image: "/illustrations/svc-strategic-comms.png",
-    video: "/illustrations/svc-strategic-comms.mp4",
-    description: "Building reputation through strategic storytelling and media relations.",
-    points: ["Media relations", "Reputation & narrative", "Crisis & issues"],
+    description: "Reputation, narrative and media relations at scale.",
+    cw: {
+      speed: 48,
+      dots: [
+        { angle: 22,  color: "#750006", r: 9 },
+        { angle: 88,  color: "#d98038", r: 7 },
+        { angle: 152, color: "#f5f2ec", r: 8 },
+        { angle: 215, color: "#750006", r: 6 },
+        { angle: 278, color: "#d9ab88", r: 9 },
+        { angle: 338, color: "#d98038", r: 7 },
+      ],
+    },
+    ccw: {
+      speed: 68,
+      dots: [
+        { angle: 55,  color: "#d9ab88", r: 7 },
+        { angle: 180, color: "#f5f2ec", r: 6 },
+        { angle: 305, color: "#750006", r: 8 },
+      ],
+    },
   },
   {
     num: "02",
-    title: "Media Management & Buying",
+    lines: ["Media", "Management"],
     slug: "media-management",
-    image: "/illustrations/svc-media-mgmt-b.png",
-    video: "/illustrations/svc-media-mgmt.mp4",
-    description: "Amplifying reach through targeted media planning and buying.",
-    points: ["Media planning", "Buying & negotiation", "Performance tracking"],
+    description: "Media planning, buying and performance tracking.",
+    cw: {
+      speed: 55,
+      dots: [
+        { angle: 40,  color: "#d98038", r: 8 },
+        { angle: 100, color: "#750006", r: 9 },
+        { angle: 165, color: "#d9ab88", r: 7 },
+        { angle: 230, color: "#f5f2ec", r: 8 },
+        { angle: 295, color: "#750006", r: 6 },
+        { angle: 355, color: "#d98038", r: 9 },
+      ],
+    },
+    ccw: {
+      speed: 75,
+      dots: [
+        { angle: 75,  color: "#f5f2ec", r: 6 },
+        { angle: 195, color: "#d98038", r: 7 },
+        { angle: 315, color: "#d9ab88", r: 8 },
+      ],
+    },
   },
   {
     num: "03",
-    title: "Influencer, Creator & Talent",
+    lines: ["Digital &", "Influencer"],
     slug: "influencer-creator",
-    image: "/illustrations/svc-influencer.png",
-    video: "/illustrations/svc-influencer.mp4",
-    description: "Connecting brands with Africa's most influential voices.",
-    points: ["Talent matching", "Creator campaigns", "Cultural relevance"],
+    description: "Creator campaigns and always-on social strategy.",
+    cw: {
+      speed: 62,
+      dots: [
+        { angle: 10,  color: "#f5f2ec", r: 7 },
+        { angle: 72,  color: "#750006", r: 9 },
+        { angle: 138, color: "#d98038", r: 8 },
+        { angle: 200, color: "#d9ab88", r: 7 },
+        { angle: 265, color: "#750006", r: 9 },
+        { angle: 325, color: "#d98038", r: 6 },
+      ],
+    },
+    ccw: {
+      speed: 80,
+      dots: [
+        { angle: 45,  color: "#d9ab88", r: 8 },
+        { angle: 170, color: "#750006", r: 6 },
+        { angle: 290, color: "#f5f2ec", r: 7 },
+      ],
+    },
   },
   {
     num: "04",
-    title: "Digital Strategy & Social Media",
+    lines: ["Digital Strategy", "& Social"],
     slug: "digital-strategy",
-    image: "/illustrations/svc-digital-strategy.png",
-    video: "/illustrations/svc-digital-strategy.mp4",
-    description: "Driving engagement through digital-first strategies and content.",
-    points: ["Content & social", "Always-on strategy", "Community growth"],
+    description: "Digital-first storytelling and community growth.",
+    cw: {
+      speed: 52,
+      dots: [
+        { angle: 30,  color: "#d9ab88", r: 8 },
+        { angle: 95,  color: "#f5f2ec", r: 7 },
+        { angle: 155, color: "#750006", r: 9 },
+        { angle: 218, color: "#d98038", r: 8 },
+        { angle: 282, color: "#d9ab88", r: 7 },
+        { angle: 345, color: "#750006", r: 9 },
+      ],
+    },
+    ccw: {
+      speed: 72,
+      dots: [
+        { angle: 62,  color: "#d98038", r: 7 },
+        { angle: 188, color: "#d9ab88", r: 8 },
+        { angle: 308, color: "#750006", r: 6 },
+      ],
+    },
   },
   {
     num: "05",
-    title: "Experiential Marketing & Events",
+    lines: ["Experiential", "Marketing"],
     slug: "experiential-marketing",
-    image: "/illustrations/svc-experiential.png",
-    video: "/illustrations/svc-experiential.mp4",
-    description: "Creating immersive brand moments that leave lasting impressions.",
-    points: ["Activations & events", "Brand worlds", "Live experiences"],
+    description: "Immersive brand moments and live activations.",
+    cw: {
+      speed: 58,
+      dots: [
+        { angle: 18,  color: "#d98038", r: 9 },
+        { angle: 80,  color: "#d9ab88", r: 7 },
+        { angle: 142, color: "#750006", r: 8 },
+        { angle: 205, color: "#f5f2ec", r: 9 },
+        { angle: 268, color: "#d98038", r: 7 },
+        { angle: 330, color: "#750006", r: 8 },
+      ],
+    },
+    ccw: {
+      speed: 78,
+      dots: [
+        { angle: 50,  color: "#f5f2ec", r: 7 },
+        { angle: 175, color: "#750006", r: 8 },
+        { angle: 300, color: "#d9ab88", r: 6 },
+      ],
+    },
   },
 ];
 
-function ServiceRow({
-  service,
+/* ── Radar circle ── */
+function RadarCircle({
+  svc,
   index,
 }: {
-  service: (typeof services)[number];
+  svc: (typeof SERVICES)[number];
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
-  const illoLeft = index % 2 === 0;
-  const ease = [0.16, 1, 0.3, 1] as const;
+  const inView = useInView(ref, { once: true, margin: "-10% 0px" });
+
+  const cwDots  = svc.cw.dots.map(d => ({ ...d, ...pos(d.angle) }));
+  const ccwDots = svc.ccw.dots.map(d => ({ ...d, ...pos(d.angle) }));
 
   return (
-    <div
+    <motion.div
       ref={ref}
-      style={{
-        position: "relative",
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        columnGap: "clamp(2rem, 6vw, 6rem)",
-        alignItems: "center",
-      }}
-      className="svc-row"
+      initial={{ opacity: 0, scale: 0.92 }}
+      animate={inView ? { opacity: 1, scale: 1 } : {}}
+      transition={{ duration: 1, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
+      style={{ position: "relative", flexShrink: 0 }}
+      className="radar-wrap"
     >
-      <motion.div
-        initial={{ opacity: 0, y: 28 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.9, ease }}
-        style={{
-          position: "relative",
-          gridColumn: illoLeft ? "1 / 2" : "2 / 3",
-          gridRow: 1,
-        }}
-        className="svc-illo-col"
+      <Link
+        href={`/services/${svc.slug}`}
+        style={{ display: "block", textDecoration: "none" }}
+        aria-label={svc.lines.join(" ")}
       >
-        <div
-          style={{
-            position: "relative",
-            width: "100%",
-            aspectRatio: "1 / 1",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
+        <svg
+          viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
+          width={SVG_SIZE}
+          height={SVG_SIZE}
+          className="radar-svg"
+          aria-hidden="true"
         >
-          <div
-            style={{
-              position: "relative",
-              width: "92%",
-              height: "92%",
-          borderRadius: "10px",
-              overflow: "hidden",
-              background: "transparent",
-            }}
-          >
-            <ScrollVideo
-              src={service.video}
-              poster={service.image}
-              style={{
-                position: "absolute",
-                inset: 0,
-                width: "100%",
-                height: "100%",
-                objectFit: "contain",
-                mixBlendMode: "multiply",
-                filter: "saturate(1.02) contrast(1.04)",
-              }}
+          {/* ── Main ring ── */}
+          <circle
+            cx={CX} cy={CY} r={R}
+            fill="none"
+            stroke="rgba(245,242,236,0.14)"
+            strokeWidth="1"
+          />
+
+          {/* ── Inner ring echo ── */}
+          <circle
+            cx={CX} cy={CY} r={R * 0.72}
+            fill="none"
+            stroke="rgba(245,242,236,0.05)"
+            strokeWidth="0.7"
+          />
+
+          {/* ── Tick marks ── */}
+          {TICKS.map((t, i) => (
+            <line
+              key={i}
+              x1={t.x1} y1={t.y1} x2={t.x2} y2={t.y2}
+              stroke={`rgba(245,242,236,${t.opacity})`}
+              strokeWidth={t.weight}
+              strokeLinecap="round"
             />
-          </div>
-        </div>
-      </motion.div>
+          ))}
 
-      <div
-        style={{
-          position: "relative",
-          gridColumn: illoLeft ? "2 / 3" : "1 / 2",
-          gridRow: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-        className="svc-text-col"
-      >
-        <motion.span
-          aria-hidden
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.05, ease }}
-          style={{
-            position: "absolute",
-            top: "-0.35em",
-            left: illoLeft ? "-0.06em" : "auto",
-            right: illoLeft ? "auto" : "-0.06em",
-            fontFamily: 'var(--font-heading, var(--font-heading))',
-            fontWeight: 700,
-            fontSize: "clamp(7rem, 16vw, 13rem)",
-            lineHeight: 0.8,
-            color: "rgba(117,0,6,0.07)",
-            letterSpacing: "-0.02em",
-            pointerEvents: "none",
-            userSelect: "none",
-            zIndex: 0,
-          }}
-          className="svc-watermark"
-        >
-          {service.num}
-        </motion.span>
-
-        <div style={{ position: "relative", zIndex: 1 }}>
-          <motion.span
-            initial={{ opacity: 0, y: 18 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.12, ease }}
+          {/* ── CW dot group ── */}
+          <g
             style={{
-              color: "#750006",
-              marginBottom: "0.9rem",
-            }}
-            className="type-eyebrow"
-          >
-            {service.num} - Expertise
-          </motion.span>
-
-          <motion.h3
-            initial={{ opacity: 0, y: 22 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.18, ease }}
-            className="type-h3"
-            style={{
-              color: "#260000",
-              margin: 0,
-              maxWidth: "16ch",
+              transformOrigin: `${CX}px ${CY}px`,
+              animation: `radar-cw-${index} ${svc.cw.speed}s linear infinite`,
             }}
           >
-            {service.title}
-          </motion.h3>
-
-          <motion.p
-            initial={{ opacity: 0, y: 22 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.26, ease }}
-            style={{
-              color: "rgba(33,27,24,0.62)",
-              maxWidth: "40ch",
-              marginTop: "1.1rem",
-              marginBottom: 0,
-            }}
-            className="type-body"
-          >
-            {service.description}
-          </motion.p>
-
-          <motion.ul
-            initial={{ opacity: 0, y: 22 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.34, ease }}
-            style={{
-              listStyle: "none",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: "0.6rem 0.8rem",
-              padding: 0,
-              margin: "1.6rem 0 0",
-            }}
-          >
-            {service.points.map((p) => (
-              <li
-                key={p}
-                style={{
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.74rem",
-                  fontWeight: 500,
-                  letterSpacing: "0.04em",
-                  textTransform: "uppercase",
-                  color: "#750006",
-                  border: "1px solid rgba(117,0,6,0.25)",
-                  borderRadius: "999px",
-                  padding: "0.45rem 0.95rem",
-                  background: "rgba(117,0,6,0.04)",
-                  whiteSpace: "nowrap",
-                }}
-              >
-                {p}
-              </li>
+            {cwDots.map((d, i) => (
+              <g key={i}>
+                <circle cx={d.x} cy={d.y} r={d.r + 3} fill={d.color} opacity={0.18} />
+                <circle cx={d.x} cy={d.y} r={d.r} fill={d.color} />
+              </g>
             ))}
-          </motion.ul>
+          </g>
 
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.42, ease }}
-            style={{ marginTop: "2rem" }}
+          {/* ── CCW dot group ── */}
+          <g
+            style={{
+              transformOrigin: `${CX}px ${CY}px`,
+              animation: `radar-ccw-${index} ${svc.ccw.speed}s linear infinite`,
+            }}
           >
-            <Link
-              href={`/services/${service.slug}`}
-              className="svc-explore"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.6rem",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.78rem",
-                fontWeight: 600,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                color: "#260000",
-                textDecoration: "none",
-                transition: "gap 0.3s ease, color 0.3s ease",
-              }}
-            >
-              Explore
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </Link>
-          </motion.div>
-        </div>
-      </div>
-    </div>
+            {ccwDots.map((d, i) => (
+              <g key={i}>
+                <circle cx={d.x} cy={d.y} r={d.r + 2} fill={d.color} opacity={0.2} />
+                <circle cx={d.x} cy={d.y} r={d.r} fill={d.color} />
+              </g>
+            ))}
+          </g>
+
+          {/* ── Center label ── */}
+          <g>
+            {svc.lines.map((line, li) => (
+              <text
+                key={li}
+                x={CX}
+                y={CY - ((svc.lines.length - 1) * 13) + li * 26}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill="rgba(245,242,236,0.95)"
+                fontSize="18"
+                fontFamily="var(--font-heading)"
+                fontWeight="600"
+                letterSpacing="-0.01em"
+              >
+                {line}
+              </text>
+            ))}
+          </g>
+
+          {/* ── Center dot ── */}
+          <circle cx={CX} cy={CY + 32} r={2.5} fill="rgba(245,242,236,0.4)" />
+        </svg>
+
+        {/* ── Hover ring glow ── */}
+        <span className="radar-ring-glow" aria-hidden="true" />
+      </Link>
+
+      {/* ── Keyframe styles per circle ── */}
+      <style>{`
+        @keyframes radar-cw-${index} {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        @keyframes radar-ccw-${index} {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(-360deg); }
+        }
+      `}</style>
+    </motion.div>
   );
 }
 
+/* ── Section ── */
 export default function Services() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <>
-      <style>{`
-        .svc-explore:hover { gap: 1rem !important; color: #750006 !important; }
-      `}</style>
+    <section
+      id="services"
+      style={{
+        position: "relative",
+        overflow: "hidden",
+        backgroundColor: "#260000",
+        paddingTop: "clamp(4rem,9vw,7rem)",
+        paddingBottom: "clamp(4rem,9vw,8rem)",
+      }}
+    >
+      {/* Ambient glow */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(117,0,6,0.22) 0%, transparent 70%)" }} />
+      <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.8 }} />
 
-      <section
-        id="services"
+      {/* ── Header ── */}
+      <div
+        ref={ref}
         style={{
+          maxWidth: "1320px",
+          margin: "0 auto",
+          paddingLeft: "clamp(1.5rem,5vw,6rem)",
+          paddingRight: "clamp(1.5rem,5vw,6rem)",
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "space-between",
+          gap: "2rem",
+          marginBottom: "clamp(3rem,7vw,5rem)",
           position: "relative",
-          overflow: "hidden",
-          backgroundColor: "#FFFFFF",
-          color: "#211b18",
+          zIndex: 2,
         }}
-        className="fid-section"
       >
-        <div
-          ref={ref}
-          className="section-shell"
-          style={{
-            position: "relative",
-            zIndex: 1,
-          }}
-        >
-          <div className="fid-editorial-head">
-            <span className="fid-section-num">02</span>
-            <div>
-              <motion.span
-                initial={{ opacity: 0, y: 12 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                className="type-eyebrow"
-                style={{ color: "#750006" }}
-              >
-                What we do
-              </motion.span>
-
-              <motion.h2
-                initial={{ opacity: 0, y: 24 }}
-                animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="type-h2"
-                style={{ color: "#1a1a1a", marginTop: "0.8rem", maxWidth: "14ch" }}
-              >
-                Our Expertise
-              </motion.h2>
-            </div>
-
-            <Link
-              href="/#contact"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "0.6rem",
-                fontFamily: "var(--font-body)",
-                fontSize: "0.74rem",
-                letterSpacing: "0.16em",
-                textTransform: "uppercase",
-                color: "rgba(33,27,24,0.6)",
-                fontWeight: 500,
-                whiteSpace: "nowrap",
-                transition: "color 0.3s",
-                textDecoration: "none",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
-              onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(33,27,24,0.6)")}
-            >
-              All services
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
-                <path d="M5 12h14M13 6l6 6-6 6" />
-              </svg>
-            </Link>
-          </div>
-
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              maxWidth: "62ch",
-              color: "rgba(33,27,24,0.6)",
-              marginBottom: "clamp(3rem, 6vw, 5rem)",
-            }}
-            className="type-body"
-          >
-            FID &amp; Co. is a 360 degree communications partner - bringing strategic
-            counsel, cultural fluency and cut-through creativity to deliver ideas
-            that move audiences, shape perception and earn lasting credibility
-            across Africa.
-          </motion.p>
-
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              flexDirection: "column",
-              gap: "clamp(5rem, 9vw, 8rem)",
-            }}
-            className="svc-rows"
-          >
-            <div
-              aria-hidden
-              className="svc-spine"
-              style={{
-                position: "absolute",
-                top: "2%",
-                bottom: "2%",
-                left: "50%",
-                width: "1px",
-                transform: "translateX(-50%)",
-                background:
-                  "linear-gradient(to bottom, transparent 0%, rgba(117,0,6,0.22) 12%, rgba(117,0,6,0.22) 88%, transparent 100%)",
-                zIndex: 0,
-              }}
-            />
-
-            {services.map((service, i) => (
-              <ServiceRow key={service.slug} service={service} index={i} />
-            ))}
-          </div>
-
+        <div>
           <motion.p
             initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            style={{
-              textAlign: "center",
-              fontFamily: 'var(--font-heading, var(--font-heading))',
-              fontStyle: "italic",
-              fontWeight: 400,
-              fontSize: "clamp(1.3rem, 3vw, 2.2rem)",
-              color: "rgba(92,60,44,0.78)",
-              letterSpacing: "0.01em",
-              marginTop: "clamp(5rem, 9vw, 8rem)",
-              marginBottom: 0,
-            }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.9rem" }}
           >
-            Insight. Strategy. Impact.
+            What we do
           </motion.p>
+          <motion.h2
+            data-skew
+            initial={{ opacity: 0, y: 28 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+            style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.8rem,6vw,5.2rem)", lineHeight: 0.94, letterSpacing: "-0.03em", color: "#f5f2ec", maxWidth: "12ch", margin: 0 }}
+          >
+            Our Expertise
+          </motion.h2>
         </div>
 
-        <style>{`
-          @media (max-width: 880px) {
-            .svc-spine { display: none; }
-            .svc-row { grid-template-columns: 1fr !important; }
-            .svc-illo-col {
-              grid-column: 1 / 2 !important;
-              grid-row: 1 !important;
-              margin-bottom: 1.8rem;
-            }
-            .svc-text-col {
-              grid-column: 1 / 2 !important;
-              grid-row: 2 !important;
-            }
-            .svc-illo-col .svc-illo-inner { max-width: 420px; margin: 0 auto; }
-          }
-        `}</style>
-      </section>
-    </>
+        <motion.div
+          initial={{ opacity: 0, x: 20 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          style={{ flexShrink: 0, paddingTop: "0.25rem" }}
+        >
+          <Link
+            href="/services"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.6rem",
+              fontFamily: "var(--font-body)",
+              fontSize: "0.76rem",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              fontWeight: 700,
+              color: "#f5f2ec",
+              border: "1px solid rgba(245,242,236,0.3)",
+              padding: "0.75rem 1.4rem",
+              borderRadius: "999px",
+              textDecoration: "none",
+              transition: "background 0.3s, border-color 0.3s",
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = "rgba(245,242,236,0.1)"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.6)"; }}
+            onMouseLeave={e => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.3)"; }}
+          >
+            Explore all
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+          </Link>
+        </motion.div>
+      </div>
+
+      {/* ── Circles row ── */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 2,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          overflowX: "auto",
+          overflowY: "visible",
+          paddingLeft: "clamp(1rem,3vw,3rem)",
+          paddingRight: "clamp(1rem,3vw,3rem)",
+          scrollbarWidth: "none",
+        }}
+        className="radar-row"
+      >
+        {SERVICES.map((svc, i) => (
+          <RadarCircle key={svc.slug} svc={svc} index={i} />
+        ))}
+      </div>
+
+      {/* ── Descriptors row ── */}
+      <div
+        style={{
+          maxWidth: "1320px",
+          margin: "clamp(2.5rem,5vw,4rem) auto 0",
+          paddingLeft: "clamp(1.5rem,5vw,6rem)",
+          paddingRight: "clamp(1.5rem,5vw,6rem)",
+          display: "grid",
+          gridTemplateColumns: "repeat(5, 1fr)",
+          gap: "clamp(1rem,2vw,2rem)",
+          position: "relative",
+          zIndex: 2,
+        }}
+        className="radar-desc-grid"
+      >
+        {SERVICES.map((svc, i) => (
+          <motion.div
+            key={svc.slug}
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-5%" }}
+            transition={{ duration: 0.6, delay: i * 0.07 }}
+            style={{ textAlign: "center" }}
+          >
+            <Link
+              href={`/services/${svc.slug}`}
+              style={{ textDecoration: "none", display: "block" }}
+            >
+              <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.5rem" }}>
+                {svc.num}
+              </span>
+              <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(245,242,236,0.72)", transition: "color 0.25s" }}
+                onMouseEnter={e => ((e.target as HTMLElement).style.color = "#f5f2ec")}
+                onMouseLeave={e => ((e.target as HTMLElement).style.color = "rgba(245,242,236,0.72)")}
+              >
+                {svc.description}
+              </span>
+            </Link>
+          </motion.div>
+        ))}
+      </div>
+
+      <style>{`
+        .radar-row { scrollbar-width: none; }
+        .radar-row::-webkit-scrollbar { display: none; }
+
+        .radar-wrap { position: relative; }
+        .radar-wrap + .radar-wrap { margin-left: clamp(0.8rem, 2vw, 1.5rem); }
+
+        @keyframes radar-hover-spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        .radar-svg {
+          display: block;
+          transition: filter 0.5s ease;
+        }
+        .radar-wrap:hover .radar-svg {
+          filter: drop-shadow(0 0 28px rgba(217,128,56,0.35));
+          animation: radar-hover-spin 8s linear infinite;
+        }
+
+        .radar-ring-glow {
+          position: absolute;
+          inset: 0;
+          border-radius: 50%;
+          pointer-events: none;
+          opacity: 0;
+          background: radial-gradient(circle, rgba(117,0,6,0.2) 0%, transparent 70%);
+          transition: opacity 0.5s ease;
+        }
+        .radar-wrap:hover .radar-ring-glow { opacity: 1; }
+
+        @media (max-width: 900px) {
+          .radar-row { justify-content: flex-start; padding-bottom: 1rem; }
+          .radar-wrap + .radar-wrap { margin-left: 0.6rem; }
+          .radar-desc-grid { grid-template-columns: 1fr 1fr !important; }
+          .radar-desc-grid > div:last-child { grid-column: 1 / -1; }
+        }
+        @media (max-width: 580px) {
+          .radar-desc-grid { grid-template-columns: 1fr !important; }
+          .radar-desc-grid > div:last-child { grid-column: auto; }
+        }
+      `}</style>
+    </section>
   );
 }

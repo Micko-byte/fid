@@ -93,7 +93,7 @@ export default function ServiceDetailClient({ service }: Props) {
   const inView = useInView(bodyRef, { once: true, margin: "-60px" });
 
   return (
-    <div style={{ backgroundColor: "#ffffff", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#f5f2ec", minHeight: "100vh" }}>
 
       {/* ── Top navigation — Clase bcn style ── */}
       <nav style={{

@@ -103,7 +103,7 @@ export function MorphingDialogClose({ className }: { className?: string }) {
       onClick={() => setIsOpen(false)}
       aria-label="Close"
       className={className}
-      style={{ position: "absolute", top: "0.9rem", right: "0.9rem", width: "32px", height: "32px", borderRadius: "999px", border: "none", background: "rgba(0,0,0,0.06)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#1a1a1a" }}
+      style={{ position: "absolute", top: "0.9rem", right: "0.9rem", width: "32px", height: "32px", borderRadius: "999px", border: "none", background: "rgba(0,0,0,0.06)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#1c1c1c" }}
     >
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 6l12 12M18 6L6 18" /></svg>
     </button>

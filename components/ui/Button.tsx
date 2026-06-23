@@ -44,7 +44,7 @@ function hoverIn(variant: Variant, el: HTMLElement) {
   el.style.gap = "0.9rem";
   if (variant === "primary") el.style.backgroundColor = "#5e2410";
   if (variant === "outline") { el.style.backgroundColor = WINE; el.style.color = GOLD; el.style.borderColor = WINE; }
-  if (variant === "ghost") el.style.color = "#1a1a1a";
+  if (variant === "ghost") el.style.color = "#1c1c1c";
 }
 function hoverOut(variant: Variant, el: HTMLElement) {
   el.style.gap = variant === "ghost" ? "0.6rem" : "0.6rem";

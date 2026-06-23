@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type ElementType } from "react";
+import React, { useEffect, useMemo, useRef, useState, type ElementType } from "react";
 
 interface TextTypeProps {
   text: string | string[];
@@ -83,10 +83,9 @@ export default function TextType({
     return () => clearTimeout(timer);
   }, [currentSentence, deleting, initialDelay, visible]);
 
-  return (
-    <Component ref={ref as never} className={`inline-flex items-center ${className}`}>
-      <span>{displayed}</span>
-      {showCursor ? <span style={{ marginLeft: "0.15em", opacity: 0.8 }}>{cursorCharacter}</span> : null}
-    </Component>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  return React.createElement(Component as any, { ref, className: `inline-flex items-center ${className}` },
+    React.createElement("span", null, displayed),
+    showCursor ? React.createElement("span", { style: { marginLeft: "0.15em", opacity: 0.8 } }, cursorCharacter) : null
   );
 }

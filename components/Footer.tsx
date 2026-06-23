@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
+import FidLogo from "@/components/ui/FidLogo";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -17,10 +18,11 @@ export default function Footer() {
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(4rem,8vw,6rem)" }}>
         <div className="ft-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "clamp(2rem,5vw,4rem)" }}>
           <div className="ft-brand">
-            {/* Logo — directly on the orange footer, no background chip */}
-            <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", alignItems: "center" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/fid-logo.png" alt="FID & Co. — Insight. Strategy. Impact." style={{ height: "108px", width: "auto", display: "block" }} />
+            <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", flexDirection: "column", gap: "6px", textDecoration: "none" }}>
+              <FidLogo variant="light" style={{ height: "68px", width: "auto" }} />
+              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.52rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(245,242,236,0.7)", fontWeight: 600, whiteSpace: "nowrap" }}>
+                Insight · Strategy · Impact
+              </span>
             </Link>
             <p style={{ color: "rgba(245,242,236,0.72)", fontSize: "0.88rem", lineHeight: 1.6, maxWidth: "34ch", marginTop: "1.2rem", fontFamily: "var(--font-body)" }}>
               Strategic Communications &amp; Brand Experiences Across Africa.
@@ -58,7 +60,7 @@ export default function Footer() {
       </div>
 
       {/* ── Giant kinetic wordmark (subtle, on orange) ── */}
-      <motion.div aria-hidden style={{ x: wordX, position: "relative", zIndex: 1, textAlign: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(7rem,30vw,28rem)", lineHeight: 0.72, letterSpacing: 0, color: "rgba(245,242,236,0.1)", whiteSpace: "nowrap", marginTop: "clamp(1.5rem,4vw,3rem)", marginBottom: "-0.08em", userSelect: "none" }}>
+      <motion.div aria-hidden style={{ x: wordX, position: "relative", zIndex: 1, textAlign: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(7rem,30vw,28rem)", lineHeight: 0.72, letterSpacing: 0, color: "rgba(245,242,236,0.28)", whiteSpace: "nowrap", marginTop: "clamp(1.5rem,4vw,3rem)", marginBottom: "-0.08em", userSelect: "none", WebkitTextStroke: "1px rgba(245,242,236,0.38)" }}>
         FID &amp; CO.
       </motion.div>
 
