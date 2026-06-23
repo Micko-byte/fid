@@ -11,6 +11,8 @@ export interface OwnedPlatform {
   partnerships: string[];
   /** Featured partners (Suhba primarily, others left empty for now) */
   partners?: { name: string; role: string; note?: string }[];
+  /** Photo gallery — Google Drive direct URLs or local /public paths */
+  gallery?: string[];
   image: string;
   accent: string;
 }
@@ -77,7 +79,12 @@ export const platforms: OwnedPlatform[] = [
       { name: "Allso Beauty", role: "Beauty Partner" },
       { name: "Dessert Galore", role: "Experience Partner" },
     ],
-    image: "/photos/editorial/cultural-festival.jpg",
+    gallery: [
+      "https://drive.google.com/uc?export=view&id=1QJWYQrw8Mp23GWX74GxbIfpDvTdTDzNw",
+      "https://drive.google.com/uc?export=view&id=1S7b4cBLVjDGcXpciryLbCk82So7hAFoT",
+      "https://drive.google.com/uc?export=view&id=1IVusjkarHXndjXoSTQ7UwxVvj9y4Qz3p",
+    ],
+    image: "/illustrations/suhba-festival.png",
     accent: "#750006",
   },
   {

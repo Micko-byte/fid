@@ -78,6 +78,7 @@ export const projects: Project[] = [
     years: "2024–2026",
     title: "Digital & Communications Agency",
     desc: "Official digital and communications agency for LC Waikiki Africa across multiple Sub-Saharan markets. Delivering locally resonant storytelling while maintaining global brand alignment — simultaneously managing Kenya, Uganda and Zambia.",
+    body: "FID & Co. served as the official digital and communications agency for LC Waikiki Africa, supporting the brand across multiple Sub-Saharan markets. Our mandate focused on delivering locally relevant yet globally aligned storytelling, ensuring consistency with global brand standards while adapting to diverse African audiences. As part of our digital delivery, FID & Co. integrated AI into content production to scale creative output across markets — developing AI-generated muses and virtual models to showcase collections across multiple African audiences, enabling faster turnarounds, cost-efficient production and future-ready fashion storytelling.",
     scope: [
       "Digital content strategy and creation",
       "Social media management across markets",
@@ -157,6 +158,7 @@ export const projects: Project[] = [
     years: "2023",
     title: "Africa Forum on Displacements — Accra, Ghana",
     desc: "Communications and media engagement for the Private Sector Forum on Displaced Persons held during the Africa Forum on Displacements, Accra. Coordinated multilateral media access across multiple African markets.",
+    body: "In 2023, FID & Co. partnered with The Amahoro Coalition and UNHCR to support communications and media engagement for the Private Sector Forum on Displaced Persons, held during the Africa Forum on Displacements in Accra, Ghana. This high-level forum brought together governments, private sector leaders, development partners and humanitarian organisations to advance dialogue on private-sector solutions for displaced populations across Africa. FID & Co.'s role was to ensure the forum achieved continental visibility, narrative clarity and stakeholder resonance — particularly around the role of business in supporting refugee livelihoods and inclusive growth. The engagement reflects our capability to operate within complex, multi-stakeholder environments, balancing institutional messaging, donor sensitivities and public interest.",
     scope: [
       "Strategic communications support for the forum",
       "Media engagement and interview coordination across multiple African markets",
@@ -174,6 +176,7 @@ export const projects: Project[] = [
     years: "2025",
     title: "Strategic Communications & Internal Alignment",
     desc: "Strategic communications and internal alignment across healthcare facilities for one of Kenya's leading networks of hospitals and clinics. Built visual stories that reinforce institutional trust and care standards.",
+    body: "FID & Co. worked with Columbia Africa Healthcare Ltd to support strategic communications and internal alignment across its healthcare facilities. Our engagement focused on strengthening how the organisation communicates its services, expertise and patient-centred approach to both internal stakeholders and the wider public. By translating complex healthcare services into clear, accessible and reassuring narratives, FID & Co. supported Columbia Africa in enhancing stakeholder confidence and reinforcing its reputation as a trusted healthcare provider. This work demonstrates our ability to operate effectively within highly regulated, sensitive sectors where accuracy, tone and credibility are critical.",
     scope: [
       "Internal communications video profiles for hospitals and clinics",
       "Digital display content for healthcare facilities",
@@ -181,22 +184,6 @@ export const projects: Project[] = [
     ],
     impact: "Enhanced stakeholder confidence and reinforced Columbia Africa's reputation as a trusted healthcare provider.",
     color: "#D98038",
-  },
-  {
-    slug: "wrc-safari-rally",
-    client: "WRC Safari Rally",
-    sector: "Sports & Tourism",
-    years: "2022",
-    title: "Corporate Sponsorship Breakfast",
-    desc: "Strategic communications and event support for the WRC Safari Rally Corporate Sponsorship Breakfast. Curated a high-value guest list and positioned the event to secure corporate buy-in ahead of one of motorsport's most iconic fixtures.",
-    scope: [
-      "Identification and curation of potential corporate sponsors",
-      "Strategic guest list development (150+ CEOs and decision-makers)",
-      "Event positioning and stakeholder engagement",
-      "Media support and visibility",
-    ],
-    impact: "Mobilised corporate support ahead of the global motorsport event, reinforcing Kenya's position on the international rally calendar.",
-    color: "#D9AB88",
   },
   {
     slug: "allso-beauty",

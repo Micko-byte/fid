@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { ArrowUpLeft } from "@phosphor-icons/react";
+import { ArrowUpLeft, CheckCircle, Handshake } from "@phosphor-icons/react";
 import Button from "@/components/ui/Button";
 import Footer from "@/components/Footer";
 import SplitText from "@/components/ui/SplitText";
@@ -120,6 +120,47 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
           </div>
         </section>
 
+        {/* ── Photo gallery (if platform has images) ── */}
+        {p.gallery && p.gallery.length > 0 && (
+          <section style={{ paddingBottom: "clamp(3rem,6vw,5rem)" }}>
+            <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: p.gallery.length === 1 ? "1fr" : p.gallery.length === 2 ? "1fr 1fr" : "1.4fr 1fr 1fr",
+                gap: "clamp(0.75rem,1.5vw,1.2rem)",
+              }} className="plat-gallery-grid">
+                {p.gallery.map((src, i) => (
+                  <motion.div
+                    key={src}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-8% 0px" }}
+                    transition={{ duration: 0.75, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+                    className="platform-feature-media"
+                    style={{
+                      borderRadius: "14px",
+                      overflow: "hidden",
+                      height: i === 0 ? "clamp(320px,44vw,540px)" : "clamp(220px,28vw,360px)",
+                      background: "#e8e0d8",
+                      position: "relative",
+                    }}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt={`${p.name} — image ${i + 1}`}
+                      loading={i === 0 ? "eager" : "lazy"}
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+                    />
+                    <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(38,0,0,0.45) 100%)", pointerEvents: "none" }} />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+            <style>{`.plat-gallery-grid { @media (max-width:900px) { grid-template-columns: 1fr 1fr !important; } @media (max-width:580px) { grid-template-columns: 1fr !important; } }`}</style>
+          </section>
+        )}
+
         {/* ── Intro paragraph ── */}
         <section style={{ paddingBottom: "clamp(5rem,10vw,8rem)" }}>
           <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
@@ -147,9 +188,9 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                       initial={{ opacity: 0, x: -16 }}
                       animate={highlightsInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
-                      style={{ display: "flex", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "rgba(28,28,28,0.75)" }}
+                      style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "rgba(28,28,28,0.75)" }}
                     >
-                      <span style={{ color: p.accent }}>—</span> {h}
+                      <CheckCircle size={18} weight="light" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
                     </motion.li>
                   ))}
                 </ul>
@@ -166,9 +207,9 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                       initial={{ opacity: 0, x: -16 }}
                       animate={partnershipsInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
-                      style={{ display: "flex", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "rgba(28,28,28,0.75)" }}
+                      style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "rgba(28,28,28,0.75)" }}
                     >
-                      <span style={{ color: p.accent }}>—</span> {h}
+                      <Handshake size={18} weight="light" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
                     </motion.li>
                   ))}
                 </ul>

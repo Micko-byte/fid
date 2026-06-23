@@ -3,14 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { TextRoll } from "@/components/core/text-roll";
+import { Timer, ChartBar, Buildings, GlobeHemisphereEast } from "@phosphor-icons/react";
 
 const BLUE = "#d98038";
 
 const stats = [
-  { value: 15, suffix: "+", label: "Years shaping reputation" },
-  { value: 250, suffix: "+", label: "Campaigns delivered" },
-  { value: 80, suffix: "+", label: "Brands & institutions" },
-  { value: 12, suffix: "+", label: "African markets" },
+  { value: 15, suffix: "+", label: "Years shaping reputation", Icon: Timer },
+  { value: 250, suffix: "+", label: "Campaigns delivered", Icon: ChartBar },
+  { value: 80, suffix: "+", label: "Brands & institutions", Icon: Buildings },
+  { value: 12, suffix: "+", label: "African markets", Icon: GlobeHemisphereEast },
 ];
 
 function Counter({ value, suffix, run }: { value: number; suffix: string; run: boolean }) {
@@ -73,6 +74,9 @@ export default function StatsBand() {
               transition={{ duration: 0.7, delay: 0.12 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem" }}
             >
+              <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px", borderRadius: "14px", border: "1px solid rgba(245,242,236,0.2)", background: "rgba(245,242,236,0.08)", marginBottom: "0.4rem" }}>
+                <s.Icon size={22} weight="light" color={BLUE} />
+              </span>
               <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: "clamp(3rem,7vw,5.5rem)", lineHeight: 0.9, letterSpacing: "-0.03em", color: "#f5f2ec" }}>
                 <Counter value={s.value} suffix={s.suffix} run={inView} />
               </span>

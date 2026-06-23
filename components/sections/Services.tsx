@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
+import { Megaphone, Newspaper, ShareNetwork, ChartLineUp, Confetti } from "@phosphor-icons/react";
 
 /* ── Circle geometry ── */
 const SVG_SIZE = 280;
@@ -41,6 +42,7 @@ const SERVICES = [
     lines: ["Strategic", "Communications"],
     slug: "strategic-communications",
     description: "Reputation, narrative and media relations at scale.",
+    Icon: Megaphone,
     cw: {
       speed: 48,
       dots: [
@@ -66,6 +68,7 @@ const SERVICES = [
     lines: ["Media", "Management"],
     slug: "media-management",
     description: "Media planning, buying and performance tracking.",
+    Icon: Newspaper,
     cw: {
       speed: 55,
       dots: [
@@ -91,6 +94,7 @@ const SERVICES = [
     lines: ["Digital &", "Influencer"],
     slug: "influencer-creator",
     description: "Creator campaigns and always-on social strategy.",
+    Icon: ShareNetwork,
     cw: {
       speed: 62,
       dots: [
@@ -116,6 +120,7 @@ const SERVICES = [
     lines: ["Digital Strategy", "& Social"],
     slug: "digital-strategy",
     description: "Digital-first storytelling and community growth.",
+    Icon: ChartLineUp,
     cw: {
       speed: 52,
       dots: [
@@ -141,6 +146,7 @@ const SERVICES = [
     lines: ["Experiential", "Marketing"],
     slug: "experiential-marketing",
     description: "Immersive brand moments and live activations.",
+    Icon: Confetti,
     cw: {
       speed: 58,
       dots: [
@@ -439,6 +445,11 @@ export default function Services() {
               href={`/services/${svc.slug}`}
               style={{ textDecoration: "none", display: "block" }}
             >
+              {svc.Icon && (
+                <span style={{ display: "flex", justifyContent: "center", marginBottom: "0.6rem" }}>
+                  <svc.Icon size={28} weight="light" color="#d98038" />
+                </span>
+              )}
               <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.5rem" }}>
                 {svc.num}
               </span>

@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { ArrowUpRight, InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
 import FidLogo from "@/components/ui/FidLogo";
 
 export default function Footer() {
@@ -41,14 +41,26 @@ export default function Footer() {
 
           <div>
             <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#f5f2ec", marginBottom: "1.4rem", fontWeight: 700, fontFamily: "var(--font-body)" }}>Connect</h5>
-            <a href="tel:+254797690609" style={{ display: "block", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>+254 797 690 609</a>
-            <a href="https://www.fidco.africa" style={{ display: "block", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "1.2rem", textDecoration: "none" }}>www.fidco.africa</a>
-            {[{ name: "Instagram", href: "https://instagram.com/fidpr/" }, { name: "Facebook", href: "https://facebook.com/profile.php?id=100070330230678" }, { name: "YouTube", href: "https://youtube.com/@FIDPR" }].map((s) => (
-              <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" style={{ display: "inline-flex", alignItems: "center", gap: "0.3rem", color: "rgba(245,242,236,0.6)", fontSize: "0.78rem", letterSpacing: "0.04em", marginRight: "1rem", textDecoration: "none", transition: "color 0.3s, transform 0.3s" }}
-                onMouseEnter={(e) => { e.currentTarget.style.color = "#d98038"; e.currentTarget.style.transform = "scale(1.1)"; }} onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(245,242,236,0.6)"; e.currentTarget.style.transform = "scale(1)"; }}>
-                {s.name}<ArrowUpRight size={12} />
-              </a>
-            ))}
+            <a href="tel:+254797690609" style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>
+              <Phone size={15} weight="light" color="#d98038" />+254 797 690 609
+            </a>
+            <a href="https://www.fidco.africa" style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "1.4rem", textDecoration: "none" }}>
+              <Globe size={15} weight="light" color="#d98038" />www.fidco.africa
+            </a>
+            <div style={{ display: "flex", gap: "0.75rem" }}>
+              {[
+                { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
+                { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
+                { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
+              ].map(({ Icon, href, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  style={{ width: "38px", height: "38px", border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", color: "rgba(245,242,236,0.6)", textDecoration: "none", transition: "all 0.25s" }}
+                  onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d98038"; e.currentTarget.style.borderColor = "#d98038"; e.currentTarget.style.color = "#260000"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; e.currentTarget.style.color = "rgba(245,242,236,0.6)"; }}>
+                  <Icon size={18} weight="light" />
+                </a>
+              ))}
+            </div>
           </div>
         </div>
 

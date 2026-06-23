@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import type { Project } from "@/components/lib/projects";
 import { getProjectGallery } from "@/lib/work-gallery";
+import { ArrowCircleRight, TrendUp } from "@phosphor-icons/react";
 
 interface Props {
   project: Project;
@@ -342,14 +343,14 @@ export default function WorkDetailClient({ project }: Props) {
                     display: "flex", alignItems: "flex-start", gap: "0.75rem",
                   }}
                 >
-                  <span style={{ color: "#d98038", flexShrink: 0, marginTop: "0.1rem" }}>—</span>
+                  <ArrowCircleRight size={18} weight="light" color="#d98038" style={{ flexShrink: 0, marginTop: "2px" }} />
                   {item}
                 </motion.li>
               ))}
             </ul>
 
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.9rem", fontWeight: 700 }}>
-              Impact
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.9rem", fontWeight: 700, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+              <TrendUp size={16} weight="light" color="#d98038" /> Impact
             </p>
             <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "clamp(1.05rem,1.7vw,1.4rem)", lineHeight: 1.35, color: "#750006" }}>
               {project.impact}

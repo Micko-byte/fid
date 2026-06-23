@@ -25,15 +25,8 @@ export default function LenisTextSkew() {
         const skew = Math.min(Math.max(v * 0.22, -8), 8);
         const scale = 1 - Math.abs(v) * 0.0008;
 
-        document.querySelectorAll<HTMLElement>("[data-skew], .lenis-skew").forEach((el) => {
-          gsap.to(el, {
-            skewY: skew,
-            scaleY: Math.max(scale, 0.97),
-            duration: 0.8,
-            ease: "power3.out",
-            overwrite: "auto",
-          });
-        });
+        // Skew disabled — replaced with scroll reveal effects
+        void skew; void scale;
       }
 
       raf = requestAnimationFrame(tick);

@@ -7,6 +7,7 @@ import GradientHeading from "@/components/ui/GradientHeading";
 import OrbitalRings from "@/components/graphics/OrbitalRings";
 import BorderGlow from "@/components/ui/BorderGlow";
 import CornerBrackets from "@/components/ui/CornerBrackets";
+import { FileText, Wrench, RocketLaunch } from "@phosphor-icons/react";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -215,9 +216,9 @@ export default function CTABanner() {
                 }}
               >
                 {[
-                  { label: "Brief", copy: "Tell us the mission." },
-                  { label: "Build", copy: "We map the idea." },
-                  { label: "Launch", copy: "We get it moving." },
+                  { label: "Brief", copy: "Tell us the mission.", Icon: FileText },
+                  { label: "Build", copy: "We map the idea.", Icon: Wrench },
+                  { label: "Launch", copy: "We get it moving.", Icon: RocketLaunch },
                 ].map((item) => (
                   <div
                     key={item.label}
@@ -228,6 +229,7 @@ export default function CTABanner() {
                       borderRadius: "14px",
                     }}
                   >
+                    <item.Icon size={18} weight="light" color="#d9ab88" style={{ marginBottom: "0.5rem", display: "block" }} />
                     <div
                       style={{
                         fontFamily: "var(--font-body)",
