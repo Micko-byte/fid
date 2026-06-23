@@ -14,9 +14,10 @@ export default function CTABanner() {
 
   return (
     <section
+      className="section-red"
       style={{
         backgroundColor: "#750006",
-        color: "#FFFFFF",
+        color: "#f5f2ec",
         position: "relative",
         overflow: "hidden",
         paddingTop: "clamp(4.5rem, 9vw, 8rem)",
@@ -77,7 +78,7 @@ export default function CTABanner() {
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
             style={{
               fontFamily: "var(--font-heading)", fontWeight: 500,
-              color: "#FFFFFF",
+              color: "#f5f2ec",
               fontSize: "clamp(2.6rem, 6.5vw, 5.6rem)",
               lineHeight: 0.96, letterSpacing: "-0.025em",
               maxWidth: "15ch",
@@ -104,12 +105,13 @@ export default function CTABanner() {
               style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
-                backgroundColor: "#FFFFFF", color: "#750006",
+                backgroundColor: "#f5f2ec", color: "#750006",
+                borderRadius: "14px",
                 fontFamily: "var(--font-body)", textDecoration: "none",
                 transition: "background 0.3s, color 0.3s",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = "#260000"; e.currentTarget.style.color = "#FFFFFF"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = "#FFFFFF"; e.currentTarget.style.color = "#750006"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = "#260000"; e.currentTarget.style.color = "#f5f2ec"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = "#f5f2ec"; e.currentTarget.style.color = "#750006"; }}
             >
               Book us
             </a>
@@ -119,12 +121,13 @@ export default function CTABanner() {
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 padding: "0.85em 1.7em", fontSize: "0.8rem", letterSpacing: "0.08em",
                 backgroundColor: "transparent",
-                border: "1px solid rgba(255,255,255,0.45)", color: "#FFFFFF",
+                border: "1px solid rgba(245,242,236,0.45)", color: "#f5f2ec",
+                borderRadius: "14px",
                 fontFamily: "var(--font-body)", textDecoration: "none",
                 transition: "border-color 0.3s, color 0.3s",
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.9)"; }}
-              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(255,255,255,0.45)"; }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.9)"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = "rgba(245,242,236,0.45)"; }}
             >
               info@fidco.africa
             </a>
@@ -139,9 +142,9 @@ export default function CTABanner() {
         >
           <BorderGlow
             animated
-            borderRadius={24}
-            backgroundColor="rgba(255,255,255,0.05)"
-            colors={["#d98038", "#C7AC9F", "#FFFFFF"]}
+            borderRadius={14}
+            backgroundColor="rgba(245,242,236,0.05)"
+            colors={["#d98038", "#d9ab88", "#f5f2ec"]}
             fillOpacity={0.22}
             className="cta-visual"
             style={{ height: "100%" }}
@@ -169,7 +172,7 @@ export default function CTABanner() {
               >
                 <OrbitalRings color="#d98038" opacity={0.18} className="absolute inset-0 w-full h-full" />
               </div>
-              <CornerBrackets color="rgba(255,255,255,0.45)" size={24} weight={1.4} inset={12} />
+              <CornerBrackets color="rgba(245,242,236,0.45)" size={24} weight={1.4} inset={12} />
 
               <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "1rem" }}>
                 <div>
@@ -179,7 +182,7 @@ export default function CTABanner() {
                       fontSize: "0.66rem",
                       letterSpacing: "0.22em",
                       textTransform: "uppercase",
-                      color: "#C7AC9F",
+                      color: "#d9ab88",
                       marginBottom: "0.5rem",
                     }}
                   >
@@ -191,14 +194,14 @@ export default function CTABanner() {
                       fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
                       lineHeight: 1,
                       letterSpacing: "-0.02em",
-                      color: "#FFFFFF",
+                      color: "#f5f2ec",
                       maxWidth: "10ch",
                     }}
                   >
                     Share your brief and we&apos;ll shape the route.
                   </p>
                 </div>
-                <BrandMark size={64} spin={false} color="#FFFFFF" accent="#C7AC9F" />
+                <BrandMark size={64} spin={false} color="#f5f2ec" accent="#d9ab88" />
               </div>
 
               <div
@@ -220,9 +223,9 @@ export default function CTABanner() {
                     key={item.label}
                     style={{
                       padding: "0.85rem 0.8rem",
-                      backgroundColor: "rgba(255,255,255,0.06)",
-                      border: "1px solid rgba(255,255,255,0.12)",
-                      borderRadius: "1px",
+                      backgroundColor: "rgba(245,242,236,0.06)",
+                      border: "1px solid rgba(245,242,236,0.12)",
+                      borderRadius: "14px",
                     }}
                   >
                     <div
@@ -231,7 +234,7 @@ export default function CTABanner() {
                         fontSize: "0.62rem",
                         letterSpacing: "0.22em",
                         textTransform: "uppercase",
-                        color: "#C7AC9F",
+                        color: "#d9ab88",
                         marginBottom: "0.45rem",
                       }}
                     >
@@ -242,7 +245,7 @@ export default function CTABanner() {
                         fontFamily: "var(--font-body)",
                         fontSize: "0.82rem",
                         lineHeight: 1.45,
-                        color: "rgba(255,255,255,0.8)",
+                        color: "rgba(245,242,236,0.8)",
                       }}
                     >
                       {item.copy}

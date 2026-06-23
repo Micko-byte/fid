@@ -13,7 +13,7 @@ export default function Footer() {
   const wordX = useTransform(scrollYProgress, [0, 1], ["-4%", "3%"]);
 
   return (
-    <footer ref={ref} style={{ backgroundColor: "#750006", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #260000" }}>
+    <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#750006", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #260000" }}>
       {/* ── Columns ── */}
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(4rem,8vw,6rem)" }}>
         <div className="ft-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "clamp(2rem,5vw,4rem)" }}>

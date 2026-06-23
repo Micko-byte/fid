@@ -336,6 +336,57 @@ th {
   .radar-wrap + .radar-wrap { margin-left: 0 !important; }
 }
 
+/* ─── Brand section utility classes ──────────────────────────────────── */
+
+.section-light {
+  background-color: #f5f2ec;
+  color: #1c1c1c;
+}
+.section-light .type-eyebrow { color: #750006; }
+.section-light h1,.section-light h2,.section-light h3,.section-light h4 { color: #1c1c1c; }
+.section-light p, .section-light li { color: rgba(28,28,28,0.72); }
+.section-light .brand-btn { background: #750006; color: #f5f2ec; border-radius: 14px; }
+.section-light .brand-btn:hover { background: #260000; }
+.section-light .brand-accent { color: #d98038; }
+
+.section-red {
+  background-color: #750006;
+  color: #f5f2ec;
+}
+.section-red .type-eyebrow { color: #d98038; }
+.section-red h1,.section-red h2,.section-red h3,.section-red h4 { color: #f5f2ec; }
+.section-red p, .section-red li { color: rgba(245,242,236,0.78); }
+.section-red .brand-btn { background: #f5f2ec; color: #750006; border-radius: 14px; }
+.section-red .brand-btn:hover { background: #d9ab88; }
+.section-red .brand-accent { color: #d98038; }
+
+.section-dark {
+  background-color: #1c1c1c;
+  color: #f5f2ec;
+}
+.section-dark .type-eyebrow { color: #d98038; }
+.section-dark h1,.section-dark h2,.section-dark h3,.section-dark h4 { color: #f5f2ec; }
+.section-dark p, .section-dark li { color: rgba(245,242,236,0.72); }
+.section-dark .brand-btn { background: #750006; color: #f5f2ec; border-radius: 14px; }
+.section-dark .brand-btn:hover { background: #260000; }
+.section-dark .brand-accent { color: #d98038; }
+
+.section-orange {
+  background-color: #d98038;
+  color: #260000;
+}
+.section-orange .type-eyebrow { color: #260000; }
+.section-orange h1,.section-orange h2,.section-orange h3,.section-orange h4 { color: #260000; }
+.section-orange p, .section-orange li { color: rgba(38,0,0,0.8); }
+.section-orange .brand-btn { background: #750006; color: #f5f2ec; border-radius: 14px; }
+.section-orange .brand-accent { color: #f5f2ec; }
+
+/* ─── Global border-radius token ─────────────────────────────────────── */
+:root { --radius: 14px; }
+
+/* Replace any remaining gray text */
+.text-muted, [class*="text-gray"], [class*="text-neutral"] { color: rgba(28,28,28,0.6) !important; }
+
 /* ─── Reduced motion ───────────────────────────────────────────────────── */
 
 @media (prefers-reduced-motion: reduce) {

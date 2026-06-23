@@ -51,6 +51,7 @@ export default function FeatureBand() {
   return (
     <section
       id="hero"
+      className="section-light"
       style={{
         backgroundColor: "#f5f2ec",
         color: "#1c1c1c",
@@ -172,7 +173,7 @@ export default function FeatureBand() {
                 playsInline
                 preload="auto"
                 aria-label="Influence through strategic communication — animated"
-                style={{ width: "100%", height: "auto", display: "block", borderRadius: "10px" }}
+                style={{ width: "100%", height: "auto", display: "block", borderRadius: "14px" }}
               />
             </div>
 
@@ -180,7 +181,7 @@ export default function FeatureBand() {
             <div
               style={{
                 background: "#d98038",
-                borderRadius: "10px",
+                borderRadius: "14px",
                 padding: "clamp(2rem,3.5vw,3rem)",
                 color: "#260000",
                 boxShadow: "0 20px 55px rgba(38,0,0,0.15)",

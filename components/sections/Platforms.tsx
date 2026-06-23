@@ -106,7 +106,7 @@ export default function Platforms() {
   const [feature, ...rest] = platforms;
 
   return (
-    <section id="platforms" className="fid-section platforms-section">
+    <section id="platforms" className="fid-section section-light platforms-section">
       <div aria-hidden className="platforms-bg-word">CULTURE</div>
       <div ref={ref} className="section-shell" style={{ position: "relative", zIndex: 1 }}>
         <div className="platforms-head">
@@ -234,7 +234,7 @@ export default function Platforms() {
           content: "";
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(0,0,0,0.04), rgba(0,0,0,0.42));
+          background: linear-gradient(180deg, rgba(28,28,28,0.04), rgba(28,28,28,0.42));
           pointer-events: none;
         }
         .platform-feature-media img,
@@ -254,14 +254,14 @@ export default function Platforms() {
         .platform-feature-copy {
           padding: clamp(1.5rem, 3.4vw, 3rem);
           background: linear-gradient(135deg, rgba(117,0,6,0.98), rgba(38,0,0,0.98));
-          color: #ffffff;
+          color: #f5f2ec;
         }
         .platform-meta-row {
           display: flex;
           align-items: center;
           justify-content: space-between;
           gap: 1rem;
-          color: rgba(255,255,255,0.72);
+          color: rgba(245,242,236,0.72);
           font-family: var(--font-body);
           font-size: 0.72rem;
           letter-spacing: 0.16em;
@@ -276,7 +276,7 @@ export default function Platforms() {
           font-weight: 900;
           letter-spacing: 0;
           text-transform: uppercase;
-          color: #ffffff;
+          color: #f5f2ec;
         }
         .platform-tag {
           margin: clamp(1rem, 2vw, 1.2rem) 0 0;
@@ -291,7 +291,7 @@ export default function Platforms() {
         .platform-desc {
           max-width: 52ch;
           margin: 1rem 0 0;
-          color: rgba(255,255,255,0.76);
+          color: rgba(245,242,236,0.76);
         }
         .platform-link,
         .platform-tile-link {
@@ -299,7 +299,7 @@ export default function Platforms() {
           align-items: center;
           gap: 0.55rem;
           margin-top: clamp(1.2rem, 2.5vw, 2rem);
-          color: #ffffff;
+          color: #f5f2ec;
           font-family: var(--font-body);
           font-size: 0.74rem;
           font-weight: 800;
@@ -319,9 +319,9 @@ export default function Platforms() {
           display: grid;
           grid-template-rows: minmax(220px, 1fr) auto;
           overflow: hidden;
-          border-radius: 10px;
+          border-radius: 14px;
           border: 1px solid rgba(117,0,6,0.1);
-          background: #ffffff;
+          background: #f5f2ec;
           box-shadow: 0 12px 40px rgba(38,0,0,0.08);
         }
         .platform-tile-copy {

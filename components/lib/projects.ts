@@ -1,3 +1,8 @@
+export interface SubProperty {
+  name: string;
+  desc: string;
+}
+
 export interface Project {
   slug: string;
   client: string;
@@ -5,9 +10,11 @@ export interface Project {
   years: string;
   title: string;
   desc: string;
+  body?: string;
   scope: string[];
   impact: string;
-  color?: string; // accent color for hero
+  color?: string;
+  properties?: SubProperty[];
 }
 
 export const projects: Project[] = [
@@ -37,6 +44,7 @@ export const projects: Project[] = [
     years: "2026",
     title: "Continental Urban Development Forum",
     desc: "On-ground experience delivery for the Africa Urban Forum — a high-level continental convening involving the African Union and Kenya's State Department for Housing and Urban Development. Managed a multi-stakeholder environment demanding precision logistics and media coordination.",
+    body: "The Africa Urban Forum brought together heads of state, ministers, urban planners, development finance institutions and civil society from across the continent to shape the future of African cities. FID & Co. was entrusted with audience experience coordination within this high-pressure, high-visibility environment — ensuring every delegate interaction, media moment and logistics touchpoint reflected the gravity of the convening.",
     scope: [
       "Audience experience coordination",
       "Event support within a high-level multi-stakeholder environment",
@@ -89,6 +97,7 @@ export const projects: Project[] = [
     years: "2025–2026",
     title: "Gor Mahia Partnership & Communications Partner",
     desc: "Led communications for the landmark Gor Mahia partnership launch and appointed Official Communications Partner for Kansai Plascon Paints Kenya. Built the brand's narrative around communities, craft and colour.",
+    body: "Kansai Plascon's partnership with Gor Mahia — one of Kenya's most iconic football clubs — was more than a sponsorship. It was a cultural statement. FID & Co. architected the communications strategy around this landmark moment, translating the brand's commitment to colour, community and craft into earned media, digital content and live activation. As the Official Communications Partner, we continue to shape Plascon's narrative presence across corporate and consumer touchpoints.",
     scope: [
       "Strategic communications planning",
       "Brand narrative and messaging refinement",
@@ -107,9 +116,10 @@ export const projects: Project[] = [
     years: "Ongoing",
     title: "Brand Launches & Repositioning",
     desc: "Communications partner across the full Thrive Hospitality Group portfolio — Café NBO, Glam Hotel, Social 8, Chaii Republic and Kingfisher Nest Hotel. Each property required its own distinct voice, audience and launch strategy.",
+    body: "FID & Co. has worked closely with Thrive Hospitality Group across multiple properties, supporting brand launches, repositioning, experiential activations and ongoing communications. Our role has been to ensure each property launches and operates not just as a venue, but as a distinct lifestyle destination with a clear audience, story and visual identity.",
     scope: [
       "Brand positioning and launch strategy",
-      "Influencer and creator engagement",
+      "Influencer and creator engagement (IG & TikTok)",
       "Media hosting and lifestyle PR",
       "Experiential event design and execution",
       "Content strategy for digital platforms",
@@ -117,6 +127,28 @@ export const projects: Project[] = [
     ],
     impact: "Each property launched as a distinct lifestyle destination with a clear audience, story and visual identity.",
     color: "#D9AB88",
+    properties: [
+      {
+        name: "Café NBO",
+        desc: "Supported brand launch and visibility through curated influencer experiences, media engagement and digital storytelling, positioning Café NBO as a contemporary, urban café concept.",
+      },
+      {
+        name: "Glam Hotel – Westlands",
+        desc: "Led rooftop launch events, influencer hosting and lifestyle media engagement, positioning Glam Hotel as a premium lifestyle and nightlife destination in Westlands.",
+      },
+      {
+        name: "Social 8",
+        desc: "Supported ongoing brand experiences, influencer activations and content amplification, reinforcing Social 8's positioning as a social dining and lifestyle space.",
+      },
+      {
+        name: "Chaii Republic",
+        desc: "Delivered concept launch support, influencer engagement and experiential storytelling to introduce Chaii Republic as a modern tea and social culture brand.",
+      },
+      {
+        name: "Kingfisher Nest Hotel",
+        desc: "Led launch activations, media hosting and experiential curation, supporting the hotel's entry into Nairobi's hospitality market with strong visibility and brand recall.",
+      },
+    ],
   },
   {
     slug: "africa-forum-on-displacements",
@@ -165,6 +197,42 @@ export const projects: Project[] = [
     ],
     impact: "Mobilised corporate support ahead of the global motorsport event, reinforcing Kenya's position on the international rally calendar.",
     color: "#D9AB88",
+  },
+  {
+    slug: "allso-beauty",
+    client: "Allso Beauty",
+    sector: "Beauty, Wellness & Lifestyle",
+    years: "2024",
+    title: "Brand Launch & Experiential Campaign",
+    desc: "FID & Co. led the brand launch and experiential campaign for Allso Beauty, introducing the cosmetics brand to the Kenyan market through a curated beauty and influencer experience.",
+    body: "Our role focused on creating a launch moment that combined experiential storytelling, influencer engagement and digital amplification, positioning Allso Beauty within the contemporary beauty and lifestyle space. The launch brought together beauty creators, media and lifestyle influencers, generating strong digital engagement while introducing Allso Beauty to a style-conscious audience.",
+    scope: [
+      "Launch event concept and experiential design",
+      "Influencer and beauty creator engagement",
+      "Media invitations and lifestyle PR support",
+      "Content creation and social media amplification",
+      "Brand storytelling through creator-led content",
+    ],
+    impact: "Successfully introduced Allso Beauty to Kenya's style-conscious audience through a launch moment that drove strong digital engagement and media coverage.",
+    color: "#D9AB88",
+  },
+  {
+    slug: "abyan-salon",
+    client: "Abyan Salon & Spa",
+    sector: "Beauty, Wellness & Lifestyle",
+    years: "2023–2024",
+    title: "Brand Revitalisation",
+    desc: "Brand revitalisation including rebranding, website development, content strategy and digital campaigns, repositioning Abyan as a leading beauty destination.",
+    scope: [
+      "Brand strategy and rebranding",
+      "Website design and development",
+      "Content strategy and production",
+      "Digital campaign execution",
+      "Photography direction and visual identity refresh",
+      "Social media management and community building",
+    ],
+    impact: "Repositioned Abyan Salon & Spa as a leading beauty destination, with a refreshed visual identity and digital presence to match.",
+    color: "#750006",
   },
 ];
 

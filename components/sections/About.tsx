@@ -21,7 +21,7 @@ export default function About() {
     <section
       ref={sectionRef}
       id="about"
-      className="fid-section"
+      className="fid-section section-light"
       style={{
         backgroundColor: "#f5f2ec",
         color: "#1c1c1c",
@@ -153,7 +153,7 @@ export default function About() {
           width: 100%;
           max-width: 560px;
           aspect-ratio: 16 / 10;
-          border-radius: 10px;
+          border-radius: 14px;
           overflow: hidden;
           border: 1px solid rgba(28,28,28,0.08);
           box-shadow: 0 24px 70px rgba(38,0,0,0.12);

@@ -21,9 +21,11 @@ export default function Nav() {
   const [scrolled,  setScrolled]  = useState(false);
 
   useEffect(() => {
-    // ── Detect dark sections behind the nav (no hide on scroll) ──
+    // ── Detect dark/red sections behind the nav ──
+    // Matches sections that have dark or red backgrounds so the nav
+    // can switch to its light-text variant.
     const darkSections = document.querySelectorAll<HTMLElement>(
-      "[data-nav-dark], #platforms, #services, section[style*='background-color: rgb(38, 0, 0)'], section[style*='background-color: #260000']"
+      "#services, #contact, [data-nav-dark], .section-red, .section-dark, footer"
     );
 
     const observers = Array.from(darkSections).map((section) => {

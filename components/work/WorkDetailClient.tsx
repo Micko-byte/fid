@@ -1,58 +1,86 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 import type { Project } from "@/components/lib/projects";
 import { getProjectGallery } from "@/lib/work-gallery";
-import CoolBentoEffect from "@/components/ui/CoolBentoEffect";
 
 interface Props {
   project: Project;
 }
 
-// Placeholder image grid layout — NotReal editorial gallery style
-// Asymmetric two-column grid with sharp-edged rectangles on vellum canvas
-const IMAGE_PLACEHOLDERS = [
-  { aspect: "4/3", colSpan: 2, height: "clamp(300px, 40vw, 520px)" },
-  { aspect: "3/4", colSpan: 1, height: "clamp(280px, 34vw, 480px)" },
-  { aspect: "16/9", colSpan: 1, height: "clamp(200px, 22vw, 320px)" },
-  { aspect: "1/1", colSpan: 1, height: "clamp(220px, 26vw, 360px)" },
-  { aspect: "3/2", colSpan: 1, height: "clamp(220px, 26vw, 360px)" },
-];
-
-function ImagePlaceholder({ index, height, colSpan, offset = false }: {
-  index: number; height: string; colSpan: number; offset?: boolean;
+function GalleryImage({ src, label, index, style }: {
+  src: string; label: string; index: number; style?: React.CSSProperties;
 }) {
+  const [loaded, setLoaded] = useState(false);
+  const [error, setError] = useState(false);
+
   return (
     <div
       style={{
-        gridColumn: `span ${colSpan}`,
-        height,
-        backgroundColor: index % 3 === 0 ? "#e8e8e8" : index % 3 === 1 ? "#d4d4d4" : "#c8c8c8",
         position: "relative",
         overflow: "hidden",
-        marginTop: offset ? "clamp(2rem, 5vw, 5rem)" : 0,
-        flexShrink: 0,
+        borderRadius: "14px",
+        background: "#e8e0d8",
+        ...style,
       }}
     >
-      {/* Grain texture overlay */}
-      <div style={{
+      {!loaded && !error && (
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(135deg, #e8e0d8 0%, #d9cfc5 100%)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "rgba(28,28,28,0.3)", textTransform: "uppercase" }}>
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+      )}
+      {!error && (
+        <img
+          src={src}
+          alt={label}
+          loading={index < 2 ? "eager" : "lazy"}
+          onLoad={() => setLoaded(true)}
+          onError={() => setError(true)}
+          style={{
+            position: "absolute", inset: 0,
+            width: "100%", height: "100%",
+            objectFit: "cover",
+            opacity: loaded ? 1 : 0,
+            transition: "opacity 0.5s ease",
+          }}
+        />
+      )}
+      {error && (
+        <div style={{
+          position: "absolute", inset: 0,
+          background: "linear-gradient(135deg, #f0e8e0 0%, #e0d5c8 100%)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+        }}>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.2em", color: "rgba(28,28,28,0.35)", textTransform: "uppercase" }}>
+            {label}
+          </span>
+        </div>
+      )}
+      <div aria-hidden style={{
         position: "absolute", inset: 0,
-        backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E\")",
-        opacity: 0.6,
+        background: "linear-gradient(180deg, transparent 50%, rgba(38,0,0,0.55) 100%)",
         pointerEvents: "none",
       }} />
-      {/* Index label — editorial metadata */}
       <span style={{
-        position: "absolute",
-        bottom: "1rem",
-        right: "1rem",
-        fontFamily: "'Noto Sans', sans-serif",
-        fontSize: "0.6rem",
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
-        color: "rgba(41,42,44,0.3)",
+        position: "absolute", bottom: "0.9rem", left: "1rem",
+        fontFamily: "var(--font-body)", fontSize: "0.58rem",
+        letterSpacing: "0.18em", textTransform: "uppercase",
+        color: "rgba(245,242,236,0.82)",
+      }}>
+        {label}
+      </span>
+      <span style={{
+        position: "absolute", bottom: "0.9rem", right: "1rem",
+        fontFamily: "var(--font-heading)", fontSize: "0.72rem",
+        color: "rgba(245,242,236,0.45)", fontWeight: 700,
       }}>
         {String(index + 1).padStart(2, "0")}
       </span>
@@ -60,40 +88,41 @@ function ImagePlaceholder({ index, height, colSpan, offset = false }: {
   );
 }
 
-function EditorialImage({ image, index }: { image: { src: string; label: string }; index: number }) {
+function PropertyCard({ name, desc, index }: { name: string; desc: string; index: number }) {
   return (
-    <>
-      <img
-        src={image.src}
-        alt={image.label}
-        loading={index === 0 ? "eager" : "lazy"}
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "linear-gradient(180deg, rgba(0,0,0,0.02) 35%, rgba(0,0,0,0.45) 100%)",
-          pointerEvents: "none",
-        }}
-      />
-      <span
-        style={{
-          position: "absolute",
-          bottom: "1rem",
-          right: "1rem",
-          fontFamily: "'Noto Sans', sans-serif",
-          fontSize: "0.6rem",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "rgba(255,255,255,0.78)",
-          textShadow: "0 1px 8px rgba(0,0,0,0.35)",
-        }}
-      >
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8% 0px" }}
+      transition={{ duration: 0.6, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      style={{
+        borderRadius: "14px",
+        background: "#f5f2ec",
+        border: "1px solid rgba(117,0,6,0.1)",
+        padding: "clamp(1.4rem, 2.5vw, 2rem)",
+      }}
+    >
+      <p style={{
+        fontFamily: "var(--font-body)", fontSize: "0.62rem",
+        letterSpacing: "0.22em", textTransform: "uppercase",
+        color: "#d98038", marginBottom: "0.6rem", fontWeight: 700,
+      }}>
         {String(index + 1).padStart(2, "0")}
-      </span>
-    </>
+      </p>
+      <h4 style={{
+        fontFamily: "var(--font-heading)", fontWeight: 700,
+        fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)", color: "#1c1c1c",
+        marginBottom: "0.8rem", lineHeight: 1.1,
+      }}>
+        {name}
+      </h4>
+      <p style={{
+        fontFamily: "var(--font-body)", fontSize: "0.9rem",
+        lineHeight: 1.65, color: "rgba(28,28,28,0.68)",
+      }}>
+        {desc}
+      </p>
+    </motion.div>
   );
 }
 
@@ -102,412 +131,296 @@ export default function WorkDetailClient({ project }: Props) {
   const galleryRef = useRef<HTMLDivElement>(null);
   const galleryImages = getProjectGallery(project);
   const inView = useInView(bodyRef, { once: true, margin: "-80px" });
-  const { scrollYProgress } = useScroll({
-    target: galleryRef,
-    offset: ["start end", "end start"],
-  });
-
-  const heroY = useTransform(scrollYProgress, [0, 1], ["0vh", "-8vh"]);
-  const leftY = useTransform(scrollYProgress, [0, 1], ["0vh", "-18vh"]);
-  const rightY = useTransform(scrollYProgress, [0, 1], ["0vh", "-12vh"]);
-  const lowerY = useTransform(scrollYProgress, [0, 1], ["0vh", "-10vh"]);
+  const { scrollYProgress } = useScroll({ target: galleryRef, offset: ["start end", "end start"] });
+  const heroY   = useTransform(scrollYProgress, [0, 1], ["0vh", "-8vh"]);
+  const leftY   = useTransform(scrollYProgress, [0, 1], ["0vh", "-18vh"]);
+  const rightY  = useTransform(scrollYProgress, [0, 1], ["0vh", "-12vh"]);
+  const lowerY  = useTransform(scrollYProgress, [0, 1], ["0vh", "-10vh"]);
 
   return (
-    <main style={{ backgroundColor: "#f2f2f2", color: "#292a2c", minHeight: "100vh" }}>
+    <main style={{ backgroundColor: "#f5f2ec", color: "#1c1c1c", minHeight: "100vh" }}>
 
-      {/* ── Top nav strip ── */}
+      {/* ── Sticky back bar ── */}
       <div style={{
-        position: "fixed",
-        top: 0, left: 0, right: 0,
-        zIndex: 100,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        padding: "1.5rem clamp(1.5rem, 5vw, 4rem)",
-        backgroundColor: "rgba(242,242,242,0.92)",
-        backdropFilter: "blur(12px)",
-        WebkitBackdropFilter: "blur(12px)",
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        display: "flex", alignItems: "center", justifyContent: "space-between",
+        padding: "1.1rem clamp(1.5rem,5vw,4rem)",
+        backgroundColor: "rgba(245,242,236,0.94)",
+        backdropFilter: "blur(14px)",
+        borderBottom: "1px solid rgba(117,0,6,0.1)",
       }}>
-        <Link
-          href="/#work"
-          style={{
-            fontFamily: "'Noto Sans', sans-serif",
-            fontSize: "0.75rem",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "#292a2c",
-            textDecoration: "none",
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            borderBottom: "1px solid transparent",
-            transition: "border-color 0.2s",
-          }}
-          onMouseEnter={e => (e.currentTarget.style.borderColor = "#292a2c")}
-          onMouseLeave={e => (e.currentTarget.style.borderColor = "transparent")}
+        <Link href="/#work" style={{
+          fontFamily: "var(--font-body)", fontSize: "0.75rem",
+          letterSpacing: "0.16em", textTransform: "uppercase",
+          color: "#750006", textDecoration: "none",
+          display: "inline-flex", alignItems: "center", gap: "0.5rem",
+          fontWeight: 600,
+        }}
+          onMouseEnter={e => (e.currentTarget.style.color = "#260000")}
+          onMouseLeave={e => (e.currentTarget.style.color = "#750006")}
         >
           ← All work
         </Link>
         <span style={{
-          fontFamily: "'Noto Sans', sans-serif",
-          fontSize: "0.75rem",
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "rgba(41,42,44,0.35)",
+          fontFamily: "var(--font-body)", fontSize: "0.68rem",
+          letterSpacing: "0.2em", textTransform: "uppercase",
+          color: "rgba(28,28,28,0.4)",
         }}>
-          FID &amp; Co.
+          FID &amp; Co. — {project.sector}
         </span>
       </div>
 
-      {/* ── Hero block ── */}
+      {/* ── Hero ── */}
       <div style={{
-        paddingTop: "clamp(6rem, 14vh, 10rem)",
-        paddingLeft: "clamp(1.5rem, 5vw, 5rem)",
-        paddingRight: "clamp(1.5rem, 5vw, 5rem)",
-        paddingBottom: "clamp(3rem, 6vw, 5rem)",
-        borderBottom: "1px solid #292a2c",
-        maxWidth: "1440px",
-        margin: "0 auto",
+        paddingTop: "clamp(5.5rem,12vh,8rem)",
+        paddingLeft: "clamp(1.5rem,5vw,5rem)",
+        paddingRight: "clamp(1.5rem,5vw,5rem)",
+        paddingBottom: "clamp(3rem,6vw,5rem)",
+        borderBottom: "1px solid rgba(117,0,6,0.12)",
+        maxWidth: "1440px", margin: "0 auto",
       }}>
-        {/* Metadata tags */}
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          style={{
-            display: "flex",
-            gap: "0.5rem",
-            marginBottom: "clamp(2rem, 5vw, 3.5rem)",
-            flexWrap: "wrap",
-          }}
-        >
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}
+          style={{ display: "flex", gap: "0.75rem", marginBottom: "clamp(1.5rem,4vw,3rem)", flexWrap: "wrap" }}>
           {[project.sector, project.years].map((tag, i) => (
-            <span
-              key={i}
-              style={{
-                fontFamily: "'Noto Sans', sans-serif",
-                fontSize: "0.7rem",
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                color: "rgba(41,42,44,0.45)",
-              }}
-            >
-              {tag}{i < 1 ? " /" : ""}
+            <span key={i} style={{
+              fontFamily: "var(--font-body)", fontSize: "0.66rem",
+              letterSpacing: "0.2em", textTransform: "uppercase",
+              color: i === 0 ? "#d98038" : "rgba(28,28,28,0.4)",
+              padding: i === 0 ? "0.35em 0.9em" : "0",
+              background: i === 0 ? "rgba(217,128,56,0.12)" : "transparent",
+              borderRadius: "999px", fontWeight: i === 0 ? 700 : 400,
+            }}>
+              {tag}
             </span>
           ))}
         </motion.div>
 
-        {/* Title — ogg/serif display treatment using Oswald as substitute */}
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            fontFamily: "var(--font-heading, 'Oswald', 'Arial Narrow', sans-serif)",
-            fontWeight: 400,
-            fontSize: "clamp(2.8rem, 7vw, 6.5rem)",
-            lineHeight: 1.06,
-            letterSpacing: "-0.036em",
-            color: "#292a2c",
-            maxWidth: "18ch",
+            fontFamily: "var(--font-heading)", fontWeight: 700,
+            fontSize: "clamp(2.4rem,6vw,5.8rem)", lineHeight: 0.96,
+            letterSpacing: "-0.02em", color: "#1c1c1c", maxWidth: "18ch",
           }}
         >
           {project.client}
-          <em style={{ fontStyle: "italic", color: "rgba(41,42,44,0.45)" }}> — {project.title}</em>
         </motion.h1>
-      </div>
 
-      {/* ── Editorial image gallery ── */}
-      <div ref={galleryRef} style={{
-        maxWidth: "1440px",
-        margin: "0 auto",
-        paddingLeft: "clamp(1.5rem, 5vw, 5rem)",
-        paddingRight: "clamp(1.5rem, 5vw, 5rem)",
-        paddingTop: "clamp(3rem, 5vw, 5rem)",
-      }}>
-        {/* First: full-width hero image placeholder */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.15 }}
+        <motion.p
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            y: heroY,
-            width: "100%",
-            height: "clamp(300px, 42vw, 580px)",
-            backgroundColor: "#d6d6d6",
-            position: "relative",
-            overflow: "hidden",
-            marginBottom: "clamp(1rem, 2vw, 1.5rem)",
+            fontFamily: "var(--font-heading)", fontWeight: 400,
+            fontSize: "clamp(1.15rem,2vw,1.75rem)", lineHeight: 1.35,
+            color: "rgba(28,28,28,0.52)", marginTop: "1rem", maxWidth: "52ch",
+            fontStyle: "italic",
           }}
         >
-          <EditorialImage image={galleryImages[0]} index={0} />
-          <span style={{
-            position: "absolute",
-            bottom: "1.5rem",
-            left: "1.5rem",
-            fontFamily: "'Noto Sans', sans-serif",
-            fontSize: "0.6rem",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "rgba(255,255,255,0.82)",
-            textShadow: "0 1px 8px rgba(0,0,0,0.35)",
-          }}>{galleryImages[0].label} / 01</span>
+          {project.title}
+        </motion.p>
+      </div>
+
+      {/* ── Gallery ── */}
+      <div ref={galleryRef} style={{
+        maxWidth: "1440px", margin: "0 auto",
+        paddingLeft: "clamp(1.5rem,5vw,5rem)",
+        paddingRight: "clamp(1.5rem,5vw,5rem)",
+        paddingTop: "clamp(2rem,4vw,3.5rem)",
+      }}>
+        {/* Hero image */}
+        <motion.div
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.9, delay: 0.12 }}
+          style={{ y: heroY, marginBottom: "clamp(0.75rem,1.5vw,1.25rem)" }}
+        >
+          <GalleryImage
+            src={galleryImages[0].src} label={galleryImages[0].label} index={0}
+            style={{ height: "clamp(300px,42vw,560px)" }}
+          />
         </motion.div>
 
-        {/* Two-column asymmetric grid */}
+        {/* Two-column */}
         <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "clamp(0.75rem, 1.5vw, 1.5rem)",
-          marginBottom: "clamp(1rem, 2vw, 1.5rem)",
+          display: "grid", gridTemplateColumns: "1fr 1fr",
+          gap: "clamp(0.75rem,1.5vw,1.25rem)",
+          marginBottom: "clamp(0.75rem,1.5vw,1.25rem)",
         }}>
-          {/* Left — taller, offset down */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.22 }}
-            style={{
-              y: leftY,
-              height: "clamp(280px, 36vw, 500px)",
-              backgroundColor: "#c8c8c8",
-              position: "relative",
-              overflow: "hidden",
-              marginTop: "clamp(2rem, 5vw, 4rem)",
-            }}
+            initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            style={{ y: leftY, marginTop: "clamp(1.5rem,4vw,3.5rem)" }}
           >
-            <EditorialImage image={galleryImages[1]} index={1} />
+            <GalleryImage src={galleryImages[1].src} label={galleryImages[1].label} index={1} style={{ height: "clamp(260px,34vw,480px)" }} />
           </motion.div>
-          {/* Right — shorter */}
           <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.28 }}
-            style={{
-              y: rightY,
-              height: "clamp(200px, 28vw, 380px)",
-              backgroundColor: "#e0e0e0",
-              position: "relative",
-              overflow: "hidden",
-            }}
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.26 }}
+            style={{ y: rightY }}
           >
-            <EditorialImage image={galleryImages[2]} index={2} />
+            <GalleryImage src={galleryImages[2].src} label={galleryImages[2].label} index={2} style={{ height: "clamp(200px,26vw,360px)" }} />
           </motion.div>
         </div>
 
-        {/* Three-column lower row */}
+        {/* Three-column */}
         <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr 1fr",
-          gap: "clamp(0.75rem, 1.5vw, 1.5rem)",
-        }}
-          className="gallery-three-col"
-        >
-          {galleryImages.slice(3, 6).map((image, i) => (
+          display: "grid", gridTemplateColumns: "1fr 1fr 1fr",
+          gap: "clamp(0.75rem,1.5vw,1.25rem)",
+        }} className="gallery-three-col">
+          {galleryImages.slice(3, 6).map((img, i) => (
             <motion.div
-              key={image.src}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.65, delay: 0.32 + i * 0.07 }}
-              style={{
-                y: lowerY,
-                height: "clamp(160px, 22vw, 300px)",
-                backgroundColor: "#d4d4d4",
-                position: "relative",
-                overflow: "hidden",
-                marginTop: i === 1 ? "clamp(1rem, 3vw, 2.5rem)" : 0,
-              }}
+              key={img.src}
+              initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.3 + i * 0.07 }}
+              style={{ y: lowerY, marginTop: i === 1 ? "clamp(1rem,2.5vw,2rem)" : 0 }}
             >
-              <EditorialImage image={image} index={i + 3} />
+              <GalleryImage src={img.src} label={img.label} index={i + 3} style={{ height: "clamp(150px,20vw,280px)" }} />
             </motion.div>
           ))}
         </div>
-      </div>
 
-      {/* ── Vertical running text strip — right edge ── */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          right: "1.25rem",
-          top: "50%",
-          transform: "translateY(-50%) rotate(90deg)",
-          transformOrigin: "center center",
-          fontFamily: "'Noto Sans', sans-serif",
-          fontSize: "0.55rem",
-          letterSpacing: "0.22em",
-          textTransform: "uppercase",
-          color: "rgba(41,42,44,0.18)",
-          pointerEvents: "none",
-          zIndex: 50,
-          whiteSpace: "nowrap",
-        }}
-      >
-        {project.sector} · {project.years} · FID &amp; Co.
+        {/* Extended gallery — images 6+ */}
+        {galleryImages.length > 6 && (
+          <div style={{
+            display: "grid", gridTemplateColumns: "1fr 1fr",
+            gap: "clamp(0.75rem,1.5vw,1.25rem)",
+            marginTop: "clamp(0.75rem,1.5vw,1.25rem)",
+          }} className="gallery-two-col">
+            {galleryImages.slice(6).map((img, i) => (
+              <GalleryImage
+                key={img.src} src={img.src} label={img.label} index={i + 6}
+                style={{ height: "clamp(200px,28vw,380px)" }}
+              />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* ── Body: overview + scope ── */}
-      <div
-        ref={bodyRef}
-        style={{
-          maxWidth: "1440px",
-          margin: "0 auto",
-          paddingLeft: "clamp(1.5rem, 5vw, 5rem)",
-          paddingRight: "clamp(1.5rem, 5vw, 5rem)",
-          paddingTop: "clamp(5rem, 10vw, 8rem)",
-          paddingBottom: "clamp(5rem, 10vw, 8rem)",
-        }}
-      >
-        {/* Two-column layout: description left, metadata right */}
+      <div ref={bodyRef} style={{
+        maxWidth: "1440px", margin: "0 auto",
+        paddingLeft: "clamp(1.5rem,5vw,5rem)",
+        paddingRight: "clamp(1.5rem,5vw,5rem)",
+        paddingTop: "clamp(5rem,10vw,8rem)",
+        paddingBottom: "clamp(5rem,10vw,8rem)",
+      }}>
         <div style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "clamp(3rem, 8vw, 8rem)",
-          borderTop: "1px solid #292a2c",
-          paddingTop: "clamp(2.5rem, 5vw, 4rem)",
-        }}
-          className="work-body-grid"
-        >
+          display: "grid", gridTemplateColumns: "1fr 1fr",
+          gap: "clamp(3rem,8vw,8rem)",
+          borderTop: "1px solid rgba(117,0,6,0.12)",
+          paddingTop: "clamp(2.5rem,5vw,4rem)",
+        }} className="work-body-grid">
+
           {/* Left: description */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p style={{
-              fontFamily: "'Noto Sans', sans-serif",
-              fontSize: "0.7rem",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(41,42,44,0.4)",
-              marginBottom: "1.5rem",
-            }}>Overview</p>
-            <p style={{
-              fontFamily: "var(--font-heading, 'Oswald', 'Arial Narrow', sans-serif)",
-              fontWeight: 400,
-              fontSize: "clamp(1.4rem, 2.4vw, 2rem)",
-              lineHeight: 1.25,
-              letterSpacing: "-0.02em",
-              color: "#292a2c",
-            }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, ease: [0.16,1,0.3,1] }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", marginBottom: "1.2rem", fontWeight: 700 }}>
+              Overview
+            </p>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "clamp(1.3rem,2.2vw,1.9rem)", lineHeight: 1.3, color: "#1c1c1c" }}>
               {project.desc}
             </p>
+            {project.body && (
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.1vw,1rem)", lineHeight: 1.7, color: "rgba(28,28,28,0.68)", marginTop: "1.5rem" }}>
+                {project.body}
+              </p>
+            )}
           </motion.div>
 
           {/* Right: scope + impact */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p style={{
-              fontFamily: "'Noto Sans', sans-serif",
-              fontSize: "0.7rem",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(41,42,44,0.4)",
-              marginBottom: "1.5rem",
-            }}>Scope of work</p>
-            <ul style={{ listStyle: "none", padding: 0, margin: 0, marginBottom: "3rem" }}>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.1, ease: [0.16,1,0.3,1] }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", marginBottom: "1.2rem", fontWeight: 700 }}>
+              Scope of work
+            </p>
+            <ul style={{ listStyle: "none", padding: 0, margin: "0 0 3rem" }}>
               {project.scope.map((item, i) => (
-                <motion.li
-                  key={i}
-                  initial={{ opacity: 0 }}
-                  animate={inView ? { opacity: 1 } : {}}
+                <motion.li key={i}
+                  initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}}
                   transition={{ duration: 0.4, delay: 0.15 + i * 0.04 }}
                   style={{
-                    fontFamily: "'Noto Sans', sans-serif",
-                    fontSize: "0.88rem",
-                    lineHeight: 1.6,
-                    color: "#292a2c",
-                    padding: "0.75rem 0",
-                    borderBottom: "1px solid rgba(41,42,44,0.12)",
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: "0.75rem",
+                    fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.6,
+                    color: "#1c1c1c", padding: "0.75rem 0",
+                    borderBottom: "1px solid rgba(117,0,6,0.1)",
+                    display: "flex", alignItems: "flex-start", gap: "0.75rem",
                   }}
                 >
-                  <span style={{ color: "rgba(41,42,44,0.3)", flexShrink: 0, marginTop: "0.1rem" }}>—</span>
+                  <span style={{ color: "#d98038", flexShrink: 0, marginTop: "0.1rem" }}>—</span>
                   {item}
                 </motion.li>
               ))}
             </ul>
 
-            {/* Impact */}
-            <p style={{
-              fontFamily: "'Noto Sans', sans-serif",
-              fontSize: "0.7rem",
-              letterSpacing: "0.22em",
-              textTransform: "uppercase",
-              color: "rgba(41,42,44,0.4)",
-              marginBottom: "1rem",
-            }}>Impact</p>
-            <p style={{
-              fontFamily: "var(--font-heading, 'Oswald', 'Arial Narrow', sans-serif)",
-              fontWeight: 400,
-              fontSize: "clamp(1.1rem, 1.8vw, 1.5rem)",
-              lineHeight: 1.3,
-              letterSpacing: "-0.015em",
-              color: "#292a2c",
-            }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.9rem", fontWeight: 700 }}>
+              Impact
+            </p>
+            <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "clamp(1.05rem,1.7vw,1.4rem)", lineHeight: 1.35, color: "#750006" }}>
               {project.impact}
             </p>
           </motion.div>
         </div>
 
-        <CoolBentoEffect
-          images={galleryImages}
-          title={`${project.client} visual case-study grid`}
-          className="mt-[clamp(4rem,8vw,7rem)]"
-        />
+        {/* ── Sub-properties (Thrive etc.) ── */}
+        {project.properties && project.properties.length > 0 && (
+          <div style={{ marginTop: "clamp(4rem,8vw,7rem)" }}>
+            <div style={{ borderTop: "1px solid rgba(117,0,6,0.12)", paddingTop: "clamp(2rem,4vw,3.5rem)", marginBottom: "2.5rem" }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.6rem", fontWeight: 700 }}>
+                Properties
+              </p>
+              <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.6rem,3vw,2.8rem)", color: "#1c1c1c", lineHeight: 1 }}>
+                Across the portfolio
+              </h2>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px,1fr))", gap: "clamp(1rem,2vw,1.5rem)" }}>
+              {project.properties.map((prop, i) => (
+                <PropertyCard key={prop.name} name={prop.name} desc={prop.desc} index={i} />
+              ))}
+            </div>
+          </div>
+        )}
 
-        {/* Footer nav */}
+        {/* ── Footer nav ── */}
         <div style={{
-          marginTop: "clamp(4rem, 8vw, 7rem)",
-          borderTop: "1px solid rgba(41,42,44,0.12)",
+          marginTop: "clamp(4rem,8vw,7rem)",
+          borderTop: "1px solid rgba(117,0,6,0.12)",
           paddingTop: "2rem",
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          flexWrap: "wrap",
-          gap: "1rem",
+          display: "flex", justifyContent: "space-between", alignItems: "center",
+          flexWrap: "wrap", gap: "1rem",
         }}>
-          <Link
-            href="/#work"
-            style={{
-              fontFamily: "'Noto Sans', sans-serif",
-              fontSize: "0.8rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#292a2c",
-              textDecoration: "none",
-              borderBottom: "1px solid #292a2c",
-              paddingBottom: "0.15rem",
-            }}
-          >
+          <Link href="/#work" style={{
+            fontFamily: "var(--font-body)", fontSize: "0.8rem",
+            letterSpacing: "0.14em", textTransform: "uppercase",
+            color: "#750006", textDecoration: "none",
+            borderBottom: "1px solid #750006", paddingBottom: "0.15rem", fontWeight: 600,
+          }}>
             ← All projects
           </Link>
-          <Link
-            href="/#contact"
-            style={{
-              fontFamily: "'Noto Sans', sans-serif",
-              fontSize: "0.8rem",
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-              color: "#292a2c",
-              textDecoration: "none",
-              borderBottom: "1px solid #292a2c",
-              paddingBottom: "0.15rem",
-            }}
-          >
+          <Link href="/#contact" style={{
+            display: "inline-flex", alignItems: "center", gap: "0.5rem",
+            background: "#750006", color: "#f5f2ec",
+            fontFamily: "var(--font-body)", fontWeight: 700,
+            fontSize: "0.78rem", letterSpacing: "0.1em", textTransform: "uppercase",
+            padding: "0.8rem 1.8rem", borderRadius: "999px", textDecoration: "none",
+          }}>
             Work with us →
           </Link>
         </div>
       </div>
 
+      {/* Side metadata strip */}
+      <div aria-hidden style={{
+        position: "fixed", right: "1.2rem", top: "50%",
+        transform: "translateY(-50%) rotate(90deg)",
+        transformOrigin: "center center",
+        fontFamily: "var(--font-body)", fontSize: "0.52rem",
+        letterSpacing: "0.22em", textTransform: "uppercase",
+        color: "rgba(117,0,6,0.2)", pointerEvents: "none", zIndex: 50, whiteSpace: "nowrap",
+      }}>
+        {project.sector} · {project.years} · FID &amp; Co.
+      </div>
+
       <style>{`
         @media (max-width: 767px) {
           .gallery-three-col { grid-template-columns: 1fr !important; }
-          .work-body-grid { grid-template-columns: 1fr !important; }
+          .gallery-two-col   { grid-template-columns: 1fr !important; }
+          .work-body-grid    { grid-template-columns: 1fr !important; }
         }
         @media (max-width: 900px) {
           .gallery-three-col { grid-template-columns: 1fr 1fr !important; }

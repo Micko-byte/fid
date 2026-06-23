@@ -63,7 +63,7 @@ export default function BrandFlow() {
   }, []);
 
   return (
-    <section className="fid-section brand-proof" style={{ backgroundColor: "#f5f2ec", position: "relative" }}>
+    <section className="fid-section section-light brand-proof" style={{ backgroundColor: "#f5f2ec", position: "relative" }}>
       {/* Brand texture overlay */}
       <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(ellipse 60% 50% at 0% 100%, rgba(217,128,56,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 100% 0%, rgba(117,0,6,0.06) 0%, transparent 55%)" }} />
       <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.55 }} />
@@ -154,7 +154,7 @@ export default function BrandFlow() {
           left: clamp(1rem, 2vw, 1.4rem);
           bottom: clamp(1rem, 2vw, 1.4rem);
           z-index: 1;
-          color: #FFFFFF;
+          color: #f5f2ec;
         }
         .logo-flow {
           margin-top: clamp(2rem, 5vw, 4rem);
@@ -169,9 +169,9 @@ export default function BrandFlow() {
           display: flex;
           align-items: center;
           justify-content: center;
-          background: rgba(255,255,255,0.78);
+          background: rgba(245,242,236,0.92);
           border: 1px solid rgba(117,0,6,0.08);
-          border-radius: 8px;
+          border-radius: 14px;
           padding: 0.9rem 1.2rem;
         }
         .logo-chip img {

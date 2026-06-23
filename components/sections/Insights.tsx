@@ -32,7 +32,7 @@ export default function Insights() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <section id="insights" className="bg-brand-texture" style={{ paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative" }}>
+    <section id="insights" className="bg-brand-texture section-light" style={{ paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative" }}>
       <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         {/* Header */}
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "1.5rem", marginBottom: "clamp(2.5rem,5vw,4rem)" }}>
@@ -64,7 +64,7 @@ export default function Insights() {
                   style={{ display: "flex", alignItems: "center", gap: "clamp(1rem,2vw,2rem)", padding: "clamp(1.1rem,2.2vw,1.7rem) 0", borderTop: "1px solid rgba(117,0,6,0.18)" }}
                 >
                   <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(28,28,28,0.4)", flexShrink: 0, width: "5.5rem" }}>{a.date}</span>
-                  <MorphingDialogImage src={a.img} alt={a.title} style={{ width: "72px", height: "56px", objectFit: "cover", borderRadius: "6px", flexShrink: 0 }} />
+                  <MorphingDialogImage src={a.img} alt={a.title} style={{ width: "72px", height: "56px", objectFit: "cover", borderRadius: "14px", flexShrink: 0 }} />
                   <MorphingDialogTitle style={{ flex: 1 }}>
                     <h3 className="insight-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "clamp(1.15rem,2.4vw,2rem)", lineHeight: 1.06, letterSpacing: "-0.01em", color: "#1c1c1c", transition: "color 0.3s", textTransform: "uppercase", margin: 0 }}>
                       {a.title}

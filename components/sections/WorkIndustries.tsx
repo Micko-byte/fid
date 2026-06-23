@@ -61,9 +61,9 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
         position: "relative",
         overflow: "hidden",
         padding: "clamp(1.4rem, 2.6vw, 2.2rem)",
-        borderRadius: "16px",
+        borderRadius: "14px",
         border: "1px solid rgba(28,28,28,0.06)",
-        background: "rgba(255,255,255,0.2)",
+        background: "rgba(245,242,236,0.6)",
         backdropFilter: "blur(10px)",
       }}
       className="work-chapter"
@@ -200,7 +200,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
           order: reversed ? 1 : 2,
           aspectRatio: "16/10",
           overflow: "hidden",
-          borderRadius: "12px",
+          borderRadius: "14px",
           background: "linear-gradient(135deg, rgba(117,0,6,0.08), rgba(217,128,56,0.16))",
         }}
       >
@@ -227,12 +227,12 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
               position: "absolute",
               top: "1rem",
               left: "1rem",
-              backgroundColor: "rgba(255,255,255,0.88)",
+              backgroundColor: "rgba(245,242,236,0.92)",
               padding: "0.45rem 0.7rem",
               height: "38px",
               display: "flex",
               alignItems: "center",
-              borderRadius: "8px",
+              borderRadius: "7px",
               border: "1px solid rgba(117,0,6,0.08)",
               backdropFilter: "blur(8px)",
             }}
@@ -314,7 +314,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
         </span>
 
         {a.logo && (
-          <div style={{ position: "absolute", top: "1rem", left: "1.1rem", backgroundColor: "rgba(255,255,255,0.9)", padding: "0.4rem 0.6rem", height: "34px", display: "flex", alignItems: "center", borderRadius: "7px" }}>
+          <div style={{ position: "absolute", top: "1rem", left: "1.1rem", backgroundColor: "rgba(245,242,236,0.92)", padding: "0.4rem 0.6rem", height: "34px", display: "flex", alignItems: "center", borderRadius: "7px" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={a.logo} alt="" style={{ maxHeight: "100%", maxWidth: "96px", objectFit: "contain" }} />
           </div>
@@ -384,6 +384,7 @@ export default function WorkIndustries() {
   return (
     <section
       id="work"
+      className="section-light"
       style={{
         position: "relative",
         overflow: "hidden",
@@ -485,7 +486,7 @@ export default function WorkIndustries() {
                   padding: "0.6rem 0.9rem",
                   borderRadius: "999px",
                   border: "1px solid rgba(117,0,6,0.12)",
-                  background: "rgba(255,255,255,0.55)",
+                  background: "rgba(245,242,236,0.7)",
                 }}
               >
                 {fact}
@@ -532,7 +533,7 @@ export default function WorkIndustries() {
           .work-chapter > div { order: 2 !important; }
         }
         .work-chapter { transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), background 0.5s ease; }
-        .work-chapter:hover { transform: translateY(-6px); box-shadow: 0 30px 70px rgba(117,0,6,0.14); background: rgba(255,255,255,0.5); }
+        .work-chapter:hover { transform: translateY(-6px); box-shadow: 0 30px 70px rgba(117,0,6,0.14); background: rgba(245,242,236,0.85); }
         .work-chapter:hover .work-card-img { transform: scale(1.06); }
         .work-chapter:hover h3 { color: #750006 !important; }
         .work-chapter:hover .work-chapter-accent { transform: scaleY(1); }
