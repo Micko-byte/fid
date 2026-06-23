@@ -26,7 +26,7 @@ export default function About() {
         backgroundColor: "#f5f2ec",
         color: "#1c1c1c",
         ["--ink" as string]: "#1c1c1c",
-        ["--ink-soft" as string]: "rgba(28,28,28,0.66)",
+        ["--ink-soft" as string]: "#1c1c1c",
         ["--hairline" as string]: "rgba(28,28,28,0.12)",
       }}
     >
@@ -38,7 +38,7 @@ export default function About() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="type-eyebrow"
-              style={{ color: "#d98038" }}
+              style={{ color: "#79050B" }}
             >
               Who we are
             </motion.span>
@@ -57,7 +57,7 @@ export default function About() {
               }}
             >
               A communications partner built for influence at{" "}
-              <em style={{ fontStyle: "normal", color: "#d98038" }}>scale</em>.
+              <em style={{ fontStyle: "normal", color: "#79050B" }}>scale</em>.
             </motion.h2>
 
             <motion.div
@@ -129,7 +129,7 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{ padding: "2.2rem 1.6rem 0", borderLeft: i === 0 ? "none" : "1px solid var(--hairline)" }}
               >
-                <Icon size={26} weight="light" color="#d98038" />
+                <Icon size={26} weight="light" color="#79050B" />
                 <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: "var(--ink)", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: 0, marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>

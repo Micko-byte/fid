@@ -134,7 +134,7 @@ export default function Contact() {
     transition: "border-color 0.25s, background-color 0.25s, box-shadow 0.25s",
     boxShadow: focused === name ? "0 0 0 3px rgba(117,0,6,0.08)" : "none",
   });
-  const labelStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(28,28,28,0.55)", display: "block", marginBottom: "0.5rem", fontWeight: 500 };
+  const labelStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#1c1c1c", display: "block", marginBottom: "0.5rem", fontWeight: 500 };
   const errStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.72rem", marginTop: "0.4rem", color: "#c0392b" };
 
   return (
@@ -185,7 +185,7 @@ export default function Contact() {
                     <Icon size={20} weight="light" color="#750006" />
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(28,28,28,0.45)", marginBottom: "0.25rem" }}>{label}</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#1c1c1c", marginBottom: "0.25rem" }}>{label}</p>
                     {href ? (
                       <a href={href} style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "#1c1c1c", textDecoration: "none" }}>{value}</a>
                     ) : (
@@ -202,9 +202,9 @@ export default function Contact() {
                   { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
                 ].map(({ Icon, href, label }) => (
                   <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                    style={{ width: "40px", height: "40px", border: "1px solid rgba(28,28,28,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(28,28,28,0.55)", borderRadius: "2px", transition: "all 0.25s" }}
+                    style={{ width: "40px", height: "40px", border: "1px solid rgba(28,28,28,0.14)", display: "flex", alignItems: "center", justifyContent: "center", color: "#1c1c1c", borderRadius: "2px", transition: "all 0.25s" }}
                     onMouseEnter={(e) => { e.currentTarget.style.color = "#fff"; e.currentTarget.style.backgroundColor = "#750006"; e.currentTarget.style.borderColor = "#750006"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(28,28,28,0.14)"; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.color = "#1c1c1c"; e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(28,28,28,0.14)"; }}
                   >
                     <Icon size={20} weight="light" />
                   </a>
@@ -224,7 +224,7 @@ export default function Contact() {
               <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem", padding: "3rem 0" }}>
                 <div style={{ width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", backgroundColor: "#750006", color: "#fff", borderRadius: "2px" }}>✓</div>
                 <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.6rem", color: "#1c1c1c" }}>Message received</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(28,28,28,0.6)", maxWidth: "32ch" }}>Thank you for reaching out. We&apos;ll be in touch shortly.</p>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#1c1c1c", maxWidth: "32ch" }}>Thank you for reaching out. We&apos;ll be in touch shortly.</p>
                 <button onClick={() => setState("idle")} style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", background: "none", border: "none", cursor: "pointer", marginTop: "0.4rem" }}>Send another message →</button>
               </motion.div>
             ) : (

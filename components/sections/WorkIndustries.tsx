@@ -146,7 +146,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.92rem",
             lineHeight: 1.7,
-            color: "rgba(28,28,28,0.64)",
+            color: "#1c1c1c",
             maxWidth: "48ch",
             marginTop: "1rem",
           }}
@@ -159,7 +159,7 @@ function StoryChapter({ p, index }: { p: Project; index: number }) {
             fontFamily: "var(--font-body)",
             fontSize: "0.72rem",
             lineHeight: 1.6,
-            color: "rgba(28,28,28,0.52)",
+            color: "#1c1c1c",
             textTransform: "uppercase",
             letterSpacing: "0.16em",
             marginTop: "1.2rem",
@@ -458,7 +458,7 @@ export default function WorkIndustries() {
                 fontFamily: "var(--font-body)",
                 fontSize: "clamp(0.95rem,1.35vw,1.1rem)",
                 lineHeight: 1.65,
-                color: "rgba(28,28,28,0.62)",
+                color: "#1c1c1c",
               }}
             >
               Communication is not a gallery of assets. It is a sequence of public moments, each with a purpose, an audience and a point of view. These selected projects show how FID & Co. moves from national observation to cultural platform building, and from brand launches to sustained reputation work.
@@ -481,7 +481,7 @@ export default function WorkIndustries() {
                   fontSize: "0.68rem",
                   letterSpacing: "0.18em",
                   textTransform: "uppercase",
-                  color: "rgba(28,28,28,0.6)",
+                  color: "#1c1c1c",
                   padding: "0.6rem 0.9rem",
                   borderRadius: "999px",
                   border: "1px solid rgba(117,0,6,0.12)",

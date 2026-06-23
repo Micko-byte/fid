@@ -127,7 +127,7 @@ export default function Founder() {
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.42 }}
-              style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.15vw,1rem)", lineHeight: 1.7, color: "rgba(28,28,28,0.6)", marginTop: "2rem", maxWidth: "48ch" }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.15vw,1rem)", lineHeight: 1.7, color: "#1c1c1c", marginTop: "2rem", maxWidth: "48ch" }}
             >
               A communications strategist, entrepreneur and brand architect with more than a decade operating at the intersection of media, business, culture and public engagement across African markets. In 2010 she founded FID Public Relations Ltd, which has since evolved into FID &amp; Co.
             </motion.p>

@@ -56,15 +56,15 @@ function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
         </h2>
 
         <div style={{ display: "flex", gap: "1.6rem", flexWrap: "wrap", marginTop: "0.2rem" }}>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(28,28,28,0.6)" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "#1c1c1c" }}>
             <CalendarBlank size={18} weight="light" color="#750006" /> {ev.date}
           </span>
-          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(28,28,28,0.6)" }}>
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "#1c1c1c" }}>
             <MapPin size={18} weight="light" color="#750006" /> {ev.location}
           </span>
         </div>
 
-        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.7, color: "rgba(28,28,28,0.6)", maxWidth: "46ch", marginTop: "0.3rem" }}>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.7, color: "#1c1c1c", maxWidth: "46ch", marginTop: "0.3rem" }}>
           {ev.description}
         </p>
 
@@ -112,7 +112,7 @@ export default function EventsClient() {
             initial={{ opacity: 0, y: 16 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.4vw,1.2rem)", lineHeight: 1.6, color: "rgba(28,28,28,0.6)", maxWidth: "54ch", marginTop: "1.5rem" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.4vw,1.2rem)", lineHeight: 1.6, color: "#1c1c1c", maxWidth: "54ch", marginTop: "1.5rem" }}
           >
             FID &amp; Co.&apos;s owned platforms move beyond interruption-based marketing — building experiences audiences genuinely value. Explore what&apos;s coming up.
           </motion.p>
@@ -126,7 +126,7 @@ export default function EventsClient() {
             <EventCard key={ev.slug} ev={ev} i={i} />
           ))}
           <div style={{ borderTop: "1px solid rgba(28,28,28,0.1)", paddingTop: "clamp(2.5rem,5vw,4rem)", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(28,28,28,0.55)" }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "#1c1c1c" }}>
               Interested in partnering or sponsoring an upcoming edition?
             </p>
             <Link href="/#contact" style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", fontWeight: 600, textDecoration: "none" }}>

@@ -77,7 +77,7 @@ export default function StatsBand() {
                 <Counter value={s.value} suffix={s.suffix} run={inView} />
               </span>
               <span aria-hidden style={{ width: "34px", height: "3px", background: BLUE, borderRadius: "2px" }} />
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.78rem,1vw,0.92rem)", fontWeight: 500, letterSpacing: "0.04em", color: "rgba(28,28,28,0.66)", maxWidth: "16ch" }}>
+              <span style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.78rem,1vw,0.92rem)", fontWeight: 500, letterSpacing: "0.04em", color: "#1c1c1c", maxWidth: "16ch" }}>
                 {s.label}
               </span>
             </motion.div>

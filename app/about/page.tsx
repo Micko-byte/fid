@@ -143,7 +143,7 @@ function WhoWeAre() {
               style={{ padding: "clamp(1.5rem,2.5vw,2.2rem)", borderRadius: "12px", border: "1px solid rgba(28,28,28,0.08)", background: "rgba(255,255,255,0.55)" }}
             >
               <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "#750006", marginBottom: "0.75rem" }}>{item.title}</h3>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.65, color: "rgba(28,28,28,0.65)" }}>{item.body}</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.65, color: "#1c1c1c" }}>{item.body}</p>
             </motion.div>
           ))}
         </div>
@@ -233,7 +233,7 @@ function OurApproach() {
               >
                 {v.title}
               </h3>
-              <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(28,28,28,0.6)" }}>
+              <p className="font-body text-sm leading-relaxed" style={{ color: "#1c1c1c" }}>
                 {v.body}
               </p>
             </motion.div>

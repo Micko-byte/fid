@@ -39,7 +39,7 @@ export default function IntroLoader() {
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "rgba(28,28,28,0.5)" }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "#1c1c1c" }}
           >
             Insight. Strategy. Impact.
           </motion.p>

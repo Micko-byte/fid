@@ -58,7 +58,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
               {service.title}
             </h3>
           </div>
-          <p className="font-body text-sm ml-12" style={{ color: "rgba(28,28,28,0.5)" }}>
+          <p className="font-body text-sm ml-12" style={{ color: "#1c1c1c" }}>
             {service.summary}
           </p>
         </div>
@@ -77,7 +77,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
             className="overflow-hidden"
           >
             <div className="pb-10 pl-12 grid md:grid-cols-2 gap-10">
-              <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(28,28,28,0.7)", maxWidth: "55ch" }}>
+              <p className="font-body text-sm leading-relaxed" style={{ color: "#1c1c1c", maxWidth: "55ch" }}>
                 {service.body}
               </p>
               <div>
@@ -86,7 +86,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
                 </p>
                 <ul className="space-y-2.5">
                   {service.capabilities.map((c, i) => (
-                    <li key={i} className="font-body text-sm flex gap-3" style={{ color: "rgba(28,28,28,0.7)" }}>
+                    <li key={i} className="font-body text-sm flex gap-3" style={{ color: "#1c1c1c" }}>
                       <span className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full" style={{ backgroundColor: "#750006" }} />
                       {c}
                     </li>
@@ -163,7 +163,7 @@ function ServicesSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
           className="font-body text-base mb-20 max-w-2xl"
-          style={{ color: "rgba(28,28,28,0.6)" }}
+          style={{ color: "#1c1c1c" }}
         >
           Each discipline is distinct. All five are designed to work together — giving clients one connected partner across every dimension of their communications.
         </motion.p>

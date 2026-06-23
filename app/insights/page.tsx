@@ -115,7 +115,7 @@ function ArticlesSection() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.1 }}
           className="font-body text-base mb-20 max-w-xl"
-          style={{ color: "rgba(28,28,28,0.6)" }}
+          style={{ color: "#1c1c1c" }}
         >
           Our team writes about strategy, culture, brand and the evolving communications landscape across Africa. Published on LinkedIn and updated regularly.
         </motion.p>
@@ -165,7 +165,7 @@ function ArticleRow({ article, index }: { article: typeof articles[0]; index: nu
               >
                 {article.title}
               </h3>
-              <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(28,28,28,0.55)", maxWidth: "55ch" }}>
+              <p className="font-body text-sm leading-relaxed" style={{ color: "#1c1c1c", maxWidth: "55ch" }}>
                 {article.summary}
               </p>
             </div>

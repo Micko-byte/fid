@@ -186,7 +186,7 @@ export default function HeroApproach() {
               fontFamily: "var(--font-body)",
               fontSize: "clamp(1rem, 1.2vw, 1.18rem)",
               lineHeight: 1.6,
-              color: "rgba(28,28,28,0.72)",
+              color: "#1c1c1c",
             }}
           >
             FID &amp; Co. is a full-service strategic communications and brand

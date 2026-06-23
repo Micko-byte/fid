@@ -5,15 +5,8 @@ import dynamic from "next/dynamic";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Button from "@/components/ui/Button";
-import { Lightbulb, Compass, Target } from "@phosphor-icons/react";
 
 const HeroOrb = dynamic(() => import("@/components/3d/HeroOrb"), { ssr: false });
-
-const PILLARS = [
-  { Icon: Lightbulb, label: "Insight", note: "We start by understanding." },
-  { Icon: Compass, label: "Strategy", note: "We shape the direction." },
-  { Icon: Target, label: "Impact", note: "We deliver measurable results." },
-];
 
 export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
@@ -121,28 +114,10 @@ export default function FeatureBand() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
               className="type-body"
-              style={{ color: "rgba(28,28,28,0.62)", maxWidth: "48ch", marginBottom: "clamp(1.8rem,3.5vw,3rem)" }}
+              style={{ color: "#1c1c1c", maxWidth: "48ch", marginBottom: "clamp(1.8rem,3.5vw,3rem)" }}
             >
               Every engagement begins with insight, is guided by strategy, executed with precision and evaluated for impact. We build reputation, credibility and cultural relevance for the organisations shaping Africa&apos;s future.
             </motion.p>
-
-            {/* Insight · Strategy · Impact — icon pillars */}
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: "flex", flexWrap: "wrap", gap: "clamp(1.2rem,3vw,2.4rem)", marginBottom: "clamp(1.8rem,3.5vw,2.6rem)" }}
-            >
-              {PILLARS.map(({ Icon, label, note }) => (
-                <div key={label} style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "16ch" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", borderRadius: "14px", border: "1px solid rgba(117,0,6,0.2)", background: "rgba(117,0,6,0.06)", color: "#750006" }}>
-                    <Icon size={22} weight="light" />
-                  </span>
-                  <span style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.95rem", letterSpacing: "0.02em", textTransform: "uppercase", color: "#1c1c1c" }}>{label}</span>
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(28,28,28,0.55)" }}>{note}</span>
-                </div>
-              ))}
-            </motion.div>
 
             <motion.div
               initial={{ opacity: 0, y: 24 }}

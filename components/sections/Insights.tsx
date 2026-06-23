@@ -47,8 +47,8 @@ export default function Insights() {
               <TextRoll>Perspectives &amp;</TextRoll><br /><TextRoll>Intelligence</TextRoll>
             </motion.h2>
           </div>
-          <Link href="/insights" style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(28,28,28,0.5)", textDecoration: "none", transition: "color 0.3s" }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(28,28,28,0.5)")}>
+          <Link href="/insights" style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#1c1c1c", textDecoration: "none", transition: "color 0.3s" }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")} onMouseLeave={(e) => (e.currentTarget.style.color = "#1c1c1c")}>
             All articles →
           </Link>
         </div>
@@ -63,7 +63,7 @@ export default function Insights() {
                   className="insight-row"
                   style={{ display: "flex", alignItems: "center", gap: "clamp(1rem,2vw,2rem)", padding: "clamp(1.1rem,2.2vw,1.7rem) 0", borderTop: "1px solid rgba(117,0,6,0.18)" }}
                 >
-                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "rgba(28,28,28,0.4)", flexShrink: 0, width: "5.5rem" }}>{a.date}</span>
+                  <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", color: "#1c1c1c", flexShrink: 0, width: "5.5rem" }}>{a.date}</span>
                   <MorphingDialogImage src={a.img} alt={a.title} style={{ width: "72px", height: "56px", objectFit: "cover", borderRadius: "6px", flexShrink: 0 }} />
                   <MorphingDialogTitle style={{ flex: 1 }}>
                     <h3 className="insight-title" style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "clamp(1.15rem,2.4vw,2rem)", lineHeight: 1.06, letterSpacing: "-0.01em", color: "#1c1c1c", transition: "color 0.3s", textTransform: "uppercase", margin: 0 }}>
@@ -85,7 +85,7 @@ export default function Insights() {
                           {a.title}
                         </h3>
                       </MorphingDialogTitle>
-                      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.65, color: "rgba(28,28,28,0.66)", marginTop: "1rem" }}>
+                      <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }} style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.65, color: "#1c1c1c", marginTop: "1rem" }}>
                         {a.blurb}
                       </motion.p>
                       <motion.a
