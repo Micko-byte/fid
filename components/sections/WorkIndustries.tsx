@@ -6,7 +6,6 @@ import Link from "next/link";
 import { projects, type Project } from "@/components/lib/projects";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
 import { IndustryIcon } from "@/components/graphics/BrandIcons";
-import { TextRoll } from "@/components/core/text-roll";
 import { projectGalleryImages } from "@/lib/work-gallery";
 
 const assets: Record<string, { logo?: string; image?: string }> = {
@@ -245,7 +244,7 @@ export default function WorkIndustries() {
               transition={{ duration: 0.75, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{ marginTop: "0.8rem", fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(2.4rem,5.5vw,4.4rem)", color: "#1c1c1c", lineHeight: 1 }}
             >
-              <TextRoll style={{ color: "#1c1c1c" }}>Stories shaped by culture, institutions and public attention.</TextRoll>
+              Stories shaped by culture, institutions and public attention.
             </motion.h2>
 
             <motion.p

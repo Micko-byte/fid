@@ -129,7 +129,9 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{ padding: "2.2rem 1.6rem 0", borderLeft: i === 0 ? "none" : "1px solid var(--hairline)" }}
               >
-                <Icon size={26} weight="light" color="#d98038" />
+                <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", borderRadius: "14px", border: "1px solid rgba(117,0,6,0.2)", background: "rgba(117,0,6,0.06)", color: "#750006" }}>
+                  <Icon size={22} weight="light" />
+                </span>
                 <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: "var(--ink)", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: 0, marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>

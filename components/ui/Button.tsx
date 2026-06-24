@@ -29,9 +29,9 @@ function styleFor(variant: Variant, size: Size): React.CSSProperties {
   const fs = size === "sm" ? "0.72rem" : "0.76rem";
   const base: React.CSSProperties = {
     display: "inline-flex", alignItems: "center", gap: "0.6rem",
-    fontFamily: "var(--font-body)", fontSize: fs, fontWeight: 600,
+    fontFamily: "var(--font-body)", fontSize: fs, fontWeight: 700,
     letterSpacing: "0.12em", textTransform: "uppercase", textDecoration: "none",
-    padding: pad, borderRadius: "2px", cursor: "pointer", whiteSpace: "nowrap",
+    padding: pad, borderRadius: "999px", cursor: "pointer", whiteSpace: "nowrap",
     transition: "background 0.3s, color 0.3s, border-color 0.3s, gap 0.3s, transform 0.12s cubic-bezier(0.16,1,0.3,1)",
     border: "1px solid transparent",
   };

@@ -204,7 +204,7 @@ export default function Platforms() {
         }
         .platforms-intro {
           max-width: 34ch;
-          color: rgba(28,28,28,0.65);
+          color: #1c1c1c;
           margin: 0;
         }
         .platforms-layout {
@@ -261,7 +261,7 @@ export default function Platforms() {
           align-items: center;
           justify-content: space-between;
           gap: 1rem;
-          color: rgba(245,242,236,0.72);
+          color: #f5f2ec;
           font-family: var(--font-body);
           font-size: 0.72rem;
           letter-spacing: 0.16em;
@@ -291,7 +291,7 @@ export default function Platforms() {
         .platform-desc {
           max-width: 52ch;
           margin: 1rem 0 0;
-          color: rgba(245,242,236,0.76);
+          color: #f5f2ec;
         }
         .platform-link,
         .platform-tile-link {
@@ -340,7 +340,7 @@ export default function Platforms() {
         .platform-tile p {
           max-width: 34ch;
           margin: 0.85rem 0 0;
-          color: rgba(28,28,28,0.6);
+          color: #1c1c1c;
           font-family: var(--font-body);
           font-size: 0.7rem;
           letter-spacing: 0.12em;

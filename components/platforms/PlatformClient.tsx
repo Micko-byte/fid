@@ -95,7 +95,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
 
               <motion.p
                 initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.8, delay: 0.5 }}
-                style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.4vw,1.2rem)", lineHeight: 1.65, color: "rgba(28,28,28,0.72)", maxWidth: "55ch", margin: 0 }}
+                style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.4vw,1.2rem)", lineHeight: 1.65, color: "#1c1c1c", maxWidth: "55ch", margin: 0 }}
               >
                 {p.shortDesc}
               </motion.p>
@@ -113,9 +113,6 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 60%, rgba(117,0,6,0.55))" }} />
-              <span style={{ position: "absolute", left: "1.6rem", bottom: "1.4rem", fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.85)" }}>
-                Asset placeholder — replace with hero image
-              </span>
             </motion.div>
           </div>
         </section>
@@ -166,7 +163,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
           <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1.8fr", gap: "clamp(2rem,5vw,5rem)", alignItems: "start" }} className="plat-page-grid">
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: p.accent, margin: 0 }}>About the platform</p>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.35vw,1.2rem)", lineHeight: 1.75, color: "rgba(28,28,28,0.78)", maxWidth: "70ch", margin: 0 }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.35vw,1.2rem)", lineHeight: 1.75, color: "#1c1c1c", maxWidth: "70ch", margin: 0 }}>
                 {p.intro}
               </p>
             </div>
@@ -188,7 +185,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                       initial={{ opacity: 0, x: -16 }}
                       animate={highlightsInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
-                      style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "rgba(28,28,28,0.75)" }}
+                      style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "#1c1c1c" }}
                     >
                       <CheckCircle size={18} weight="light" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
                     </motion.li>
@@ -207,7 +204,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                       initial={{ opacity: 0, x: -16 }}
                       animate={partnershipsInView ? { opacity: 1, x: 0 } : {}}
                       transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
-                      style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "rgba(28,28,28,0.75)" }}
+                      style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "#1c1c1c" }}
                     >
                       <Handshake size={18} weight="light" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
                     </motion.li>
@@ -257,7 +254,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                       {pt.role}
                     </p>
                     {pt.note && (
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", lineHeight: 1.55, color: "rgba(28,28,28,0.65)", margin: 0 }}>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", lineHeight: 1.55, color: "#1c1c1c", margin: 0 }}>
                         {pt.note}
                       </p>
                     )}
@@ -294,7 +291,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
             <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "clamp(2rem,5vw,4rem)", letterSpacing: "-0.02em", lineHeight: 1, marginBottom: "1.5rem", textTransform: "uppercase", background: `linear-gradient(135deg, #1c1c1c 40%, ${p.accent})`, WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
               Partner with {p.name}.
             </h2>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.95rem,1.2vw,1.05rem)", color: "rgba(28,28,28,0.65)", maxWidth: "52ch", margin: "0 auto 2rem", lineHeight: 1.65 }}>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.95rem,1.2vw,1.05rem)", color: "#1c1c1c", maxWidth: "52ch", margin: "0 auto 2rem", lineHeight: 1.65 }}>
               Partnership opportunities are tailored to align with each platform&apos;s audience, objectives and experience design.
             </p>
             <div style={{ display: "inline-flex", gap: "1rem", flexWrap: "wrap", justifyContent: "center" }}>
