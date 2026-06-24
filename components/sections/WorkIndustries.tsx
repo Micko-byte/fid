@@ -139,7 +139,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
         {/* Caption panel */}
         <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, zIndex: 2, padding: variant === "lg" ? "clamp(1.3rem,2.2vw,2rem)" : "1.1rem 1.2rem", paddingBottom: "2.4rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#d98038", fontWeight: 600 }}>
-            <IndustryIcon sector={p.sector} size={15} strokeWidth={1.6} />
+            <IndustryIcon sector={p.sector} size={20} strokeWidth={1.6} />
             {p.sector}
           </span>
           <p style={{ margin: 0, fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: variant === "lg" ? "clamp(1.6rem,2.6vw,2.5rem)" : "clamp(1.1rem,1.6vw,1.4rem)", maxWidth: "18ch", textTransform: "uppercase", color: "#f5f2ec", lineHeight: 1.05 }}>

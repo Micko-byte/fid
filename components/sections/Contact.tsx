@@ -253,10 +253,10 @@ export default function Contact() {
                   <select
                     name="service" value={form.service} onChange={handleChange}
                     onFocus={() => setFocused("service")} onBlur={() => setFocused(null)}
-                    required style={{ ...fieldBox("service"), cursor: "pointer" }}
+                    required style={{ ...fieldBox("service"), cursor: "pointer", colorScheme: "dark" }}
                   >
-                    <option value="">Select a service</option>
-                    {services.map((s) => <option key={s} value={s}>{s}</option>)}
+                    <option value="" style={{ background: "#1c1c1c", color: "#f5f2ec" }}>Select a service</option>
+                    {services.map((s) => <option key={s} value={s} style={{ background: "#1c1c1c", color: "#f5f2ec" }}>{s}</option>)}
                   </select>
                   {errors.service && <p style={errStyle}>{errors.service}</p>}
                 </div>
