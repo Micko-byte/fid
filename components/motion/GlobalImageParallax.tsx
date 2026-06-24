@@ -52,7 +52,6 @@ export default function GlobalImageParallax() {
       ".fid-art-panel",
       ".platform-feature-media",
       ".platform-tile-media",
-      ".work-mosaic-link",
       "[data-scroll-parallax]",
     ];
 
@@ -95,14 +94,19 @@ export default function GlobalImageParallax() {
     };
     runAll();
 
-    // ── Watch for late-rendered elements ──
+    // ── Watch for late-rendered elements (debounced — slideshow mutations must not spam refresh) ──
+    let debounceTimer: ReturnType<typeof setTimeout> | null = null;
     const mo = new MutationObserver(() => {
-      runAll();
-      ScrollTrigger.refresh();
+      if (debounceTimer) clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        runAll();
+        ScrollTrigger.refresh();
+      }, 800);
     });
-    mo.observe(document.body, { childList: true, subtree: true });
+    mo.observe(document.body, { childList: true, subtree: false });
 
     return () => {
+      if (debounceTimer) clearTimeout(debounceTimer);
       hoverCleanup.forEach(fn => fn());
       scrollCtxs.forEach(ctx => ctx.revert());
       mo.disconnect();

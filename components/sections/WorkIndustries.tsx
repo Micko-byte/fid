@@ -10,98 +10,109 @@ import { TextRoll } from "@/components/core/text-roll";
 import { projectGalleryImages } from "@/lib/work-gallery";
 
 const assets: Record<string, { logo?: string; image?: string }> = {
-  "national-minorities-day": { logo: "/logos/executive-office-president.png", image: "/photos/projects/national-minorities-day.jpg" },
-  "africa-urban-forum-2026": { logo: "/logos/executive-office-president.png", image: "/photos/projects/cultural-dancers.jpg" },
-  "utamaduni-day": { logo: "/logos/state-dept-culture.png", image: "/photos/projects/utamaduni-day.jpg" },
-  "lc-waikiki-africa": { logo: "/logos/lc-waikiki.png", image: "/photos/projects/lc-waikiki-influencer.jpg" },
-  "kansai-plascon": { logo: undefined, image: "/photos/projects/kansai-gor-mahia.jpg" },
-  "thrive-hospitality-group": { logo: "/logos/thrive-hospitality.png", image: "/photos/projects/cosmo-market.jpg" },
-  "africa-forum-on-displacements": { logo: "/logos/unhcr.png", image: "/photos/projects/africa-forum-displacement.jpg" },
-  "columbia-africa-healthcare": { logo: "/logos/columbia-africa.png", image: "/photos/projects/columbia-building.jpg" },
+  "national-minorities-day":      { logo: "/logos/executive-office-president.png" },
+  "africa-urban-forum-2026":      { logo: "/logos/executive-office-president.png" },
+  "utamaduni-day":                { logo: "/logos/state-dept-culture.png" },
+  "lc-waikiki-africa":            { logo: "/logos/lc-waikiki.png" },
+  "kansai-plascon":               { },
+  "thrive-hospitality-group":     { logo: "/logos/thrive-hospitality.png" },
+  "africa-forum-on-displacements":{ logo: "/logos/unhcr.png" },
+  "columbia-africa-healthcare":   { logo: "/logos/columbia-africa.png" },
 };
 
 const cardReveal = {
-  hidden: { opacity: 0, y: 40, scale: 0.97 },
-  visible: { opacity: 1, y: 0, scale: 1 },
+  hidden:  { opacity: 0, y: 40, scale: 0.97 },
+  visible: { opacity: 1, y: 0,  scale: 1    },
 };
 
-/* Image slideshow — cycles through gallery images every 3.5s */
-function CardSlideshow({ slug, fallback, color }: { slug: string; fallback?: string; color?: string }) {
-  const gallery = projectGalleryImages[slug];
-  const images = gallery && gallery.length > 0
-    ? gallery.map(img => img.src)
-    : fallback ? [fallback] : [];
+/* ── Branded empty-state card for projects without photos ── */
+function BrandedCard({ color, client, sector }: { color?: string; client: string; sector: string }) {
+  return (
+    <div style={{ position: "absolute", inset: 0, background: color ?? "#260000", display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "clamp(1.2rem,2.5vw,2rem)" }}>
+      {/* Top: large monogram */}
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(3rem,5vw,6rem)", lineHeight: 1, color: "rgba(255,255,255,0.07)", letterSpacing: "-0.04em", userSelect: "none" }}>
+          FID
+        </span>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(255,255,255,0.28)", marginTop: "0.4rem" }}>
+          {sector.split("&")[0].trim()}
+        </span>
+      </div>
+      {/* Centre pattern: grid of small dots */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "18px 18px", pointerEvents: "none" }} />
+      {/* Bottom: client short name */}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(1.1rem,2vw,1.6rem)", color: "rgba(255,255,255,0.18)", textTransform: "uppercase", lineHeight: 1.1 }}>
+          {client}
+        </span>
+      </div>
+    </div>
+  );
+}
 
-  const [idx, setIdx] = useState(0);
+/* ── Slideshow: single source of truth for idx, renders dots internally ── */
+function CardSlideshow({ slug, color, client, sector }: {
+  slug: string; color?: string; client: string; sector: string;
+}) {
+  const gallery = projectGalleryImages[slug] ?? [];
+  const images  = gallery.map(img => img.src);
+
+  const [idx, setIdx]         = useState(0);
   const [errored, setErrored] = useState<Set<number>>(new Set());
 
   useEffect(() => {
     if (images.length <= 1) return;
-    const iv = setInterval(() => {
-      setIdx(prev => (prev + 1) % images.length);
-    }, 3500);
+    const iv = setInterval(() => setIdx(prev => (prev + 1) % images.length), 3500);
     return () => clearInterval(iv);
   }, [images.length]);
 
   if (images.length === 0) {
-    return (
-      <div style={{ position: "absolute", inset: 0, background: color ?? "#260000", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "2rem", color: "rgba(255,255,255,0.2)", textTransform: "uppercase" }}>
-          FID
-        </span>
-      </div>
-    );
+    return <BrandedCard color={color} client={client} sector={sector} />;
   }
 
-  const validIdx = errored.has(idx) ? images.findIndex((_, i) => !errored.has(i)) : idx;
-  const src = images[validIdx < 0 ? 0 : validIdx];
+  const validIdx = errored.has(idx)
+    ? images.findIndex((_, i) => !errored.has(i))
+    : idx;
+  const src = images[Math.max(0, validIdx)];
+  const count = Math.min(images.length, 8);
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.img
-        key={idx}
-        src={src}
-        alt=""
-        loading="lazy"
-        initial={{ opacity: 0, scale: 1.08 }}
-        animate={{ opacity: 1, scale: 1.04 }}
-        exit={{ opacity: 0, scale: 1 }}
-        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-        onError={() => setErrored(prev => new Set(prev).add(idx))}
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
-      />
-    </AnimatePresence>
-  );
-}
+    <>
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={idx}
+          src={src}
+          alt=""
+          loading="lazy"
+          initial={{ opacity: 0, scale: 1.08 }}
+          animate={{ opacity: 1, scale: 1.04 }}
+          exit={{ opacity: 0, scale: 1 }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          onError={() => setErrored(prev => new Set(prev).add(idx))}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
+        />
+      </AnimatePresence>
 
-/* Slide progress dots */
-function SlideDots({ slug, idx }: { slug: string; idx: number }) {
-  const gallery = projectGalleryImages[slug];
-  if (!gallery || gallery.length <= 1) return null;
-  const count = Math.min(gallery.length, 8);
-  return (
-    <div style={{ display: "flex", gap: "4px", position: "absolute", bottom: "0.85rem", left: "1.1rem", zIndex: 3 }}>
-      {Array.from({ length: count }, (_, i) => (
-        <span key={i} style={{ width: i === idx % count ? "18px" : "5px", height: "3px", borderRadius: "2px", background: i === idx % count ? "#d98038" : "rgba(255,255,255,0.4)", transition: "width 0.4s cubic-bezier(0.16,1,0.3,1), background 0.3s" }} />
-      ))}
-    </div>
+      {/* Slide dots — co-located so they share the same idx */}
+      {count > 1 && (
+        <div style={{ display: "flex", gap: "4px", position: "absolute", bottom: "0.85rem", left: "1.1rem", zIndex: 3 }}>
+          {Array.from({ length: count }, (_, i) => (
+            <span key={i} style={{
+              width: i === idx % count ? "18px" : "5px",
+              height: "3px", borderRadius: "2px",
+              background: i === idx % count ? "#d98038" : "rgba(255,255,255,0.4)",
+              transition: "width 0.4s cubic-bezier(0.16,1,0.3,1), background 0.3s",
+            }} />
+          ))}
+        </div>
+      )}
+    </>
   );
 }
 
 function MosaicCard({ p, index, variant }: { p: Project; index: number; variant: "lg" | "sm" }) {
   const a = assets[p.slug] ?? {};
   const [isOpen, setIsOpen] = useState(false);
-  const [slideIdx, setSlideIdx] = useState(0);
-  const spring = { type: "spring", stiffness: 200, damping: 26, mass: 0.6 } as const;
-
-  const gallery = projectGalleryImages[p.slug];
-  const imgCount = gallery?.length ?? 0;
-
-  useEffect(() => {
-    if (imgCount <= 1) return;
-    const iv = setInterval(() => setSlideIdx(prev => (prev + 1) % imgCount), 3500);
-    return () => clearInterval(iv);
-  }, [imgCount]);
 
   return (
     <motion.div
@@ -119,12 +130,12 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
         className="work-mosaic-link"
         style={{ position: "absolute", inset: 0, overflow: "hidden", borderRadius: "14px", cursor: "pointer" }}
       >
-        {/* Background color */}
+        {/* Background colour */}
         <div style={{ position: "absolute", inset: 0, background: p.color ?? "#260000" }} />
 
-        {/* Slideshow */}
+        {/* Slideshow (owns its own interval + dots) */}
         <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-          <CardSlideshow slug={p.slug} fallback={a.image} color={p.color} />
+          <CardSlideshow slug={p.slug} color={p.color} client={p.client} sector={p.sector} />
         </div>
 
         {/* Gradient scrim */}
@@ -139,18 +150,20 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
           {String(index + 1).padStart(2, "0")}
         </span>
 
+        {/* Logo — directly on canvas, no white pill */}
         {a.logo && (
-          <div style={{ position: "absolute", top: "1rem", left: "1.1rem", zIndex: 2, backgroundColor: "rgba(245,242,236,0.92)", padding: "0.4rem 0.6rem", height: "34px", display: "flex", alignItems: "center", borderRadius: "7px", backdropFilter: "blur(6px)" }}>
+          <div style={{ position: "absolute", top: "1rem", left: "1.1rem", zIndex: 2, height: "28px", display: "flex", alignItems: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={a.logo} alt="" style={{ maxHeight: "100%", maxWidth: "96px", objectFit: "contain" }} />
+            <img
+              src={a.logo}
+              alt=""
+              style={{ maxHeight: "100%", maxWidth: "88px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.82 }}
+            />
           </div>
         )}
 
-        {/* Slide progress dots */}
-        <SlideDots slug={p.slug} idx={slideIdx} />
-
         {/* Caption panel */}
-        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, zIndex: 2, padding: variant === "lg" ? "clamp(1.3rem,2.2vw,2rem)" : "1.1rem 1.2rem", paddingBottom: imgCount > 1 ? "2.2rem" : undefined, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, zIndex: 2, padding: variant === "lg" ? "clamp(1.3rem,2.2vw,2rem)" : "1.1rem 1.2rem", paddingBottom: "2.4rem", display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#d98038", fontWeight: 600 }}>
             <IndustryIcon sector={p.sector} size={15} strokeWidth={1.6} />
             {p.sector}
@@ -181,10 +194,7 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
           </AnimatePresence>
 
           {!isOpen && (
-            <span
-              className="work-mosaic-cta"
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#f5f2ec", fontWeight: 700, marginTop: "0.2rem" }}
-            >
+            <span className="work-mosaic-cta" style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "#f5f2ec", fontWeight: 700, marginTop: "0.2rem" }}>
               Tap to explore →
             </span>
           )}
