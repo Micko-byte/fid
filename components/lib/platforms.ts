@@ -80,11 +80,11 @@ export const platforms: OwnedPlatform[] = [
       { name: "Dessert Galore", role: "Experience Partner" },
     ],
     gallery: [
-      "https://drive.google.com/uc?export=view&id=1QJWYQrw8Mp23GWX74GxbIfpDvTdTDzNw",
-      "https://drive.google.com/uc?export=view&id=1S7b4cBLVjDGcXpciryLbCk82So7hAFoT",
-      "https://drive.google.com/uc?export=view&id=1IVusjkarHXndjXoSTQ7UwxVvj9y4Qz3p",
+      "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
+      "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-02",
+      "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-03",
     ],
-    image: "https://drive.google.com/uc?export=view&id=1QJWYQrw8Mp23GWX74GxbIfpDvTdTDzNw",
+    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
     accent: "#750006",
   },
   {
