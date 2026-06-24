@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState, useEffect } from "react";
+import { useMemo, useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { projects, type Project } from "@/components/lib/projects";
@@ -49,69 +49,42 @@ function BrandedCard({ color, client, sector }: { color?: string; client: string
   );
 }
 
-/* ── Slideshow: single source of truth for idx, renders dots internally ── */
-function CardSlideshow({ slug, color, client, sector }: {
-  slug: string; color?: string; client: string; sector: string;
+/* ── Hover image swap: shows first image by default, second on hover ── */
+function CardImage({ slug, color, client, sector, hovered }: {
+  slug: string; color?: string; client: string; sector: string; hovered: boolean;
 }) {
   const gallery = projectGalleryImages[slug] ?? [];
   const images  = gallery.map(img => img.src);
-
-  const [idx, setIdx]         = useState(0);
-  const [errored, setErrored] = useState<Set<number>>(new Set());
-
-  useEffect(() => {
-    if (images.length <= 1) return;
-    const iv = setInterval(() => setIdx(prev => (prev + 1) % images.length), 3500);
-    return () => clearInterval(iv);
-  }, [images.length]);
 
   if (images.length === 0) {
     return <BrandedCard color={color} client={client} sector={sector} />;
   }
 
-  const validIdx = errored.has(idx)
-    ? images.findIndex((_, i) => !errored.has(i))
-    : idx;
-  const src = images[Math.max(0, validIdx)];
-  const count = Math.min(images.length, 8);
+  const primary   = images[0];
+  const secondary = images.length > 1 ? images[1] : images[0];
+  const active    = hovered && images.length > 1 ? secondary : primary;
 
   return (
-    <>
-      <AnimatePresence mode="sync">
-        <motion.img
-          key={idx}
-          src={src}
-          alt=""
-          loading="lazy"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.65, ease: "easeInOut" }}
-          onError={() => setErrored(prev => new Set(prev).add(idx))}
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
-        />
-      </AnimatePresence>
-
-      {/* Slide dots — co-located so they share the same idx */}
-      {count > 1 && (
-        <div style={{ display: "flex", gap: "4px", position: "absolute", bottom: "0.85rem", left: "1.1rem", zIndex: 3 }}>
-          {Array.from({ length: count }, (_, i) => (
-            <span key={i} style={{
-              width: i === idx % count ? "18px" : "5px",
-              height: "3px", borderRadius: "2px",
-              background: i === idx % count ? "#d98038" : "rgba(255,255,255,0.4)",
-              transition: "width 0.4s cubic-bezier(0.16,1,0.3,1), background 0.3s",
-            }} />
-          ))}
-        </div>
-      )}
-    </>
+    <AnimatePresence mode="sync">
+      <motion.img
+        key={active}
+        src={active}
+        alt=""
+        loading="lazy"
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 1.04 }}
+        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
+      />
+    </AnimatePresence>
   );
 }
 
 function MosaicCard({ p, index, variant }: { p: Project; index: number; variant: "lg" | "sm" }) {
   const a = assets[p.slug] ?? {};
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen]   = useState(false);
+  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
@@ -126,15 +99,17 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
       <div
         data-cursor="View"
         onClick={() => setIsOpen(v => !v)}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         className="work-mosaic-link"
         style={{ position: "absolute", inset: 0, overflow: "hidden", borderRadius: "14px", cursor: "pointer" }}
       >
         {/* Background colour */}
         <div style={{ position: "absolute", inset: 0, background: p.color ?? "#260000" }} />
 
-        {/* Slideshow (owns its own interval + dots) */}
+        {/* Hover image swap */}
         <div style={{ position: "absolute", inset: 0, overflow: "hidden" }}>
-          <CardSlideshow slug={p.slug} color={p.color} client={p.client} sector={p.sector} />
+          <CardImage slug={p.slug} color={p.color} client={p.client} sector={p.sector} hovered={hovered} />
         </div>
 
         {/* Gradient scrim */}
