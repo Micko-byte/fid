@@ -93,14 +93,10 @@ export default function About() {
             className="about-img-col"
           >
             <div className="about-video-frame">
-              <video
-                src="/illustrations/digital-marketing.webm"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="metadata"
-                aria-label="Digital marketing and communication visual"
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/illustrations/team-launch.jpg"
+                alt="FID & Co. team — strategy, insight, and launch"
               />
             </div>
           </motion.div>
