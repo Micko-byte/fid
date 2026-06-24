@@ -22,6 +22,8 @@ interface ButtonProps {
 }
 
 const WINE = "#750006";
+const DEEP = "#260000";
+const CREAM = "#f5f2ec";
 const GOLD = "#d98038";
 
 function styleFor(variant: Variant, size: Size): React.CSSProperties {
@@ -35,20 +37,20 @@ function styleFor(variant: Variant, size: Size): React.CSSProperties {
     transition: "background 0.3s, color 0.3s, border-color 0.3s, gap 0.3s, transform 0.12s cubic-bezier(0.16,1,0.3,1)",
     border: "1px solid transparent",
   };
-  if (variant === "primary") return { ...base, backgroundColor: WINE, color: GOLD };
+  if (variant === "primary") return { ...base, backgroundColor: DEEP, color: CREAM };
   if (variant === "outline") return { ...base, backgroundColor: "transparent", color: WINE, borderColor: "rgba(117,0,6,0.4)" };
   return { ...base, backgroundColor: "transparent", color: WINE, padding: "0.2rem 0", letterSpacing: "0.14em" };
 }
 
 function hoverIn(variant: Variant, el: HTMLElement) {
   el.style.gap = "0.9rem";
-  if (variant === "primary") el.style.backgroundColor = "#5e2410";
-  if (variant === "outline") { el.style.backgroundColor = WINE; el.style.color = GOLD; el.style.borderColor = WINE; }
+  if (variant === "primary") el.style.backgroundColor = WINE;
+  if (variant === "outline") { el.style.backgroundColor = DEEP; el.style.color = CREAM; el.style.borderColor = DEEP; }
   if (variant === "ghost") el.style.color = "#1c1c1c";
 }
 function hoverOut(variant: Variant, el: HTMLElement) {
   el.style.gap = variant === "ghost" ? "0.6rem" : "0.6rem";
-  if (variant === "primary") el.style.backgroundColor = WINE;
+  if (variant === "primary") el.style.backgroundColor = DEEP;
   if (variant === "outline") { el.style.backgroundColor = "transparent"; el.style.color = WINE; el.style.borderColor = "rgba(117,0,6,0.4)"; }
   if (variant === "ghost") el.style.color = WINE;
 }

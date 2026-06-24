@@ -225,6 +225,8 @@ h5,
 h6 {
   font-family: var(--font-heading);
   text-wrap: balance;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 p,

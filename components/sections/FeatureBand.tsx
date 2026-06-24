@@ -139,9 +139,7 @@ export default function FeatureBand() {
             >
               {PILLARS.map(({ Icon, label, note }) => (
                 <div key={label} style={{ display: "flex", flexDirection: "column", gap: "0.5rem", maxWidth: "16ch" }}>
-                  <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "48px", height: "48px", borderRadius: "14px", border: "1px solid rgba(117,0,6,0.2)", background: "rgba(117,0,6,0.06)", color: "#750006" }}>
-                    <Icon size={22} weight="light" />
-                  </span>
+                  <Icon size={28} weight="light" color="#750006" />
                   <span style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.95rem", letterSpacing: "0.02em", textTransform: "uppercase", color: "#1c1c1c" }}>{label}</span>
                   <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(28,28,28,0.55)" }}>{note}</span>
                 </div>
@@ -155,7 +153,7 @@ export default function FeatureBand() {
               style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
             >
               <Button href="/#services" variant="primary" magnetic cursor="Expertise">Explore our expertise</Button>
-              <Button href="/#work" variant="outline">See our work</Button>
+              <Button href="/#work" variant="primary">See our work</Button>
             </motion.div>
           </div>
 
@@ -200,14 +198,7 @@ export default function FeatureBand() {
                 Share your brief and we&apos;ll shape the route.
               </p>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "1.2rem", marginTop: "1.8rem" }}>
-                <Link
-                  href="/#contact"
-                  style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", background: "#260000", color: "#f5f2ec", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.78rem", letterSpacing: "0.12em", textTransform: "uppercase", padding: "0.95rem 1.8rem", borderRadius: "999px", textDecoration: "none", transition: "transform 0.2s" }}
-                  onPointerDown={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
-                  onPointerUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
-                >
-                  Book us
-                </Link>
+                <Button href="/#contact" variant="primary" magnetic={false} cursor="Let's talk">Book us</Button>
                 <a href="mailto:info@fidco.africa" style={{ fontFamily: "var(--font-body)", fontWeight: 600, fontSize: "0.92rem", color: "#260000", textDecoration: "none", borderBottom: "1px solid rgba(38,0,0,0.4)" }}>
                   info@fidco.africa
                 </a>

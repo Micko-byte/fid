@@ -10,7 +10,7 @@ const logos = [
 export default function LogoMarquee() {
   const row = [...logos, ...logos];
   return (
-    <section className="section-light" style={{ backgroundColor: "#f5f2ec", paddingTop: "clamp(4rem,8vw,6.5rem)", paddingBottom: "clamp(4rem,8vw,6.5rem)", overflow: "hidden" }}>
+    <section className="section-light" style={{ backgroundColor: "#f5f2ec", paddingTop: "clamp(4rem,8vw,6.5rem)", paddingBottom: "clamp(4rem,8vw,6.5rem)", overflow: "hidden", isolation: "isolate" }}>
       <p style={{ textAlign: "center", fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006", marginBottom: "clamp(2.4rem,5vw,3.4rem)" }}>
         Trusted by institutions, governments &amp; brands across Africa
       </p>
@@ -50,9 +50,10 @@ export default function LogoMarquee() {
           max-width: 150px;
           width: auto;
           object-fit: contain;
-          filter: grayscale(1);
-          opacity: 0.55;
+          filter: grayscale(1) contrast(1.1);
+          opacity: 0.6;
           mix-blend-mode: multiply;
+          background: #f5f2ec;
           transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
         }
         .lm-item img:hover {
