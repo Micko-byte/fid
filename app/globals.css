@@ -294,13 +294,23 @@ th {
     --type-h3: clamp(1.35rem, 3.5vw, 2rem);
   }
 
+  /* ── Grain overlay — kill the fixed GPU layer on mobile ── */
+  .grain-overlay { display: none !important; }
+
   /* ── Work mosaic ── */
   .work-mosaic { grid-template-columns: 1fr !important; }
-  .work-mosaic-link { min-height: clamp(260px, 55vw, 400px) !important; }
+  .work-mosaic-lg, .work-mosaic-sm { min-height: clamp(280px, 62vw, 420px) !important; }
+  /* Tighter card stagger on mobile */
+  .work-mosaic-card { margin-top: 0 !important; }
 
   /* ── Hero ── */
   .hero-inner { grid-template-columns: 1fr !important; }
-  .hero-inner > *:last-child { display: none; } /* hide orb on small screens */
+  .hero-inner > *:last-child { display: none; }
+
+  /* ── FeatureBand: text first, then media ── */
+  .fb-grid { grid-template-columns: 1fr !important; }
+  /* Hide the hero video on mobile — CTA card is still visible */
+  .fb-grid > *:last-child .fb-video { display: none; }
 
   /* ── Brand flow ── */
   .brand-flow-grid { grid-template-columns: 1fr !important; }
@@ -313,9 +323,23 @@ th {
   .platforms-side { grid-template-columns: 1fr 1fr; display: grid; gap: 1rem; }
   .platforms-head { grid-template-columns: 1fr !important; }
   .platforms-title { max-width: 100% !important; }
+
+  /* ── Services section ── */
+  .services-grid { grid-template-columns: 1fr !important; }
+  .service-dial-wrap { display: none !important; }
+
+  /* ── African footprint map ── */
+  .af-grid { grid-template-columns: 1fr !important; }
+  .af-flags { grid-template-columns: 1fr 1fr !important; }
 }
 
 @media (max-width: 580px) {
+  :root {
+    --type-h2: clamp(1.6rem, 7vw, 2.4rem);
+    --type-h3: clamp(1.2rem, 5vw, 1.7rem);
+    --site-gutter: 1.1rem;
+  }
+
   /* ── Nav pill full width on tiny screens ── */
   nav[aria-label="Main navigation"] {
     width: calc(100vw - 1.6rem) !important;
@@ -335,6 +359,15 @@ th {
   /* ── Radar circles ─ stack on phone ── */
   .radar-row { flex-wrap: wrap !important; justify-content: center !important; gap: 1rem !important; }
   .radar-wrap + .radar-wrap { margin-left: 0 !important; }
+
+  /* ── About stats: 2 col on small mobile ── */
+  .about-stats { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Work mosaic cards: full-width comfortable height ── */
+  .work-mosaic-lg, .work-mosaic-sm { min-height: 260px !important; }
+
+  /* ── Scroll velocity strip — smaller on mobile ── */
+  .footer-capability-text { font-size: clamp(1.1rem, 5vw, 1.8rem) !important; }
 }
 
 /* ─── Brand section utility classes ──────────────────────────────────── */

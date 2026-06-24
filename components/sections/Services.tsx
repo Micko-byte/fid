@@ -341,6 +341,7 @@ export default function Services() {
           marginBottom: "clamp(3rem,7vw,5rem)",
           position: "relative",
           zIndex: 2,
+          flexWrap: "wrap",
         }}
       >
         <div>
@@ -364,9 +365,9 @@ export default function Services() {
         </div>
 
         <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.2 }}
+          initial={{ opacity: 0, y: 12 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.2 }}
           style={{ flexShrink: 0, paddingTop: "0.25rem" }}
         >
           <Link

@@ -240,9 +240,9 @@ export default function WorkIndustries() {
             </motion.span>
 
             <motion.h2
-              initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-              animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
-              transition={{ duration: 1, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               style={{ marginTop: "0.8rem", fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(2.4rem,5.5vw,4.4rem)", color: "#1c1c1c", lineHeight: 1 }}
             >
               <TextRoll style={{ color: "#1c1c1c" }}>Stories shaped by culture, institutions and public attention.</TextRoll>

@@ -1,6 +1,6 @@
 ﻿"use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
@@ -19,6 +19,9 @@ export default function FeatureBand() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => { setIsMobile(window.innerWidth < 768); }, []);
+  const dy = isMobile ? 18 : 36;
 
   // On load, start the hero video at 1.4s and loop it (1.4s → end → 1.4s).
   useEffect(() => {
@@ -76,9 +79,9 @@ export default function FeatureBand() {
           {/* LEFT: editorial text — slide-up-fade-in on mount */}
           <div>
             <motion.p
-              initial={{ opacity: 0, y: 32 }}
+              initial={{ opacity: 0, y: dy * 0.6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               className="type-eyebrow"
               style={{ color: "#750006", marginBottom: "1rem" }}
             >
@@ -101,9 +104,9 @@ export default function FeatureBand() {
 
             <motion.h2
               data-skew
-              initial={{ opacity: 0, y: 52 }}
+              initial={{ opacity: 0, y: dy }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.0, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.85, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="type-h2"
               style={{ maxWidth: "20ch", margin: 0, color: "#1c1c1c" }}
             >
@@ -118,9 +121,9 @@ export default function FeatureBand() {
             />
 
             <motion.p
-              initial={{ opacity: 0, y: 36 }}
+              initial={{ opacity: 0, y: dy * 0.6 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.75, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
               className="type-body"
               style={{ color: "rgba(28,28,28,0.62)", maxWidth: "48ch", marginBottom: "clamp(1.8rem,3.5vw,3rem)" }}
             >
@@ -129,9 +132,9 @@ export default function FeatureBand() {
 
             {/* Insight · Strategy · Impact — icon pillars */}
             <motion.div
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: dy * 0.5 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: "flex", flexWrap: "wrap", gap: "clamp(1.2rem,3vw,2.4rem)", marginBottom: "clamp(1.8rem,3.5vw,2.6rem)" }}
             >
               {PILLARS.map(({ Icon, label, note }) => (
@@ -146,9 +149,9 @@ export default function FeatureBand() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: dy * 0.4 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.74, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: "flex", flexWrap: "wrap", gap: "1rem" }}
             >
               <Button href="/#services" variant="primary" magnetic cursor="Expertise">Explore our expertise</Button>
@@ -158,13 +161,13 @@ export default function FeatureBand() {
 
           {/* RIGHT: animation slot + CTA */}
           <motion.div
-            initial={{ opacity: 0, x: 48, y: 20 }}
-            animate={{ opacity: 1, x: 0, y: 0 }}
-            transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            initial={{ opacity: 0, y: dy * 0.5 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
             style={{ position: "relative", display: "flex", flexDirection: "column", gap: "clamp(1.4rem,3vw,2.2rem)", justifyContent: "center" }}
           >
             {/* Hero animation — loops 1.4s → end */}
-            <div style={{ position: "relative", width: "100%" }}>
+            <div className="fb-video" style={{ position: "relative", width: "100%" }}>
               <video
                 ref={videoRef}
                 src="/illustrations/hero-influence-animated.mp4"

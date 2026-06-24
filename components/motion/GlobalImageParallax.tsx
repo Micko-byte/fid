@@ -10,6 +10,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
  */
 export default function GlobalImageParallax() {
   useEffect(() => {
+    // No parallax on touch/mobile — saves GPU and avoids janky transforms
+    if (!window.matchMedia("(pointer: fine)").matches) return;
+
     gsap.registerPlugin(ScrollTrigger);
 
     /* ── Hover parallax ─────────────────────────────────────────── */
@@ -98,10 +101,7 @@ export default function GlobalImageParallax() {
     let debounceTimer: ReturnType<typeof setTimeout> | null = null;
     const mo = new MutationObserver(() => {
       if (debounceTimer) clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(() => {
-        runAll();
-        ScrollTrigger.refresh();
-      }, 800);
+      debounceTimer = setTimeout(runAll, 800);
     });
     mo.observe(document.body, { childList: true, subtree: false });
 
