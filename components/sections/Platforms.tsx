@@ -23,7 +23,7 @@ const platforms = [
     href: "/platforms/suhba-series",
     desc: "An intimate conversation platform created to foster meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences.",
     num: "02",
-    image: "/illustrations/suhba-festival.png",
+    image: "https://drive.google.com/uc?export=view&id=1QJWYQrw8Mp23GWX74GxbIfpDvTdTDzNw",
     accent: "#d9ab88",
     Icon: ChatsCircle,
   },

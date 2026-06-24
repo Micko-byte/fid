@@ -84,7 +84,7 @@ export const platforms: OwnedPlatform[] = [
       "https://drive.google.com/uc?export=view&id=1S7b4cBLVjDGcXpciryLbCk82So7hAFoT",
       "https://drive.google.com/uc?export=view&id=1IVusjkarHXndjXoSTQ7UwxVvj9y4Qz3p",
     ],
-    image: "/illustrations/suhba-festival.png",
+    image: "https://drive.google.com/uc?export=view&id=1QJWYQrw8Mp23GWX74GxbIfpDvTdTDzNw",
     accent: "#750006",
   },
   {
