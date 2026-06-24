@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TextRoll } from "@/components/core/text-roll";
-
 type Country = { name: string; code: string };
 
 const countries: Country[] = [
@@ -83,8 +81,8 @@ export default function AfricanFootprint() {
         <span style={{ display: "inline-block", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#d9ab88", marginBottom: "0.9rem" }}>
           African footprint
         </span>
-        <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: "#1c1c1c", fontSize: "clamp(1.9rem,3.6vw,3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase" }}>
-          <TextRoll>8+ markets across East &amp; Southern Africa — and beyond.</TextRoll>
+        <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: "#1c1c1c", fontSize: "clamp(1.9rem,3.6vw,3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase", textWrap: "balance" } as React.CSSProperties}>
+          8+ markets across East &amp; Southern Africa — and beyond.
         </h3>
       </div>
 

@@ -69,14 +69,9 @@ export default function CutoutCard({
             lineHeight: 0.88,
             letterSpacing: "-0.04em",
             textTransform: "uppercase",
-            color: "transparent",
-            backgroundImage: `url(${image})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            filter: "contrast(1.1) brightness(1.1)",
-          }}
+            color: "#f5f2ec",
+            textWrap: "balance",
+          } as React.CSSProperties}
         >
           {label}
         </span>

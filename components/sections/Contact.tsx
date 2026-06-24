@@ -4,7 +4,6 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { FacebookLogo, InstagramLogo, YoutubeLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import { fireConfetti } from "@/components/motion/confetti";
-import { TextRoll } from "@/components/core/text-roll";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -166,12 +165,12 @@ export default function Contact() {
               </p>
             </div>
             <motion.h2
-              initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-              animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
-              transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(2.8rem,6.5vw,5.2rem)", backgroundImage: "linear-gradient(135deg, #f5f2ec 40%, #d98038 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: "-0.02em", lineHeight: 1.02, textWrap: "balance", marginBottom: "2.5rem" } as React.CSSProperties}
+              initial={{ opacity: 0, y: 22 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(2.8rem,6.5vw,5.2rem)", backgroundImage: "linear-gradient(135deg, #f5f2ec 40%, #d98038 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: "-0.02em", lineHeight: 1.02, textWrap: "balance", marginBottom: "2.5rem", maxWidth: "18ch", marginLeft: "auto", marginRight: "auto" } as React.CSSProperties}
             >
-              <TextRoll style={{ color: "#d98038", WebkitTextFillColor: "#d98038" } as React.CSSProperties}>Let&apos;s start a conversation.</TextRoll>
+              Let&apos;s start a conversation.
             </motion.h2>
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1.6rem" }}>

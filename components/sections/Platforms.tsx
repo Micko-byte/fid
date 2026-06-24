@@ -192,7 +192,7 @@ export default function Platforms() {
         }
         .platforms-title {
           margin: 1rem 0 0;
-          max-width: 12ch;
+          max-width: 18ch;
           font-family: var(--font-heading);
           font-size: clamp(2rem, 4vw, 3.5rem);
           line-height: 0.86;
