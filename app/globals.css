@@ -418,9 +418,15 @@ th {
 /* ─── Global border-radius token ─────────────────────────────────────── */
 :root { --radius: 14px; }
 
-/* No grey text — enforce black/white only */
+/* No grey text — enforce brand colors only */
 .text-muted, [class*="text-gray"], [class*="text-neutral"] { color: #1c1c1c !important; }
-body { font-weight: 500; }
+body { font-weight: 500; color: #1c1c1c; }
+
+/* Prevent any rgba opacity text on light backgrounds */
+.section-light p, .section-light li, .section-light span:not(.type-eyebrow) { color: #1c1c1c; }
+/* On dark/red sections everything stays cream */
+.section-red p, .section-red li { color: #f5f2ec !important; }
+.section-dark p, .section-dark li { color: #f5f2ec !important; }
 
 /* ─── Reduced motion ───────────────────────────────────────────────────── */
 

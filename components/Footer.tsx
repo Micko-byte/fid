@@ -72,9 +72,11 @@ export default function Footer() {
       </div>
 
       {/* ── Giant kinetic wordmark (subtle, on orange) ── */}
-      <motion.div aria-hidden style={{ x: wordX, position: "relative", zIndex: 1, textAlign: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(7rem,30vw,28rem)", lineHeight: 0.72, letterSpacing: 0, color: "rgba(245,242,236,0.28)", whiteSpace: "nowrap", marginTop: "clamp(1.5rem,4vw,3rem)", marginBottom: "-0.08em", userSelect: "none", WebkitTextStroke: "1px rgba(245,242,236,0.38)" }}>
-        FID &amp; CO.
-      </motion.div>
+      <div style={{ overflow: "hidden", width: "100%" }}>
+        <motion.div aria-hidden style={{ x: wordX, position: "relative", zIndex: 1, textAlign: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(4rem,15vw,14rem)", lineHeight: 0.82, letterSpacing: 0, color: "rgba(245,242,236,0.22)", whiteSpace: "nowrap", marginTop: "clamp(1.5rem,4vw,3rem)", paddingBottom: "0.15em", userSelect: "none", WebkitTextStroke: "1px rgba(245,242,236,0.32)" }}>
+          FID &amp; CO.
+        </motion.div>
+      </div>
 
       <style>{`
         @media (max-width:768px){ .ft-grid{ grid-template-columns:1fr 1fr !important; } .ft-brand{ grid-column:1 / -1; } }

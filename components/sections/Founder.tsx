@@ -103,9 +103,9 @@ export default function Founder() {
             </motion.div>
 
             <motion.blockquote
-              initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }}
-              animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}}
-              transition={{ duration: 1.1, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.9, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
               style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontStyle: "italic", color: "#1c1c1c", fontSize: "clamp(1.4rem, 2.7vw, 2.1rem)", lineHeight: 1.34, letterSpacing: "-0.01em", marginTop: "2.4rem", maxWidth: "34ch" }}
             >
               <span style={{ color: "#750006", fontStyle: "normal" }}>&ldquo;</span>
@@ -127,7 +127,7 @@ export default function Founder() {
               initial={{ opacity: 0, y: 16 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.42 }}
-              style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.15vw,1rem)", lineHeight: 1.7, color: "rgba(28,28,28,0.6)", marginTop: "2rem", maxWidth: "48ch" }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.15vw,1rem)", lineHeight: 1.7, color: "#1c1c1c", marginTop: "2rem", maxWidth: "48ch" }}
             >
               A communications strategist, entrepreneur and brand architect with more than a decade operating at the intersection of media, business, culture and public engagement across African markets. In 2010 she founded FID Public Relations Ltd, which has since evolved into FID &amp; Co.
             </motion.p>

@@ -14,7 +14,7 @@ interface FidLogoProps {
  * viewBox cropped to just the logo mark (removing Illustrator page whitespace).
  */
 export default function FidLogo({ variant = "dark", className = "", style }: FidLogoProps) {
-  const ink   = variant === "dark" ? "#1c1c1c" : "#f5f2ec";
+  const ink   = variant === "dark" ? "#750006" : "#f5f2ec";
   const hiA   = variant === "dark" ? "rgba(245,242,236,0.85)" : "rgba(28,28,28,0.5)";
   const hiB   = variant === "dark" ? "rgba(200,195,188,0.6)"  : "rgba(28,28,28,0.35)";
 

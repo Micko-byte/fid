@@ -78,16 +78,16 @@ function CardSlideshow({ slug, color, client, sector }: {
 
   return (
     <>
-      <AnimatePresence mode="wait">
+      <AnimatePresence mode="sync">
         <motion.img
           key={idx}
           src={src}
           alt=""
           loading="lazy"
-          initial={{ opacity: 0, scale: 1.08 }}
-          animate={{ opacity: 1, scale: 1.04 }}
-          exit={{ opacity: 0, scale: 1 }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.65, ease: "easeInOut" }}
           onError={() => setErrored(prev => new Set(prev).add(idx))}
           style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
         />
@@ -285,9 +285,9 @@ export default function WorkIndustries() {
           style={{ transformOrigin: "left", height: "1px", background: "rgba(28,28,28,0.14)", marginTop: "clamp(2rem,5vw,3.5rem)", marginBottom: "clamp(2rem,5vw,4rem)" }}
         />
 
-        {/* Mosaic grid */}
+        {/* Mosaic grid — only show projects that have real photos */}
         <div className="work-mosaic">
-          {projects.map((p, index) => (
+          {projects.filter(p => (projectGalleryImages[p.slug] ?? []).length > 0).map((p, index) => (
             <MosaicCard key={p.slug} p={p} index={index} variant={index % 4 === 0 || index % 4 === 3 ? "lg" : "sm"} />
           ))}
         </div>

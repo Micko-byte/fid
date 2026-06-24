@@ -52,6 +52,7 @@ export default function LogoMarquee() {
           object-fit: contain;
           filter: grayscale(1);
           opacity: 0.55;
+          mix-blend-mode: multiply;
           transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
         }
         .lm-item img:hover {
