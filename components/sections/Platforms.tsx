@@ -57,8 +57,8 @@ function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number]
 
       <div className="platform-feature-copy">
         <div className="platform-meta-row">
-          <span>{p.num} / Owned platform</span>
-          <Icon size={28} weight="light" />
+          <span style={{ color: "#f5f2ec" }}>{p.num} / Owned platform</span>
+          <Icon size={28} weight="light" color="#d98038" />
         </div>
 
         <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }}>
@@ -66,7 +66,7 @@ function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number]
         </Link>
 
         <p className="platform-tag">{p.tag}</p>
-        <p className="type-body platform-desc">{p.desc}</p>
+        <p className="platform-desc" style={{ color: "#f5f2ec", fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, maxWidth: "52ch", margin: "1rem 0 0" }}>{p.desc}</p>
 
         <Link href={p.href} className="platform-link" data-cursor="Explore">
           Explore platform <ArrowUpRight size={17} weight="bold" />

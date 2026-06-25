@@ -2,15 +2,12 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight, InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
+import { InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
 import FidLogo from "@/components/ui/FidLogo";
 
 export default function Footer() {
   const year = new Date().getFullYear();
   const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
-  const wordX = useTransform(scrollYProgress, [0, 1], ["-4%", "3%"]);
 
   return (
     <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#750006", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #260000" }}>
@@ -41,11 +38,11 @@ export default function Footer() {
 
           <div>
             <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#f5f2ec", marginBottom: "1.4rem", fontWeight: 700, fontFamily: "var(--font-body)" }}>Connect</h5>
-            <a href="tel:+254797690609" style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>
-              <Phone size={15} weight="light" color="#d98038" />+254 797 690 609
+            <a href="tel:+254797690609" style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>
+              <Phone size={20} weight="light" color="#d98038" />+254 797 690 609
             </a>
-            <a href="https://www.fidco.africa" style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "1.4rem", textDecoration: "none" }}>
-              <Globe size={15} weight="light" color="#d98038" />www.fidco.africa
+            <a href="https://www.fidco.africa" style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "1.4rem", textDecoration: "none" }}>
+              <Globe size={20} weight="light" color="#d98038" />www.fidco.africa
             </a>
             <div style={{ display: "flex", gap: "0.75rem" }}>
               {[
@@ -54,10 +51,10 @@ export default function Footer() {
                 { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
               ].map(({ Icon, href, label }) => (
                 <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                  style={{ width: "38px", height: "38px", border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", color: "rgba(245,242,236,0.6)", textDecoration: "none", transition: "all 0.25s" }}
+                  style={{ width: "44px", height: "44px", border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", color: "rgba(245,242,236,0.6)", textDecoration: "none", transition: "all 0.25s" }}
                   onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d98038"; e.currentTarget.style.borderColor = "#d98038"; e.currentTarget.style.color = "#260000"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; e.currentTarget.style.color = "rgba(245,242,236,0.6)"; }}>
-                  <Icon size={18} weight="light" />
+                  <Icon size={22} weight="light" />
                 </a>
               ))}
             </div>
@@ -71,11 +68,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Giant kinetic wordmark (subtle, on orange) ── */}
-      <div style={{ overflow: "hidden", width: "100%" }}>
-        <motion.div aria-hidden style={{ x: wordX, position: "relative", zIndex: 1, textAlign: "center", fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(4rem,15vw,14rem)", lineHeight: 0.82, letterSpacing: 0, color: "rgba(245,242,236,0.22)", whiteSpace: "nowrap", marginTop: "clamp(1.5rem,4vw,3rem)", paddingBottom: "0.15em", userSelect: "none", WebkitTextStroke: "1px rgba(245,242,236,0.32)" }}>
-          FID &amp; CO.
-        </motion.div>
+      {/* ── Logo banner — white background, full-width ── */}
+      <div style={{ background: "#ffffff", width: "100%", marginTop: "clamp(2rem,5vw,4rem)", padding: "clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,6rem)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <FidLogo
+          variant="dark"
+          style={{ height: "clamp(64px,12vw,130px)", width: "auto" }}
+        />
       </div>
 
       <style>{`

@@ -74,8 +74,8 @@ export default function StatsBand() {
               transition={{ duration: 0.7, delay: 0.12 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem" }}
             >
-              <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "44px", height: "44px", borderRadius: "14px", border: "1px solid rgba(245,242,236,0.2)", background: "rgba(245,242,236,0.08)", marginBottom: "0.4rem" }}>
-                <s.Icon size={22} weight="light" color={BLUE} />
+              <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "56px", height: "56px", borderRadius: "14px", border: "1px solid rgba(245,242,236,0.2)", background: "rgba(245,242,236,0.08)", marginBottom: "0.4rem" }}>
+                <s.Icon size={30} weight="light" color={BLUE} />
               </span>
               <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: "clamp(3rem,7vw,5.5rem)", lineHeight: 0.9, letterSpacing: "-0.03em", color: "#f5f2ec" }}>
                 <Counter value={s.value} suffix={s.suffix} run={inView} />

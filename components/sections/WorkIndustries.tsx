@@ -49,7 +49,7 @@ function BrandedCard({ color, client, sector }: { color?: string; client: string
   );
 }
 
-/* ── Hover image swap: shows first image by default, second on hover ── */
+/* ── Hover image swap: CSS-only transition, zero JS animation overhead ── */
 function CardImage({ slug, color, client, sector, hovered }: {
   slug: string; color?: string; client: string; sector: string; hovered: boolean;
 }) {
@@ -60,24 +60,13 @@ function CardImage({ slug, color, client, sector, hovered }: {
     return <BrandedCard color={color} client={client} sector={sector} />;
   }
 
-  const primary   = images[0];
-  const secondary = images.length > 1 ? images[1] : images[0];
-  const active    = hovered && images.length > 1 ? secondary : primary;
-
   return (
-    <AnimatePresence mode="sync">
-      <motion.img
-        key={active}
-        src={active}
-        alt=""
-        loading="lazy"
-        initial={{ opacity: 0, scale: 1.04 }}
-        animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 1.04 }}
-        transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }}
-      />
-    </AnimatePresence>
+    <div style={{ position: "absolute", inset: 0 }}>
+      <img src={images[0]} alt="" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }} />
+      {images[1] && (
+        <img src={images[1]} alt="" loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none", opacity: hovered ? 1 : 0, transition: "opacity 0.45s ease" }} />
+      )}
+    </div>
   );
 }
 

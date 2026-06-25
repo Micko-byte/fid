@@ -229,7 +229,7 @@ export default function CTABanner() {
                       borderRadius: "14px",
                     }}
                   >
-                    <item.Icon size={18} weight="light" color="#d9ab88" style={{ marginBottom: "0.5rem", display: "block" }} />
+                    <item.Icon size={28} weight="light" color="#d9ab88" style={{ marginBottom: "0.5rem", display: "block" }} />
                     <div
                       style={{
                         fontFamily: "var(--font-body)",
