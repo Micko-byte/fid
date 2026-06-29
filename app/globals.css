@@ -267,7 +267,7 @@ th {
 .brand-pattern-amber {
   background-image: url("/patterns/brand-maze.png");
   background-repeat: repeat;
-  background-size: 300px 300px;
+  background-size: 240px 138px;
 }
 
 /* ─── Brand section backgrounds ───────────────────────────────────────── */
@@ -294,7 +294,7 @@ th {
   background-image:
     url("/patterns/brand-maze.png"),
     radial-gradient(ellipse 60% 50% at 0% 100%, rgba(217,128,56,0.08) 0%, transparent 55%);
-  background-size: 300px 300px, auto;
+  background-size: 240px 138px, auto;
   background-repeat: repeat, no-repeat;
 }
 
