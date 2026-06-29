@@ -59,7 +59,7 @@ export default function WorkExpandGallery() {
       data-nav-dark
       aria-label="Selected work showcase"
       style={{
-        background: "#0f0f0f",
+        background: "#260000",
         padding: "clamp(5rem, 10vw, 8rem) 0 0",
         overflow: "hidden",
       }}

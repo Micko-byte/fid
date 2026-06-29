@@ -207,7 +207,7 @@ export default function ServiceDetailClient({ service }: Props) {
             fontWeight: 400,
             fontSize: "24px",
             lineHeight: 1.79,
-            color: "#0a0a0a",
+            color: "#1c1c1c",
             maxWidth: "55ch",
           }}
         >
@@ -259,7 +259,7 @@ export default function ServiceDetailClient({ service }: Props) {
               fontWeight: 400,
               fontSize: "clamp(1.1rem, 1.8vw, 24px)",
               lineHeight: 1.79,
-              color: "#0a0a0a",
+              color: "#1c1c1c",
             }}>
               {service.body}
             </p>

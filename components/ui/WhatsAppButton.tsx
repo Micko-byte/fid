@@ -102,7 +102,7 @@ export default function WhatsAppButton() {
             height: "13px",
             borderRadius: "999px",
             background: "#d98038",
-            border: "2px solid #0d0606",
+            border: "2px solid #260000",
           }}
         />
         <WhatsappLogo size={30} weight="fill" />

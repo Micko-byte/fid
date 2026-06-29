@@ -317,7 +317,7 @@ export default function Services() {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#0f0f0f",
+        backgroundColor: "#260000",
         paddingTop: "clamp(4rem,9vw,7rem)",
         paddingBottom: "clamp(4rem,9vw,8rem)",
       }}

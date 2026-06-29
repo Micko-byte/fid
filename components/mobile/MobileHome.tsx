@@ -146,7 +146,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── OUR EXPERTISE (rotating dials, 2-1-2) ── */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#0f0f0f", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section style={{ position: "relative", overflow: "hidden", background: "#260000", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
         <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.5 }} />
         <div style={{ position: "relative", zIndex: 1 }}>
         <MobileSectionHead title="Our Expertise" href="/services" tone="dark" />
@@ -183,7 +183,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── SELECTED WORK (slider) ── */}
-      <section style={{ background: "#141414", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section style={{ background: "#1c1c1c", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
         <MobileSectionHead title="Selected Work" href="/#work" label="View all" tone="dark" />
         <MobileSlider tone="dark">
           {WORK.map((w) => (

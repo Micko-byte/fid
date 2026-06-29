@@ -69,7 +69,7 @@ export const services: Service[] = [
     ],
     cards: [
       { bg: "#efccbe", label: "Creator Casting" },
-      { bg: "#0a0a0a", label: "Ambassador Programmes", textColor: "#ffffff" },
+      { bg: "#1c1c1c", label: "Ambassador Programmes", textColor: "#ffffff" },
       { bg: "#D98038", label: "AI Content" },
       { bg: "#F5F2EC", label: "Performance" },
     ],

@@ -35,7 +35,7 @@ export default function MobileAbout() {
   return (
     <div style={{ overflowX: "hidden" }}>
       {/* HERO */}
-      <section style={{ background: "#0f0f0f", color: "#f5f2ec", padding: `calc(${PY} + 4rem) ${PX} ${PY}`, backgroundImage: "radial-gradient(ellipse 90% 50% at 50% 0%, rgba(117,0,6,0.5) 0%, transparent 70%)" }}>
+      <section style={{ background: "#260000", color: "#f5f2ec", padding: `calc(${PY} + 4rem) ${PX} ${PY}`, backgroundImage: "radial-gradient(ellipse 90% 50% at 50% 0%, rgba(117,0,6,0.5) 0%, transparent 70%)" }}>
         <FadeUp><MobileEyebrow>About FID &amp; Co.</MobileEyebrow></FadeUp>
         <FadeUp delay={0.08}>
           <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.2rem, 9.5vw, 3.4rem)", lineHeight: 1.0, letterSpacing: "-0.03em", margin: "1.4rem 0 0" }}>
@@ -78,7 +78,7 @@ export default function MobileAbout() {
       </section>
 
       {/* PHILOSOPHY */}
-      <section style={{ background: "#0f0f0f", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section style={{ background: "#260000", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
         <FadeUp><MobileEyebrow>Our philosophy</MobileEyebrow></FadeUp>
         <div style={{ marginTop: "2.4rem", display: "flex", flexDirection: "column", gap: "2.4rem" }}>
           {pillars.map((p, i) => (

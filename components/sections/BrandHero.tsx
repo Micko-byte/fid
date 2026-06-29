@@ -30,7 +30,7 @@ export default function BrandHero() {
     <section
       className="relative w-full overflow-hidden"
       data-nav-dark
-      style={{ background: "#0d0606", color: "#f5f2ec" }}
+      style={{ background: "#260000", color: "#f5f2ec" }}
     >
       <style>{`
         @keyframes fid-fade-slide { from { opacity:0; transform:translateY(20px);} to {opacity:1; transform:translateY(0);} }
