@@ -259,15 +259,17 @@ th {
 
 /* ─── Brand pattern texture ────────────────────────────────────────────── */
 
-/* Official FID brand pattern — the angular maze extracted from the brand
-   guidelines (p.23), earthline lines on transparency. Tints/darkens to suit
-   light or dark sections via the per-use opacity overlay. */
-.brand-pattern,
-.brand-pattern-light,
+/* Subtle interlocking geometric line pattern */
+.brand-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23750006' stroke-opacity='0.08' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.brand-pattern-light {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f5f2ec' stroke-opacity='0.07' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
 .brand-pattern-amber {
-  background-image: url("/patterns/brand-maze.png");
-  background-repeat: repeat;
-  background-size: 240px 138px;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d98038' stroke-opacity='0.12' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
 /* ─── Brand section backgrounds ───────────────────────────────────────── */
@@ -292,10 +294,8 @@ th {
 .bg-brand-texture {
   background-color: #f5f2ec;
   background-image:
-    url("/patterns/brand-maze.png"),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23750006' fill-opacity='0.05'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
     radial-gradient(ellipse 60% 50% at 0% 100%, rgba(217,128,56,0.08) 0%, transparent 55%);
-  background-size: 240px 138px, auto;
-  background-repeat: repeat, no-repeat;
 }
 
 /* ─── Mobile & tablet responsive ──────────────────────────────────────── */

@@ -146,7 +146,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── OUR EXPERTISE (rotating dials, 2-1-2) ── */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#260000", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section style={{ position: "relative", overflow: "hidden", background: "#1c1c1c", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
         <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.5 }} />
         <div style={{ position: "relative", zIndex: 1 }}>
         <MobileSectionHead title="Our Expertise" href="/services" tone="dark" />
