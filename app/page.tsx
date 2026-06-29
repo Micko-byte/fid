@@ -1,9 +1,9 @@
-import FeatureBand from "@/components/sections/FeatureBand";
+import BrandHero from "@/components/sections/BrandHero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import BrandFlow from "@/components/sections/BrandFlow";
 import CTABanner from "@/components/sections/CTABanner";
-import WorkIndustries from "@/components/sections/WorkIndustries";
+import WorkExpandGallery from "@/components/sections/WorkExpandGallery";
 import StatsBand from "@/components/sections/StatsBand";
 import Platforms from "@/components/sections/Platforms";
 import Founder from "@/components/sections/Founder";
@@ -12,16 +12,19 @@ import InstagramFeed from "@/components/sections/InstagramFeed";
 import Contact from "@/components/sections/Contact";
 import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import Footer from "@/components/Footer";
+import ResponsiveHome from "@/components/mobile/ResponsiveHome";
 
 export default function HomePage() {
   return (
+    <ResponsiveHome
+      desktop={
     <>
-      <FeatureBand />
+      <BrandHero />
       <About />
       <Services />
       <BrandFlow />
       <CTABanner />
-      <WorkIndustries />
+      <WorkExpandGallery />
       <StatsBand />
       <Platforms />
       <Founder />
@@ -60,5 +63,7 @@ export default function HomePage() {
       </div>
       <Footer />
     </>
+      }
+    />
   );
 }

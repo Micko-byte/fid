@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { projects, type Project } from "@/components/lib/projects";
@@ -171,16 +171,8 @@ export default function WorkIndustries() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
-  const leadFacts = useMemo(() => [
-    "National launches",
-    "Regional storytelling",
-    "Multi-market campaigns",
-    "Cultural and institutional work",
-  ], []);
-
   return (
     <section
-      id="work"
       className="section-light"
       style={{ position: "relative", overflow: "hidden", backgroundColor: "#f5f2ec", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)" }}
     >
@@ -188,58 +180,6 @@ export default function WorkIndustries() {
       <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.45 }} />
 
       <div ref={ref} style={{ position: "relative", zIndex: 1, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
-
-        {/* Header */}
-        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", gap: "1.8rem" }}>
-          <div style={{ maxWidth: "760px", margin: "0 auto" }}>
-            <motion.span
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6 }}
-              style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006" }}
-            >
-              <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} />
-              Our work
-            </motion.span>
-
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.75, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              style={{ marginTop: "0.8rem", fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(2.4rem,5.5vw,4.4rem)", color: "#1c1c1c", lineHeight: 1, maxWidth: "22ch", marginLeft: "auto", marginRight: "auto", textWrap: "balance" } as React.CSSProperties}
-            >
-              Stories shaped by culture, institutions and public attention.
-            </motion.h2>
-
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, delay: 0.22 }}
-              style={{ marginTop: "1rem", maxWidth: "60ch", marginLeft: "auto", marginRight: "auto", fontFamily: "var(--font-body)", fontSize: "clamp(0.95rem,1.35vw,1.1rem)", lineHeight: 1.65, color: "#1c1c1c", fontWeight: 500 }}
-            >
-              Communication is not a gallery of assets. It is a sequence of public moments, each with a purpose, an audience and a point of view.
-            </motion.p>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            style={{ display: "flex", flexWrap: "wrap", gap: "0.7rem", justifyContent: "center" }}
-          >
-            {leadFacts.map((fact, i) => (
-              <motion.div
-                key={fact}
-                initial={{ opacity: 0, scale: 0.94 }}
-                animate={inView ? { opacity: 1, scale: 1 } : {}}
-                transition={{ duration: 0.5, delay: 0.35 + i * 0.06 }}
-                style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "#1c1c1c", fontWeight: 600, padding: "0.6rem 0.9rem", borderRadius: "999px", border: "1px solid rgba(117,0,6,0.18)", background: "rgba(245,242,236,0.7)" }}
-              >
-                {fact}
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
 
         <motion.div
           initial={{ scaleX: 0 }}

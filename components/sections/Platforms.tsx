@@ -62,7 +62,7 @@ function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number]
         </div>
 
         <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }}>
-          <h3 className="platform-feature-title">{p.name}</h3>
+          <h3 className="platform-feature-title" style={{ color: "#f5f2ec" }}>{p.name}</h3>
         </Link>
 
         <p className="platform-tag">{p.tag}</p>
@@ -92,9 +92,9 @@ function PlatformTile({ platform: p, index }: { platform: (typeof platforms)[num
         href={p.href}
         style={{ height: "100%" }}
       >
-        <Link href={p.href} style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", marginTop: "0.8rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: p.accent, textDecoration: "none" }}>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", marginTop: "0.8rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: p.accent, textDecoration: "none" }}>
           Explore <ArrowUpRight size={14} weight="bold" />
-        </Link>
+        </span>
       </CutoutCard>
     </motion.div>
   );

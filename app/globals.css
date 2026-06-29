@@ -1,9 +1,18 @@
 /* ─── FID & Co. Official Brand Fonts ─────────────────────────────────── */
-/* Maragsa Display — display serif (headlines, key statements) */
-@import url("https://fonts.googleapis.com/css2?family=Maragsa&display=swap");
+/* Playfair Display = Google web fallback for Maragsa. */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&display=swap");
 /* Funnel Display — supporting sans (subheadings, body, UI) */
 @import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
+
+/* Maragsa Display — official brand display face (self-hosted) */
+@font-face {
+  font-family: "Maragsa Display";
+  src: url("/fonts/MaragsaDisplay.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
 @source "../components/**/*.tsx";
 @source "../app/**/*.tsx";
 
@@ -27,9 +36,9 @@
   --section-y: clamp(5.5rem, 12vw, 10rem);
   --section-y-hero: clamp(7.5rem, 14vw, 12rem);
 
-  --type-display: clamp(3.2rem, 7vw, 6.8rem);
-  --type-h2: clamp(2.2rem, 5vw, 4.4rem);
-  --type-h3: clamp(1.65rem, 3vw, 2.7rem);
+  --type-display: clamp(3.6rem, 8.2vw, 8.2rem);
+  --type-h2: clamp(2.5rem, 6vw, 5.4rem);
+  --type-h3: clamp(1.8rem, 3.4vw, 3.1rem);
   --type-body: clamp(0.98rem, 1.2vw, 1.12rem);
   --type-eyebrow: 0.72rem;
   --leading-tight: 0.98;
@@ -45,8 +54,8 @@
   --color-anchor:       #1c1c1c;
   --color-signal:       #d98038;
   --color-earthline:    #d9ab88;
-  --font-display:       "Maragsa", "Playfair Display", Georgia, serif;
-  --font-heading:       "Maragsa", "Playfair Display", Georgia, serif;
+  --font-display:       "Maragsa Display", "Playfair Display", Georgia, serif;
+  --font-heading:       "Maragsa Display", "Playfair Display", Georgia, serif;
   --font-body:          "Funnel Display", "Inter", system-ui, -apple-system, sans-serif;
 }
 
@@ -291,9 +300,9 @@ th {
   :root {
     --site-gutter: clamp(1.2rem, 4vw, 2.5rem);
     --section-y: clamp(4rem, 9vw, 6.5rem);
-    --type-display: clamp(2.4rem, 8vw, 4.5rem);
-    --type-h2: clamp(1.8rem, 5.5vw, 3rem);
-    --type-h3: clamp(1.35rem, 3.5vw, 2rem);
+    --type-display: clamp(2.9rem, 11vw, 5rem);
+    --type-h2: clamp(2.1rem, 8vw, 3.4rem);
+    --type-h3: clamp(1.45rem, 4.5vw, 2.2rem);
   }
 
   /* ── Grain overlay — kill the fixed GPU layer on mobile ── */
@@ -432,12 +441,12 @@ body { font-weight: 500; color: #1c1c1c; }
 
 /* ─── Reduced motion ───────────────────────────────────────────────────── */
 
+/* Reduced motion: calm one-shot transitions but keep the brand's continuous
+   decorative loops (logo marquee, expertise dials, footer wordmark) alive. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }

@@ -2,8 +2,11 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
 import FidLogo from "@/components/ui/FidLogo";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -15,8 +18,11 @@ export default function Footer() {
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(4rem,8vw,6rem)" }}>
         <div className="ft-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "clamp(2rem,5vw,4rem)" }}>
           <div className="ft-brand">
-            <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", flexDirection: "column", gap: "6px", textDecoration: "none" }}>
-              <FidLogo variant="light" style={{ height: "68px", width: "auto" }} />
+            {/* Text wordmark (the logo lives once, big, below) */}
+            <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", flexDirection: "column", gap: "4px", textDecoration: "none" }}>
+              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "2rem", letterSpacing: "-0.01em", color: "#f5f2ec", lineHeight: 1 }}>
+                FID &amp; Co.
+              </span>
               <span style={{ fontFamily: "var(--font-body)", fontSize: "0.52rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(245,242,236,0.7)", fontWeight: 600, whiteSpace: "nowrap" }}>
                 Insight · Strategy · Impact
               </span>
@@ -49,13 +55,18 @@ export default function Footer() {
                 { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
                 { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
                 { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
-              ].map(({ Icon, href, label }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+              ].map(({ Icon, href, label }, i) => (
+                <motion.a
+                  key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  initial={{ opacity: 0, y: 14, scale: 0.8 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: EASE }}
                   style={{ width: "44px", height: "44px", border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", color: "rgba(245,242,236,0.6)", textDecoration: "none", transition: "all 0.25s" }}
                   onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d98038"; e.currentTarget.style.borderColor = "#d98038"; e.currentTarget.style.color = "#260000"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; e.currentTarget.style.color = "rgba(245,242,236,0.6)"; }}>
                   <Icon size={22} weight="light" />
-                </a>
+                </motion.a>
               ))}
             </div>
           </div>
@@ -68,15 +79,23 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Logo banner — white background, full-width ── */}
-      <div style={{ background: "#ffffff", width: "100%", marginTop: "clamp(2rem,5vw,4rem)", padding: "clamp(2.5rem,5vw,4rem) clamp(1.5rem,5vw,6rem)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <FidLogo
-          variant="dark"
-          style={{ height: "clamp(64px,12vw,130px)", width: "auto" }}
-        />
+      {/* ── Big wordmark — always visible, continuous float ── */}
+      <div
+        className="bg-brand-texture"
+        style={{ position: "relative", width: "100%", marginTop: "clamp(2rem,5vw,4rem)", padding: "clamp(2.5rem,6vw,5rem) clamp(1.5rem,5vw,6rem) clamp(3rem,7vw,6rem)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}
+      >
+        <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.9 }} />
+        <div className="ft-logo-float" style={{ position: "relative", zIndex: 1 }}>
+          <FidLogo variant="dark" style={{ height: "clamp(130px,22vw,300px)", width: "auto", display: "block" }} />
+        </div>
       </div>
 
       <style>{`
+        @keyframes ft-logo-float {
+          0%, 100% { transform: translateY(0) rotate(-0.4deg); }
+          50% { transform: translateY(-16px) rotate(0.4deg); }
+        }
+        .ft-logo-float { animation: ft-logo-float 6s ease-in-out infinite; will-change: transform; }
         @media (max-width:768px){ .ft-grid{ grid-template-columns:1fr 1fr !important; } .ft-brand{ grid-column:1 / -1; } }
       `}</style>
     </footer>

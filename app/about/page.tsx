@@ -1,20 +1,12 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import OrbitalRings from "@/components/graphics/OrbitalRings";
-
-
-
-const stats = [
-  { value: "15+", label: "Years of practice" },
-  { value: "10+", label: "Industries served" },
-  { value: "8+", label: "African markets" },
-  { value: "100+", label: "Campaigns delivered" },
-];
+import Responsive from "@/components/mobile/Responsive";
+import MobileAbout from "@/components/mobile/MobileAbout";
 
 const pillars = [
   {
@@ -57,14 +49,14 @@ const markets = [
   "Kenya", "Uganda", "Rwanda", "Ethiopia", "South Sudan", "Zambia", "Ghana", "Tanzania",
 ];
 
+/* ── Hero — text left, video on the side ── */
 function PageHero() {
   return (
     <section
       className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
       style={{ backgroundColor: "#f5f2ec" }}
     >
-      {/* White background, no gradient */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full flex items-center justify-between">
+      <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full flex items-center justify-between gap-10">
         <div>
           <motion.p
             initial={{ opacity: 0, y: 12 }}
@@ -90,21 +82,21 @@ function PageHero() {
             Communication as influence.
           </motion.h1>
         </div>
-        {/* Video on the right side */}
+        {/* Video on the side */}
         <video
           src="/videos/digital-marketing.webm"
           autoPlay
           muted
           loop
           playsInline
-          className="hidden md:block w-1/2 h-auto object-cover"
+          className="hidden md:block w-1/2 h-auto object-cover rounded-2xl"
         />
       </div>
     </section>
   );
-  
 }
 
+/* ── Who we are — text left, cards ── */
 function WhoWeAre() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
@@ -121,7 +113,6 @@ function WhoWeAre() {
           Who we are
         </motion.p>
         <motion.h2
-          data-skew
           initial={{ opacity: 0, y: 32 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
@@ -152,6 +143,7 @@ function WhoWeAre() {
   );
 }
 
+/* ── Philosophy (dark) — left-aligned pillars ── */
 function Philosophy() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
@@ -197,6 +189,7 @@ function Philosophy() {
   );
 }
 
+/* ── How we work — left-aligned values ── */
 function OurApproach() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
@@ -245,6 +238,7 @@ function OurApproach() {
   );
 }
 
+/* ── Founder — portrait on the side, text on the other ── */
 function Founder() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
@@ -264,7 +258,24 @@ function Founder() {
           Founder
         </p>
 
-        <div className="grid md:grid-cols-2 gap-16 items-start">
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          {/* Portrait on the side */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div style={{ width: "100%", maxWidth: "440px", aspectRatio: "4/5", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(217,128,56,0.25)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/illustrations/founder-portrait.png"
+                alt="Farida Idris, Founder & Lead Strategist"
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+              />
+            </div>
+          </motion.div>
+
+          {/* Text */}
           <div>
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
@@ -279,19 +290,12 @@ function Founder() {
               initial={{ opacity: 0 }}
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="font-body text-xs tracking-[0.2em] uppercase"
+              className="font-body text-xs tracking-[0.2em] uppercase mb-8"
               style={{ color: "#750006" }}
             >
               Founder &amp; Lead Strategist
             </motion.p>
-          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-6"
-          >
             <blockquote
               className="font-heading leading-tight mb-8"
               style={{
@@ -305,16 +309,14 @@ function Founder() {
             <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
               Farida Idris founded FID &amp; Co. with a conviction that African organisations deserve communications that are strategic, culturally grounded and genuinely effective. With over 15 years of experience spanning government mandates, lifestyle brands, multinational retail and social impact work, she has built an agency that leads with insight and delivers with precision.
             </p>
-            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
-              Her approach is defined by a refusal to treat communication as peripheral. At FID &amp; Co., strategy comes first — and every campaign, every placement, every piece of content is accountable to a result.
-            </p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
+/* ── Markets — left-aligned chips ── */
 function Markets() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
@@ -359,6 +361,7 @@ function Markets() {
   );
 }
 
+/* ── CTA ── */
 function CTA() {
   return (
     <section
@@ -389,8 +392,6 @@ function CTA() {
               href="/#contact"
               className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
               style={{ backgroundColor: "#f5f2ec", color: "#750006", letterSpacing: "0.05em" }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#ffffff")}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#FFFFFF")}
             >
               Book us
             </Link>
@@ -398,8 +399,6 @@ function CTA() {
               href="mailto:info@fidco.africa"
               className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
               style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em" }}
-              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.8)")}
-              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "rgba(255,255,255,0.3)")}
             >
               info@fidco.africa
             </a>
@@ -410,7 +409,7 @@ function CTA() {
   );
 }
 
-export default function AboutPage() {
+function AboutDesktop() {
   return (
     <>
       <PageHero />
@@ -423,4 +422,8 @@ export default function AboutPage() {
       <Footer />
     </>
   );
+}
+
+export default function AboutPage() {
+  return <Responsive mobile={<MobileAbout />} desktop={<AboutDesktop />} />;
 }

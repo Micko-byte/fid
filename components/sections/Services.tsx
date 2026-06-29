@@ -10,7 +10,7 @@ const SVG_SIZE = 280;
 const CX = 140;
 const CY = 140;
 const R = 118;
-const TICK_N = 80;
+const TICK_N = 100;
 
 type Tick = { x1: number; y1: number; x2: number; y2: number; weight: number; opacity: number };
 
@@ -18,15 +18,14 @@ const TICKS: Tick[] = Array.from({ length: TICK_N }, (_, i) => {
   const angle = (i / TICK_N) * 360;
   const rad = (angle * Math.PI) / 180;
   const long = i % 10 === 0;
-  const med = i % 5 === 0;
-  const inner = R - (long ? 22 : med ? 13 : 7);
+  const inner = R - (long ? 14 : 8);
   return {
     x1: CX + inner * Math.cos(rad),
     y1: CY + inner * Math.sin(rad),
     x2: CX + R * Math.cos(rad),
     y2: CY + R * Math.sin(rad),
-    weight: long ? 1.4 : med ? 0.9 : 0.55,
-    opacity: long ? 0.55 : med ? 0.38 : 0.22,
+    weight: 0.6,
+    opacity: long ? 0.5 : 0.28,
   };
 });
 
@@ -194,7 +193,7 @@ function RadarCircle({
     >
       <Link
         href={`/services/${svc.slug}`}
-        style={{ display: "block", textDecoration: "none" }}
+        style={{ display: "block", position: "relative", textDecoration: "none" }}
         aria-label={svc.lines.join(" ")}
       >
         <svg
@@ -261,29 +260,30 @@ function RadarCircle({
             ))}
           </g>
 
-          {/* ── Center label ── */}
-          <g>
-            {svc.lines.map((line, li) => (
-              <text
-                key={li}
-                x={CX}
-                y={CY - ((svc.lines.length - 1) * 13) + li * 26}
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fill="rgba(245,242,236,0.95)"
-                fontSize="18"
-                fontFamily="var(--font-heading)"
-                fontWeight="600"
-                letterSpacing="-0.01em"
-              >
-                {line}
-              </text>
-            ))}
-          </g>
-
-          {/* ── Center dot ── */}
-          <circle cx={CX} cy={CY + 32} r={2.5} fill="rgba(245,242,236,0.4)" />
         </svg>
+
+        {/* ── Center: icon + label (HTML overlay, like mobile) ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.55rem",
+            pointerEvents: "none",
+            textAlign: "center",
+            padding: "0 24%",
+          }}
+        >
+          <svc.Icon size={32} weight="light" color="#d98038" />
+          <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "1.05rem", lineHeight: 1.15, color: "rgba(245,242,236,0.95)", letterSpacing: "-0.01em" }}>
+            {svc.lines.map((line, li) => (
+              <span key={li} style={{ display: "block" }}>{line}</span>
+            ))}
+          </span>
+        </div>
 
         {/* ── Hover ring glow ── */}
         <span className="radar-ring-glow" aria-hidden="true" />
@@ -317,7 +317,7 @@ export default function Services() {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#260000",
+        backgroundColor: "#0f0f0f",
         paddingTop: "clamp(4rem,9vw,7rem)",
         paddingBottom: "clamp(4rem,9vw,8rem)",
       }}
@@ -442,19 +442,12 @@ export default function Services() {
             transition={{ duration: 0.6, delay: i * 0.07 }}
             style={{ textAlign: "center" }}
           >
-            <Link
-              href={`/services/${svc.slug}`}
-              style={{ textDecoration: "none", display: "block" }}
-            >
-              {svc.Icon && (
-                <span style={{ display: "flex", justifyContent: "center", marginBottom: "0.6rem" }}>
-                  <svc.Icon size={28} weight="light" color="#d98038" />
-                </span>
-              )}
+            <Link href={`/services/${svc.slug}`} style={{ textDecoration: "none", display: "block" }}>
               <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.5rem" }}>
                 {svc.num}
               </span>
-              <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(245,242,236,0.72)", transition: "color 0.25s" }}
+              <span
+                style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.8rem", lineHeight: 1.45, color: "rgba(245,242,236,0.72)", transition: "color 0.25s" }}
                 onMouseEnter={e => ((e.target as HTMLElement).style.color = "#f5f2ec")}
                 onMouseLeave={e => ((e.target as HTMLElement).style.color = "rgba(245,242,236,0.72)")}
               >
@@ -468,7 +461,6 @@ export default function Services() {
       <style>{`
         .radar-row { scrollbar-width: none; }
         .radar-row::-webkit-scrollbar { display: none; }
-
         .radar-wrap { position: relative; }
         .radar-wrap + .radar-wrap { margin-left: clamp(0.8rem, 2vw, 1.5rem); }
 
