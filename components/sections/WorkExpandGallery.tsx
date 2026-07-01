@@ -19,11 +19,11 @@ type Item = {
 const ITEMS: Item[] = [
   { slug: "africa-urban-forum-2026", client: "Africa Urban Forum", sector: "Government", label: "Continental convening — 2026", image: cl("auf-01"), logo: "/logos/executive-office-president.png" },
   { slug: "africa-forum-on-displacements", client: "UNHCR", sector: "Government", label: "Africa Forum on Displacements", image: STOCK.pressConf?.[0]?.src ?? "", logo: "/logos/unhcr.png" },
-  { slug: "kansai-plascon", client: "Kansai Plascon", sector: "Corporate", label: "Gor Mahia partnership launch", image: cl("kansai-01"), logo: "/logos/chloride-exide.png" },
+  { slug: "kansai-plascon", client: "Kansai Plascon", sector: "Corporate", label: "Gor Mahia partnership launch", image: cl("kansai-01") },
   { slug: "lc-waikiki-africa", client: "LC Waikiki", sector: "Corporate", label: "Retail brand communications", image: STOCK.corporate?.[0]?.src ?? "", logo: "/logos/lc-waikiki.png" },
   { slug: "thrive-hospitality-group", client: "Chaii Republic", sector: "Hospitality", label: "Brand launch experience", image: "/photos/projects/thrive-hospitality/glam-01.jpg", logo: "/logos/thrive-hospitality.png" },
   { slug: "columbia-africa-healthcare", client: "Columbia Africa", sector: "Healthcare", label: "Healthcare brand & outreach", image: STOCK.about?.[0]?.src ?? "", logo: "/logos/columbia-africa.png" },
-  { slug: "allso-beauty", client: "Allso Beauty", sector: "Lifestyle", label: "Campaign & influencer strategy", image: cl("allso-01"), logo: "/logos/abyan-salon-spa.png" },
+  { slug: "allso-beauty", client: "Allso Beauty", sector: "Lifestyle", label: "Campaign & influencer strategy", image: cl("allso-01") },
   { slug: "national-minorities-day", client: "State Dept. of Culture", sector: "Government", label: "National observance activation", image: STOCK.government?.[0]?.src ?? "", logo: "/logos/state-dept-culture.png" },
 ];
 
