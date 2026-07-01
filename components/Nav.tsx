@@ -20,8 +20,13 @@ export default function Nav() {
   const [scrolled,  setScrolled]  = useState(false);
   const [onDark,    setOnDark]    = useState(true); // hero is dark at the top
   const [hideNav,   setHideNav]   = useState(false); // hide over the footer
+  const [isMobile,  setIsMobile]  = useState(false);
 
   useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 900);
+    checkMobile();
+    window.addEventListener("resize", checkMobile, { passive: true });
+
     type LenisLike = {
       scroll: number;
       on: (e: string, cb: () => void) => void;
@@ -75,6 +80,7 @@ export default function Nav() {
 
     return () => {
       window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", checkMobile);
       if (poll) clearInterval(poll);
       if (lenis) lenis.off("scroll", onScroll);
       observers.forEach((o) => o.disconnect());
@@ -84,7 +90,7 @@ export default function Nav() {
 
   // Glass header. Light (cream) logo + text over dark sections (hero, services,
   // contact, footer); primary (crimson) logo + dark text over light sections.
-  const lightText = onDark;
+  const lightText = isMobile ? true : onDark;
 
   const navBg = onDark
     ? (scrolled ? "rgba(38,0,0,0.42)" : "rgba(38,0,0,0.26)")
@@ -98,6 +104,7 @@ export default function Nav() {
       {/* ── Floating pill nav ── */}
       <nav
         ref={navRef}
+        className="brand-nav-container"
         aria-label="Main navigation"
         style={{
           position: "fixed",
@@ -306,7 +313,25 @@ export default function Nav() {
 
       <style>{`
         @media (min-width: 901px) { .nav-burger-btn { display: none !important; } }
-        @media (max-width: 900px) { .nav-links-desktop { display: none !important; } }
+        @media (max-width: 900px) {
+          .nav-links-desktop { display: none !important; }
+          .brand-nav-container {
+            position: sticky !important;
+            top: 0 !important;
+            left: 0 !important;
+            transform: none !important;
+            width: 100% !important;
+            max-width: 100vw !important;
+            border-radius: 0 !important;
+            margin: 0 !important;
+            border: none !important;
+            border-bottom: 1px solid rgba(217,128,56,0.2) !important;
+            background: #260000 !important; /* seamless dark background matching hero */
+            box-shadow: 0 4px 24px rgba(38,0,0,0.4) !important;
+            opacity: 1 !important;
+            pointer-events: auto !important;
+          }
+        }
       `}</style>
     </>
   );

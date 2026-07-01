@@ -57,8 +57,7 @@ const articles = [
 function PageHero() {
   return (
     <section
-      className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#f5f2ec" }}
+      className="section-light relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -99,7 +98,7 @@ function ArticlesSection() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#f5f2ec" }}>
+    <section className="section-light py-24 md:py-40">
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <motion.p
           initial={{ opacity: 0 }}

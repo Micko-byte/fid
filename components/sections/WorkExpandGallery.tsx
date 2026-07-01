@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react";
@@ -52,6 +52,27 @@ const ITEMS = [
 
 export default function WorkExpandGallery() {
   const [hovered, setHovered] = useState<number | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleMouseEnter = (index: number) => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setHovered(index);
+    }, 40);
+  };
+
+  const handleMouseLeave = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      setHovered(null);
+    }, 40);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   return (
     <section
@@ -60,7 +81,7 @@ export default function WorkExpandGallery() {
       aria-label="Selected work showcase"
       style={{
         background: "#260000",
-        padding: "clamp(5rem, 10vw, 8rem) 0 0",
+        padding: "clamp(5rem, 10vw, 8rem) 0 clamp(5rem, 10vw, 8rem)",
         overflow: "hidden",
       }}
     >
@@ -158,8 +179,8 @@ export default function WorkExpandGallery() {
               key={`${item.slug}-${i}`}
               href={`/work/${item.slug}`}
               className="work-accordion-item"
-              onMouseEnter={() => setHovered(i)}
-              onMouseLeave={() => setHovered(null)}
+              onMouseEnter={() => handleMouseEnter(i)}
+              onMouseLeave={handleMouseLeave}
               style={{
                 position: "relative",
                 flexGrow: isHovered ? 4 : 1,
@@ -171,6 +192,8 @@ export default function WorkExpandGallery() {
                 transition:
                   "flex-grow 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease",
                 opacity: isOtherHovered ? 0.55 : 1,
+                willChange: "flex-grow, opacity",
+                transform: "translateZ(0)",
                 borderRadius:
                   i === 0
                     ? "10px 0 0 0"
@@ -193,8 +216,9 @@ export default function WorkExpandGallery() {
                   objectFit: "cover",
                   objectPosition: "center",
                   display: "block",
-                  transform: isHovered ? "scale(1.04)" : "scale(1)",
+                  transform: isHovered ? "scale(1.04) translateZ(0)" : "scale(1) translateZ(0)",
                   transition: "transform 0.75s cubic-bezier(0.16,1,0.3,1)",
+                  willChange: "transform",
                 }}
               />
 

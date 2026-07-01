@@ -53,8 +53,7 @@ const markets = [
 function PageHero() {
   return (
     <section
-      className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#f5f2ec" }}
+      className="section-light relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
     >
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full flex items-center justify-between gap-10">
         <div>
@@ -63,7 +62,7 @@ function PageHero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="font-body text-xs tracking-[0.25em] uppercase mb-8"
-            style={{ color: "#260000" }}
+            style={{ color: "#750006" }}
           >
             About FID &amp; Co.
           </motion.p>
@@ -102,7 +101,7 @@ function WhoWeAre() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section style={{ backgroundColor: "#f5f2ec", paddingTop: "clamp(5rem,10vw,9rem)", paddingBottom: "clamp(5rem,10vw,9rem)" }}>
+    <section className="section-light" style={{ paddingTop: "clamp(5rem,10vw,9rem)", paddingBottom: "clamp(5rem,10vw,9rem)" }}>
       <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
@@ -149,10 +148,11 @@ function Philosophy() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#260000" }}>
+    <section className="bg-brand-deep relative overflow-hidden py-24 md:py-40">
+      <div aria-hidden className="brand-pattern-light absolute inset-0 opacity-40 pointer-events-none" />
       <OrbitalRings color="#C7AC9F" opacity={0.07} className="absolute inset-0 w-full h-full" />
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#750006" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#d98038" }}>
           Our philosophy
         </p>
         <div className="space-y-0">
@@ -195,7 +195,7 @@ function OurApproach() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#f5f2ec" }}>
+    <section className="section-light py-24 md:py-40">
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#750006" }}>
           How we work
@@ -244,7 +244,8 @@ function Founder() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40 relative overflow-hidden" style={{ backgroundColor: "#260000" }}>
+    <section className="bg-brand-deep relative overflow-hidden py-24 md:py-40">
+      <div aria-hidden className="brand-pattern-light absolute inset-0 opacity-40 pointer-events-none" />
       <div
         aria-hidden="true"
         className="absolute top-1/2 right-0 -translate-y-1/2 font-heading select-none pointer-events-none"
@@ -254,7 +255,7 @@ function Founder() {
       </div>
 
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#750006" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#d98038" }}>
           Founder
         </p>
 
@@ -291,7 +292,7 @@ function Founder() {
               animate={inView ? { opacity: 1 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="font-body text-xs tracking-[0.2em] uppercase mb-8"
-              style={{ color: "#750006" }}
+              style={{ color: "#d98038" }}
             >
               Founder &amp; Lead Strategist
             </motion.p>
@@ -322,7 +323,7 @@ function Markets() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#f5f2ec" }}>
+    <section className="section-light py-24 md:py-40">
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#750006" }}>
           African footprint

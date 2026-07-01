@@ -71,7 +71,7 @@ export default function MobileHome() {
       <BrandHero />
 
       {/* ── WHO WE ARE ── */}
-      <section style={{ background: "#f5f2ec", color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}`, position: "relative" }}>
         <FadeUp>
           <MobileEyebrow tone="light">Who we are</MobileEyebrow>
         </FadeUp>
@@ -183,7 +183,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── SELECTED WORK (slider) ── */}
-      <section style={{ background: "#1c1c1c", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section className="section-dark" style={{ color: "#f5f2ec", padding: `${PY} ${PX}` }}>
         <MobileSectionHead title="Selected Work" href="/#work" label="View all" tone="dark" />
         <MobileSlider tone="dark">
           {WORK.map((w) => (
@@ -202,7 +202,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── PLATFORMS (slider) ── */}
-      <section style={{ background: "#f5f2ec", color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
         <MobileSectionHead title="Owned Platforms" href="/events" tone="light" />
         <MobileSlider tone="light">
           {PLATFORMS.map((p) => (
@@ -221,7 +221,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── FOUNDER (white) ── */}
-      <section style={{ background: "#f5f2ec", color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
         <FadeUp>
           <MobileEyebrow tone="light">Founder</MobileEyebrow>
         </FadeUp>

@@ -1,10 +1,11 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Ticket, CalendarBlank, MapPin } from "@phosphor-icons/react";
 import { events } from "@/components/lib/events";
+import Footer from "@/components/Footer";
 
 function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -86,7 +87,7 @@ export default function EventsClient() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <main style={{ backgroundColor: "#f5f2ec", color: "#1c1c1c", minHeight: "100vh" }}>
+    <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh" }}>
       <section style={{ paddingTop: "clamp(8rem,16vw,12rem)", paddingBottom: "clamp(4rem,8vw,7rem)" }}>
         <div ref={ref} style={{ maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
           <motion.span
@@ -144,6 +145,7 @@ export default function EventsClient() {
           .event-card .event-img { order: 1 !important; }
         }
       `}</style>
+      <Footer />
     </main>
   );
 }

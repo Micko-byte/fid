@@ -8,6 +8,7 @@ export default function BrandHero() {
     <section
       data-nav-dark
       aria-label="FID & Co."
+      className="brand-hero-section"
       style={{
         position: "relative",
         width: "100%",
@@ -25,6 +26,7 @@ export default function BrandHero() {
         playsInline
         preload="auto"
         aria-hidden
+        className="brand-hero-video"
         style={{
           position: "absolute",
           inset: 0,
@@ -46,6 +48,21 @@ export default function BrandHero() {
             "linear-gradient(to bottom, rgba(38,0,0,0.35) 0%, transparent 22%, transparent 78%, rgba(38,0,0,0.35) 100%)",
         }}
       />
+
+      <style>{`
+        @media (max-width: 900px) {
+          .brand-hero-section {
+            height: auto !important;
+            min-height: 0 !important;
+          }
+          .brand-hero-video {
+            position: relative !important;
+            width: 100% !important;
+            height: auto !important;
+            object-fit: contain !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }

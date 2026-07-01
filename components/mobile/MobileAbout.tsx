@@ -35,7 +35,7 @@ export default function MobileAbout() {
   return (
     <div style={{ overflowX: "hidden" }}>
       {/* HERO */}
-      <section style={{ background: "#260000", color: "#f5f2ec", padding: `calc(${PY} + 4rem) ${PX} ${PY}`, backgroundImage: "radial-gradient(ellipse 90% 50% at 50% 0%, rgba(117,0,6,0.5) 0%, transparent 70%)" }}>
+      <section className="bg-brand-deep" style={{ color: "#f5f2ec", padding: `calc(${PY} + 4rem) ${PX} ${PY}`, position: "relative" }}>
         <FadeUp><MobileEyebrow>About FID &amp; Co.</MobileEyebrow></FadeUp>
         <FadeUp delay={0.08}>
           <h1 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.2rem, 9.5vw, 3.4rem)", lineHeight: 1.0, letterSpacing: "-0.03em", margin: "1.4rem 0 0" }}>
@@ -54,7 +54,7 @@ export default function MobileAbout() {
       </section>
 
       {/* WHO WE ARE */}
-      <section style={{ background: "#f5f2ec", color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
         <FadeUp><MobileEyebrow tone="light">Who we are</MobileEyebrow></FadeUp>
         <FadeUp delay={0.06}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2rem, 9vw, 2.8rem)", lineHeight: 1.02, letterSpacing: "-0.025em", margin: "1.2rem 0 0" }}>
@@ -78,7 +78,8 @@ export default function MobileAbout() {
       </section>
 
       {/* PHILOSOPHY */}
-      <section style={{ background: "#260000", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section className="bg-brand-deep" style={{ color: "#f5f2ec", padding: `${PY} ${PX}`, position: "relative" }}>
+        <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.4 }} />
         <FadeUp><MobileEyebrow>Our philosophy</MobileEyebrow></FadeUp>
         <div style={{ marginTop: "2.4rem", display: "flex", flexDirection: "column", gap: "2.4rem" }}>
           {pillars.map((p, i) => (
@@ -92,7 +93,7 @@ export default function MobileAbout() {
       </section>
 
       {/* HOW WE WORK */}
-      <section style={{ background: "#f5f2ec", color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
         <FadeUp><MobileEyebrow tone="light">How we work</MobileEyebrow></FadeUp>
         <FadeUp delay={0.06}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)", lineHeight: 1.05, letterSpacing: "-0.02em", margin: "1.2rem 0 2.2rem" }}>
@@ -112,7 +113,8 @@ export default function MobileAbout() {
       </section>
 
       {/* FOUNDER */}
-      <section style={{ background: "#260000", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section className="bg-brand-deep" style={{ color: "#f5f2ec", padding: `${PY} ${PX}`, position: "relative" }}>
+        <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.4 }} />
         <FadeUp><MobileEyebrow>Founder</MobileEyebrow></FadeUp>
         <FadeUp delay={0.06}>
           <img src="/illustrations/founder-portrait.png" alt="Farida Idris" loading="lazy" style={{ width: "100%", maxWidth: "320px", aspectRatio: "4/5", objectFit: "cover", objectPosition: "center top", borderRadius: "16px", margin: "1.4rem 0 0", border: "1px solid rgba(217,128,56,0.25)" }} />
@@ -132,7 +134,7 @@ export default function MobileAbout() {
       </section>
 
       {/* MARKETS */}
-      <section style={{ background: "#f5f2ec", color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
         <FadeUp><MobileEyebrow tone="light">African footprint</MobileEyebrow></FadeUp>
         <FadeUp delay={0.06}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)", letterSpacing: "-0.02em", margin: "1.2rem 0 2rem" }}>Operating across 8+ markets</h2>
@@ -147,7 +149,7 @@ export default function MobileAbout() {
       </section>
 
       {/* CTA */}
-      <section style={{ background: "#750006", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section className="section-red" style={{ color: "#f5f2ec", padding: `${PY} ${PX}` }}>
         <FadeUp>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.4rem, 11vw, 3.4rem)", lineHeight: 1.02, letterSpacing: "-0.02em", margin: 0, maxWidth: "14ch" }}>
             Let&apos;s build something meaningful.

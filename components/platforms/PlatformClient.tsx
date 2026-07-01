@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useRef } from "react";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
 
   return (
     <>
-      <main style={{ backgroundColor: "#f5f2ec", color: "#1c1c1c", minHeight: "100vh" }}>
+      <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh" }}>
         {/* ── HERO ── */}
         <section ref={heroRef} style={{ position: "relative", paddingTop: "clamp(8rem,16vw,12rem)", paddingBottom: "clamp(4rem,8vw,7rem)", overflow: "hidden" }}>
           {/* warm ambient wash */}
@@ -229,7 +229,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
 
         {/* ── Featured partners (Suhba etc.) ── */}
         {p.partners && p.partners.length > 0 && (
-          <section style={{ backgroundColor: "#fbf3d6", paddingTop: "clamp(4rem,8vw,6rem)", paddingBottom: "clamp(4rem,8vw,6rem)" }}>
+          <section style={{ backgroundColor: "#fbf3d6", backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d98038' stroke-opacity='0.08' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E\")", paddingTop: "clamp(4rem,8vw,6rem)", paddingBottom: "clamp(4rem,8vw,6rem)" }}>
             <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
               <span style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.28em", textTransform: "uppercase", color: p.accent }}>
                 <span style={{ width: "26px", height: "1px", background: p.accent, opacity: 0.7 }} />
@@ -266,7 +266,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
         )}
 
         {/* ── CTA ── */}
-        <section style={{ position: "relative", paddingTop: "clamp(5rem,10vw,8rem)", paddingBottom: "clamp(6rem,12vw,10rem)", overflow: "hidden" }}>
+        <section className="section-light" style={{ position: "relative", paddingTop: "clamp(5rem,10vw,8rem)", paddingBottom: "clamp(6rem,12vw,10rem)", overflow: "hidden" }}>
           {/* accent illustration near CTA */}
           <motion.img
             src="/illustrations/iconography-accents.png"

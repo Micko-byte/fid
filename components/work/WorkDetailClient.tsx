@@ -127,7 +127,7 @@ export default function WorkDetailClient({ project }: Props) {
   const hasImages = galleryImages.length > 0;
 
   return (
-    <main style={{ backgroundColor: "#f5f2ec", color: "#1c1c1c", minHeight: "100vh" }}>
+    <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh" }}>
 
       {/* ── Sticky back bar ── */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.1rem clamp(1.5rem,5vw,4rem)", backgroundColor: "rgba(245,242,236,0.94)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(117,0,6,0.1)" }}>

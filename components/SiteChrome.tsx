@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { ReactNode, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -23,6 +23,8 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
     return <>{children}</>;
   }
 
+  const isDetailRoute = pathname.startsWith("/services/") || pathname.startsWith("/work/");
+
   return (
     <>
       <a
@@ -35,7 +37,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       <GlobalImageParallax />
       <ScrollProgress />
       <GrainOverlay />
-      <Nav />
+      {!isDetailRoute && <Nav />}
       <main id="main-content">{children}</main>
     </>
   );

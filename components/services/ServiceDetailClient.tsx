@@ -29,18 +29,17 @@ function ProjectCard({
       transition={{ duration: 0.7, delay: 0.1 + index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       style={{
         width: "100%",
-        minHeight: "clamp(280px, 35vw, 500px)",
+        minHeight: "clamp(260px, 35vw, 500px)",
         backgroundColor: bg,
         position: "relative",
         display: "flex",
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
-        padding: "20px",
-        // No border-radius — Clase bcn 0px everywhere
+        padding: "clamp(1.2rem, 3vw, 2.4rem)",
         borderRadius: 0,
         overflow: "hidden",
-        marginBottom: "100px",
+        marginBottom: "clamp(3rem, 6vw, 6rem)",
       }}
     >
       {/* Subtle grain texture */}
@@ -54,7 +53,7 @@ function ProjectCard({
         <p style={{
           fontFamily: "var(--font-body)",
           fontWeight: 400,
-          fontSize: "28px",
+          fontSize: "clamp(1.25rem, 3.5vw, 1.75rem)",
           lineHeight: 1.21,
           color: textColor,
           marginBottom: "0.75rem",
@@ -64,7 +63,7 @@ function ProjectCard({
         <p style={{
           fontFamily: "var(--font-body)",
           fontWeight: 400,
-          fontSize: "24px",
+          fontSize: "clamp(0.95rem, 2.5vw, 1.25rem)",
           lineHeight: 1.17,
           color: textColor === "#ffffff" ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.45)",
         }}>
@@ -75,11 +74,11 @@ function ProjectCard({
       {/* Corner arrow link */}
       <div style={{
         position: "absolute",
-        bottom: "20px",
-        right: "20px",
+        bottom: "clamp(1.2rem, 3vw, 2.4rem)",
+        right: "clamp(1.2rem, 3vw, 2.4rem)",
         fontFamily: "var(--font-body)",
         fontWeight: 400,
-        fontSize: "24px",
+        fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
         color: textColor,
       }}>
         →
@@ -93,20 +92,21 @@ export default function ServiceDetailClient({ service }: Props) {
   const inView = useInView(bodyRef, { once: true, margin: "-60px" });
 
   return (
-    <div style={{ backgroundColor: "#f5f2ec", minHeight: "100vh" }}>
+    <div className="bg-brand-texture" style={{ minHeight: "100vh" }}>
 
       {/* ── Top navigation — Clase bcn style ── */}
       <nav style={{
         position: "fixed",
         top: 0, left: 0, right: 0,
         zIndex: 100,
-        backgroundColor: "rgba(255,255,255,0.95)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
+        backgroundColor: "rgba(245,242,236,0.92)",
+        backdropFilter: "blur(14px)",
+        WebkitBackdropFilter: "blur(14px)",
+        borderBottom: "1px solid rgba(117,0,6,0.08)",
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
-        padding: "20px 20px",
+        padding: "clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 3vw, 2.5rem)",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
           <Link
@@ -114,25 +114,25 @@ export default function ServiceDetailClient({ service }: Props) {
             style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
-              fontSize: "24px",
-              color: "#000000",
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
+              color: "#1c1c1c",
               textDecoration: "none",
               letterSpacing: "-0.01em",
             }}
           >
             FID &amp; Co.
           </Link>
-          <span style={{ color: "#939393", fontSize: "24px" }}>·</span>
+          <span style={{ color: "#750006", fontSize: "clamp(1rem, 2vw, 1.25rem)", opacity: 0.5 }}>·</span>
           <Link
             href="/services"
             style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
-              fontSize: "24px",
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
               color: "#939393",
               textDecoration: "none",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.color = "#000000")}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#939393")}
           >
             Services
@@ -143,11 +143,11 @@ export default function ServiceDetailClient({ service }: Props) {
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 400,
-            fontSize: "24px",
+            fontSize: "clamp(1rem, 2vw, 1.25rem)",
             color: "#939393",
             textDecoration: "none",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.color = "#000000")}
+          onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
           onMouseLeave={(e) => (e.currentTarget.style.color = "#939393")}
         >
           Contact
@@ -160,7 +160,7 @@ export default function ServiceDetailClient({ service }: Props) {
         paddingLeft: "20px",
         paddingRight: "20px",
         paddingBottom: "clamp(3rem, 6vw, 5rem)",
-        borderBottom: "1px solid #000000",
+        borderBottom: "1px solid rgba(117,0,6,0.15)",
         maxWidth: "1440px",
         margin: "0 auto",
       }}>
@@ -172,8 +172,8 @@ export default function ServiceDetailClient({ service }: Props) {
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 400,
-            fontSize: "24px",
-            color: "#939393",
+            fontSize: "clamp(0.95rem, 2vw, 1.25rem)",
+            color: "#d98038",
             marginBottom: "clamp(1rem, 3vw, 2rem)",
           }}
         >
@@ -188,9 +188,9 @@ export default function ServiceDetailClient({ service }: Props) {
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 400,
-            fontSize: "clamp(2.2rem, 5vw, 45px)",
+            fontSize: "clamp(1.8rem, 5vw, 2.8rem)",
             lineHeight: 1.11,
-            color: "#000000",
+            color: "#260000",
             maxWidth: "18ch",
             marginBottom: "clamp(1.5rem, 4vw, 2.5rem)",
           }}
@@ -205,7 +205,7 @@ export default function ServiceDetailClient({ service }: Props) {
           style={{
             fontFamily: "var(--font-body)",
             fontWeight: 400,
-            fontSize: "24px",
+            fontSize: "clamp(1.05rem, 2vw, 1.35rem)",
             lineHeight: 1.79,
             color: "#1c1c1c",
             maxWidth: "55ch",
@@ -216,7 +216,7 @@ export default function ServiceDetailClient({ service }: Props) {
       </div>
 
       {/* ── Full-bleed project cards — Clase bcn stack ── */}
-      <div style={{ maxWidth: "1440px", margin: "0 auto", paddingTop: "100px" }}>
+      <div style={{ maxWidth: "1440px", margin: "0 auto", paddingTop: "clamp(3rem, 7vw, 6rem)" }}>
         {service.cards.map((card, i) => (
           <div key={i} style={{ paddingLeft: "20px", paddingRight: "20px" }}>
             <ProjectCard
@@ -236,8 +236,8 @@ export default function ServiceDetailClient({ service }: Props) {
           maxWidth: "1440px",
           margin: "0 auto",
           padding: "0 20px",
-          paddingBottom: "100px",
-          borderTop: "1px solid #000000",
+          paddingBottom: "clamp(3rem, 7vw, 6rem)",
+          borderTop: "1px solid rgba(117,0,6,0.15)",
         }}
       >
         <div style={{
@@ -257,7 +257,7 @@ export default function ServiceDetailClient({ service }: Props) {
             <p style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
-              fontSize: "clamp(1.1rem, 1.8vw, 24px)",
+              fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)",
               lineHeight: 1.79,
               color: "#1c1c1c",
             }}>
@@ -274,8 +274,8 @@ export default function ServiceDetailClient({ service }: Props) {
             <p style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
-              fontSize: "24px",
-              color: "#939393",
+              fontSize: "clamp(1.1rem, 2vw, 1.35rem)",
+              color: "#d98038",
               marginBottom: "1.5rem",
             }}>
               What&apos;s included
@@ -290,11 +290,11 @@ export default function ServiceDetailClient({ service }: Props) {
                   style={{
                     fontFamily: "var(--font-body)",
                     fontWeight: 400,
-                    fontSize: "clamp(0.9rem, 1.4vw, 20px)",
+                    fontSize: "clamp(0.85rem, 1.2vw, 1.05rem)",
                     lineHeight: 1.5,
-                    color: "#000000",
+                    color: "#1c1c1c",
                     padding: "1rem 0",
-                    borderBottom: "1px solid #000000",
+                    borderBottom: "1px solid rgba(117,0,6,0.15)",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -318,7 +318,7 @@ export default function ServiceDetailClient({ service }: Props) {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            borderTop: "1px solid #000000",
+            borderTop: "1px solid rgba(117,0,6,0.15)",
             paddingTop: "20px",
             flexWrap: "wrap",
             gap: "1rem",
@@ -329,10 +329,12 @@ export default function ServiceDetailClient({ service }: Props) {
             style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
-              fontSize: "24px",
-              color: "#000000",
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
+              color: "#750006",
               textDecoration: "none",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#d98038")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#750006")}
           >
             ← All services
           </Link>
@@ -341,10 +343,12 @@ export default function ServiceDetailClient({ service }: Props) {
             style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
-              fontSize: "24px",
-              color: "#000000",
+              fontSize: "clamp(1rem, 2vw, 1.25rem)",
+              color: "#750006",
               textDecoration: "none",
             }}
+            onMouseEnter={(e) => (e.currentTarget.style.color = "#d98038")}
+            onMouseLeave={(e) => (e.currentTarget.style.color = "#750006")}
           >
             Start a conversation →
           </Link>

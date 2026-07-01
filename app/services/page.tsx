@@ -104,8 +104,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
 function PageHero() {
   return (
     <section
-      className="relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
-      style={{ backgroundColor: "#f5f2ec" }}
+      className="section-light relative min-h-[60vh] flex flex-col justify-end pb-16 md:pb-24 overflow-hidden pt-28"
     >
       <div
         className="absolute inset-0 pointer-events-none"
@@ -146,7 +145,7 @@ function ServicesSection() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#f5f2ec" }}>
+    <section className="section-light py-24 md:py-40">
       <div className="max-w-[1280px] mx-auto px-6 md:px-16">
         <motion.p
           ref={ref}
@@ -184,7 +183,7 @@ function SectorsSection() {
   const inView = useInView(ref, { once: true });
 
   return (
-    <section className="py-24 md:py-40" style={{ backgroundColor: "#1c1c1c" }}>
+    <section className="section-dark py-24 md:py-40">
       <div className="max-w-[1280px] mx-auto px-6 md:px-16">
         <div ref={ref} className="mb-16">
           <p className="font-body text-xs tracking-[0.25em] uppercase mb-4" style={{ color: "#750006" }}>
