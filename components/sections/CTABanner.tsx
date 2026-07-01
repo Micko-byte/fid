@@ -8,6 +8,7 @@ import OrbitalRings from "@/components/graphics/OrbitalRings";
 import BorderGlow from "@/components/ui/BorderGlow";
 import CornerBrackets from "@/components/ui/CornerBrackets";
 import { FileText, Wrench, RocketLaunch } from "@phosphor-icons/react";
+import HoverIcon from "@/components/ui/HoverIcon";
 
 export default function CTABanner() {
   const ref = useRef<HTMLDivElement>(null);
@@ -229,7 +230,9 @@ export default function CTABanner() {
                       borderRadius: "14px",
                     }}
                   >
-                    <item.Icon size={28} weight="light" color="#d9ab88" style={{ marginBottom: "0.5rem", display: "block" }} />
+                    <div style={{ marginBottom: "0.5rem" }}>
+                      <HoverIcon icon={item.Icon} size={40} weight="light" hoverWeight="fill" rotate={-6} color="#d9ab88" />
+                    </div>
                     <div
                       style={{
                         fontFamily: "var(--font-body)",

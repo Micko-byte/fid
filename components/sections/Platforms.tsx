@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, Buildings, ChatsCircle, MusicNotes } from "@phosphor-icons/react";
+import HoverIcon from "@/components/ui/HoverIcon";
 import CutoutCard from "@/components/ui/CutoutCard";
 
 const platforms = [
@@ -58,7 +59,7 @@ function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number]
       <div className="platform-feature-copy">
         <div className="platform-meta-row">
           <span style={{ color: "#f5f2ec" }}>{p.num} / Owned platform</span>
-          <Icon size={28} weight="light" color="#d98038" />
+          <HoverIcon icon={Icon} size={38} weight="light" hoverWeight="fill" color="#d98038" />
         </div>
 
         <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }}>
