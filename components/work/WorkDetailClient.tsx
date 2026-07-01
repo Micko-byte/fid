@@ -7,6 +7,7 @@ import type { Project } from "@/components/lib/projects";
 import { getProjectGallery } from "@/lib/work-gallery";
 import { ArrowCircleRight, TrendUp } from "@phosphor-icons/react";
 import IconField from "@/components/motion/IconField";
+import { STOCK } from "@/lib/stock-photos";
 
 interface Props { project: Project }
 
@@ -129,7 +130,7 @@ export default function WorkDetailClient({ project }: Props) {
 
   return (
     <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh", position: "relative" }}>
-      <IconField tone="light" />
+      <IconField tone="light" photo={STOCK.about?.[1]?.src} />
       <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Sticky back bar ── */}

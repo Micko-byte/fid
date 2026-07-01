@@ -23,10 +23,19 @@ const ICONS = [
   { Icon: UsersThree,   x: "52%", y: "8%",  size: 34, dur: 12, d: 0.7 },
 ];
 
-export default function IconField({ tone = "dark" }: { tone?: "dark" | "light" }) {
+export default function IconField({ tone = "dark", photo }: { tone?: "dark" | "light"; photo?: string }) {
   const iconColor = tone === "dark" ? "rgba(217,128,56,0.16)" : "rgba(117,0,6,0.12)";
   return (
     <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
+      {/* atmospheric blurred stock photo (low opacity depth) */}
+      {photo && (
+        <img
+          src={photo}
+          alt=""
+          loading="lazy"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "blur(6px) saturate(0.85)", opacity: tone === "dark" ? 0.18 : 0.1, mixBlendMode: "multiply" }}
+        />
+      )}
       {/* soft brand gradient shapes */}
       <div style={{ position: "absolute", top: "-8%", right: "-6%", width: "42vw", height: "42vw", maxWidth: 560, maxHeight: 560, borderRadius: "50%", background: "radial-gradient(circle, rgba(217,128,56,0.14), transparent 70%)", filter: "blur(30px)" }} />
       <div style={{ position: "absolute", bottom: "-10%", left: "-8%", width: "46vw", height: "46vw", maxWidth: 620, maxHeight: 620, borderRadius: "50%", background: "radial-gradient(circle, rgba(117,0,6,0.18), transparent 70%)", filter: "blur(40px)" }} />

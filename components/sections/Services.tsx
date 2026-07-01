@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Megaphone, Newspaper, ShareNetwork, ChartLineUp, Confetti } from "@phosphor-icons/react";
+import HoverIcon from "@/components/ui/HoverIcon";
 
 /* ── Circle geometry ── */
 const SVG_SIZE = 280;
@@ -277,7 +278,7 @@ function RadarCircle({
             padding: "0 24%",
           }}
         >
-          <svc.Icon size={32} weight="light" color="#d98038" />
+          <HoverIcon icon={svc.Icon} size={44} weight="light" hoverWeight="fill" scale={1.15} rotate={-6} color="#d98038" />
           <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "1.05rem", lineHeight: 1.15, color: "rgba(245,242,236,0.95)", letterSpacing: "-0.01em" }}>
             {svc.lines.map((line, li) => (
               <span key={li} style={{ display: "block" }}>{line}</span>
@@ -317,13 +318,13 @@ export default function Services() {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#1c1c1c",
+        backgroundColor: "#260000",
         paddingTop: "clamp(4rem,9vw,7rem)",
         paddingBottom: "clamp(4rem,9vw,8rem)",
       }}
     >
       {/* Ambient glow */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(ellipse 60% 55% at 50% 50%, rgba(117,0,6,0.22) 0%, transparent 70%)" }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(ellipse 55% 50% at 50% 30%, rgba(217,128,56,0.20) 0%, transparent 60%), radial-gradient(ellipse 70% 60% at 50% 60%, rgba(117,0,6,0.35) 0%, transparent 72%)" }} />
       <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.8 }} />
 
       {/* ── Header ── */}

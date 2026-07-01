@@ -25,9 +25,22 @@ const ITEMS: Item[] = [
   { slug: "columbia-africa-healthcare", client: "Columbia Africa", sector: "Healthcare", label: "Healthcare brand & outreach", image: STOCK.about?.[0]?.src ?? "", logo: "/logos/columbia-africa.png" },
   { slug: "allso-beauty", client: "Allso Beauty", sector: "Lifestyle", label: "Campaign & influencer strategy", image: cl("allso-01") },
   { slug: "national-minorities-day", client: "State Dept. of Culture", sector: "Government", label: "National observance activation", image: STOCK.government?.[0]?.src ?? "", logo: "/logos/state-dept-culture.png" },
+  // Owned IPs / platforms
+  { slug: "the-tribe-vibe", client: "The Tribe Vibe", sector: "Owned IPs", label: "Lifestyle · music · culture platform", image: "/photos/projects/tribe-vibe.jpg" },
+  { slug: "suhba-series", client: "Suhba Series", sector: "Owned IPs", label: "Curated conversation platform", image: STOCK.strategy?.[0]?.src ?? "" },
+  { slug: "the-capital-room", client: "The Capital Room", sector: "Owned IPs", label: "Leadership & business platform", image: "/photos/editorial/podcast-set.jpg" },
 ];
 
-const FILTERS = ["All", "Government", "Corporate", "Hospitality", "Healthcare", "Lifestyle"];
+const OWNED = new Set(["the-tribe-vibe", "suhba-series", "the-capital-room"]);
+const hrefFor = (slug: string) => (OWNED.has(slug) ? `/platforms/${slug}` : `/work/${slug}`);
+
+const FILTERS = ["All", "Government", "Corporate", "Hospitality", "Healthcare", "Lifestyle", "Owned IPs"];
+
+const CLIENT_LOGOS = [
+  "executive-office-president", "state-dept-culture", "unhcr", "lc-waikiki",
+  "wrc-safari-rally", "columbia-africa", "thrive-hospitality", "bomas-of-kenya",
+  "amahoro-coalition", "elysium-capital", "2nu-kollexion", "medigah-london-hair",
+];
 
 export default function WorkExpandGallery() {
   const [filter, setFilter] = useState("All");
@@ -42,14 +55,36 @@ export default function WorkExpandGallery() {
     >
       <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.3 }} />
 
-      {/* Header */}
-      <div className="section-shell" style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: "1.5rem", marginBottom: "clamp(2rem, 4vw, 3rem)" }}>
+      {/* Header — Trusted by / Proof (combined with the work) */}
+      <div className="section-shell" style={{ position: "relative", zIndex: 1, marginBottom: "clamp(2rem, 4vw, 3rem)" }}>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.6 }} transition={{ duration: 0.6, ease: EASE }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#d98038", margin: "0 0 1rem" }}
+        >
+          Trusted by
+        </motion.p>
         <motion.h2
           initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.7, ease: EASE }}
-          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.4rem, 5vw, 4.5rem)", fontWeight: 700, lineHeight: 0.94, letterSpacing: "-0.025em", color: "#f5f2ec", margin: 0 }}
+          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.2rem, 4.6vw, 4rem)", fontWeight: 700, lineHeight: 1.0, letterSpacing: "-0.025em", color: "#f5f2ec", margin: 0, maxWidth: "20ch" }}
         >
-          Selected <em style={{ fontStyle: "italic", color: "#d98038" }}>Work.</em>
+          Proof across public, private and cultural life.
         </motion.h2>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(245,242,236,0.55)", margin: "1rem 0 0", maxWidth: "48ch" }}>
+          Select a sector to see the work — including our owned cultural platforms.
+        </p>
+
+        {/* Client logo strip — the "trusted by" proof */}
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "clamp(1.4rem,3vw,2.6rem)", marginTop: "clamp(2rem,4vw,3rem)", paddingTop: "clamp(1.6rem,3vw,2.2rem)", borderTop: "1px solid rgba(245,242,236,0.14)" }}>
+          {CLIENT_LOGOS.map((name) => (
+            <img
+              key={name}
+              src={`/logos/${name}.png`}
+              alt={name.replace(/-/g, " ")}
+              loading="lazy"
+              style={{ height: "34px", maxWidth: "120px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.55 }}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Filter chips */}
@@ -88,7 +123,7 @@ export default function WorkExpandGallery() {
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.45, ease: EASE }}
               >
-                <Link href={`/work/${item.slug}`} className="work-card" style={{ display: "block", position: "relative", aspectRatio: "4/5", borderRadius: "14px", overflow: "hidden", textDecoration: "none", background: "#1c1c1c" }}>
+                <Link href={hrefFor(item.slug)} className="work-card" style={{ display: "block", position: "relative", aspectRatio: "4/5", borderRadius: "14px", overflow: "hidden", textDecoration: "none", background: "#1c1c1c" }}>
                   {item.image && (
                     <img
                       src={item.image}
@@ -103,9 +138,11 @@ export default function WorkExpandGallery() {
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0.15) 0%, rgba(38,0,0,0) 30%, rgba(38,0,0,0.9) 100%)", pointerEvents: "none" }} />
                   <div className="work-card-tint" style={{ position: "absolute", inset: 0, background: "rgba(117,0,6,0.22)", mixBlendMode: "multiply", pointerEvents: "none", opacity: 0, transition: "opacity 0.4s ease" }} />
 
-                  {/* logo */}
+                  {/* logo — on a frosted chip so it reads cleanly */}
                   {item.logo && (
-                    <img src={item.logo} alt={`${item.client} logo`} loading="lazy" style={{ position: "absolute", top: "1rem", left: "1rem", height: "26px", maxWidth: "92px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9, zIndex: 2 }} />
+                    <div style={{ position: "absolute", top: "0.9rem", left: "0.9rem", zIndex: 2, display: "inline-flex", alignItems: "center", padding: "0.5rem 0.7rem", borderRadius: "10px", background: "rgba(245,242,236,0.12)", backdropFilter: "blur(8px)", border: "1px solid rgba(245,242,236,0.18)" }}>
+                      <img src={item.logo} alt={`${item.client} logo`} loading="lazy" style={{ height: "22px", maxWidth: "88px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.95 }} />
+                    </div>
                   )}
 
                   {/* caption */}

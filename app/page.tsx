@@ -1,7 +1,6 @@
 import BrandHero from "@/components/sections/BrandHero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
-import BrandFlow from "@/components/sections/BrandFlow";
 import CTABanner from "@/components/sections/CTABanner";
 import WorkExpandGallery from "@/components/sections/WorkExpandGallery";
 import StatsBand from "@/components/sections/StatsBand";
@@ -22,7 +21,6 @@ export default function HomePage() {
       <BrandHero />
       <About />
       <Services />
-      <BrandFlow />
       <CTABanner />
       <WorkExpandGallery />
       <StatsBand />

@@ -6,6 +6,7 @@ import { motion, useInView } from "framer-motion";
 import type { Service } from "@/components/lib/services";
 import Footer from "@/components/Footer";
 import IconField from "@/components/motion/IconField";
+import { STOCK } from "@/lib/stock-photos";
 
 interface Props {
   service: Service;
@@ -94,7 +95,7 @@ export default function ServiceDetailClient({ service }: Props) {
 
   return (
     <div className="bg-brand-texture" style={{ minHeight: "100vh", position: "relative" }}>
-      <IconField tone="light" />
+      <IconField tone="light" photo={STOCK.pressConf?.[1]?.src} />
       <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Top navigation — Clase bcn style ── */}
