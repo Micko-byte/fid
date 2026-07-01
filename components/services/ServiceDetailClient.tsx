@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import type { Service } from "@/components/lib/services";
 import Footer from "@/components/Footer";
+import IconField from "@/components/motion/IconField";
 
 interface Props {
   service: Service;
@@ -92,7 +93,9 @@ export default function ServiceDetailClient({ service }: Props) {
   const inView = useInView(bodyRef, { once: true, margin: "-60px" });
 
   return (
-    <div className="bg-brand-texture" style={{ minHeight: "100vh" }}>
+    <div className="bg-brand-texture" style={{ minHeight: "100vh", position: "relative" }}>
+      <IconField tone="light" />
+      <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Top navigation — Clase bcn style ── */}
       <nav style={{
@@ -362,6 +365,7 @@ export default function ServiceDetailClient({ service }: Props) {
           .service-body-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
+      </div>
     </div>
   );
 }

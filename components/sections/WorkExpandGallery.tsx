@@ -1,384 +1,132 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react";
+import { STOCK } from "@/lib/stock-photos";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-/* Six showcase entries — mix of local + Cloudinary photos */
 const cl = (id: string) =>
-  `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/${id}`;
+  `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_900/FID/${id}`;
 
-const ITEMS = [
-  {
-    slug: "africa-urban-forum-2026",
-    client: "Africa Urban Forum",
-    sector: "Government",
-    label: "Continental convening — 2026",
-    image: cl("auf-01"),
-    accent: "#5A84AC",
-    logo: "/logos/executive-office-president.png",
-  },
-  {
-    slug: "kansai-plascon",
-    client: "Kansai Plascon",
-    sector: "Corporate",
-    label: "Gor Mahia partnership launch",
-    image: cl("kansai-01"),
-    accent: "#750006",
-    logo: "",
-  },
-  {
-    slug: "thrive-hospitality-group",
-    client: "Chaii Republic",
-    sector: "Hospitality",
-    label: "Brand launch experience",
-    image: "/photos/projects/thrive-hospitality/glam-01.jpg",
-    accent: "#d98038",
-    logo: "/logos/thrive-hospitality.png",
-  },
-  {
-    slug: "allso-beauty",
-    client: "Allso Beauty",
-    sector: "Beauty & Lifestyle",
-    label: "Campaign & influencer strategy",
-    image: cl("allso-01"),
-    accent: "#C7AC9F",
-    logo: "",
-  },
+type Item = {
+  slug: string; client: string; sector: string; label: string;
+  image: string; logo?: string;
+};
+
+const ITEMS: Item[] = [
+  { slug: "africa-urban-forum-2026", client: "Africa Urban Forum", sector: "Government", label: "Continental convening — 2026", image: cl("auf-01"), logo: "/logos/executive-office-president.png" },
+  { slug: "africa-forum-on-displacements", client: "UNHCR", sector: "Government", label: "Africa Forum on Displacements", image: STOCK.pressConf?.[0]?.src ?? "", logo: "/logos/unhcr.png" },
+  { slug: "kansai-plascon", client: "Kansai Plascon", sector: "Corporate", label: "Gor Mahia partnership launch", image: cl("kansai-01"), logo: "/logos/chloride-exide.png" },
+  { slug: "lc-waikiki-africa", client: "LC Waikiki", sector: "Corporate", label: "Retail brand communications", image: STOCK.corporate?.[0]?.src ?? "", logo: "/logos/lc-waikiki.png" },
+  { slug: "thrive-hospitality-group", client: "Chaii Republic", sector: "Hospitality", label: "Brand launch experience", image: "/photos/projects/thrive-hospitality/glam-01.jpg", logo: "/logos/thrive-hospitality.png" },
+  { slug: "columbia-africa-healthcare", client: "Columbia Africa", sector: "Healthcare", label: "Healthcare brand & outreach", image: STOCK.about?.[0]?.src ?? "", logo: "/logos/columbia-africa.png" },
+  { slug: "allso-beauty", client: "Allso Beauty", sector: "Lifestyle", label: "Campaign & influencer strategy", image: cl("allso-01"), logo: "/logos/abyan-salon-spa.png" },
+  { slug: "national-minorities-day", client: "State Dept. of Culture", sector: "Government", label: "National observance activation", image: STOCK.government?.[0]?.src ?? "", logo: "/logos/state-dept-culture.png" },
 ];
 
+const FILTERS = ["All", "Government", "Corporate", "Hospitality", "Healthcare", "Lifestyle"];
+
 export default function WorkExpandGallery() {
-  const [hovered, setHovered] = useState<number | null>(null);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const handleMouseEnter = (index: number) => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      setHovered(index);
-    }, 40);
-  };
-
-  const handleMouseLeave = () => {
-    if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    timeoutRef.current = setTimeout(() => {
-      setHovered(null);
-    }, 40);
-  };
-
-  useEffect(() => {
-    return () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    };
-  }, []);
+  const [filter, setFilter] = useState("All");
+  const shown = filter === "All" ? ITEMS : ITEMS.filter((i) => i.sector === filter);
 
   return (
     <section
       id="work"
       data-nav-dark
       aria-label="Selected work showcase"
-      style={{
-        background: "#260000",
-        padding: "clamp(5rem, 10vw, 8rem) 0 clamp(5rem, 10vw, 8rem)",
-        overflow: "hidden",
-      }}
+      style={{ background: "#260000", padding: "clamp(5rem, 10vw, 8rem) 0", overflow: "hidden", position: "relative" }}
     >
-      {/* Header */}
-      <div
-        className="section-shell"
-        style={{
-          display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "space-between",
-          flexWrap: "wrap",
-          gap: "1.5rem",
-          marginBottom: "clamp(2.5rem, 5vw, 4rem)",
-        }}
-      >
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, ease: EASE }}
-        >
-          <h2
-            style={{
-              fontFamily: "var(--font-heading)",
-              fontSize: "clamp(2.4rem, 5vw, 4.5rem)",
-              fontWeight: 700,
-              lineHeight: 0.94,
-              letterSpacing: "-0.025em",
-              color: "#f5f2ec",
-              margin: 0,
-            }}
-          >
-            Selected
-            <br />
-            <em style={{ fontStyle: "italic", color: "#d98038" }}>Work.</em>
-          </h2>
-        </motion.div>
+      <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.3 }} />
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2, ease: EASE }}
+      {/* Header */}
+      <div className="section-shell" style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "flex-end", justifyContent: "space-between", flexWrap: "wrap", gap: "1.5rem", marginBottom: "clamp(2rem, 4vw, 3rem)" }}>
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, amount: 0.4 }} transition={{ duration: 0.7, ease: EASE }}
+          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.4rem, 5vw, 4.5rem)", fontWeight: 700, lineHeight: 0.94, letterSpacing: "-0.025em", color: "#f5f2ec", margin: 0 }}
         >
-          <Link
-            href="/#work"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "0.5rem",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "rgba(245,242,236,0.45)",
-              textDecoration: "none",
-              transition: "color 0.25s ease",
-              paddingBottom: "0.4rem",
-              borderBottom: "1px solid rgba(245,242,236,0.15)",
-            }}
-            onMouseEnter={(e) =>
-              (e.currentTarget.style.color = "rgba(245,242,236,0.85)")
-            }
-            onMouseLeave={(e) =>
-              (e.currentTarget.style.color = "rgba(245,242,236,0.45)")
-            }
-          >
-            View all cases
-            <ArrowUpRight size={14} weight="bold" />
-          </Link>
+          Selected <em style={{ fontStyle: "italic", color: "#d98038" }}>Work.</em>
+        </motion.h2>
+      </div>
+
+      {/* Filter chips */}
+      <div className="section-shell" style={{ position: "relative", zIndex: 1, display: "flex", flexWrap: "wrap", gap: "0.6rem", marginBottom: "clamp(1.8rem, 3.5vw, 2.6rem)" }}>
+        {FILTERS.map((f) => {
+          const active = f === filter;
+          return (
+            <button
+              key={f}
+              onClick={() => setFilter(f)}
+              style={{
+                fontFamily: "var(--font-body)", fontSize: "0.78rem", fontWeight: 600, letterSpacing: "0.04em",
+                padding: "0.55rem 1.2rem", borderRadius: "999px", cursor: "pointer",
+                border: active ? "1px solid #d98038" : "1px solid rgba(245,242,236,0.22)",
+                background: active ? "#d98038" : "transparent",
+                color: active ? "#260000" : "rgba(245,242,236,0.7)",
+                transition: "background 0.25s, color 0.25s, border-color 0.25s",
+              }}
+            >
+              {f}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Grid */}
+      <div className="section-shell" style={{ position: "relative", zIndex: 1 }}>
+        <motion.div layout className="work-grid" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "clamp(1rem, 2vw, 1.5rem)" }}>
+          <AnimatePresence mode="popLayout">
+            {shown.map((item) => (
+              <motion.div
+                key={item.slug}
+                layout
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.96 }}
+                transition={{ duration: 0.45, ease: EASE }}
+              >
+                <Link href={`/work/${item.slug}`} className="work-card" style={{ display: "block", position: "relative", aspectRatio: "4/5", borderRadius: "14px", overflow: "hidden", textDecoration: "none", background: "#1c1c1c" }}>
+                  {item.image && (
+                    <img
+                      src={item.image}
+                      alt={item.label}
+                      loading="lazy"
+                      decoding="async"
+                      className="work-card-img"
+                      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.92) contrast(1.04)" }}
+                    />
+                  )}
+                  {/* brand duotone grade + bottom scrim */}
+                  <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0.15) 0%, rgba(38,0,0,0) 30%, rgba(38,0,0,0.9) 100%)", pointerEvents: "none" }} />
+                  <div className="work-card-tint" style={{ position: "absolute", inset: 0, background: "rgba(117,0,6,0.22)", mixBlendMode: "multiply", pointerEvents: "none", opacity: 0, transition: "opacity 0.4s ease" }} />
+
+                  {/* logo */}
+                  {item.logo && (
+                    <img src={item.logo} alt={`${item.client} logo`} loading="lazy" style={{ position: "absolute", top: "1rem", left: "1rem", height: "26px", maxWidth: "92px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.9, zIndex: 2 }} />
+                  )}
+
+                  {/* caption */}
+                  <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "clamp(1.1rem,2vw,1.5rem)", zIndex: 2 }}>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "#d98038", margin: "0 0 0.4rem" }}>{item.sector}</p>
+                    <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.4rem", fontWeight: 700, lineHeight: 1.05, color: "#f5f2ec", margin: "0 0 0.25rem" }}>{item.client}</h3>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(245,242,236,0.6)", margin: 0, display: "inline-flex", alignItems: "center", gap: "0.35rem" }}>
+                      {item.label} <ArrowUpRight size={12} weight="bold" />
+                    </p>
+                  </div>
+                </Link>
+              </motion.div>
+            ))}
+          </AnimatePresence>
         </motion.div>
       </div>
 
-      {/* Expanding accordion gallery — contained with side gutters */}
-      <motion.div
-        className="section-shell work-accordion"
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8, ease: EASE }}
-        style={{
-          display: "flex",
-          alignItems: "stretch",
-          gap: "3px",
-          height: "clamp(300px, 38vw, 500px)",
-        }}
-      >
-        {ITEMS.map((item, i) => {
-          const isHovered = hovered === i;
-          const isOtherHovered = hovered !== null && hovered !== i;
-
-          return (
-            <Link
-              key={`${item.slug}-${i}`}
-              href={`/work/${item.slug}`}
-              className="work-accordion-item"
-              onMouseEnter={() => handleMouseEnter(i)}
-              onMouseLeave={handleMouseLeave}
-              style={{
-                position: "relative",
-                flexGrow: isHovered ? 4 : 1,
-                flexShrink: 1,
-                flexBasis: 0,
-                minWidth: 0,
-                overflow: "hidden",
-                textDecoration: "none",
-                transition:
-                  "flex-grow 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.35s ease",
-                opacity: isOtherHovered ? 0.55 : 1,
-                willChange: "flex-grow, opacity",
-                transform: "translateZ(0)",
-                borderRadius:
-                  i === 0
-                    ? "10px 0 0 0"
-                    : i === ITEMS.length - 1
-                    ? "0 10px 0 0"
-                    : "0",
-              }}
-            >
-              {/* Photo */}
-              <img
-                src={item.image}
-                alt={item.label}
-                loading="lazy"
-                decoding="async"
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  width: "100%",
-                  height: "100%",
-                  objectFit: "cover",
-                  objectPosition: "center",
-                  display: "block",
-                  transform: isHovered ? "scale(1.04) translateZ(0)" : "scale(1) translateZ(0)",
-                  transition: "transform 0.75s cubic-bezier(0.16,1,0.3,1)",
-                  willChange: "transform",
-                }}
-              />
-
-              {/* Always-visible dark scrim at bottom */}
-              <div
-                style={{
-                  position: "absolute",
-                  inset: 0,
-                  background:
-                    "linear-gradient(to top, rgba(10,10,10,0.82) 0%, rgba(10,10,10,0.3) 40%, transparent 80%)",
-                  pointerEvents: "none",
-                }}
-              />
-
-              {/* Respective brand logo on the picture */}
-              {item.logo && (
-                <img
-                  src={item.logo}
-                  alt={`${item.client} logo`}
-                  loading="lazy"
-                  style={{
-                    position: "absolute",
-                    top: "1.1rem",
-                    left: "1.1rem",
-                    height: "30px",
-                    maxWidth: "100px",
-                    objectFit: "contain",
-                    filter: "brightness(0) invert(1)",
-                    opacity: 0.92,
-                    zIndex: 3,
-                    pointerEvents: "none",
-                  }}
-                />
-              )}
-
-              {/* Accent top bar */}
-              <div
-                style={{
-                  position: "absolute",
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  height: "3px",
-                  background: item.accent,
-                  opacity: isHovered ? 1 : 0,
-                  transition: "opacity 0.4s ease",
-                }}
-              />
-
-              {/* Collapsed: vertical sector label */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: "1.5rem",
-                  left: "50%",
-                  transform: "translateX(-50%) rotate(-90deg)",
-                  transformOrigin: "center center",
-                  whiteSpace: "nowrap",
-                  fontFamily: "var(--font-body)",
-                  fontSize: "0.65rem",
-                  fontWeight: 600,
-                  letterSpacing: "0.14em",
-                  textTransform: "uppercase",
-                  color: "rgba(245,242,236,0.4)",
-                  opacity: isHovered ? 0 : 1,
-                  transition: "opacity 0.3s ease",
-                  pointerEvents: "none",
-                }}
-              >
-                {item.sector}
-              </div>
-
-              {/* Expanded: full info */}
-              <div
-                style={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  padding: "clamp(1.2rem, 2vw, 2rem)",
-                  opacity: isHovered ? 1 : 0,
-                  transform: isHovered ? "translateY(0)" : "translateY(12px)",
-                  transition:
-                    "opacity 0.4s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1)",
-                  pointerEvents: "none",
-                }}
-              >
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "0.68rem",
-                    fontWeight: 600,
-                    letterSpacing: "0.14em",
-                    textTransform: "uppercase",
-                    color: item.accent,
-                    margin: "0 0 0.45rem",
-                  }}
-                >
-                  {item.sector}
-                </p>
-                <h3
-                  style={{
-                    fontFamily: "var(--font-heading)",
-                    fontSize: "clamp(1rem, 1.8vw, 1.5rem)",
-                    fontWeight: 700,
-                    lineHeight: 1.1,
-                    color: "#f5f2ec",
-                    margin: "0 0 0.35rem",
-                  }}
-                >
-                  {item.client}
-                </h3>
-                <p
-                  style={{
-                    fontFamily: "var(--font-body)",
-                    fontSize: "0.78rem",
-                    color: "rgba(245,242,236,0.5)",
-                    margin: 0,
-                    lineHeight: 1.45,
-                  }}
-                >
-                  {item.label}
-                </p>
-                <div
-                  style={{
-                    display: "inline-flex",
-                    alignItems: "center",
-                    gap: "0.35rem",
-                    marginTop: "1rem",
-                    fontFamily: "var(--font-body)",
-                    fontSize: "0.72rem",
-                    fontWeight: 600,
-                    color: "#d98038",
-                    letterSpacing: "0.06em",
-                  }}
-                >
-                  View case
-                  <ArrowUpRight size={12} weight="bold" />
-                </div>
-              </div>
-            </Link>
-          );
-        })}
-      </motion.div>
-
       <style>{`
-        @media (max-width: 760px) {
-          .work-accordion {
-            flex-direction: column !important;
-            height: auto !important;
-            gap: 0.6rem !important;
-          }
-          .work-accordion-item {
-            flex: none !important;
-            width: 100% !important;
-            height: 240px !important;
-            opacity: 1 !important;
-            border-radius: 12px !important;
-          }
-        }
+        .work-card-img { transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); will-change: transform; }
+        .work-card:hover .work-card-img { transform: scale(1.05); }
+        .work-card:hover .work-card-tint { opacity: 1 !important; }
       `}</style>
     </section>
   );

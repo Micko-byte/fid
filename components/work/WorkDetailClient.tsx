@@ -6,6 +6,7 @@ import { motion, useInView } from "framer-motion";
 import type { Project } from "@/components/lib/projects";
 import { getProjectGallery } from "@/lib/work-gallery";
 import { ArrowCircleRight, TrendUp } from "@phosphor-icons/react";
+import IconField from "@/components/motion/IconField";
 
 interface Props { project: Project }
 
@@ -127,7 +128,9 @@ export default function WorkDetailClient({ project }: Props) {
   const hasImages = galleryImages.length > 0;
 
   return (
-    <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh" }}>
+    <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh", position: "relative" }}>
+      <IconField tone="light" />
+      <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Sticky back bar ── */}
       <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.1rem clamp(1.5rem,5vw,4rem)", backgroundColor: "rgba(245,242,236,0.94)", backdropFilter: "blur(14px)", borderBottom: "1px solid rgba(117,0,6,0.1)" }}>
@@ -342,6 +345,7 @@ export default function WorkDetailClient({ project }: Props) {
           .wd-gallery-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
+      </div>
     </main>
   );
 }
