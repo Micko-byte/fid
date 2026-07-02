@@ -51,9 +51,11 @@ export default function WorkExpandGallery() {
       id="work"
       data-nav-dark
       aria-label="Selected work showcase"
-      style={{ background: "#260000", padding: "clamp(5rem, 10vw, 8rem) 0", overflow: "hidden", position: "relative" }}
+      style={{ background: "#750006", padding: "clamp(5rem, 10vw, 8rem) 0", overflow: "hidden", position: "relative" }}
     >
-      <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.3 }} />
+      {/* Ambient glow — matches the "Our Expertise" section's treatment */}
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: "radial-gradient(ellipse 55% 50% at 50% 30%, rgba(217,128,56,0.20) 0%, transparent 60%), radial-gradient(ellipse 70% 60% at 50% 60%, rgba(117,0,6,0.35) 0%, transparent 72%)" }} />
+      <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.8 }} />
 
       {/* Header — Trusted by / Proof (combined with the work) */}
       <div className="section-shell" style={{ position: "relative", zIndex: 1, marginBottom: "clamp(2rem, 4vw, 3rem)" }}>
@@ -73,16 +75,22 @@ export default function WorkExpandGallery() {
           Select a sector to see the work — including our owned cultural platforms.
         </p>
 
-        {/* Client logo strip — the "trusted by" proof */}
-        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "clamp(1.4rem,3vw,2.6rem)", marginTop: "clamp(2rem,4vw,3rem)", paddingTop: "clamp(1.6rem,3vw,2.2rem)", borderTop: "1px solid rgba(245,242,236,0.14)" }}>
+        {/* Client logo strip — the "trusted by" proof.
+            Logos are opaque flattened PNGs (no transparency), so a white-filter
+            trick just paints a solid box; give them a light chip instead. */}
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "clamp(0.8rem,1.6vw,1.2rem)", marginTop: "clamp(2rem,4vw,3rem)", paddingTop: "clamp(1.6rem,3vw,2.2rem)", borderTop: "1px solid rgba(245,242,236,0.14)" }}>
           {CLIENT_LOGOS.map((name) => (
-            <img
+            <span
               key={name}
-              src={`/logos/${name}.png`}
-              alt={name.replace(/-/g, " ")}
-              loading="lazy"
-              style={{ height: "34px", maxWidth: "120px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.55 }}
-            />
+              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "48px", padding: "0 0.9rem", borderRadius: "8px", background: "#f5f2ec" }}
+            >
+              <img
+                src={`/logos/${name}.png`}
+                alt={name.replace(/-/g, " ")}
+                loading="lazy"
+                style={{ height: "26px", maxWidth: "100px", objectFit: "contain" }}
+              />
+            </span>
           ))}
         </div>
       </div>
@@ -138,10 +146,11 @@ export default function WorkExpandGallery() {
                   <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0.15) 0%, rgba(38,0,0,0) 30%, rgba(38,0,0,0.9) 100%)", pointerEvents: "none" }} />
                   <div className="work-card-tint" style={{ position: "absolute", inset: 0, background: "rgba(117,0,6,0.22)", mixBlendMode: "multiply", pointerEvents: "none", opacity: 0, transition: "opacity 0.4s ease" }} />
 
-                  {/* logo — on a frosted chip so it reads cleanly */}
+                  {/* logo — opaque (non-transparent) PNG, so it needs a light chip
+                      rather than a white-filter, or it renders as a blank box */}
                   {item.logo && (
-                    <div style={{ position: "absolute", top: "0.9rem", left: "0.9rem", zIndex: 2, display: "inline-flex", alignItems: "center", padding: "0.5rem 0.7rem", borderRadius: "10px", background: "rgba(245,242,236,0.12)", backdropFilter: "blur(8px)", border: "1px solid rgba(245,242,236,0.18)" }}>
-                      <img src={item.logo} alt={`${item.client} logo`} loading="lazy" style={{ height: "22px", maxWidth: "88px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.95 }} />
+                    <div style={{ position: "absolute", top: "0.9rem", left: "0.9rem", zIndex: 2, display: "inline-flex", alignItems: "center", padding: "0.5rem 0.7rem", borderRadius: "10px", background: "#f5f2ec" }}>
+                      <img src={item.logo} alt={`${item.client} logo`} loading="lazy" style={{ height: "22px", maxWidth: "88px", objectFit: "contain" }} />
                     </div>
                   )}
 

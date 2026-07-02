@@ -34,29 +34,29 @@ export default function CTABanner() {
     zIndex: 1,
     display: "flex",
     justifyContent: "center",
-    paddingLeft: "clamp(0.25rem, 1vw, 0.75rem)",
-    paddingRight: "clamp(0.25rem, 1vw, 0.75rem)",
+    paddingLeft: "clamp(0rem, 0.5vw, 0.25rem)",
+    paddingRight: "clamp(0rem, 0.5vw, 0.25rem)",
   }}
 >
         {/* video — sized to the video's own 16:9 ratio so there's no letterboxing,
             and capped to viewport height so the whole frame reads on one screen */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="cta-video-frame"
-          style={{
-            position: "relative",
-            borderRadius: "8px",
-            overflow: "hidden",
-            boxShadow: "0 40px 90px rgba(15,15,15,0.18)",
-            backgroundColor: "#0f0f0f",
-            aspectRatio: "16 / 9",
-            height: "min(80vh, 760px)",
-            width: "auto",
-            maxWidth: "100%",
-          }}
-        >
+<motion.div
+  initial={{ opacity: 0, y: 30 }}
+  animate={inView ? { opacity: 1, y: 0 } : {}}
+  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+  className="cta-video-frame"
+  style={{
+    position: "relative",
+    borderRadius: "8px",
+    overflow: "hidden",
+    boxShadow: "0 40px 90px rgba(15,15,15,0.18)",
+    backgroundColor: "#0f0f0f",
+    aspectRatio: "16 / 9",
+    width: "min(96vw, 1300px)",
+    height: "auto",
+    maxHeight: "85vh",
+  }}
+>
           <video
             src="/videos/cta-book.mp4"
             autoPlay
@@ -129,10 +129,9 @@ export default function CTABanner() {
         @media (max-width: 480px) {
           .cta-buttons {
             flex-direction: column;
-            align-items: flex-end;
+            align-items: flex-start;
             gap: 0.5rem !important;
-            left: auto !important;
-            right: 5% !important;
+            left: 5% !important;
             bottom: 6% !important;
           }
           .cta-btn {
