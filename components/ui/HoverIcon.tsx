@@ -19,6 +19,10 @@ type Props = {
   rotate?: number;
   /** scale on hover */
   scale?: number;
+  /** reveal the icon with a smooth radial "drawn on" wipe, driven by the parent's own scroll-in-view state */
+  drawOnScroll?: boolean;
+  /** when drawOnScroll is set, whether the parent section is currently in view (drives the reveal) */
+  revealed?: boolean;
 };
 
 export default function HoverIcon({
@@ -29,9 +33,11 @@ export default function HoverIcon({
   hoverWeight = "fill",
   rotate = 0,
   scale = 1.12,
+  drawOnScroll = false,
+  revealed = true,
 }: Props) {
   const [hover, setHover] = useState(false);
-  return (
+  const icon = (
     <motion.span
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
@@ -40,6 +46,19 @@ export default function HoverIcon({
       style={{ display: "inline-flex", transformOrigin: "center" }}
     >
       <IconCmp size={size} weight={hover ? hoverWeight : weight} color={color} />
+    </motion.span>
+  );
+
+  if (!drawOnScroll) return icon;
+
+  return (
+    <motion.span
+      initial={{ clipPath: "circle(0% at 8% 92%)" }}
+      animate={{ clipPath: revealed ? "circle(120% at 8% 92%)" : "circle(0% at 8% 92%)" }}
+      transition={{ duration: 1.1, ease: ICON_EASE }}
+      style={{ display: "inline-flex" }}
+    >
+      {icon}
     </motion.span>
   );
 }

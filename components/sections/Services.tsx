@@ -278,7 +278,7 @@ function RadarCircle({
             padding: "0 24%",
           }}
         >
-          <HoverIcon icon={svc.Icon} size={44} weight="light" hoverWeight="fill" scale={1.15} rotate={-6} color="#d98038" />
+          <HoverIcon icon={svc.Icon} size={44} weight="bold" hoverWeight="fill" scale={1.15} rotate={-6} color="#d98038" drawOnScroll revealed={inView} />
           <span style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "1.05rem", lineHeight: 1.15, color: "rgba(245,242,236,0.95)", letterSpacing: "-0.01em" }}>
             {svc.lines.map((line, li) => (
               <span key={li} style={{ display: "block" }}>{line}</span>
@@ -318,7 +318,7 @@ export default function Services() {
       style={{
         position: "relative",
         overflow: "hidden",
-        backgroundColor: "#260000",
+        backgroundColor: "#750006",
         paddingTop: "clamp(4rem,9vw,7rem)",
         paddingBottom: "clamp(4rem,9vw,8rem)",
       }}

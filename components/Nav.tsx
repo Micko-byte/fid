@@ -18,8 +18,6 @@ export default function Nav() {
   const navRef   = useRef<HTMLElement>(null);
   const [menuOpen,  setMenuOpen]  = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
-  const [onDark,    setOnDark]    = useState(true); // hero is dark at the top
-  const [hideNav,   setHideNav]   = useState(false); // hide over the footer
   const [isMobile,  setIsMobile]  = useState(false);
 
   useEffect(() => {
@@ -52,94 +50,50 @@ export default function Nav() {
     }
     onScroll();
 
-    // ── Adapt logo + taglines to the section behind the nav ──
-    // Dark sections flip the nav to its light (cream) logo + text.
-    const darkSections = document.querySelectorAll<HTMLElement>(
-      "#services, #contact, [data-nav-dark], .section-red, .section-dark, footer"
-    );
-    const observers = Array.from(darkSections).map((section) => {
-      const obs = new IntersectionObserver(
-        ([entry]) => setOnDark(entry.isIntersecting),
-        { rootMargin: "-72px 0px -92% 0px", threshold: 0 }
-      );
-      obs.observe(section);
-      return obs;
-    });
-
-    // Hide the header once the footer reaches the upper part of the screen,
-    // so the page never shows the header logo + the big footer logo at once.
-    const footer = document.querySelector("footer");
-    let footerObs: IntersectionObserver | null = null;
-    if (footer) {
-      footerObs = new IntersectionObserver(
-        ([entry]) => setHideNav(entry.isIntersecting),
-        { rootMargin: "0px 0px -55% 0px", threshold: 0 }
-      );
-      footerObs.observe(footer);
-    }
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", checkMobile);
       if (poll) clearInterval(poll);
       if (lenis) lenis.off("scroll", onScroll);
-      observers.forEach((o) => o.disconnect());
-      footerObs?.disconnect();
     };
   }, []);
 
-  // Glass header. Light (cream) logo + text over dark sections (hero, services,
-  // contact, footer); primary (crimson) logo + dark text over light sections.
-  const lightText = isMobile ? true : onDark;
-
-  const navBg = onDark
-    ? (scrolled ? "rgba(38,0,0,0.42)" : "rgba(38,0,0,0.26)")
-    : (scrolled ? "rgba(245,242,236,0.72)" : "rgba(245,242,236,0.55)");
-  const navBorder = lightText
-    ? "1px solid rgba(217,128,56,0.26)"
-    : "1px solid rgba(117,0,6,0.12)";
-
   return (
     <>
-      {/* ── Floating pill nav ── */}
+      {/* ── Full-width sticky header ── */}
       <nav
-        ref={navRef}
-        className="brand-nav-container"
-        aria-label="Main navigation"
+  ref={navRef}
+  className="brand-nav-container"
+  aria-label="Main navigation"
+  style={{
+    position: "fixed",
+    top: "1.1rem",
+    left: "50%",
+    transform: "translateX(-50%)",
+    zIndex: 8000,
+    width: "min(calc(100% - 1.5rem), 1240px)",
+    maxWidth: "calc(100vw - 1.5rem)",
+    boxSizing: "border-box",
+    borderRadius: "20px",
+    background: "#FFFFFF",
+    borderBottom: "1px solid rgba(0,0,0,0.08)",
+    boxShadow: "0 2px 12px rgba(0,0,0,.08)",
+    transition: "box-shadow 0.3s, transform 0.3s",
+  }}
+>
+      <div
         style={{
-          position: "fixed",
-          top: "1.1rem",
-          left: "50%",
-          transform: `translateX(-50%) translateY(${hideNav ? "-180%" : "0"})`,
-          opacity: hideNav ? 0 : 1,
-          pointerEvents: hideNav ? "none" : "auto",
-          zIndex: 8000,
-          width: "min(calc(100% - 1.5rem), 1240px)",
-          maxWidth: "calc(100vw - 1.5rem)",
-          boxSizing: "border-box",
-          borderRadius: "20px",
-          background: navBg,
-          backdropFilter: "blur(22px) saturate(1.3)",
-          border: navBorder,
-          boxShadow: lightText
-            ? "0 8px 32px rgba(0,0,0,0.28), inset 0 1px 0 rgba(217,128,56,0.15)"
-            : "0 10px 36px rgba(38,0,0,0.10)",
-          transition: "background 0.5s, box-shadow 0.5s, transform 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          padding: "0 clamp(1.2rem,3vw,2.4rem)",
+            height: "78px",                    
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            padding: "0 clamp(1.2rem,3vw,2.4rem)",
-            height: "78px",
-          }}
-        >
           {/* ── Logo + tagline ── */}
           <Link href="/" aria-label="FID & Co. — home" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "3px", textDecoration: "none" }}>
             <FidLogo
-              variant={lightText ? "light" : "dark"}
+              variant="dark"
               style={{
                 height: "46px",
                 width: "auto",
@@ -150,10 +104,9 @@ export default function Nav() {
               fontSize: "0.48rem",
               letterSpacing: "0.28em",
               textTransform: "uppercase",
-              color: lightText ? "rgba(217,128,56,0.9)" : "rgba(117,0,6,0.7)",
+              color: "rgba(117,0,6,0.7)",
               fontWeight: 600,
               lineHeight: 1,
-              transition: "color 0.4s",
               whiteSpace: "nowrap",
             }}>
               Insight · Strategy · Impact
@@ -161,22 +114,22 @@ export default function Nav() {
           </Link>
 
           {/* ── Desktop links ── */}
-          <div className="nav-links-desktop" style={{ display: "flex", alignItems: "center", gap: "2.2rem" }}>
+          <div className="nav-links-desktop"  style={{ display: "flex", alignItems: "center", gap: "2.2rem" }}>
             {navLinks.map((link) => (
               <Link
                 key={link.label}
                 href={link.href}
                 style={{
-                  fontSize: "0.8rem",
+                  fontSize: "0.9rem",
                   letterSpacing: "0.04em",
                   fontWeight: 500,
-                  color: lightText ? "rgba(245,242,236,0.82)" : "#1c1c1c",
+                  color: "#000000",
                   padding: "0.3rem 0",
                   transition: "color 0.25s",
                   textDecoration: "none",
                 }}
-                onMouseEnter={(e) => (e.currentTarget.style.color = "#d98038")}
-                onMouseLeave={(e) => (e.currentTarget.style.color = lightText ? "rgba(245,242,236,0.82)" : "#1c1c1c")}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#770006")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#000000")}
               >
                 {link.label}
               </Link>
@@ -189,21 +142,21 @@ export default function Nav() {
                 letterSpacing: "0.08em",
                 fontWeight: 700,
                 padding: "0.75em 1.6em",
-                background: lightText ? "#d98038" : "#750006",
-                color: lightText ? "#260000" : "#f5f2ec",
+                background: "#770006",
+                color: "#FFFFFF",
                 textDecoration: "none",
                 borderRadius: "999px",
-                boxShadow: lightText ? "0 6px 18px rgba(217,128,56,0.35)" : "0 6px 18px rgba(117,0,6,0.3)",
+                boxShadow: "0 6px 18px rgba(117,0,6,0.3)",
                 transition: "background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s",
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#260000";
-                e.currentTarget.style.color = "#f5f2ec";
+                e.currentTarget.style.background = "#5d0005";
+                e.currentTarget.style.color = "#FFFFFF";
                 e.currentTarget.style.transform = "translateY(-2px)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.background = lightText ? "#d98038" : "#750006";
-                e.currentTarget.style.color = lightText ? "#260000" : "#f5f2ec";
+                e.currentTarget.style.background = "#770006";
+                e.currentTarget.style.color = "#FFFFFF";
                 e.currentTarget.style.transform = "translateY(0)";
               }}
             >
@@ -214,7 +167,7 @@ export default function Nav() {
           {/* ── Mobile hamburger ── */}
           <button
             className="nav-burger-btn"
-            style={{ color: lightText ? "#d98038" : "#750006", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px", display: "flex", alignItems: "center", justifyContent: "center" }}
+            style={{ color: "#770006", background: "none", border: "none", cursor: "pointer", width: "34px", height: "34px", display: "flex", alignItems: "center", justifyContent: "center" }}
             onClick={() => setMenuOpen(true)}
             aria-label="Open menu"
           >
@@ -274,7 +227,7 @@ export default function Nav() {
                       textDecoration: "none",
                       padding: "0.3rem 0",
                     }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
+                    onMouseEnter={(e) => (e.currentTarget.style.color = "#770006")}
                     onMouseLeave={(e) => (e.currentTarget.style.color = "#1c1c1c")}
                   >
                     {link.label}
@@ -293,7 +246,7 @@ export default function Nav() {
                   onClick={() => setMenuOpen(false)}
                   style={{
                     display: "inline-flex", alignItems: "center", gap: "0.6rem",
-                    background: "#750006", color: "#f5f2ec",
+                    background: "#770006", color: "#FFFFFF",
                     fontFamily: "var(--font-body)", fontWeight: 700,
                     fontSize: "0.82rem", letterSpacing: "0.1em", textTransform: "uppercase",
                     padding: "1rem 2rem", borderRadius: "999px", textDecoration: "none",
@@ -313,25 +266,24 @@ export default function Nav() {
 
       <style>{`
         @media (min-width: 901px) { .nav-burger-btn { display: none !important; } }
-        @media (max-width: 900px) {
-          .nav-links-desktop { display: none !important; }
-          .brand-nav-container {
-            position: sticky !important;
-            top: 0 !important;
-            left: 0 !important;
-            transform: none !important;
-            width: 100% !important;
-            max-width: 100vw !important;
-            border-radius: 0 !important;
-            margin: 0 !important;
-            border: none !important;
-            border-bottom: 1px solid rgba(217,128,56,0.2) !important;
-            background: #260000 !important; /* seamless dark background matching hero */
-            box-shadow: 0 4px 24px rgba(38,0,0,0.4) !important;
-            opacity: 1 !important;
-            pointer-events: auto !important;
-          }
-        }
+       @media (max-width: 900px) {
+  .nav-links-desktop { display: none !important; }
+  .brand-nav-container {
+    position: sticky !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    border-bottom: 1px solid rgba(0,0,0,0.08) !important;
+    background: #FFFFFF !important;
+    box-shadow: 0 2px 12px rgba(0,0,0,.08) !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+}
       `}</style>
     </>
   );

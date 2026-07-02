@@ -52,7 +52,7 @@ export default function About() {
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               className="type-eyebrow"
-              style={{ color: "#d98038" }}
+              style={{ color: "#760006" }}
             >
               Who we are
             </motion.span>
@@ -71,7 +71,7 @@ export default function About() {
               }}
             >
               A communications partner built for influence at{" "}
-              <em style={{ fontStyle: "normal", color: "#d98038" }}>scale</em>.
+              <em style={{ fontStyle: "normal", color: "#760006" }}>scale</em>.
             </motion.h2>
 
             <motion.div
@@ -88,10 +88,10 @@ export default function About() {
                 gap: "1.1rem",
               }}
             >
-              <p className="type-body" style={{ color: "var(--ink-soft)" }}>
+              <p className="type-body" style={{ color: "var(--ink)" }}>
                 FID &amp; Co. is a full-service strategic communications and brand experience firm delivering public relations, media engagement, digital storytelling, influencer marketing and experiential activations across Kenya and the wider African region.
               </p>
-              <p className="type-body" style={{ color: "var(--ink-soft)" }}>
+              <p className="type-body" style={{ color: "var(--ink)" }}>
                 Established in 2010, we have evolved into a trusted partner for government institutions, multinational brands, corporates, hospitality groups, healthcare providers, sports organisations, investment firms and social impact initiatives.
               </p>
               <p className="type-body" style={{ color: "var(--ink)", fontWeight: 700 }}>
@@ -106,11 +106,11 @@ export default function About() {
             transition={{ duration: 1.0, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
             className="about-img-col"
           >
-            <div className="about-video-frame">
+            <div className="about-video-frame about-video-frame--bleed">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/illustrations/team-launch.jpg"
-                alt="FID & Co. team — strategy, insight, and launch"
+                src="/illustrations/about-collage.png"
+                alt="FID & Co. — strategic communications across African cities"
               />
             </div>
           </motion.div>
@@ -139,7 +139,7 @@ export default function About() {
                 transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
                 style={{ padding: "2.2rem 1.6rem 0", borderLeft: i === 0 ? "none" : "1px solid var(--hairline)" }}
               >
-                <HoverIcon icon={Icon} size={40} weight="light" hoverWeight="fill" color="#750006" />
+                <HoverIcon icon={Icon} size={40} weight="bold" hoverWeight="fill" color="#750006" drawOnScroll revealed={inView} />
                 <div style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: "var(--ink)", fontSize: "clamp(3rem, 6.5vw, 5rem)", lineHeight: 0.85, letterSpacing: 0, marginTop: "1rem" }}>
                   <CountUp value={s.value} duration={1.8} />
                 </div>
@@ -170,7 +170,16 @@ export default function About() {
           margin: 0 auto;
           background: #f4f0ec;
         }
-        .about-video-frame video {
+        .about-video-frame--bleed {
+          max-width: none;
+          width: calc(100% + ((100vw - min(100vw, var(--site-max))) / 2) + var(--site-gutter));
+          aspect-ratio: 3 / 4;
+          border-radius: 14px 0 0 14px;
+          border-right: none;
+          margin-right: calc(-1 * (((100vw - min(100vw, var(--site-max))) / 2) + var(--site-gutter)));
+        }
+        .about-video-frame video,
+        .about-video-frame img {
           width: 100%;
           height: 100%;
           display: block;
@@ -178,7 +187,8 @@ export default function About() {
         }
         @media (max-width: 1024px) {
           .about-grid { grid-template-columns: 1fr; }
-          .about-img-col { max-width: 620px; margin: 0 auto; width: 100%; }
+          .about-img-col { width: 100%; }
+          .about-video-frame--bleed { aspect-ratio: 4 / 3; }
         }
         @media (max-width: 768px) {
           .about-stats { grid-template-columns: repeat(2, 1fr) !important; }
