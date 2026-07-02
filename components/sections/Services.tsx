@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Megaphone, Newspaper, ShareNetwork, ChartLineUp, Confetti } from "@phosphor-icons/react";
 import HoverIcon from "@/components/ui/HoverIcon";
+import { STOCK } from "@/lib/stock-photos";
 
 /* ── Circle geometry ── */
 const SVG_SIZE = 280;
@@ -30,11 +31,6 @@ const TICKS: Tick[] = Array.from({ length: TICK_N }, (_, i) => {
   };
 });
 
-function pos(angleDeg: number, r = R) {
-  const rad = (angleDeg * Math.PI) / 180;
-  return { x: CX + r * Math.cos(rad), y: CY + r * Math.sin(rad) };
-}
-
 /* ── Service definitions ── */
 const SERVICES = [
   {
@@ -43,25 +39,7 @@ const SERVICES = [
     slug: "strategic-communications",
     description: "Reputation, narrative and media relations at scale.",
     Icon: Megaphone,
-    cw: {
-      speed: 48,
-      dots: [
-        { angle: 22,  color: "#750006", r: 9 },
-        { angle: 88,  color: "#d98038", r: 7 },
-        { angle: 152, color: "#f5f2ec", r: 8 },
-        { angle: 215, color: "#750006", r: 6 },
-        { angle: 278, color: "#d9ab88", r: 9 },
-        { angle: 338, color: "#d98038", r: 7 },
-      ],
-    },
-    ccw: {
-      speed: 68,
-      dots: [
-        { angle: 55,  color: "#d9ab88", r: 7 },
-        { angle: 180, color: "#f5f2ec", r: 6 },
-        { angle: 305, color: "#750006", r: 8 },
-      ],
-    },
+    photo: STOCK.pressConf?.[0]?.src,
   },
   {
     num: "02",
@@ -69,25 +47,7 @@ const SERVICES = [
     slug: "media-management",
     description: "Media planning, buying and performance tracking.",
     Icon: Newspaper,
-    cw: {
-      speed: 55,
-      dots: [
-        { angle: 40,  color: "#d98038", r: 8 },
-        { angle: 100, color: "#750006", r: 9 },
-        { angle: 165, color: "#d9ab88", r: 7 },
-        { angle: 230, color: "#f5f2ec", r: 8 },
-        { angle: 295, color: "#750006", r: 6 },
-        { angle: 355, color: "#d98038", r: 9 },
-      ],
-    },
-    ccw: {
-      speed: 75,
-      dots: [
-        { angle: 75,  color: "#f5f2ec", r: 6 },
-        { angle: 195, color: "#d98038", r: 7 },
-        { angle: 315, color: "#d9ab88", r: 8 },
-      ],
-    },
+    photo: STOCK.media?.[0]?.src,
   },
   {
     num: "03",
@@ -95,25 +55,7 @@ const SERVICES = [
     slug: "influencer-creator",
     description: "Creator campaigns and always-on social strategy.",
     Icon: ShareNetwork,
-    cw: {
-      speed: 62,
-      dots: [
-        { angle: 10,  color: "#f5f2ec", r: 7 },
-        { angle: 72,  color: "#750006", r: 9 },
-        { angle: 138, color: "#d98038", r: 8 },
-        { angle: 200, color: "#d9ab88", r: 7 },
-        { angle: 265, color: "#750006", r: 9 },
-        { angle: 325, color: "#d98038", r: 6 },
-      ],
-    },
-    ccw: {
-      speed: 80,
-      dots: [
-        { angle: 45,  color: "#d9ab88", r: 8 },
-        { angle: 170, color: "#750006", r: 6 },
-        { angle: 290, color: "#f5f2ec", r: 7 },
-      ],
-    },
+    photo: STOCK.digital?.[1]?.src,
   },
   {
     num: "04",
@@ -121,25 +63,7 @@ const SERVICES = [
     slug: "digital-strategy",
     description: "Digital-first storytelling and community growth.",
     Icon: ChartLineUp,
-    cw: {
-      speed: 52,
-      dots: [
-        { angle: 30,  color: "#d9ab88", r: 8 },
-        { angle: 95,  color: "#f5f2ec", r: 7 },
-        { angle: 155, color: "#750006", r: 9 },
-        { angle: 218, color: "#d98038", r: 8 },
-        { angle: 282, color: "#d9ab88", r: 7 },
-        { angle: 345, color: "#750006", r: 9 },
-      ],
-    },
-    ccw: {
-      speed: 72,
-      dots: [
-        { angle: 62,  color: "#d98038", r: 7 },
-        { angle: 188, color: "#d9ab88", r: 8 },
-        { angle: 308, color: "#750006", r: 6 },
-      ],
-    },
+    photo: STOCK.strategy?.[0]?.src,
   },
   {
     num: "05",
@@ -147,25 +71,7 @@ const SERVICES = [
     slug: "experiential-marketing",
     description: "Immersive brand moments and live activations.",
     Icon: Confetti,
-    cw: {
-      speed: 58,
-      dots: [
-        { angle: 18,  color: "#d98038", r: 9 },
-        { angle: 80,  color: "#d9ab88", r: 7 },
-        { angle: 142, color: "#750006", r: 8 },
-        { angle: 205, color: "#f5f2ec", r: 9 },
-        { angle: 268, color: "#d98038", r: 7 },
-        { angle: 330, color: "#750006", r: 8 },
-      ],
-    },
-    ccw: {
-      speed: 78,
-      dots: [
-        { angle: 50,  color: "#f5f2ec", r: 7 },
-        { angle: 175, color: "#750006", r: 8 },
-        { angle: 300, color: "#d9ab88", r: 6 },
-      ],
-    },
+    photo: STOCK.experiential?.[0]?.src,
   },
 ];
 
@@ -180,9 +86,6 @@ function RadarCircle({
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
 
-  const cwDots  = svc.cw.dots.map(d => ({ ...d, ...pos(d.angle) }));
-  const ccwDots = svc.ccw.dots.map(d => ({ ...d, ...pos(d.angle) }));
-
   return (
     <motion.div
       ref={ref}
@@ -194,33 +97,64 @@ function RadarCircle({
     >
       <Link
         href={`/services/${svc.slug}`}
-        style={{ display: "block", position: "relative", textDecoration: "none" }}
+        style={{ display: "block", position: "relative", width: "clamp(160px, 34vw, 280px)", aspectRatio: "1 / 1", textDecoration: "none" }}
         aria-label={svc.lines.join(" ")}
       >
+        {/* ── Stock photo fill, clipped to the ring — replaces the custom dot graphic ──
+            positioned in percentages so it scales fluidly with the circle on any screen ── */}
+        {svc.photo && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              top: "7.86%", left: "7.86%",
+              width: "84.29%", height: "84.29%",
+              borderRadius: "50%",
+              overflow: "hidden",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={svc.photo}
+              alt=""
+              loading="lazy"
+              style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(1) contrast(1.1)" }}
+            />
+            <div
+              style={{
+                position: "absolute", inset: 0,
+                background: "linear-gradient(160deg, rgba(117,0,6,0.55) 0%, rgba(38,0,0,0.7) 100%)",
+                mixBlendMode: "multiply",
+              }}
+            />
+          </div>
+        )}
+
         <svg
           viewBox={`0 0 ${SVG_SIZE} ${SVG_SIZE}`}
-          width={SVG_SIZE}
-          height={SVG_SIZE}
+          width="100%"
+          height="100%"
           className="radar-svg"
+          style={{ position: "relative", display: "block" }}
           aria-hidden="true"
         >
           {/* ── Main ring ── */}
           <circle
             cx={CX} cy={CY} r={R}
             fill="none"
-            stroke="rgba(245,242,236,0.14)"
-            strokeWidth="1"
+            stroke="rgba(245,242,236,0.35)"
+            strokeWidth="1.5"
           />
 
           {/* ── Inner ring echo ── */}
           <circle
             cx={CX} cy={CY} r={R * 0.72}
             fill="none"
-            stroke="rgba(245,242,236,0.05)"
+            stroke="rgba(245,242,236,0.12)"
             strokeWidth="0.7"
           />
 
-          {/* ── Tick marks ── */}
+          {/* ── Tick marks — the frame ── */}
           {TICKS.map((t, i) => (
             <line
               key={i}
@@ -230,37 +164,6 @@ function RadarCircle({
               strokeLinecap="round"
             />
           ))}
-
-          {/* ── CW dot group ── */}
-          <g
-            style={{
-              transformOrigin: `${CX}px ${CY}px`,
-              animation: `radar-cw-${index} ${svc.cw.speed}s linear infinite`,
-            }}
-          >
-            {cwDots.map((d, i) => (
-              <g key={i}>
-                <circle cx={d.x} cy={d.y} r={d.r + 3} fill={d.color} opacity={0.18} />
-                <circle cx={d.x} cy={d.y} r={d.r} fill={d.color} />
-              </g>
-            ))}
-          </g>
-
-          {/* ── CCW dot group ── */}
-          <g
-            style={{
-              transformOrigin: `${CX}px ${CY}px`,
-              animation: `radar-ccw-${index} ${svc.ccw.speed}s linear infinite`,
-            }}
-          >
-            {ccwDots.map((d, i) => (
-              <g key={i}>
-                <circle cx={d.x} cy={d.y} r={d.r + 2} fill={d.color} opacity={0.2} />
-                <circle cx={d.x} cy={d.y} r={d.r} fill={d.color} />
-              </g>
-            ))}
-          </g>
-
         </svg>
 
         {/* ── Center: icon + label (HTML overlay, like mobile) ── */}
@@ -289,18 +192,6 @@ function RadarCircle({
         {/* ── Hover ring glow ── */}
         <span className="radar-ring-glow" aria-hidden="true" />
       </Link>
-
-      {/* ── Keyframe styles per circle ── */}
-      <style>{`
-        @keyframes radar-cw-${index} {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(360deg); }
-        }
-        @keyframes radar-ccw-${index} {
-          from { transform: rotate(0deg); }
-          to   { transform: rotate(-360deg); }
-        }
-      `}</style>
     </motion.div>
   );
 }

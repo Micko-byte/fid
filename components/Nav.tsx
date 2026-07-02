@@ -91,9 +91,10 @@ export default function Nav() {
         }}
       >
           {/* ── Logo + tagline ── */}
-          <Link href="/" aria-label="FID & Co. — home" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "3px", textDecoration: "none" }}>
+          <Link href="/" aria-label="FID & Co. — home" className="nav-logo-link" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "3px", textDecoration: "none" }}>
             <FidLogo
               variant="dark"
+              className="nav-logo"
               style={{
                 height: "46px",
                 width: "auto",
@@ -272,6 +273,7 @@ export default function Nav() {
     position: sticky !important;
     top: 0 !important;
     left: 0 !important;
+    transform: none !important;
     width: 100% !important;
     max-width: 100vw !important;
     border-radius: 0 !important;
@@ -283,6 +285,13 @@ export default function Nav() {
     opacity: 1 !important;
     pointer-events: auto !important;
   }
+  .brand-nav-container > div {
+    height: 64px !important;
+    padding-left: clamp(1rem, 4vw, 1.5rem) !important;
+    padding-right: clamp(1rem, 4vw, 1.5rem) !important;
+  }
+  .nav-logo { height: 34px !important; }
+  .nav-logo-link span { font-size: 0.4rem !important; }
 }
       `}</style>
     </>

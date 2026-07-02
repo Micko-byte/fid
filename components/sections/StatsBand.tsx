@@ -76,7 +76,7 @@ export default function StatsBand() {
               style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.6rem" }}
             >
               <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: "56px", height: "56px", borderRadius: "14px", border: "1px solid rgba(245,242,236,0.2)", background: "rgba(245,242,236,0.08)", marginBottom: "0.4rem" }}>
-                <HoverIcon icon={s.Icon} size={40} weight="light" hoverWeight="fill" color={BLUE} />
+                <HoverIcon icon={s.Icon} size={40} weight="bold" hoverWeight="fill" color={BLUE} drawOnScroll revealed={inView} />
               </span>
               <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: "clamp(3rem,7vw,5.5rem)", lineHeight: 0.9, letterSpacing: "-0.03em", color: "#f5f2ec" }}>
                 <Counter value={s.value} suffix={s.suffix} run={inView} />

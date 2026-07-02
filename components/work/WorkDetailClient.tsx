@@ -92,7 +92,7 @@ function ScopeItem({ text, index }: { text: string; index: number }) {
         transition={{ duration: 0.45, delay: index * 0.05 + 0.1, ease: [0.16, 1, 0.3, 1] }}
         style={{ position: "absolute", left: 0, top: 0, bottom: 0, width: "2px", background: "#d98038", borderRadius: "2px", transformOrigin: "top", transform: "scaleY(0)" }}
       />
-      <ArrowCircleRight size={18} weight="light" color="#d98038" style={{ flexShrink: 0, marginTop: "2px" }} />
+      <ArrowCircleRight size={18} weight="bold" color="#d98038" style={{ flexShrink: 0, marginTop: "2px" }} />
       <span style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, color: "#1c1c1c", fontWeight: 500 }}>
         {text}
       </span>
@@ -281,7 +281,7 @@ export default function WorkDetailClient({ project }: Props) {
         >
           <CornerBrackets color="#d98038" size={24} thickness={2} />
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", marginBottom: "1rem", fontWeight: 700, display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <TrendUp size={16} weight="light" color="#d98038" /> Impact
+            <TrendUp size={16} weight="bold" color="#d98038" /> Impact
           </p>
           <p style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.4rem,2.6vw,2.4rem)", lineHeight: 1.25, color: "#750006", maxWidth: "52ch", margin: 0 }}>
             {project.impact}

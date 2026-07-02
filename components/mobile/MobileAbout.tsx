@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import { MobileEyebrow, ExplorePill } from "@/components/mobile/ui";
+import { WhoWeAreGraphic } from "@/components/graphics/AbstractGraphics";
 
 const PX = "clamp(1.4rem, 6vw, 2rem)";
 const PY = "clamp(4.5rem, 16vw, 6.5rem)";
@@ -148,17 +149,41 @@ export default function MobileAbout() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-red" style={{ color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      {/* CTA — matches the desktop white/red editorial redesign */}
+      <section style={{ backgroundColor: "#FFFFFF", color: "#0f0f0f", padding: `${PY} ${PX}` }}>
         <FadeUp>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.4rem, 11vw, 3.4rem)", lineHeight: 1.02, letterSpacing: "-0.02em", margin: 0, maxWidth: "14ch" }}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.26em", textTransform: "uppercase", color: "#750006", fontWeight: 700, margin: "0 0 1rem" }}>
+            Next step
+          </p>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "clamp(2.4rem, 11vw, 3.2rem)", lineHeight: 1.0, letterSpacing: "-0.02em", margin: 0, maxWidth: "14ch", color: "#0f0f0f" }}>
             Let&apos;s build something meaningful.
           </h2>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.6, color: "rgba(15,15,15,0.68)", margin: "1.1rem 0 0", maxWidth: "30ch" }}>
+            Share your brief and we&apos;ll shape the route.
+          </p>
         </FadeUp>
         <FadeUp delay={0.1}>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.8rem", marginTop: "2rem" }}>
-            <a href="/#contact" style={{ background: "#f5f2ec", color: "#750006", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.85rem", padding: "0.95rem 1.8rem", borderRadius: "999px", textDecoration: "none" }}>Book us</a>
-            <ExplorePill href="mailto:info@fidco.africa" label="info@fidco.africa" tone="dark" />
+            <a href="/#contact" style={{ background: "#750006", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.85rem", padding: "0.95rem 1.8rem", borderRadius: "999px", textDecoration: "none" }}>Book us</a>
+            <ExplorePill href="mailto:info@fidco.africa" label="info@fidco.africa" tone="light" />
+          </div>
+        </FadeUp>
+        <FadeUp delay={0.18}>
+          <div
+            style={{
+              marginTop: "2.8rem",
+              width: "min(220px, 60vw)",
+              aspectRatio: "4 / 5",
+              background: "#f5f2ec",
+              border: "1px solid rgba(15,15,15,0.08)",
+              borderTop: "6px solid #d98038",
+              borderRadius: "4px",
+              boxShadow: "0 20px 50px rgba(15,15,15,0.14)",
+              padding: "1.2rem",
+              transform: "rotate(-3deg)",
+            }}
+          >
+            <WhoWeAreGraphic size="100%" />
           </div>
         </FadeUp>
       </section>

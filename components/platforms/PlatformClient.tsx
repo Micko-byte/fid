@@ -16,6 +16,26 @@ const HERO_FLOATING_SHAPES = [
   { size: 320, x: "15%", y: "68%", color: "rgba(217,128,56,0.13)", dur: 34, dx: -30, dy: -18 },
 ];
 
+/* ── Culturally-inspired ornamental medallion — Suhba's design-reference accent.
+   Original six-petal floret motif, echoing the brand-pattern-floral texture at a
+   larger scale, used as standalone graphic layers rather than a repeating fill. ── */
+function FloralMedallion({ size = 160, color = "#d98038", opacity = 0.16 }: { size?: number; color?: string; opacity?: number }) {
+  return (
+    <svg viewBox="0 0 100 100" width={size} height={size} aria-hidden="true">
+      <g fill="none" stroke={color} strokeOpacity={opacity} strokeWidth="1">
+        <circle cx="50" cy="50" r="46" strokeOpacity={opacity * 0.6} />
+        <circle cx="50" cy="50" r="34" strokeDasharray="2 6" strokeOpacity={opacity * 0.8} />
+        <g transform="translate(50,50)">
+          {[0, 60, 120, 180, 240, 300].map((deg) => (
+            <ellipse key={deg} cx="0" cy="-20" rx="7" ry="20" transform={`rotate(${deg})`} />
+          ))}
+          <circle r="5" fill={color} fillOpacity={opacity * 1.2} stroke="none" />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 export default function PlatformClient({ platform: p }: { platform: OwnedPlatform }) {
   const heroRef = useRef<HTMLDivElement>(null);
   const inView = useInView(heroRef, { once: true });
@@ -23,6 +43,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
   const partnershipsRef = useRef<HTMLUListElement>(null);
   const highlightsInView = useInView(highlightsRef, { once: true, margin: "-10%" });
   const partnershipsInView = useInView(partnershipsRef, { once: true, margin: "-10%" });
+  const isSuhba = p.slug === "suhba-series";
 
   return (
     <>
@@ -54,7 +75,20 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
             />
           ))}
 
-          {/* Suhba animation slot — awaiting new animation from client */}
+          {/* Suhba: culturally-inspired floral/geometric layer, on top of the existing
+              ambient wash + floating shapes above — retains the current background as
+              the base and layers new graphics over it, per the design-reference brief. */}
+          {isSuhba && (
+            <>
+              <div aria-hidden className="brand-pattern-floral" style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 1 }} />
+              <div aria-hidden style={{ position: "absolute", top: "6%", right: "4%", pointerEvents: "none", zIndex: 1, opacity: 0.8 }}>
+                <FloralMedallion size={180} color={p.accent} opacity={0.22} />
+              </div>
+              <div aria-hidden style={{ position: "absolute", bottom: "-6%", left: "-3%", pointerEvents: "none", zIndex: 1, opacity: 0.7 }}>
+                <FloralMedallion size={220} color="#750006" opacity={0.14} />
+              </div>
+            </>
+          )}
 
           <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
             {/* breadcrumb */}
@@ -113,6 +147,11 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.image} alt={p.name} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 60%, rgba(117,0,6,0.55))" }} />
+              {isSuhba && (
+                <div aria-hidden style={{ position: "absolute", bottom: "-4%", right: "2%", pointerEvents: "none", opacity: 0.9 }}>
+                  <FloralMedallion size={140} color="#f5f2ec" opacity={0.5} />
+                </div>
+              )}
             </motion.div>
           </div>
         </section>
@@ -187,7 +226,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                       transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
                       style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "#1c1c1c" }}
                     >
-                      <CheckCircle size={18} weight="light" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
+                      <CheckCircle size={18} weight="bold" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
                     </motion.li>
                   ))}
                 </ul>
@@ -206,7 +245,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                       transition={{ duration: 0.5, delay: i * 0.05, ease: "easeOut" }}
                       style={{ display: "flex", alignItems: "flex-start", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.96rem", color: "#1c1c1c" }}
                     >
-                      <Handshake size={18} weight="light" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
+                      <Handshake size={18} weight="bold" color={p.accent} style={{ flexShrink: 0, marginTop: "2px" }} /> {h}
                     </motion.li>
                   ))}
                 </ul>
@@ -267,6 +306,11 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
 
         {/* ── CTA ── */}
         <section className="section-light" style={{ position: "relative", paddingTop: "clamp(5rem,10vw,8rem)", paddingBottom: "clamp(6rem,12vw,10rem)", overflow: "hidden" }}>
+          {isSuhba && (
+            <div aria-hidden style={{ position: "absolute", top: "4%", left: "3%", pointerEvents: "none", opacity: 0.7 }}>
+              <FloralMedallion size={150} color="#750006" opacity={0.16} />
+            </div>
+          )}
           {/* accent illustration near CTA */}
           <motion.img
             src="/illustrations/iconography-accents.png"

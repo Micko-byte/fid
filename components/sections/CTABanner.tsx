@@ -27,16 +27,17 @@ export default function CTABanner() {
         style={{ position: "absolute", top: 0, left: 0, right: 0, height: "50%", opacity: 0.7, pointerEvents: "none" }}
       />
 
-      <div
-        ref={ref}
-        style={{
-          position: "relative", zIndex: 1,
-          display: "flex",
-          justifyContent: "center",
-          paddingLeft: "clamp(0.75rem, 2.5vw, 2rem)",
-          paddingRight: "clamp(0.75rem, 2.5vw, 2rem)",
-        }}
-      >
+<div
+  ref={ref}
+  style={{
+    position: "relative",
+    zIndex: 1,
+    display: "flex",
+    justifyContent: "center",
+    paddingLeft: "clamp(0.25rem, 1vw, 0.75rem)",
+    paddingRight: "clamp(0.25rem, 1vw, 0.75rem)",
+  }}
+>
         {/* video — sized to the video's own 16:9 ratio so there's no letterboxing,
             and capped to viewport height so the whole frame reads on one screen */}
         <motion.div
@@ -70,6 +71,7 @@ export default function CTABanner() {
             initial={{ opacity: 0, y: 18 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.35 }}
+            className="cta-buttons"
             style={{
               position: "absolute",
               left: "6%",
@@ -82,6 +84,7 @@ export default function CTABanner() {
           >
             <a
               href="/#contact"
+              className="cta-btn"
               style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 padding: "0.75em 1.5em", fontSize: "0.76rem", letterSpacing: "0.08em",
@@ -97,6 +100,7 @@ export default function CTABanner() {
             </a>
             <a
               href="mailto:info@fidco.africa"
+              className="cta-btn"
               style={{
                 display: "inline-flex", alignItems: "center", justifyContent: "center",
                 padding: "0.75em 1.5em", fontSize: "0.76rem", letterSpacing: "0.08em",
@@ -120,6 +124,20 @@ export default function CTABanner() {
           .cta-video-frame {
             height: auto !important;
             width: 100% !important;
+          }
+        }
+        @media (max-width: 480px) {
+          .cta-buttons {
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5rem !important;
+            left: auto !important;
+            right: 5% !important;
+            bottom: 6% !important;
+          }
+          .cta-btn {
+            padding: 0.55em 1.1em !important;
+            font-size: 0.68rem !important;
           }
         }
       `}</style>

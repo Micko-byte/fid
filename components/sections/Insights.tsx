@@ -39,7 +39,6 @@ export default function Insights() {
           <div>
             <motion.span initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
               style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006" }}>
-              <span style={{ fontVariantNumeric: "tabular-nums" }}>(06)</span>
               <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} /> Our Thinking
             </motion.span>
             <motion.h2 initial={{ clipPath: "inset(0 0 100% 0)", opacity: 0 }} animate={inView ? { clipPath: "inset(0 0 0% 0)", opacity: 1 } : {}} transition={{ duration: 1.0, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
@@ -70,7 +69,7 @@ export default function Insights() {
                       {a.title}
                     </h3>
                   </MorphingDialogTitle>
-                  <ArrowUpRight size={20} weight="light" color="rgba(28,28,28,0.3)" style={{ flexShrink: 0 }} />
+                  <ArrowUpRight size={20} weight="bold" color="rgba(28,28,28,0.3)" style={{ flexShrink: 0 }} />
                 </MorphingDialogTrigger>
 
                 <MorphingDialogContainer>

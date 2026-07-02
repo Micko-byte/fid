@@ -45,10 +45,10 @@ export default function Footer() {
           <div>
             <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#f5f2ec", marginBottom: "1.4rem", fontWeight: 700, fontFamily: "var(--font-body)" }}>Connect</h5>
             <a href="tel:+254797690609" style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>
-              <Phone size={20} weight="light" color="#d98038" />+254 797 690 609
+              <Phone size={20} weight="bold" color="#d98038" />+254 797 690 609
             </a>
             <a href="https://www.fidco.africa" style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "1.4rem", textDecoration: "none" }}>
-              <Globe size={20} weight="light" color="#d98038" />www.fidco.africa
+              <Globe size={20} weight="bold" color="#d98038" />www.fidco.africa
             </a>
             <div style={{ display: "flex", gap: "0.75rem" }}>
               {[
@@ -65,7 +65,7 @@ export default function Footer() {
                   style={{ width: "44px", height: "44px", border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", color: "rgba(245,242,236,0.6)", textDecoration: "none", transition: "all 0.25s" }}
                   onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d98038"; e.currentTarget.style.borderColor = "#d98038"; e.currentTarget.style.color = "#260000"; }}
                   onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; e.currentTarget.style.color = "rgba(245,242,236,0.6)"; }}>
-                  <Icon size={22} weight="light" />
+                  <Icon size={22} weight="bold" />
                 </motion.a>
               ))}
             </div>

@@ -86,7 +86,7 @@ export function MobileSectionHead({
 }
 
 /* ── Eyebrow label ─────────────────────────────────────────── */
-export function MobileEyebrow({ children, tone = "dark" }: { children: ReactNode; tone?: Tone }) {
+export function MobileEyebrow({ children, tone = "dark", color = "#d98038" }: { children: ReactNode; tone?: Tone; color?: string }) {
   return (
     <span
       style={{
@@ -95,7 +95,7 @@ export function MobileEyebrow({ children, tone = "dark" }: { children: ReactNode
         fontWeight: 600,
         letterSpacing: "0.28em",
         textTransform: "uppercase",
-        color: "#d98038",
+        color,
         opacity: tone === "dark" ? 1 : 0.95,
       }}
     >
@@ -215,6 +215,7 @@ export function RadialDial({
   icon,
   spin = 70,
   dir = 1,
+  photo,
 }: {
   label: string;
   tone?: Tone;
@@ -223,6 +224,7 @@ export function RadialDial({
   icon?: ReactNode;
   spin?: number;
   dir?: 1 | -1;
+  photo?: string;
 }) {
   const R = 100;
   const cx = 120;
@@ -250,7 +252,23 @@ export function RadialDial({
 
   return (
     <div style={{ position: "relative", width: size, height: size, maxWidth: "100%" }}>
-      <svg viewBox="0 0 240 240" width={size} height={size} style={{ display: "block" }} aria-hidden>
+      {photo && (
+        <div
+          aria-hidden
+          style={{
+            position: "absolute",
+            top: "8.33%", left: "8.33%",
+            width: "83.33%", height: "83.33%",
+            borderRadius: "50%",
+            overflow: "hidden",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={photo} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(1) contrast(1.1)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(160deg, rgba(117,0,6,0.55) 0%, rgba(38,0,0,0.7) 100%)", mixBlendMode: "multiply" }} />
+        </div>
+      )}
+      <svg viewBox="0 0 240 240" width={size} height={size} style={{ display: "block", position: "relative" }} aria-hidden>
         <g
           style={{
             transformBox: "fill-box",

@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { InstagramLogo } from "@phosphor-icons/react";
 import BounceCards from "@/components/ui/BounceCards";
+import { useIsMobile } from "@/components/mobile/useIsMobile";
 
 const HANDLE = "fidpr";
 const PROFILE = "https://instagram.com/fidpr/";
@@ -71,6 +72,7 @@ export default function InstagramFeed() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
   const [posts, setPosts] = useState<IGPost[]>(fallback);
   const [live, setLive] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL;
@@ -130,26 +132,44 @@ export default function InstagramFeed() {
           </a>
         </div>
 
-        {/* Bouncing card stack of latest posts */}
-        <a href={PROFILE} target="_blank" rel="noopener noreferrer" data-cursor="View" style={{ display: "flex", justifyContent: "center", textDecoration: "none" }}>
-          <BounceCards
-            images={posts.slice(0, 5).map((p) => p.image)}
-            containerWidth={560}
-            containerHeight={300}
-            animationDelay={0.4}
-            animationStagger={0.09}
-            easeType="elastic.out(1, 0.6)"
-            transformStyles={[
-              "rotate(7deg) translate(-200px)",
-              "rotate(-4deg) translate(-100px)",
-              "rotate(2deg)",
-              "rotate(-7deg) translate(100px)",
-              "rotate(5deg) translate(200px)",
-            ]}
-            enableHover
-            className="ig-bounce"
-          />
-        </a>
+        {/* Bouncing card stack of latest posts — the fan effect uses fixed pixel
+            offsets that don't fit a phone width, so mobile gets a simple scroll row */}
+        {isMobile ? (
+          <div style={{ display: "flex", gap: "0.8rem", overflowX: "auto", paddingBottom: "0.5rem", scrollbarWidth: "none" }}>
+            {posts.slice(0, 5).map((p) => (
+              <a
+                key={p.id}
+                href={p.permalink}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ flexShrink: 0, width: "128px", aspectRatio: "1 / 1", borderRadius: "14px", overflow: "hidden", border: "4px solid #fff", boxShadow: "0 8px 24px rgba(117,0,6,0.22)" }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.image} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </a>
+            ))}
+          </div>
+        ) : (
+          <a href={PROFILE} target="_blank" rel="noopener noreferrer" data-cursor="View" style={{ display: "flex", justifyContent: "center", textDecoration: "none" }}>
+            <BounceCards
+              images={posts.slice(0, 5).map((p) => p.image)}
+              containerWidth={560}
+              containerHeight={300}
+              animationDelay={0.4}
+              animationStagger={0.09}
+              easeType="elastic.out(1, 0.6)"
+              transformStyles={[
+                "rotate(7deg) translate(-200px)",
+                "rotate(-4deg) translate(-100px)",
+                "rotate(2deg)",
+                "rotate(-7deg) translate(100px)",
+                "rotate(5deg) translate(200px)",
+              ]}
+              enableHover
+              className="ig-bounce"
+            />
+          </a>
+        )}
       </div>
     </section>
   );

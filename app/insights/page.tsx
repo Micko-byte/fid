@@ -176,6 +176,7 @@ function ArticleRow({ article, index }: { article: typeof articles[0]; index: nu
             >
               <ArrowUpRight
                 size={20}
+                weight="bold"
                 className="transition-colors duration-200 group-hover:text-[#750006]"
                 style={{ color: "rgba(38,0,0,0.2)" }}
               />

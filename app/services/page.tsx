@@ -6,6 +6,7 @@ import Link from "next/link";
 import { Plus, Minus, Megaphone, Television, UsersThree, DeviceMobileCamera, Confetti, type Icon } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
+import HoverIcon from "@/components/ui/HoverIcon";
 import { services } from "@/components/lib/services";
 import { STOCK } from "@/lib/stock-photos";
 
@@ -59,7 +60,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
             <span className="font-body text-xs flex-shrink-0" style={{ color: "rgba(38,0,0,0.25)" }}>
               {service.num}
             </span>
-            {(() => { const Ico = iconMap[service.iconName]; return Ico ? <Ico size={28} weight="light" color="#750006" style={{ flexShrink: 0 }} /> : null; })()}
+            {(() => { const Ico = iconMap[service.iconName]; return Ico ? <HoverIcon icon={Ico} size={28} weight="bold" hoverWeight="fill" color="#750006" drawOnScroll revealed={inView} /> : null; })()}
             <h3
               className="font-heading leading-tight group-hover:text-[#750006] transition-colors duration-200"
               style={{ fontSize: "clamp(1.4rem, 3vw, 2.4rem)", color: "#260000", letterSpacing: "-0.02em" }}

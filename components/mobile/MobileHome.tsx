@@ -15,6 +15,7 @@ import {
   MobileSlider,
   RadialDial,
 } from "@/components/mobile/ui";
+import { STOCK } from "@/lib/stock-photos";
 
 const cl = (id: string) =>
   `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/${id}`;
@@ -24,11 +25,19 @@ const PY = "clamp(4.5rem, 16vw, 6.5rem)";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const SERVICES = [
-  { label: "Strategic\nCommunications", slug: "strategic-communications", dots: ["#750006", "#d98038", "#f5f2ec", "#d9ab88"], Icon: Megaphone },
-  { label: "Media\nManagement", slug: "media-management", dots: ["#d98038", "#750006", "#d9ab88", "#f5f2ec"], Icon: Newspaper },
-  { label: "Digital &\nInfluencer", slug: "influencer-creator", dots: ["#f5f2ec", "#d98038", "#750006"], Icon: ShareNetwork },
-  { label: "Digital Strategy\n& Social", slug: "digital-strategy", dots: ["#d9ab88", "#750006", "#d98038"], Icon: ChartLineUp },
-  { label: "Experiential\nMarketing", slug: "experiential-marketing", dots: ["#750006", "#f5f2ec", "#d98038", "#d9ab88"], Icon: Confetti },
+  { label: "Strategic\nCommunications", slug: "strategic-communications", dots: ["#750006", "#d98038", "#f5f2ec", "#d9ab88"], Icon: Megaphone, photo: STOCK.pressConf?.[0]?.src },
+  { label: "Media\nManagement", slug: "media-management", dots: ["#d98038", "#750006", "#d9ab88", "#f5f2ec"], Icon: Newspaper, photo: STOCK.media?.[0]?.src },
+  { label: "Digital &\nInfluencer", slug: "influencer-creator", dots: ["#f5f2ec", "#d98038", "#750006"], Icon: ShareNetwork, photo: STOCK.digital?.[1]?.src },
+  { label: "Digital Strategy\n& Social", slug: "digital-strategy", dots: ["#d9ab88", "#750006", "#d98038"], Icon: ChartLineUp, photo: STOCK.strategy?.[0]?.src },
+  { label: "Experiential\nMarketing", slug: "experiential-marketing", dots: ["#750006", "#f5f2ec", "#d98038", "#d9ab88"], Icon: Confetti, photo: STOCK.experiential?.[0]?.src },
+];
+
+const IG_POSTS = [
+  "/photos/projects/tribe-vibe.jpg",
+  "/photos/projects/lc-waikiki-influencer.jpg",
+  "/photos/projects/kansai-gor-mahia.jpg",
+  "/photos/projects/utamaduni-day.jpg",
+  "/photos/projects/africa-forum-displacement.jpg",
 ];
 
 const WORK = [
@@ -73,7 +82,7 @@ export default function MobileHome() {
       {/* ── WHO WE ARE ── */}
       <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}`, position: "relative" }}>
         <FadeUp>
-          <MobileEyebrow tone="light">Who we are</MobileEyebrow>
+          <MobileEyebrow tone="light" color="#750006">Who we are</MobileEyebrow>
         </FadeUp>
         <FadeUp delay={0.06}>
           <h2
@@ -87,7 +96,7 @@ export default function MobileHome() {
             }}
           >
             A communications partner built for influence at{" "}
-            <em style={{ fontStyle: "normal", color: "#d98038" }}>scale</em>.
+            <em style={{ fontStyle: "normal", color: "#750006" }}>scale</em>.
           </h2>
         </FadeUp>
         <FadeUp delay={0.12}>
@@ -116,7 +125,7 @@ export default function MobileHome() {
         >
           {STATS.map((s, i) => (
             <FadeUp key={s.l} delay={0.1 + i * 0.06}>
-              <s.Icon size={26} weight="light" color="#d98038" />
+              <s.Icon size={26} weight="bold" color="#750006" />
               <div
                 style={{
                   fontFamily: "var(--font-heading)",
@@ -146,7 +155,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── OUR EXPERTISE (rotating dials, 2-1-2) ── */}
-      <section style={{ position: "relative", overflow: "hidden", background: "#1c1c1c", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
+      <section style={{ position: "relative", overflow: "hidden", background: "#750006", color: "#f5f2ec", padding: `${PY} ${PX}` }}>
         <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.5 }} />
         <div style={{ position: "relative", zIndex: 1 }}>
         <MobileSectionHead title="Our Expertise" href="/services" tone="dark" />
@@ -164,7 +173,8 @@ export default function MobileHome() {
                     size={150}
                     spin={56 + i * 8}
                     dir={i % 2 === 0 ? 1 : -1}
-                    icon={<Icon size={24} weight="light" />}
+                    icon={<Icon size={24} weight="bold" />}
+                    photo={s.photo}
                   />
                 </Link>
               </FadeUp>
@@ -180,6 +190,35 @@ export default function MobileHome() {
           );
         })()}
         </div>
+      </section>
+
+      {/* ── CTA VIDEO BANNER ── */}
+      <section style={{ background: "#FFFFFF", padding: `${PY} ${PX}` }}>
+        <FadeUp>
+          <div
+            style={{
+              position: "relative",
+              borderRadius: "8px",
+              overflow: "hidden",
+              boxShadow: "0 24px 60px rgba(15,15,15,0.16)",
+              backgroundColor: "#0f0f0f",
+              aspectRatio: "16 / 9",
+            }}
+          >
+            <video
+              src="/videos/cta-book.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+              style={{ width: "100%", height: "100%", display: "block", objectFit: "cover" }}
+            />
+            <div style={{ position: "absolute", right: "6%", bottom: "8%", display: "flex", flexDirection: "column", alignItems: "flex-end", gap: "0.5rem" }}>
+              <a href="/#contact" style={{ background: "#750006", color: "#FFFFFF", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.72rem", padding: "0.7rem 1.2rem", borderRadius: "999px", textDecoration: "none" }}>Book us</a>
+              <a href="mailto:info@fidco.africa" style={{ background: "#FFFFFF", color: "#0f0f0f", fontFamily: "var(--font-body)", fontWeight: 700, fontSize: "0.72rem", padding: "0.7rem 1.2rem", borderRadius: "999px", textDecoration: "none", border: "1px solid rgba(15,15,15,0.15)" }}>info@fidco.africa</a>
+            </div>
+          </div>
+        </FadeUp>
       </section>
 
       {/* ── SELECTED WORK (slider) ── */}
@@ -247,6 +286,26 @@ export default function MobileHome() {
             shaping understanding and connecting organisations with the people
             they serve.&rdquo;
           </blockquote>
+        </FadeUp>
+      </section>
+
+      {/* ── INSTAGRAM ── */}
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+        <MobileSectionHead title="Follow the work in motion" href="https://instagram.com/fidpr/" label="@fidpr" tone="light" />
+        <FadeUp delay={0.06}>
+          <div style={{ display: "flex", gap: "0.7rem", overflowX: "auto", paddingBottom: "0.4rem", marginTop: "1.6rem" }}>
+            {IG_POSTS.map((src) => (
+              <a
+                key={src}
+                href="https://instagram.com/fidpr/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ flexShrink: 0, width: "108px", aspectRatio: "1 / 1", borderRadius: "12px", overflow: "hidden", border: "3px solid #fff", boxShadow: "0 6px 18px rgba(117,0,6,0.2)" }}
+              >
+                <img src={src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </a>
+            ))}
+          </div>
         </FadeUp>
       </section>
 

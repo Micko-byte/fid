@@ -42,6 +42,8 @@ const platforms = [
 
 function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number] }) {
   const Icon = p.Icon;
+  const iconRef = useRef<HTMLDivElement>(null);
+  const iconInView = useInView(iconRef, { once: true });
 
   return (
     <motion.article
@@ -57,9 +59,9 @@ function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number]
       </Link>
 
       <div className="platform-feature-copy">
-        <div className="platform-meta-row">
+        <div ref={iconRef} className="platform-meta-row">
           <span style={{ color: "#f5f2ec" }}>{p.num} / Owned platform</span>
-          <HoverIcon icon={Icon} size={38} weight="light" hoverWeight="fill" color="#d98038" />
+          <HoverIcon icon={Icon} size={38} weight="bold" hoverWeight="fill" color="#d98038" drawOnScroll revealed={iconInView} />
         </div>
 
         <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }}>
@@ -112,15 +114,15 @@ export default function Platforms() {
       <div ref={ref} className="section-shell" style={{ position: "relative", zIndex: 1 }}>
         <div className="platforms-head">
           <div>
-            <motion.span
-              initial={{ opacity: 0, y: 18 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-              className="type-eyebrow"
-            >
-              Owned platforms &amp; cultural IPs
-            </motion.span>
-
+         <motion.span
+          initial={{ opacity: 0, y: 18 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+          className="type-eyebrow"
+          style={{ color: "#750006" }}
+        >
+          Owned platforms &amp; cultural IPs
+        </motion.span>
             <motion.h2
               data-skew
               initial={{ opacity: 0, y: 26 }}

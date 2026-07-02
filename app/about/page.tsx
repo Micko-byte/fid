@@ -457,7 +457,12 @@ function CTA() {
 
       <style>{`
         @media (max-width: 900px) {
-          .cta-tilt-frame { display: none; }
+          .cta-tilt-frame {
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: clamp(2.5rem, 8vw, 3.5rem);
+            transform: rotate(-3deg) !important;
+          }
         }
       `}</style>
     </section>

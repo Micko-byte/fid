@@ -58,10 +58,10 @@ function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
 
         <div style={{ display: "flex", gap: "1.6rem", flexWrap: "wrap", marginTop: "0.2rem" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(28,28,28,0.6)" }}>
-            <CalendarBlank size={18} weight="light" color="#750006" /> {ev.date}
+            <CalendarBlank size={18} weight="bold" color="#750006" /> {ev.date}
           </span>
           <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.82rem", color: "rgba(28,28,28,0.6)" }}>
-            <MapPin size={18} weight="light" color="#750006" /> {ev.location}
+            <MapPin size={18} weight="bold" color="#750006" /> {ev.location}
           </span>
         </div>
 
