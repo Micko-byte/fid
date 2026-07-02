@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import OrbitalRings from "@/components/graphics/OrbitalRings";
+import { WhoWeAreGraphic } from "@/components/graphics/AbstractGraphics";
 import Responsive from "@/components/mobile/Responsive";
 import MobileAbout from "@/components/mobile/MobileAbout";
 
@@ -364,48 +365,101 @@ function Markets() {
 
 /* ── CTA ── */
 function CTA() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+
   return (
     <section
       className="py-24 md:py-32 relative overflow-hidden"
-      style={{ backgroundColor: "#750006" }}
+      style={{ backgroundColor: "#FFFFFF" }}
     >
+      {/* right-edge striped border, echoing an editorial report page */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        aria-hidden
+        className="absolute inset-y-0 right-0 pointer-events-none hidden md:block"
         style={{
-          backgroundImage: "repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 60px)",
+          width: "18px",
+          backgroundImage: "repeating-linear-gradient(-45deg, rgba(117,0,6,0.14) 0px, rgba(117,0,6,0.14) 2px, transparent 2px, transparent 10px)",
         }}
       />
-      <div className="relative max-w-[1280px] mx-auto px-6 md:px-16">
-        <div className="md:flex md:items-end md:justify-between gap-12">
-          <h2
-            className="font-heading leading-none mb-8 md:mb-0"
+      <div ref={ref} className="relative max-w-[1280px] mx-auto px-6 md:px-16">
+        <div className="md:flex md:items-center md:justify-between gap-16">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ maxWidth: "34rem" }}
+          >
+            <p
+              className="font-body"
+              style={{ fontSize: "0.78rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006", marginBottom: "1.2rem", fontWeight: 700 }}
+            >
+              Next step
+            </p>
+            <h2
+              className="font-heading leading-none"
+              style={{
+                fontSize: "clamp(2.8rem, 6.5vw, 5.5rem)",
+                color: "#0f0f0f",
+                letterSpacing: "-0.02em",
+                maxWidth: "14ch",
+              }}
+            >
+              Let&apos;s build something meaningful.
+            </h2>
+            <p
+              className="font-body"
+              style={{ fontSize: "1.05rem", lineHeight: 1.6, color: "rgba(15,15,15,0.68)", marginTop: "1.4rem", maxWidth: "32ch" }}
+            >
+              Share your brief and we&apos;ll shape the route.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0" style={{ marginTop: "2.4rem" }}>
+              <Link
+                href="/#contact"
+                className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
+                style={{ backgroundColor: "#750006", color: "#FFFFFF", letterSpacing: "0.05em" }}
+              >
+                Book us
+              </Link>
+              <a
+                href="mailto:info@fidco.africa"
+                className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
+                style={{ borderColor: "rgba(15,15,15,0.25)", color: "#0f0f0f", letterSpacing: "0.05em" }}
+              >
+                info@fidco.africa
+              </a>
+            </div>
+          </motion.div>
+
+          {/* tilted abstract mark — editorial "report spread" treatment */}
+          <motion.div
+            initial={{ opacity: 0, rotate: -3, y: 30 }}
+            animate={inView ? { opacity: 1, rotate: -6, y: 0 } : {}}
+            transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            className="cta-tilt-frame"
             style={{
-              fontSize: "clamp(2.8rem, 7vw, 6rem)",
-              color: "#FFFFFF",
-              letterSpacing: "-0.02em",
-              maxWidth: "16ch",
+              flexShrink: 0,
+              width: "clamp(220px, 26vw, 340px)",
+              aspectRatio: "4 / 5",
+              background: "#f5f2ec",
+              border: "1px solid rgba(15,15,15,0.08)",
+              borderTop: "6px solid #d98038",
+              borderRadius: "4px",
+              boxShadow: "0 30px 70px rgba(15,15,15,0.16)",
+              padding: "clamp(1.2rem, 2.5vw, 2rem)",
+              marginTop: "3rem",
             }}
           >
-            Let&apos;s build something meaningful.
-          </h2>
-          <div className="flex flex-col sm:flex-row gap-4 flex-shrink-0">
-            <Link
-              href="/#contact"
-              className="font-body text-sm px-10 py-4 transition-colors duration-200 text-center"
-              style={{ backgroundColor: "#f5f2ec", color: "#750006", letterSpacing: "0.05em" }}
-            >
-              Book us
-            </Link>
-            <a
-              href="mailto:info@fidco.africa"
-              className="font-body text-sm px-10 py-4 border transition-colors duration-200 text-center"
-              style={{ borderColor: "rgba(255,255,255,0.3)", color: "#FFFFFF", letterSpacing: "0.05em" }}
-            >
-              info@fidco.africa
-            </a>
-          </div>
+            <WhoWeAreGraphic size="100%" />
+          </motion.div>
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .cta-tilt-frame { display: none; }
+        }
+      `}</style>
     </section>
   );
 }

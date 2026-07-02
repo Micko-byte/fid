@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import { FacebookLogo, InstagramLogo, YoutubeLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import HoverIcon from "@/components/ui/HoverIcon";
 import { fireConfetti } from "@/components/motion/confetti";
+import { STOCK } from "@/lib/stock-photos";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -139,6 +140,32 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section-dark" style={{ backgroundColor: "#1c1c1c", color: "#f5f2ec", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative", overflow: "hidden" }}>
+      {/* abstract background photo — desaturated, ~50% opacity per client direction */}
+      {STOCK.about?.[0]?.src && (
+        <img
+          aria-hidden
+          src={STOCK.about[0].src}
+          alt=""
+          loading="lazy"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(1) contrast(1.1)", opacity: 0.5, pointerEvents: "none", zIndex: 0 }}
+        />
+      )}
+      {/* dark scrim so form/text stay legible over the photo */}
+      <div
+        aria-hidden
+        style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(28,28,28,0.88) 0%, rgba(28,28,28,0.94) 100%)", zIndex: 0 }}
+      />
+      {/* thin-line calendar-style grid — abstract stroke pattern per client direction */}
+      <div
+        aria-hidden
+        style={{
+          position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", opacity: 0.5,
+          backgroundImage:
+            "linear-gradient(rgba(245,242,236,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(245,242,236,0.08) 1px, transparent 1px)",
+          backgroundSize: "clamp(48px,6vw,96px) clamp(48px,6vw,96px)",
+        }}
+      />
+
       {/* SVG decorative divider */}
       <div style={{ position: "absolute", top: 0, left: 0, width: "100%" }}>
         <svg viewBox="0 0 1440 2" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", display: "block" }}>
@@ -182,7 +209,7 @@ export default function Contact() {
               ].map(({ Icon, label, value, href }) => (
                 <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
                   <div style={{ width: "40px", height: "40px", flexShrink: 0, border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px" }}>
-                    <HoverIcon icon={Icon} size={24} weight="light" hoverWeight="fill" color="#d98038" />
+                    <HoverIcon icon={Icon} size={24} weight="bold" hoverWeight="fill" color="#d98038" drawOnScroll revealed={inView} />
                   </div>
                   <div>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(245,242,236,0.45)", marginBottom: "0.25rem" }}>{label}</p>
@@ -206,7 +233,7 @@ export default function Contact() {
                     onMouseEnter={(e) => { e.currentTarget.style.color = "#1c1c1c"; e.currentTarget.style.backgroundColor = "#d98038"; e.currentTarget.style.borderColor = "#d98038"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(245,242,236,0.6)"; e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; }}
                   >
-                    <Icon size={20} weight="light" />
+                    <Icon size={20} weight="bold" />
                   </a>
                 ))}
               </div>
