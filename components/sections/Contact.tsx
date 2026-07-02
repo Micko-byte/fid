@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { FacebookLogo, InstagramLogo, YoutubeLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
+import HoverIcon from "@/components/ui/HoverIcon";
 import { fireConfetti } from "@/components/motion/confetti";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -181,7 +182,7 @@ export default function Contact() {
               ].map(({ Icon, label, value, href }) => (
                 <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
                   <div style={{ width: "40px", height: "40px", flexShrink: 0, border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px" }}>
-                    <Icon size={20} weight="light" color="#d98038" />
+                    <HoverIcon icon={Icon} size={24} weight="light" hoverWeight="fill" color="#d98038" />
                   </div>
                   <div>
                     <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(245,242,236,0.45)", marginBottom: "0.25rem" }}>{label}</p>
