@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import CountUp from "@/components/animations/CountUp";
 import { Calendar, Buildings, GlobeHemisphereEast, Megaphone } from "@phosphor-icons/react";
 import HoverIcon from "@/components/ui/HoverIcon";
+import { STOCK } from "@/lib/stock-photos";
 
 const stats = [
   { value: "15+", label: "Years Experience", Icon: Calendar },
@@ -29,9 +30,21 @@ export default function About() {
         ["--ink" as string]: "#1c1c1c",
         ["--ink-soft" as string]: "rgba(28,28,28,0.66)",
         ["--hairline" as string]: "rgba(28,28,28,0.12)",
+        position: "relative",
+        overflow: "hidden",
       }}
     >
-      <div ref={ref} className="section-shell">
+      {/* atmospheric blurred stock photo — depth on the light page */}
+      {STOCK.about?.[2]?.src && (
+        <img
+          aria-hidden
+          src={STOCK.about[2].src}
+          alt=""
+          loading="lazy"
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "blur(8px) saturate(0.85)", opacity: 0.07, mixBlendMode: "multiply", pointerEvents: "none", zIndex: 0 }}
+        />
+      )}
+      <div ref={ref} className="section-shell" style={{ position: "relative", zIndex: 1 }}>
         <div className="about-grid">
           <div style={{ textAlign: "center" }}>
             <motion.span
