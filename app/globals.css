@@ -472,6 +472,26 @@ body { font-weight: 500; color: #1c1c1c; }
   }
 }
 
+/* ─── Icons: bigger + scroll-reveal (all Phosphor icons in content) ─────── */
+/* Phosphor icons all use viewBox="0 0 256 256"; scoped to #main-content so the
+   fixed nav / WhatsApp / cursor are untouched. Graceful fallback: browsers
+   without scroll-timeline collapse the 0s animation to its end state. */
+@media (prefers-reduced-motion: no-preference) {
+  /* scale-only so icons are NEVER hidden even if a section's transforms break
+     the scroll timeline — worst case they just render at 1.12x (bigger). */
+  @keyframes fid-icon-reveal {
+    from { transform: scale(0.72); }
+    to   { transform: scale(1.12); }
+  }
+  #main-content svg[viewBox="0 0 256 256"] {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: fid-icon-reveal both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
 /* ─── Lenis ────────────────────────────────────────────────────────────── */
 
 html.lenis,

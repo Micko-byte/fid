@@ -7,6 +7,15 @@ import { Plus, Minus, Megaphone, Television, UsersThree, DeviceMobileCamera, Con
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import { services } from "@/components/lib/services";
+import { STOCK } from "@/lib/stock-photos";
+
+const SERVICE_STOCK: Record<string, string> = {
+  Megaphone: "pressConf",
+  Television: "media",
+  UsersThree: "digital",
+  DeviceMobileCamera: "digital",
+  Confetti: "experiential",
+};
 
 const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
@@ -76,7 +85,19 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             className="overflow-hidden"
           >
-            <div className="pb-10 pl-12 grid md:grid-cols-2 gap-10">
+            <div className="pb-10 pl-12">
+              {(() => {
+                const img = STOCK[SERVICE_STOCK[service.iconName]]?.[0]?.src;
+                return img ? (
+                  <img
+                    src={img}
+                    alt={service.title}
+                    loading="lazy"
+                    style={{ width: "100%", aspectRatio: "16 / 6", objectFit: "cover", borderRadius: "12px", filter: "saturate(0.9) contrast(1.05)", marginBottom: "2rem" }}
+                  />
+                ) : null;
+              })()}
+              <div className="grid md:grid-cols-2 gap-10">
               <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(28,28,28,0.7)", maxWidth: "55ch" }}>
                 {service.body}
               </p>
@@ -92,6 +113,7 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
                     </li>
                   ))}
                 </ul>
+              </div>
               </div>
             </div>
           </motion.div>
