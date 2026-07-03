@@ -14,24 +14,14 @@ export default function Footer() {
 
   return (
     <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#260000", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #1c0303" }}>
+      {/* ── Sign-off animation: footer's background layer ── */}
+      <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
+        <FooterClimb tagline="Insight · Strategy · Impact" />
+      </div>
+
       {/* ── Columns ── */}
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(6rem,11vw,9rem)" }}>
-        <div className="ft-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "clamp(2rem,5vw,4rem)" }}>
-          <div className="ft-brand">
-            {/* Text wordmark (the logo lives once, big, below) */}
-            <Link href="/" aria-label="FID & Co." style={{ display: "inline-flex", flexDirection: "column", gap: "4px", textDecoration: "none" }}>
-              <span style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "2rem", letterSpacing: "-0.01em", color: "#f5f2ec", lineHeight: 1 }}>
-                FID &amp; Co.
-              </span>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.52rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(245,242,236,0.7)", fontWeight: 600, whiteSpace: "nowrap" }}>
-                Insight · Strategy · Impact
-              </span>
-            </Link>
-            <p style={{ color: "rgba(245,242,236,0.72)", fontSize: "0.88rem", lineHeight: 1.6, maxWidth: "34ch", marginTop: "1.2rem", fontFamily: "var(--font-body)" }}>
-              Strategic Communications &amp; Brand Experiences Across Africa.
-            </p>
-          </div>
-
+        <div className="ft-grid" style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "clamp(2rem,5vw,4rem)" }}>
           <div>
             <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#f5f2ec", marginBottom: "1.4rem", fontWeight: 700, fontFamily: "var(--font-body)" }}>Navigation</h5>
             {[{ label: "Expertise", href: "/#services" }, { label: "Work", href: "/#work" }, { label: "About", href: "/#about" }, { label: "Events", href: "/events" }, { label: "Insights", href: "/#insights" }, { label: "Contact", href: "/#contact" }].map((l) => (
@@ -42,15 +32,15 @@ export default function Footer() {
             ))}
           </div>
 
-          <div>
+          <div style={{ textAlign: "right" }}>
             <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#f5f2ec", marginBottom: "1.4rem", fontWeight: 700, fontFamily: "var(--font-body)" }}>Connect</h5>
-            <a href="tel:+254797690609" style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>
-              <Phone size={20} weight="bold" color="#d98038" />+254 797 690 609
+            <a href="tel:+254797690609" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", textDecoration: "none" }}>
+              +254 797 690 609<Phone size={20} weight="bold" color="#d98038" />
             </a>
-            <a href="https://www.fidco.africa" style={{ display: "flex", alignItems: "center", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "1.4rem", textDecoration: "none" }}>
-              <Globe size={20} weight="bold" color="#d98038" />www.fidco.africa
+            <a href="https://www.fidco.africa" style={{ display: "flex", alignItems: "center", justifyContent: "flex-end", gap: "0.6rem", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "1.4rem", textDecoration: "none" }}>
+              www.fidco.africa<Globe size={20} weight="bold" color="#d98038" />
             </a>
-            <div style={{ display: "flex", gap: "0.75rem" }}>
+            <div style={{ display: "flex", gap: "0.75rem", justifyContent: "flex-end" }}>
               {[
                 { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
                 { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
@@ -79,13 +69,13 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Sign-off animation: climbers assemble the logo + tagline ── */}
-      <div style={{ marginTop: "clamp(2rem,5vw,3.5rem)" }}>
-        <FooterClimb tagline="Insight · Strategy · Impact" />
-      </div>
-
       <style>{`
-        @media (max-width:768px){ .ft-grid{ grid-template-columns:1fr 1fr !important; } .ft-brand{ grid-column:1 / -1; } }
+        @media (max-width:768px){
+          .ft-grid{ flex-direction:column !important; }
+          .ft-grid > div:last-child{ text-align:left !important; }
+          .ft-grid > div:last-child a,
+          .ft-grid > div:last-child > div{ justify-content:flex-start !important; }
+        }
       `}</style>
     </footer>
   );
