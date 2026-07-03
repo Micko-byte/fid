@@ -82,13 +82,29 @@ export default function WorkExpandGallery() {
           {CLIENT_LOGOS.map((name) => (
             <span
               key={name}
-              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "48px", padding: "0 0.9rem", borderRadius: "8px", background: "#f5f2ec" }}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: "48px",
+                padding: "0 0.35rem",
+                borderRadius: "8px",
+                overflow: "hidden",
+                background: "#f5f2ec",
+                flexShrink: 0,
+              }}
             >
               <img
                 src={`/logos/${name}.png`}
                 alt={name.replace(/-/g, " ")}
                 loading="lazy"
-                style={{ height: "26px", maxWidth: "100px", objectFit: "contain" }}
+                style={{
+                  height: "48px",
+                  width: "auto",
+                  maxWidth: "160px",
+                  objectFit: "contain",
+                  display: "block",
+                }}
               />
             </span>
           ))}
