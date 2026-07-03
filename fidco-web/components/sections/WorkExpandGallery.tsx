@@ -31,8 +31,16 @@ const ITEMS: Item[] = [
   { slug: "the-capital-room", client: "The Capital Room", sector: "Owned IPs", label: "Leadership & business platform", image: "/photos/editorial/podcast-set.jpg" },
 ];
 
-const OWNED = new Set(["the-tribe-vibe", "suhba-series", "the-capital-room"]);
-const hrefFor = (slug: string) => (OWNED.has(slug) ? `/platforms/${slug}` : `/work/${slug}`);
+// Every tile links to its SECTOR page (no individual work pages).
+const SECTOR_SLUG: Record<string, string> = {
+  Government: "government",
+  Corporate: "corporate",
+  Hospitality: "hospitality",
+  Healthcare: "healthcare",
+  Lifestyle: "lifestyle",
+  "Owned IPs": "owned-ips",
+};
+const hrefFor = (sector: string) => `/work/${SECTOR_SLUG[sector] ?? "government"}`;
 
 const FILTERS = ["All", "Government", "Corporate", "Hospitality", "Healthcare", "Lifestyle", "Owned IPs"];
 
@@ -131,7 +139,7 @@ export default function WorkExpandGallery() {
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.45, ease: EASE }}
               >
-                <Link href={hrefFor(item.slug)} className="work-card" style={{ display: "block", position: "relative", aspectRatio: "4/5", borderRadius: "14px", overflow: "hidden", textDecoration: "none", background: "#1c1c1c" }}>
+                <Link href={hrefFor(item.sector)} className="work-card" style={{ display: "block", position: "relative", aspectRatio: "4/5", borderRadius: "14px", overflow: "hidden", textDecoration: "none", background: "#1c1c1c" }}>
                   {item.image && (
                     <img
                       src={item.image}
