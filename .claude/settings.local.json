@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:www.fidco.africa)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(python -c ' *)",
+      "Bash(pip install *)",
+      "Bash(gh api *)",
+      "Bash(python -c \"import sys,base64; print\\(base64.b64decode\\(sys.stdin.read\\(\\).strip\\(\\).replace\\('\\\\n',''\\)\\).decode\\('utf-8'\\)\\)\")",
+      "WebFetch(domain:www.bursonglobal.com)",
+      "PowerShell($d='C:\\\\Users\\\\User\\\\kenya-timetable-system'; \"--- has .env? ---\"; \\(Test-Path \"$d\\\\.env\"\\); \"--- supabase dir ---\"; Get-ChildItem \"$d\\\\supabase\" -Recurse -File -ErrorAction SilentlyContinue | Select-Object -First 20 -ExpandProperty FullName; \"--- supabase deps ---\"; \\(Get-Content \"$d\\\\package.json\" | Select-String 'supabase|\"dev\"'\\))"
+    ]
+  }
+}

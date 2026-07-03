@@ -1,0 +1,550 @@
+/* ─── FID & Co. Official Brand Fonts ─────────────────────────────────── */
+/* Playfair Display = Google web fallback for Maragsa. */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800;900&display=swap");
+/* Funnel Display — supporting sans (subheadings, body, UI) */
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300;400;500;600;700;800&display=swap");
+@import "tailwindcss";
+
+/* Maragsa Display — official brand display face (self-hosted) */
+@font-face {
+  font-family: "Maragsa Display";
+  src: url("/fonts/MaragsaDisplay.otf") format("opentype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@source "../components/**/*.tsx";
+@source "../app/**/*.tsx";
+
+/* ─── FID & Co. Design System ─────────────────────────────────────────── */
+
+
+/* ─── 14islands-inspired editorial tokens (FID palette) ──────────────── */
+
+:root {
+  /* ── Official FID & Co. brand palette ── */
+  --red-mark:      #750006;   /* Primary — deep red */
+  --deep-current:  #260000;   /* Secondary — near-black red */
+  --tertiary:      #f5f2ec;   /* Cream — warm light background */
+  --off-white:     #fafafa;
+  --anchor:        #1c1c1c;   /* Text — near black */
+  --signal:        #d98038;   /* Amber accent */
+  --earthline:     #d9ab88;   /* Sandy warm tone */
+
+  --site-max: 1320px;
+  --site-gutter: clamp(1.5rem, 5vw, 6rem);
+  --section-y: clamp(5.5rem, 12vw, 10rem);
+  --section-y-hero: clamp(7.5rem, 14vw, 12rem);
+
+  --type-display: clamp(3.6rem, 8.2vw, 8.2rem);
+  --type-h2: clamp(2.5rem, 6vw, 5.4rem);
+  --type-h3: clamp(1.8rem, 3.4vw, 3.1rem);
+  --type-body: clamp(0.98rem, 1.2vw, 1.12rem);
+  --type-eyebrow: 0.72rem;
+  --leading-tight: 0.98;
+  --leading-body: 1.65;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@theme inline {
+  --color-red-mark:     #750006;
+  --color-deep-current: #260000;
+  --color-tertiary:     #f5f2ec;
+  --color-off-white:    #fafafa;
+  --color-anchor:       #1c1c1c;
+  --color-signal:       #d98038;
+  --color-earthline:    #d9ab88;
+  --font-display:       "Maragsa Display", "Playfair Display", Georgia, serif;
+  --font-heading:       "Maragsa Display", "Playfair Display", Georgia, serif;
+  --font-body:          "Funnel Display", "Inter", system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scroll */
+  font-size: 104%; /* global +4% type scale */
+}
+
+body {
+  background-color: #f5f2ec;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23750006' stroke-opacity='0.025' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 55% 50% at 100% 0%, rgba(117,0,6,0.045) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 45% at 0% 100%, rgba(217,128,56,0.06) 0%, transparent 55%);
+  color: var(--anchor);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ─── Typography utilities ─────────────────────────────────────────────── */
+
+.font-heading  { font-family: var(--font-heading); }
+.font-body     { font-family: var(--font-body); }
+
+.section-shell {
+  max-width: var(--site-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--site-gutter);
+  padding-right: var(--site-gutter);
+}
+
+.type-display,
+.type-h2,
+.type-h3 {
+  font-family: var(--font-heading);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  text-wrap: balance;
+}
+
+.type-display {
+  font-size: var(--type-display);
+  line-height: 0.92;
+}
+
+.type-h2 {
+  font-size: var(--type-h2);
+  line-height: var(--leading-tight);
+}
+
+.type-h3 {
+  font-size: var(--type-h3);
+  line-height: 1.03;
+}
+
+.type-body {
+  font-family: var(--font-body);
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  font-weight: 500;
+}
+
+.type-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  font-family: var(--font-body);
+  font-size: var(--type-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.type-eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 1px;
+  flex-shrink: 0;
+  background: currentColor;
+  opacity: 0.7;
+}
+
+.fid-section {
+  position: relative;
+  overflow: hidden;
+  padding-top: var(--section-y);
+  padding-bottom: var(--section-y);
+}
+
+.fid-section-tight {
+  padding-top: clamp(3.5rem, 8vw, 6rem);
+  padding-bottom: clamp(3.5rem, 8vw, 6rem);
+}
+
+.fid-editorial-head {
+  display: grid;
+  grid-template-columns: minmax(5rem, 0.16fr) minmax(0, 0.84fr);
+  gap: clamp(1.25rem, 4vw, 4rem);
+  align-items: start;
+  margin-bottom: clamp(2rem, 5vw, 4rem);
+}
+
+.fid-section-num {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 0.9;
+  color: rgba(117, 0, 6, 0.18);
+  letter-spacing: 0;
+}
+
+.fid-art-panel {
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  box-shadow: 0 22px 70px rgba(58, 31, 16, 0.12);
+}
+
+.fid-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fid-rise {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fid-caption {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.fid-rule {
+  height: 1px;
+  background: rgba(26, 26, 26, 0.1);
+}
+
+@media (max-width: 760px) {
+  .fid-editorial-head {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* CurvedLoop service ribbon */
+.curved-ribbon { fill: #d98038; font-family: var(--font-heading); font-weight: 700; font-size: 5.5rem; }
+
+/* animatable angle for the Work card rotating border */
+@property --wc-a {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+main {
+  position: relative;
+}
+
+section {
+  scroll-margin-top: 108px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+p,
+li,
+label,
+input,
+textarea,
+button,
+a,
+span,
+td,
+th {
+  font-family: var(--font-body);
+}
+
+/* ─── Scrollbar ────────────────────────────────────────────────────────── */
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--tertiary); }
+::-webkit-scrollbar-thumb { background: var(--red-mark); border-radius: 2px; }
+
+/* ─── Brand pattern texture ────────────────────────────────────────────── */
+
+/* Subtle interlocking geometric line pattern */
+.brand-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23750006' stroke-opacity='0.08' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.brand-pattern-light {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f5f2ec' stroke-opacity='0.07' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.brand-pattern-amber {
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d98038' stroke-opacity='0.12' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Culturally-inspired floral + geometric motif — original design, African wax-print
+   language (six-petal florets on a diagonal diamond lattice), used as the Suhba page's
+   decorative reference layer. */
+.brand-pattern-floral {
+  background-image: url("data:image/svg+xml,%3Csvg width='140' height='140' viewBox='0 0 140 140' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d98038' stroke-opacity='0.16' stroke-width='1'%3E%3Cg transform='translate(35,35)'%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(60)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(120)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(180)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(240)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(300)'/%3E%3Ccircle r='3.5' fill='%23d98038' fill-opacity='0.18' stroke='none'/%3E%3C/g%3E%3Cg transform='translate(105,105)'%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(60)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(120)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(180)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(240)'/%3E%3Cellipse cx='0' cy='-14' rx='5' ry='14' transform='rotate(300)'/%3E%3Ccircle r='3.5' fill='%23d98038' fill-opacity='0.18' stroke='none'/%3E%3C/g%3E%3Cpath d='M35 105 L70 70 L105 35' stroke-opacity='0.1'/%3E%3Cpath d='M0 70 L35 35 L70 0' stroke-opacity='0.1'/%3E%3Cpath d='M70 140 L105 105 L140 70' stroke-opacity='0.1'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─── Brand section backgrounds ───────────────────────────────────────── */
+
+/* Warm cream with subtle red vignette from top-right */
+.bg-brand-warm {
+  background-color: #f5f2ec;
+  background-image:
+    radial-gradient(ellipse 55% 50% at 100% 0%, rgba(117,0,6,0.065) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 45% at 0% 100%, rgba(217,128,56,0.09) 0%, transparent 55%);
+}
+
+/* Deep Current dark with radial amber lift */
+.bg-brand-deep {
+  background: linear-gradient(160deg, #1a0000 0%, #260000 100%);
+  background-image:
+    radial-gradient(ellipse 50% 55% at 88% 12%, rgba(217,128,56,0.22) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 6% 92%, rgba(217,171,136,0.16) 0%, transparent 50%);
+}
+
+/* Cream with the brand maze texture */
+.bg-brand-texture {
+  background-color: #f5f2ec;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23750006' fill-opacity='0.05'%3E%3Cpath d='M30 0 L60 30 L30 60 L0 30 Z M30 10 L50 30 L30 50 L10 30 Z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(217,128,56,0.08) 0%, transparent 55%);
+}
+
+/* ─── Mobile & tablet responsive ──────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  :root {
+    --site-gutter: clamp(1.2rem, 4vw, 2.5rem);
+    --section-y: clamp(4rem, 9vw, 6.5rem);
+    --type-display: clamp(2.9rem, 11vw, 5rem);
+    --type-h2: clamp(2.1rem, 8vw, 3.4rem);
+    --type-h3: clamp(1.45rem, 4.5vw, 2.2rem);
+  }
+
+  /* ── Grain overlay — kill the fixed GPU layer on mobile ── */
+  .grain-overlay { display: none !important; }
+
+  /* ── Work mosaic ── */
+  .work-mosaic { grid-template-columns: 1fr !important; }
+  .work-mosaic-lg, .work-mosaic-sm { min-height: clamp(280px, 62vw, 420px) !important; }
+  /* Tighter card stagger on mobile */
+  .work-mosaic-card { margin-top: 0 !important; }
+
+  /* ── Hero ── */
+  .hero-inner { grid-template-columns: 1fr !important; }
+  .hero-inner > *:last-child { display: none; }
+
+  /* ── FeatureBand: text first, then media ── */
+  .fb-grid { grid-template-columns: 1fr !important; }
+  /* Hide the hero video on mobile — CTA card is still visible */
+  .fb-grid > *:last-child .fb-video { display: none; }
+
+  /* ── Brand flow ── */
+  .brand-flow-grid { grid-template-columns: 1fr !important; }
+
+  /* ── Proof / stats row ── */
+  .proof-row { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Platforms layout ── */
+  .platforms-layout { grid-template-columns: 1fr !important; }
+  .platforms-side { grid-template-columns: 1fr 1fr; display: grid; gap: 1rem; }
+  .platforms-head { grid-template-columns: 1fr !important; }
+  .platforms-title { max-width: 100% !important; }
+
+  /* ── Services section ── */
+  .services-grid { grid-template-columns: 1fr !important; }
+  .service-dial-wrap { display: none !important; }
+
+  /* ── African footprint map ── */
+  .af-grid { grid-template-columns: 1fr !important; }
+  .af-flags { grid-template-columns: 1fr 1fr !important; }
+}
+
+@media (max-width: 580px) {
+  :root {
+    --type-h2: clamp(1.6rem, 7vw, 2.4rem);
+    --type-h3: clamp(1.2rem, 5vw, 1.7rem);
+    --site-gutter: 1.1rem;
+  }
+
+  /* ── Nav pill full width on tiny screens ── */
+  nav[aria-label="Main navigation"] {
+    width: calc(100vw - 1.6rem) !important;
+    top: 0.6rem !important;
+    border-radius: 14px !important;
+  }
+
+  /* ── Footer grid ── */
+  .ft-grid { grid-template-columns: 1fr !important; }
+
+  /* ── Work mosaic desc grid ── */
+  .radar-desc-grid { grid-template-columns: 1fr !important; }
+
+  /* ── Platforms side tiles ── */
+  .platforms-side { grid-template-columns: 1fr !important; }
+
+  /* ── Radar circles ─ stack on phone ── */
+  .radar-row { flex-wrap: wrap !important; justify-content: center !important; gap: 1rem !important; }
+  .radar-wrap + .radar-wrap { margin-left: 0 !important; }
+
+  /* ── About stats: 2 col on small mobile ── */
+  .about-stats { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Work mosaic cards: full-width comfortable height ── */
+  .work-mosaic-lg, .work-mosaic-sm { min-height: 260px !important; }
+
+  /* ── Scroll velocity strip — smaller on mobile ── */
+  .footer-capability-text { font-size: clamp(1.1rem, 5vw, 1.8rem) !important; }
+}
+
+/* ─── Brand section utility classes ──────────────────────────────────── */
+
+.section-light {
+  background-color: #f5f2ec;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23750006' stroke-opacity='0.035' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 55% 50% at 100% 0%, rgba(117,0,6,0.065) 0%, transparent 58%),
+    radial-gradient(ellipse 45% 45% at 0% 100%, rgba(217,128,56,0.09) 0%, transparent 55%);
+  color: #1c1c1c;
+}
+.section-light .type-eyebrow { color: #750006; }
+.section-light h1,.section-light h2,.section-light h3,.section-light h4 { color: #1c1c1c; }
+.section-light p, .section-light li { color: #1c1c1c; font-weight: 500; }
+.section-light .brand-btn { background: #750006; color: #f5f2ec; border-radius: 14px; }
+.section-light .brand-btn:hover { background: #260000; }
+.section-light .brand-accent { color: #d98038; }
+
+.section-red {
+  background-color: #750006;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f5f2ec' stroke-opacity='0.04' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E"),
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 60px);
+  color: #f5f2ec;
+}
+.section-red .type-eyebrow { color: #d98038; }
+.section-red h1,.section-red h2,.section-red h3,.section-red h4 { color: #f5f2ec; }
+.section-red p, .section-red li { color: #f5f2ec; font-weight: 500; }
+.section-red .brand-btn { background: #f5f2ec; color: #750006; border-radius: 14px; }
+.section-red .brand-btn:hover { background: #d9ab88; }
+.section-red .brand-accent { color: #d98038; }
+
+.section-dark {
+  background-color: #1c1c1c;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d98038' stroke-opacity='0.05' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 50% 55% at 88% 12%, rgba(217,128,56,0.12) 0%, transparent 55%);
+  color: #f5f2ec;
+}
+.section-dark .type-eyebrow { color: #d98038; }
+.section-dark h1,.section-dark h2,.section-dark h3,.section-dark h4 { color: #f5f2ec; }
+.section-dark p, .section-dark li { color: #f5f2ec; font-weight: 500; }
+.section-dark .brand-btn { background: #750006; color: #f5f2ec; border-radius: 14px; }
+.section-dark .brand-btn:hover { background: #260000; }
+.section-dark .brand-accent { color: #d98038; }
+
+.section-orange {
+  background-color: #d98038;
+  background-image:
+    url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23260000' stroke-opacity='0.06' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E"),
+    radial-gradient(ellipse 60% 50% at 0% 100%, rgba(38,0,0,0.06) 0%, transparent 55%);
+  color: #260000;
+}
+.section-orange .type-eyebrow { color: #260000; }
+.section-orange h1,.section-orange h2,.section-orange h3,.section-orange h4 { color: #260000; }
+.section-orange p, .section-orange li { color: #260000; font-weight: 500; }
+.section-orange .brand-btn { background: #750006; color: #f5f2ec; border-radius: 14px; }
+.section-orange .brand-accent { color: #f5f2ec; }
+
+/* ─── Global border-radius token ─────────────────────────────────────── */
+:root { --radius: 14px; }
+
+/* No grey text — enforce brand colors only */
+.text-muted, [class*="text-gray"], [class*="text-neutral"] { color: #1c1c1c !important; }
+body { font-weight: 500; color: #1c1c1c; }
+
+/* Prevent any rgba opacity text on light backgrounds */
+.section-light p, .section-light li, .section-light span:not(.type-eyebrow) { color: #1c1c1c; }
+/* On dark/red sections everything stays cream */
+.section-red p, .section-red li { color: #f5f2ec !important; }
+.section-dark p, .section-dark li { color: #f5f2ec !important; }
+
+/* ─── Reduced motion ───────────────────────────────────────────────────── */
+
+/* Reduced motion: calm one-shot transitions but keep the brand's continuous
+   decorative loops (logo marquee, expertise dials, footer wordmark) alive. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─── Icons: bigger + scroll-reveal (all Phosphor icons in content) ─────── */
+/* Phosphor icons all use viewBox="0 0 256 256"; scoped to #main-content so the
+   fixed nav / WhatsApp / cursor are untouched. Graceful fallback: browsers
+   without scroll-timeline collapse the 0s animation to its end state. */
+@media (prefers-reduced-motion: no-preference) {
+  /* scale-only so icons are NEVER hidden even if a section's transforms break
+     the scroll timeline — worst case they just render at 1.12x (bigger). */
+  @keyframes fid-icon-reveal {
+    from { transform: scale(0.72); }
+    to   { transform: scale(1.12); }
+  }
+  #main-content svg[viewBox="0 0 256 256"] {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: fid-icon-reveal both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
+
+/* ─── Lenis ────────────────────────────────────────────────────────────── */
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+/* ─── Selection ────────────────────────────────────────────────────────── */
+
+::selection {
+  background-color: var(--red-mark);
+  color: var(--quite-light);
+}
+
+/* ─── Branded icons — animate on hover, slate-blue accent ──────────────── */
+
+.brand-icon {
+  color: #d9ab88; /* earthline default */
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), color 0.3s ease;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.brand-icon:hover,
+a:hover > .brand-icon,
+button:hover > .brand-icon,
+a:hover .brand-icon,
+button:hover .brand-icon,
+.svc-row:hover .brand-icon,
+.work-mosaic-link:hover .brand-icon,
+.icon-pop:hover .brand-icon {
+  transform: scale(1.08);
+  color: #d98038; /* → amber on hover */
+}
+
+/* "Push" press feedback for any interactive element opting in */
+.icon-pop:active .brand-icon,
+a:active > .brand-icon,
+button:active > .brand-icon {
+  transform: scale(0.92);
+}
