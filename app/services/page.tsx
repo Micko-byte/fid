@@ -77,13 +77,30 @@ function ServiceAccordion({ service, index }: { service: typeof services[0]; ind
             className="overflow-hidden"
           >
             <div className="pb-10 pl-12">
-              {service.cards[0]?.image ? (
-                <img
-                  src={service.cards[0].image}
-                  alt={service.cards[0].imageAlt || service.title}
-                  loading="lazy"
-                  style={{ width: "100%", aspectRatio: "16 / 6", objectFit: "cover", borderRadius: "12px", filter: "saturate(0.95) contrast(1.05)", marginBottom: "2rem" }}
-                />
+              {service.cards?.some((c) => c.image) ? (
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+                    gap: "0.75rem",
+                    marginBottom: "2rem",
+                    maxWidth: "640px",
+                  }}
+                >
+                  {service.cards.filter((c) => c.image).map((c, i) => (
+                    <div key={i} style={{ position: "relative", aspectRatio: "4 / 3", borderRadius: "10px", overflow: "hidden", background: c.bg || "#260000" }}>
+                      <img
+                        src={c.image}
+                        alt={c.imageAlt || c.label}
+                        loading="lazy"
+                        style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.95) contrast(1.05)" }}
+                      />
+                      <span style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0.5rem 0.55rem 0.4rem", fontFamily: "var(--font-body)", fontSize: "0.6rem", fontWeight: 600, letterSpacing: "0.04em", color: "#f5f2ec", background: "linear-gradient(to top, rgba(0,0,0,0.72), transparent)" }}>
+                        {c.label}
+                      </span>
+                    </div>
+                  ))}
+                </div>
               ) : null}
               <div className="grid md:grid-cols-2 gap-10">
                 <div className="space-y-5">

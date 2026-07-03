@@ -4,6 +4,7 @@ import Services from "@/components/sections/Services";
 import CTABanner from "@/components/sections/CTABanner";
 import WorkExpandGallery from "@/components/sections/WorkExpandGallery";
 import StatsBand from "@/components/sections/StatsBand";
+import AfricanFootprint from "@/components/sections/AfricanFootprint";
 import Platforms from "@/components/sections/Platforms";
 import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <CTABanner />
       <WorkExpandGallery />
       <StatsBand />
+      <AfricanFootprint />
       <Platforms />
       <Founder />
       <Insights />

@@ -77,6 +77,9 @@ export default function Footer() {
         <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "#750006", fontWeight: 600 }}>
           Insight · Strategy · Impact
         </span>
+        <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.02em", color: "rgba(28,28,28,0.55)", marginTop: "0.4rem" }}>
+          FID &amp; Co. is owned &amp; managed by FID Public Relations Ltd.
+        </span>
       </div>
 
       <style>{`
