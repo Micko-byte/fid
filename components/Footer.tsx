@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
 import FooterClimb from "@/components/motion/FooterClimb";
+import FidLogo from "@/components/ui/FidLogo";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -16,7 +17,7 @@ export default function Footer() {
     <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#260000", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #1c0303" }}>
       {/* ── Sign-off animation: footer's background layer ── */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <FooterClimb tagline="Insight Â· Strategy Â· Impact" />
+        <FooterClimb tagline="Insight · Strategy · Impact" />
       </div>
 
       {/* ── Columns ── */}
@@ -67,6 +68,15 @@ export default function Footer() {
           <p style={{ color: "rgba(245,242,236,0.5)", fontSize: "0.78rem", fontFamily: "var(--font-body)" }}>© {year} FID &amp; Co. All rights reserved.</p>
           <p style={{ color: "rgba(245,242,236,0.5)", fontSize: "0.78rem", fontFamily: "var(--font-body)" }}>Nairobi · Kenya · Africa</p>
         </div>
+      </div>
+
+      {/* ── Big logo banner below the footer ── */}
+      <div className="bg-brand-texture" style={{ position: "relative", zIndex: 2, width: "100%", padding: "clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,5vw,6rem)", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", overflow: "hidden" }}>
+        <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.5 }} />
+        <FidLogo variant="dark" style={{ position: "relative", zIndex: 1, height: "clamp(120px,20vw,260px)", width: "auto", display: "block" }} />
+        <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "#750006", fontWeight: 600 }}>
+          Insight · Strategy · Impact
+        </span>
       </div>
 
       <style>{`
