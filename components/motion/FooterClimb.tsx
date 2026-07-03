@@ -57,7 +57,7 @@ const STARS = [
 
 export default function FooterClimb({ tagline = "Insight · Strategy · Impact" }: { tagline?: string }) {
   return (
-    <div style={{ position: "relative", width: "100%", height: "clamp(320px, 42vw, 440px)", overflow: "hidden", background: "linear-gradient(180deg,#0c0202 0%,#1c0405 38%,#3a0608 72%,#5a0709 100%)" }}>
+    <div style={{ ["--spd" as string]: "1", position: "relative", width: "100%", height: "clamp(320px, 42vw, 440px)", overflow: "hidden", background: "linear-gradient(180deg,#0c0202 0%,#1c0405 38%,#3a0608 72%,#5a0709 100%)" }}>
       {/* dawn bloom */}
       <div style={{ position: "absolute", inset: 0, background: "radial-gradient(90% 120% at 50% 78%,rgba(217,128,56,.55),rgba(194,90,26,.22) 42%,transparent 68%)", animation: "fDawn calc(13s*var(--spd)) ease-in-out infinite" }} />
       {/* grain */}
