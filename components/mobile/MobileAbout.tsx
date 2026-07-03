@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import { MobileEyebrow, ExplorePill } from "@/components/mobile/ui";
 import { WhoWeAreGraphic } from "@/components/graphics/AbstractGraphics";
+import WhoWeAreBackdrop from "@/components/graphics/WhoWeAreBackdrop";
 
 const PX = "clamp(1.4rem, 6vw, 2rem)";
 const PY = "clamp(4.5rem, 16vw, 6.5rem)";
@@ -55,7 +56,9 @@ export default function MobileAbout() {
       </section>
 
       {/* WHO WE ARE */}
-      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}`, position: "relative", overflow: "hidden", isolation: "isolate" }}>
+        <WhoWeAreBackdrop />
+        <div style={{ position: "relative", zIndex: 1 }}>
         <FadeUp><MobileEyebrow tone="light">Who we are</MobileEyebrow></FadeUp>
         <FadeUp delay={0.06}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2rem, 9vw, 2.8rem)", lineHeight: 1.02, letterSpacing: "-0.025em", margin: "1.2rem 0 0" }}>
@@ -69,12 +72,13 @@ export default function MobileAbout() {
             { title: "Integrated practice", body: "Every engagement draws on the full range of our disciplines — PR, strategy, digital and experiential." },
           ].map((c, i) => (
             <FadeUp key={c.title} delay={i * 0.06}>
-              <div style={{ padding: "1.5rem", borderRadius: "14px", border: "1px solid rgba(28,28,28,0.1)", background: "rgba(255,255,255,0.6)" }}>
+              <div style={{ padding: "1.5rem", borderRadius: "14px", border: "1px solid rgba(28,28,28,0.1)", background: "rgba(255,255,255,0.6)", backdropFilter: "blur(6px)" }}>
                 <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "#750006", margin: "0 0 0.6rem" }}>{c.title}</h3>
                 <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.65, color: "rgba(28,28,28,0.65)", margin: 0 }}>{c.body}</p>
               </div>
             </FadeUp>
           ))}
+        </div>
         </div>
       </section>
 

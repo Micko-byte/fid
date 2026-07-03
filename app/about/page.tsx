@@ -6,6 +6,7 @@ import Link from "next/link";
 import Footer from "@/components/Footer";
 import OrbitalRings from "@/components/graphics/OrbitalRings";
 import { WhoWeAreGraphic } from "@/components/graphics/AbstractGraphics";
+import WhoWeAreBackdrop from "@/components/graphics/WhoWeAreBackdrop";
 import Responsive from "@/components/mobile/Responsive";
 import MobileAbout from "@/components/mobile/MobileAbout";
 
@@ -102,8 +103,9 @@ function WhoWeAre() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="section-light" style={{ paddingTop: "clamp(5rem,10vw,9rem)", paddingBottom: "clamp(5rem,10vw,9rem)" }}>
-      <div ref={ref} style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+    <section className="section-light" style={{ position: "relative", overflow: "hidden", isolation: "isolate", paddingTop: "clamp(5rem,10vw,9rem)", paddingBottom: "clamp(5rem,10vw,9rem)" }}>
+      <WhoWeAreBackdrop />
+      <div ref={ref} style={{ position: "relative", zIndex: 1, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -131,7 +133,7 @@ function WhoWeAre() {
               initial={{ opacity: 0, y: 24 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: 0.15 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              style={{ padding: "clamp(1.5rem,2.5vw,2.2rem)", borderRadius: "12px", border: "1px solid rgba(28,28,28,0.08)", background: "rgba(255,255,255,0.55)" }}
+              style={{ padding: "clamp(1.5rem,2.5vw,2.2rem)", borderRadius: "12px", border: "1px solid rgba(28,28,28,0.08)", background: "rgba(255,255,255,0.66)", backdropFilter: "blur(6px)" }}
             >
               <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.15rem", color: "#750006", marginBottom: "0.75rem" }}>{item.title}</h3>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.65, color: "rgba(28,28,28,0.65)" }}>{item.body}</p>

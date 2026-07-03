@@ -16,7 +16,7 @@ export default function Footer() {
     <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#260000", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #1c0303" }}>
       {/* ── Sign-off animation: footer's background layer ── */}
       <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <FooterClimb tagline="Insight · Strategy · Impact" />
+        <FooterClimb tagline="Insight Â· Strategy Â· Impact" />
       </div>
 
       {/* ── Columns ── */}

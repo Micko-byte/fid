@@ -17,11 +17,15 @@ function ProjectCard({
   bg,
   label,
   textColor = "#000000",
+  image,
+  imageAlt,
   index,
 }: {
   bg: string;
   label: string;
   textColor?: string;
+  image?: string;
+  imageAlt?: string;
   index: number;
 }) {
   return (
@@ -44,6 +48,32 @@ function ProjectCard({
         marginBottom: "clamp(3rem, 6vw, 6rem)",
       }}
     >
+      {image && (
+        <>
+          <img
+            src={image}
+            alt={imageAlt || label}
+            loading="lazy"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "50% 50%",
+            }}
+          />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background: `linear-gradient(160deg, rgba(38,0,0,0.68) 0%, rgba(38,0,0,0.22) 40%, ${bg} 100%)`,
+              mixBlendMode: "multiply",
+            }}
+          />
+        </>
+      )}
+
       {/* Subtle grain texture */}
       <div style={{
         position: "absolute", inset: 0, pointerEvents: "none",
@@ -227,6 +257,8 @@ export default function ServiceDetailClient({ service }: Props) {
               bg={card.bg}
               label={card.label}
               textColor={card.textColor}
+              image={card.image}
+              imageAlt={card.imageAlt}
               index={i}
             />
           </div>
@@ -258,16 +290,29 @@ export default function ServiceDetailClient({ service }: Props) {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <p style={{
-              fontFamily: "var(--font-body)",
-              fontWeight: 400,
-              fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)",
-              lineHeight: 1.79,
-              color: "#1c1c1c",
-            }}>
-              {service.body}
-            </p>
-          </motion.div>
+              <div className="space-y-5">
+                <p style={{
+                  fontFamily: "var(--font-body)",
+                  fontWeight: 400,
+                  fontSize: "clamp(0.95rem, 1.5vw, 1.15rem)",
+                  lineHeight: 1.79,
+                  color: "#1c1c1c",
+                }}>
+                  {service.body}
+                </p>
+                {service.detailParagraphs.map((para, i) => (
+                  <p key={i} style={{
+                    fontFamily: "var(--font-body)",
+                    fontWeight: 400,
+                    fontSize: "clamp(0.92rem, 1.35vw, 1.08rem)",
+                    lineHeight: 1.79,
+                    color: "rgba(28,28,28,0.7)",
+                  }}>
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </motion.div>
 
           {/* Right: capabilities list */}
           <motion.div
