@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
-import FidLogo from "@/components/ui/FidLogo";
+import FooterClimb from "@/components/motion/FooterClimb";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -13,7 +13,7 @@ export default function Footer() {
   const ref = useRef<HTMLElement>(null);
 
   return (
-    <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#750006", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #260000" }}>
+    <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#260000", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #1c0303" }}>
       {/* ── Columns ── */}
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(6rem,11vw,9rem)" }}>
         <div className="ft-grid" style={{ display: "grid", gridTemplateColumns: "2fr 1fr 1fr", gap: "clamp(2rem,5vw,4rem)" }}>
@@ -79,23 +79,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* ── Big wordmark — always visible, continuous float ── */}
-      <div
-        className="bg-brand-texture"
-        style={{ position: "relative", width: "100%", marginTop: "clamp(2rem,5vw,4rem)", padding: "clamp(2.5rem,6vw,5rem) clamp(1.5rem,5vw,6rem) clamp(3rem,7vw,6rem)", display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" }}
-      >
-        <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.9 }} />
-        <div className="ft-logo-float" style={{ position: "relative", zIndex: 1 }}>
-          <FidLogo variant="dark" style={{ height: "clamp(130px,22vw,300px)", width: "auto", display: "block" }} />
-        </div>
+      {/* ── Sign-off animation: climbers assemble the logo + tagline ── */}
+      <div style={{ marginTop: "clamp(2rem,5vw,3.5rem)" }}>
+        <FooterClimb tagline="Insight · Strategy · Impact" />
       </div>
 
       <style>{`
-        @keyframes ft-logo-float {
-          0%, 100% { transform: translateY(0) rotate(-0.4deg); }
-          50% { transform: translateY(-16px) rotate(0.4deg); }
-        }
-        .ft-logo-float { animation: ft-logo-float 6s ease-in-out infinite; will-change: transform; }
         @media (max-width:768px){ .ft-grid{ grid-template-columns:1fr 1fr !important; } .ft-brand{ grid-column:1 / -1; } }
       `}</style>
     </footer>
