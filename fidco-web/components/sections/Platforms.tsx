@@ -66,98 +66,84 @@ function IpPanel({
     if (inView) onActive(i);
   }, [inView, i, onActive]);
 
-  const panelPad = "clamp(3.5rem,9vh,6rem) clamp(1.5rem,4vw,3.5rem)";
-  const centered: React.CSSProperties = {
-    minHeight: "100vh",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    padding: panelPad,
-  };
-
+  // Stacked bands, like the reference's right column: light title band,
+  // white story panel, quiet logo band. The media column spans all of them.
   return (
-    <div ref={ref} className="ip-panel" style={{ background: i % 2 ? "#efe8dc" : "#f5f2ec", position: "relative" }}>
-      {/* panel 1 — identity: the image holds beside this… */}
-      <div className="ip-subpanel" style={centered}>
+    <div ref={ref} className="ip-panel" style={{ position: "relative" }}>
+      {/* band 1 — title strip (light grey, big serif) */}
+      <div style={{ background: "#ecebe7", padding: "clamp(4rem,12vh,7rem) clamp(1.5rem,4vw,3.5rem)", textAlign: "center" }}>
         <motion.span
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6 }}
-          style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.26em", color: "rgba(28,28,28,0.45)", fontWeight: 600 }}
+          style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.26em", color: "rgba(28,28,28,0.45)", fontWeight: 600, textTransform: "uppercase" }}
         >
           ({p.num}) Owned platform
         </motion.span>
+        <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }} data-cursor="Explore">
+          <motion.h3
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.85, ease: EASE }}
+            style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem,3.8vw,3.4rem)", lineHeight: 1.02, letterSpacing: "0.04em", color: "#1c1c1c", margin: "1.2rem 0 0", textTransform: "uppercase", fontWeight: 600 }}
+          >
+            {p.name}
+          </motion.h3>
+        </Link>
+      </div>
 
-        {/* mobile-only image (sticky pane hides on small screens) */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={p.image} alt={p.name} loading="lazy" className="ip-inline-img" style={{ display: "none", width: "100%", maxWidth: "460px", aspectRatio: "4/3", objectFit: "cover", borderRadius: "10px", margin: "1.4rem 0 0" }} />
+      {/* mobile-only image (media column hides on small screens) */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={p.image} alt={p.name} loading="lazy" className="ip-inline-img" style={{ display: "none", width: "100%", aspectRatio: "4/3", objectFit: "cover" }} />
 
-        <div ref={iconRef} style={{ marginTop: "1.6rem" }}>
+      {/* band 2 — story (white, centered serif, inset logo) */}
+      <div style={{ background: "#fbfaf8", padding: "clamp(5rem,16vh,9rem) clamp(1.5rem,4.5vw,4rem)", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div ref={iconRef}>
           {p.logo ? (
             <motion.span
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={{ opacity: 0, scale: 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0.7rem 1rem", borderRadius: "12px", background: p.logoDark ? "#1c1c1c" : "#fff", border: "1px solid rgba(28,28,28,0.08)", boxShadow: "0 10px 30px rgba(38,0,0,0.07)" }}
+              transition={{ duration: 0.6, ease: EASE }}
+              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0.9rem 1.2rem", background: p.logoDark ? "#1c1c1c" : "transparent" }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.logo} alt={`${p.name} logo`} loading="lazy" style={{ height: "44px", maxWidth: "160px", objectFit: "contain" }} />
+              <img src={p.logo} alt={`${p.name} logo`} loading="lazy" style={{ height: "52px", maxWidth: "180px", objectFit: "contain" }} />
             </motion.span>
           ) : (
             <HoverIcon icon={p.Icon} size={36} weight="bold" hoverWeight="fill" color={p.accent} drawOnScroll revealed={iconInView} />
           )}
         </div>
-
-        <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }} data-cursor="Explore">
-          <motion.h3
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.85, ease: EASE }}
-            style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.2rem,4.6vw,4rem)", lineHeight: 0.96, letterSpacing: "-0.01em", color: "#1c1c1c", margin: "1.5rem 0 0", maxWidth: "14ch", textTransform: "uppercase", fontWeight: 900 }}
-          >
-            {p.name}
-          </motion.h3>
-        </Link>
-
         <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.5 }}
-          transition={{ duration: 0.7, delay: 0.12 }}
-          style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: p.accent, fontWeight: 700, margin: "1rem 0 0", maxWidth: "44ch", lineHeight: 1.8 }}
-        >
-          {p.tag}
-        </motion.p>
-      </div>
-
-      {/* panel 2 — story: …and is still holding while this second panel passes,
-          exactly the reference's image-stays-text-changes moment */}
-      <div className="ip-subpanel" style={centered}>
-        <motion.p
-          initial={{ opacity: 0, y: 14 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
           transition={{ duration: 0.8, ease: EASE }}
-          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.5rem,2.8vw,2.3rem)", lineHeight: 1.2, color: "#1c1c1c", maxWidth: "26ch", margin: 0 }}
+          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.4rem,2.5vw,2.1rem)", lineHeight: 1.28, color: "#1c1c1c", maxWidth: "30ch", margin: "1.8rem 0 0", fontWeight: 500 }}
         >
           {p.desc}
         </motion.p>
-
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: p.accent, fontWeight: 700, margin: "1.6rem 0 0", maxWidth: "46ch", lineHeight: 1.9 }}
+        >
+          {p.tag}
+        </motion.p>
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, delay: 0.15, ease: EASE }}
+          transition={{ duration: 0.7, delay: 0.16, ease: EASE }}
         >
           <Link
             href={p.href}
             data-cursor="Explore"
-            style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", marginTop: "2.2rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: p.accent, textDecoration: "none" }}
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", marginTop: "2.2rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: p.accent, textDecoration: "none", borderBottom: `1px solid ${p.accent}`, paddingBottom: "0.3rem" }}
           >
             Explore platform <ArrowUpRight size={16} weight="bold" />
           </Link>
@@ -229,16 +215,11 @@ export default function Platforms() {
         {platforms.map((p, i) => (
           <div key={p.name} className="ip-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
             <div className="ip-media" style={{ position: "relative", order: i % 2 ? 2 : 1 }}>
-              <div style={{ position: "sticky", top: 0, height: "100vh", overflow: "hidden", background: "#1c1208" }}>
+              {/* full-bleed media spanning the whole chapter height — scrolls
+                  with the page (no sticky), flush to the viewport edge */}
+              <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#1c1208" }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={p.image} alt={p.name} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(18,8,4,0.16) 0%, transparent 42%, rgba(18,8,4,0.5) 100%)", pointerEvents: "none" }} />
-                <div style={{ position: "absolute", left: "clamp(1.2rem,3vw,2.4rem)", bottom: "clamp(1.2rem,3.5vh,2.4rem)", right: "clamp(1.2rem,3vw,2.4rem)" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.4rem,2.4vw,2.1rem)", fontStyle: "italic", color: "#f5f2ec", margin: 0, textShadow: "0 4px 26px rgba(0,0,0,0.5)" }}>
-                    ({p.num}) {p.name}
-                  </p>
-                  <div style={{ height: "2px", width: "56px", background: p.accent, marginTop: "0.8rem", borderRadius: "999px" }} />
-                </div>
               </div>
             </div>
             <div style={{ order: i % 2 ? 1 : 2 }}>
