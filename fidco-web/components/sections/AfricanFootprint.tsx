@@ -14,6 +14,7 @@ const countries: Country[] = [
   { name: "Zambia", code: "ZM" },
   { name: "Ghana", code: "GH" },
   { name: "Tanzania", code: "TZ" },
+  { name: "South Africa", code: "ZA" },
 ];
 
 const ROOT_W = 239.05701;
@@ -50,7 +51,15 @@ function injectDefs(svg: string): string {
   return result;
 }
 
-function buildCss(active: string | null): string {
+function buildCss(active: string | null, marketCodes: string[]): string {
+  const marketSelector = marketCodes.map((c) => `.af-map svg path#${c}`).join(",\n    ");
+  const marketRule = `
+    ${marketSelector} {
+      fill: url(#fid-dot-hi);
+      stroke: #750006;
+      stroke-width: 0.4;
+      filter: drop-shadow(0 0 4px rgba(217,128,56,0.4));
+    }`;
   const base = `
     .af-shell {
       position: relative;
@@ -107,14 +116,14 @@ function buildCss(active: string | null): string {
       animation: af-glow 16s ease-in-out infinite;
     }
   `;
-  if (!active) return base;
-  return base + `
+  if (!active) return base + marketRule;
+  return base + marketRule + `
     .af-map svg path#${active} {
       fill: url(#fid-dot-hi);
       stroke: #750006;
-      stroke-width: 0.55;
+      stroke-width: 0.6;
       transform: scale(1.08);
-      filter: drop-shadow(0 0 8px rgba(217,128,56,0.58));
+      filter: drop-shadow(0 0 10px rgba(217,128,56,0.7));
     }`;
 }
 
@@ -161,7 +170,7 @@ export default function AfricanFootprint() {
         <div className="af-map" style={{ position: "relative" }}>
           {svgMarkup && <div dangerouslySetInnerHTML={{ __html: svgMarkup }} style={{ width: "100%", height: "100%" }} />}
           <div className="af-map-glow" />
-          <style>{buildCss(activeCode)}</style>
+          <style>{buildCss(activeCode, countries.map((c) => c.code))}</style>
 
           <div
             aria-hidden

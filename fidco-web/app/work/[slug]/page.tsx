@@ -5,12 +5,17 @@ import type { WorkSectorSlug } from "@/components/lib/work-sectors";
 // Local list keeps this server route free of the phosphor-icon runtime import
 // that lives in work-sectors.ts (client-only).
 const SECTORS: { slug: WorkSectorSlug; title: string; intro: string }[] = [
-  { slug: "government", title: "Government", intro: "Public-sector and national-interest communications." },
-  { slug: "corporate", title: "Corporate", intro: "Corporate partnerships, retail and brand communications." },
-  { slug: "hospitality", title: "Hospitality", intro: "Launches and lifestyle experiences for hospitality brands." },
-  { slug: "healthcare", title: "Healthcare", intro: "Credible, reassuring healthcare communications." },
-  { slug: "lifestyle", title: "Lifestyle", intro: "Beauty, wellbeing and lifestyle-led campaigns." },
-  { slug: "owned-ips", title: "Owned IPs", intro: "Original platforms owned by FID & Co." },
+  { slug: "government", title: "Government & Public Institutions", intro: "Public-sector and national-interest communications." },
+  { slug: "retail-fashion", title: "Retail & Fashion", intro: "Retail campaigns and influencer-led fashion storytelling." },
+  { slug: "corporate", title: "Manufacturing & Corporate Brands", intro: "Corporate partnerships and brand communications." },
+  { slug: "hospitality", title: "Hospitality, Lifestyle & Destination Brands", intro: "Launches and lifestyle experiences for hospitality brands." },
+  { slug: "sports-tourism", title: "Sports, Tourism & Mass-Audience Platforms", intro: "High-visibility sporting moments and mass-audience platforms." },
+  { slug: "healthcare", title: "Healthcare & Medical Institutions", intro: "Credible, reassuring healthcare communications." },
+  { slug: "social-impact", title: "Social Impact, Development & Multilateral Partnerships", intro: "Multi-stakeholder communications for development partners." },
+  { slug: "finance", title: "Finance, Investment & Advisory", intro: "Clear investment narratives for frontier markets." },
+  { slug: "lifestyle", title: "Beauty, Wellness & Lifestyle", intro: "Beauty, wellbeing and lifestyle-led campaigns." },
+  { slug: "culture-entertainment", title: "Culture, Entertainment & Experiential Platforms", intro: "Cross-border cultural platforms and creative expression." },
+  { slug: "owned-ips", title: "Owned Experiences & Cultural IPs", intro: "Original platforms owned by FID & Co." },
 ];
 
 export function generateStaticParams() {

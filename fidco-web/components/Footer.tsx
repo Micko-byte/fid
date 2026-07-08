@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
+import { InstagramLogo, FacebookLogo, YoutubeLogo, LinkedinLogo, TiktokLogo, Phone, Globe } from "@phosphor-icons/react";
 import FooterClimb from "@/components/motion/FooterClimb";
 import FidLogo from "@/components/ui/FidLogo";
 
@@ -46,6 +46,8 @@ export default function Footer() {
                 { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
                 { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
                 { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
+                { Icon: LinkedinLogo, href: "https://www.linkedin.com/company/fidpr", label: "LinkedIn" },
+                { Icon: TiktokLogo, href: "https://www.tiktok.com/@fidpr", label: "TikTok" },
               ].map(({ Icon, href, label }, i) => (
                 <motion.a
                   key={label}

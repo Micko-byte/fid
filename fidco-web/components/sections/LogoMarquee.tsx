@@ -50,15 +50,13 @@ export default function LogoMarquee() {
           max-width: 150px;
           width: auto;
           object-fit: contain;
-          filter: grayscale(1) contrast(1.1);
-          opacity: 0.6;
+          filter: none;
+          opacity: 1;
           mix-blend-mode: multiply;
           background: #f5f2ec;
-          transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+          transition: opacity 0.4s ease, transform 0.4s ease;
         }
         .lm-item img:hover {
-          filter: grayscale(0);
-          opacity: 1;
           transform: scale(1.08);
         }
         @keyframes lm-scroll {
