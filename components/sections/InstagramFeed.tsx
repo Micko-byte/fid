@@ -8,14 +8,13 @@ import { useIsMobile } from "@/components/mobile/useIsMobile";
 
 const HANDLE = "fidpr";
 const PROFILE = "https://instagram.com/fidpr/";
+const BEHOLD_FEED_ID = "yZp6UeHFmPs6YRRfXoGV";
+const BEHOLD_SCRIPT_SRC = "https://w.behold.so/widget.js";
+const MAX_VISIBLE_POSTS = 5;
 
 /**
  * Live Instagram feed.
- * Set NEXT_PUBLIC_INSTAGRAM_FEED_URL to a Behold.so (or compatible) JSON feed
- * to render real posts. Falls back to a curated grid until configured.
- *
- * Behold setup: behold.so -> connect @fidpr -> copy the JSON feed URL ->
- * add NEXT_PUBLIC_INSTAGRAM_FEED_URL=... to .env.local / Vercel env.
+ * The card layout stays custom, while the images are sourced from Behold.
  */
 
 interface IGPost {
@@ -26,7 +25,7 @@ interface IGPost {
   isVideo?: boolean;
 }
 
-// Fallback tiles (curated) — shown only until a live feed URL is configured
+// Fallback tiles (curated) — shown until the Behold widget has loaded images
 const fallback: IGPost[] = [
   { id: "f1", permalink: PROFILE, image: "/photos/projects/tribe-vibe.jpg" },
   { id: "f2", permalink: PROFILE, image: "/photos/projects/lc-waikiki-influencer.jpg" },
@@ -36,34 +35,58 @@ const fallback: IGPost[] = [
   { id: "f6", permalink: PROFILE, image: "/photos/editorial/cultural-festival.jpg" },
 ];
 
-/* Normalize various feed shapes (Behold v2, Graph API, generic) into IGPost */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function normalize(raw: any): IGPost[] {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const list: any[] = Array.isArray(raw) ? raw : raw?.posts ?? raw?.data ?? [];
-  return list
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((p: any, i: number): IGPost | null => {
-      const image =
-        p.sizes?.medium?.mediaUrl ||
-        p.sizes?.small?.mediaUrl ||
-        p.mediaUrl ||
-        p.media_url ||
-        p.thumbnailUrl ||
-        p.thumbnail_url ||
-        p.image ||
-        "";
-      if (!image) return null;
-      return {
-        id: p.id ?? String(i),
-        permalink: p.permalink ?? p.link ?? PROFILE,
+function ensureBeholdWidgetScript(): Promise<void> {
+  if (typeof window === "undefined") return Promise.resolve();
+
+  if (customElements.get("behold-widget")) {
+    return Promise.resolve();
+  }
+
+  const existing = document.querySelector<HTMLScriptElement>('script[data-behold-widget-script="true"]');
+  if (existing) {
+    return new Promise((resolve) => {
+      existing.addEventListener("load", () => resolve(), { once: true });
+      existing.addEventListener("error", () => resolve(), { once: true });
+    });
+  }
+
+  return new Promise((resolve) => {
+    const script = document.createElement("script");
+    script.type = "module";
+    script.src = BEHOLD_SCRIPT_SRC;
+    script.dataset.beholdWidgetScript = "true";
+    script.onload = () => resolve();
+    script.onerror = () => resolve();
+    document.head.appendChild(script);
+  });
+}
+
+function extractPostsFromWidget(widget: HTMLElement): IGPost[] {
+  const unique = new Map<string, IGPost>();
+
+  const visit = (scope: ParentNode | ShadowRoot) => {
+    scope.querySelectorAll("img").forEach((img, index) => {
+      const element = img as HTMLImageElement;
+      const image = element.currentSrc || element.src || element.getAttribute("src") || "";
+      if (!image || unique.has(image)) return;
+
+      const permalink = (element.closest("a[href]") as HTMLAnchorElement | null)?.href ?? PROFILE;
+      unique.set(image, {
+        id: `${index}-${image}`,
+        permalink,
         image,
-        caption: p.caption ?? p.prunedCaption ?? "",
-        isVideo: (p.mediaType ?? p.media_type ?? "").toString().toUpperCase().includes("VIDEO"),
-      };
-    })
-    .filter((x): x is IGPost => !!x)
-    .slice(0, 6);
+      });
+    });
+
+    scope.querySelectorAll("*").forEach((node) => {
+      const shadowRoot = (node as HTMLElement).shadowRoot;
+      if (shadowRoot) visit(shadowRoot);
+    });
+  };
+
+  visit(widget);
+
+  return Array.from(unique.values()).slice(0, MAX_VISIBLE_POSTS);
 }
 
 
@@ -75,24 +98,51 @@ export default function InstagramFeed() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL;
-    if (!url) return;
     let active = true;
-    (async () => {
-      try {
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) return;
-        const data = await res.json();
-        const norm = normalize(data);
-        if (active && norm.length) {
-          setPosts(norm);
-          setLive(true);
-        }
-      } catch {
-        /* keep fallback */
+    const host = document.createElement("div");
+    host.setAttribute("aria-hidden", "true");
+    host.style.position = "fixed";
+    host.style.left = "-9999px";
+    host.style.top = "0";
+    host.style.width = "1px";
+    host.style.height = "1px";
+    host.style.overflow = "hidden";
+    host.style.pointerEvents = "none";
+
+    const widget = document.createElement("behold-widget");
+    widget.setAttribute("feed-id", BEHOLD_FEED_ID);
+    host.appendChild(widget);
+    document.body.appendChild(host);
+
+    const syncPosts = () => {
+      if (!active) return;
+      const nextPosts = extractPostsFromWidget(widget);
+      if (nextPosts.length) {
+        setPosts(nextPosts);
+        setLive(true);
       }
+    };
+
+    const observer = new MutationObserver(syncPosts);
+    observer.observe(widget, { childList: true, subtree: true, attributes: true });
+
+    const pollId = window.setInterval(syncPosts, 500);
+
+    (async () => {
+      await ensureBeholdWidgetScript();
+      if (!active) return;
+      if (customElements.get("behold-widget")) {
+        await customElements.whenDefined("behold-widget");
+      }
+      syncPosts();
     })();
-    return () => { active = false; };
+
+    return () => {
+      active = false;
+      observer.disconnect();
+      window.clearInterval(pollId);
+      host.remove();
+    };
   }, []);
 
   return (
