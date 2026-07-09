@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Megaphone, Newspaper, ShareNetwork, ChartLineUp, Confetti,
@@ -78,6 +79,31 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export default function MobileHome() {
+  // Live Instagram images from the Behold feed; falls back to curated tiles.
+  const [igPosts, setIgPosts] = useState<string[]>(IG_POSTS);
+  useEffect(() => {
+    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL ?? "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
+    let active = true;
+    (async () => {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const list: any[] = Array.isArray(data) ? data : data?.posts ?? [];
+        const srcs = list
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .map((p: any) => p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl || "")
+          .filter(Boolean)
+          .slice(0, 6);
+        if (active && srcs.length) setIgPosts(srcs);
+      } catch {
+        /* keep fallback */
+      }
+    })();
+    return () => { active = false; };
+  }, []);
+
   return (
     <div style={{ overflowX: "hidden" }}>
       {/* ── HERO ── */}
@@ -309,7 +335,7 @@ export default function MobileHome() {
         <MobileSectionHead title="Follow the work in motion" href="https://instagram.com/fidpr/" label="@fidpr" tone="light" />
         <FadeUp delay={0.06}>
           <div style={{ display: "flex", gap: "0.7rem", overflowX: "auto", paddingBottom: "0.4rem", marginTop: "1.6rem" }}>
-            {IG_POSTS.map((src) => (
+            {igPosts.map((src) => (
               <a
                 key={src}
                 href="https://instagram.com/fidpr/"

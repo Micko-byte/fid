@@ -4,9 +4,34 @@ import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, Buildings, ChatsCircle, MusicNotes } from "@phosphor-icons/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverIcon from "@/components/ui/HoverIcon";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+/* Platform name — letters rise out of a clipped line on scroll-in */
+function LetterRise({ text }: { text: string }) {
+  return (
+    <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }} aria-label={text}>
+      {text.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          aria-hidden
+          initial={{ y: "115%" }}
+          whileInView={{ y: "0%" }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.75, delay: 0.1 + i * 0.03, ease: EASE }}
+          style={{ display: "inline-block", whiteSpace: "pre" }}
+        >
+          {ch}
+        </motion.span>
+      ))}
+    </span>
+  );
+}
 
 const platforms = [
   {
@@ -82,15 +107,9 @@ function IpPanel({
           ({p.num}) Owned platform
         </motion.span>
         <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }} data-cursor="Explore">
-          <motion.h3
-            initial={{ opacity: 0, y: 22 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.85, ease: EASE }}
-            style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem,3.8vw,3.4rem)", lineHeight: 1.02, letterSpacing: "0.04em", color: "#1c1c1c", margin: "1.2rem 0 0", textTransform: "uppercase", fontWeight: 600 }}
-          >
-            {p.name}
-          </motion.h3>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem,3.8vw,3.4rem)", lineHeight: 1.02, letterSpacing: "0.04em", color: "#1c1c1c", margin: "1.2rem 0 0", textTransform: "uppercase", fontWeight: 600 }}>
+            <LetterRise text={p.name} />
+          </h3>
         </Link>
       </div>
 
@@ -155,48 +174,75 @@ function IpPanel({
 
 export default function Platforms() {
   const ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [active, setActive] = useState(0);
   const onActive = useCallback((i: number) => setActive(i), []);
 
+  // GSAP — the image drifts inside its clipped frame as the chapter scrolls
+  // past (scrubbed, tied 1:1 to scroll), the reference's signature move.
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.utils.toArray<HTMLElement>(".ip-media img").forEach((img) => {
+        gsap.fromTo(
+          img,
+          { yPercent: -11, scale: 1.24 },
+          {
+            yPercent: 11,
+            scale: 1.24,
+            ease: "none",
+            scrollTrigger: {
+              trigger: img.closest(".ip-row"),
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          }
+        );
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="platforms" className="fid-section section-light platforms-section" style={{ paddingBottom: 0 }}>
+    <section ref={sectionRef} id="platforms" className="fid-section section-light platforms-section" style={{ paddingBottom: 0 }}>
       <div aria-hidden className="platforms-bg-word">CULTURE</div>
       <div ref={ref} className="section-shell" style={{ position: "relative", zIndex: 1 }}>
-        <div className="platforms-head">
-          <div>
-            <motion.span
-              initial={{ opacity: 0, y: 18 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.7, ease: EASE }}
-              className="type-eyebrow"
-              style={{ color: "#750006" }}
-            >
-              Owned platforms &amp; cultural IPs
-            </motion.span>
-            <motion.h2
-              data-skew
-              initial={{ opacity: 0, y: 26 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.85, delay: 0.08, ease: EASE }}
-              className="platforms-title"
-            >
-              Culture, conversation and brand experience on our terms.
-            </motion.h2>
-          </div>
-
+        {/* centered typographic interlude, like the reference's white intro */}
+        <div className="platforms-head" style={{ textAlign: "center" }}>
+          <motion.span
+            initial={{ opacity: 0, y: 18 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: EASE }}
+            className="type-eyebrow"
+            style={{ color: "#750006", display: "inline-block" }}
+          >
+            Owned platforms &amp; cultural IPs
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 26 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.85, delay: 0.08, ease: EASE }}
+            className="platforms-title"
+            style={{ margin: "1.4rem auto 0" }}
+          >
+            Culture, conversation
+            <br />
+            &amp; brand experience <em style={{ fontStyle: "italic", fontWeight: 500, textTransform: "none" }}>on our terms.</em>
+          </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.75, delay: 0.16, ease: EASE }}
             className="type-body platforms-intro"
+            style={{ margin: "1.8rem auto 0" }}
           >
             These are not filler event pages. They are FID-owned audience platforms designed for cultural relevance, commercial partnership and repeatable brand moments.
           </motion.p>
         </div>
 
         {/* numbered index strip */}
-        <div style={{ borderTop: "1px solid rgba(28,28,28,0.1)", paddingTop: "1rem", display: "flex", flexWrap: "wrap", gap: "0.4rem 2rem" }}>
+        <div style={{ borderTop: "1px solid rgba(28,28,28,0.1)", paddingTop: "1rem", display: "flex", flexWrap: "wrap", gap: "0.4rem 2rem", justifyContent: "center" }}>
           {platforms.map((p, i) => (
             <span
               key={p.name}
@@ -259,18 +305,15 @@ export default function Platforms() {
           user-select: none;
         }
         .platforms-head {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(280px, 0.42fr);
-          gap: clamp(2rem, 6vw, 5rem);
-          align-items: end;
+          display: block;
           margin-bottom: clamp(2rem, 5vw, 4rem);
         }
         .platforms-head .type-eyebrow {
           color: #d98038;
         }
         .platforms-title {
-          margin: 1rem 0 0;
-          max-width: 18ch;
+          margin: 1rem auto 0;
+          max-width: 22ch;
           font-family: var(--font-heading);
           font-size: clamp(2rem, 4vw, 3.5rem);
           line-height: 0.86;
@@ -281,9 +324,9 @@ export default function Platforms() {
           text-wrap: balance;
         }
         .platforms-intro {
-          max-width: 34ch;
+          max-width: 52ch;
           color: #1c1c1c;
-          margin: 0;
+          margin: 0 auto;
         }
         @media (max-width: 980px) {
           .platforms-head {

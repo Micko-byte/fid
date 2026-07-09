@@ -75,7 +75,8 @@ export default function InstagramFeed() {
   const isMobile = useIsMobile();
 
   useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL;
+    // Behold JSON feed for @fidpr (env var can override with a different feed)
+    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL ?? "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
     if (!url) return;
     let active = true;
     (async () => {

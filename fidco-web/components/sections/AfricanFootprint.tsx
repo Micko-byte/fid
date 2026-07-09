@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 type Country = { name: string; code: string };
@@ -131,6 +131,9 @@ export default function AfricanFootprint() {
   const [svgMarkup, setSvgMarkup] = useState("");
   const [active, setActive] = useState<string | null>(null);
   const [pinned, setPinned] = useState<string | null>(null);
+  const [pins, setPins] = useState<{ code: string; name: string; x: number; y: number }[]>([]);
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const mapRef = useRef<HTMLDivElement>(null);
 
   const activeCode = pinned ?? active;
   const activeCountry = countries.find((c) => c.code === activeCode) ?? null;
@@ -147,6 +150,45 @@ export default function AfricanFootprint() {
       mounted = false;
     };
   }, []);
+
+  // Standing pins — measure each market's rendered position and place a
+  // 3D marker there. Re-measured on resize.
+  useEffect(() => {
+    if (!svgMarkup) return;
+    const measure = () => {
+      const host = mapRef.current;
+      if (!host) return;
+      const hostRect = host.getBoundingClientRect();
+      if (!hostRect.width) return;
+      const next: { code: string; name: string; x: number; y: number }[] = [];
+      for (const c of countries) {
+        const path = host.querySelector<SVGPathElement>(`svg path#${c.code}`);
+        if (!path) continue;
+        const r = path.getBoundingClientRect();
+        next.push({
+          code: c.code,
+          name: c.name,
+          x: ((r.left + r.width / 2 - hostRect.left) / hostRect.width) * 100,
+          y: ((r.top + r.height / 2 - hostRect.top) / hostRect.height) * 100,
+        });
+      }
+      setPins(next);
+    };
+    const t = setTimeout(measure, 60);
+    window.addEventListener("resize", measure, { passive: true });
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("resize", measure);
+    };
+  }, [svgMarkup]);
+
+  // 3D tilt — the map leans toward the pointer.
+  const onTilt = (e: React.MouseEvent<HTMLDivElement>) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width - 0.5;
+    const py = (e.clientY - r.top) / r.height - 0.5;
+    setTilt({ x: py * -9, y: px * 11 });
+  };
 
   return (
     <section className="af-footprint" style={{ marginTop: "clamp(3rem,6vw,5rem)", paddingTop: 0 }}>
@@ -165,12 +207,57 @@ export default function AfricanFootprint() {
         viewport={{ once: true, amount: 0.35 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="af-shell"
-        style={{ width: "100%", maxWidth: "740px", margin: "0 auto", height: "clamp(300px,42vw,500px)" }}
+        onMouseMove={onTilt}
+        onMouseLeave={() => setTilt({ x: 0, y: 0 })}
+        style={{ width: "100%", maxWidth: "740px", margin: "0 auto", height: "clamp(300px,42vw,500px)", perspective: "1100px" }}
       >
-        <div className="af-map" style={{ position: "relative" }}>
+        <div
+          className="af-map"
+          ref={mapRef}
+          style={{
+            position: "relative",
+            transformStyle: "preserve-3d",
+            transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+            transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
+          }}
+        >
           {svgMarkup && <div dangerouslySetInnerHTML={{ __html: svgMarkup }} style={{ width: "100%", height: "100%" }} />}
           <div className="af-map-glow" />
           <style>{buildCss(activeCode, countries.map((c) => c.code))}</style>
+
+          {/* 3D standing pins on each market */}
+          {pins.map((pin, i) => {
+            const isOn = activeCode === pin.code;
+            return (
+              <button
+                key={pin.code}
+                type="button"
+                aria-label={pin.name}
+                className="af-pin"
+                onMouseEnter={() => setActive(pin.code)}
+                onMouseLeave={() => setActive(null)}
+                onClick={() => setPinned((p) => (p === pin.code ? null : pin.code))}
+                style={{
+                  position: "absolute",
+                  left: `${pin.x}%`,
+                  top: `${pin.y}%`,
+                  transform: `translate(-50%, -100%) translateZ(34px) scale(${isOn ? 1.35 : 1})`,
+                  transformStyle: "preserve-3d",
+                  animationDelay: `${i * 0.09 + 0.2}s`,
+                  background: "none",
+                  border: "none",
+                  padding: 0,
+                  cursor: "pointer",
+                  zIndex: 3,
+                  transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
+                }}
+              >
+                <span className="af-pin-head" style={{ background: isOn ? "#d98038" : "#750006" }} />
+                <span className="af-pin-stem" />
+                <span className="af-pin-ring" />
+              </button>
+            );
+          })}
 
           <div
             aria-hidden
@@ -285,6 +372,48 @@ export default function AfricanFootprint() {
           0%, 100% { transform: scale(1); opacity: 0.58; }
           50% { transform: scale(1.03); opacity: 0.86; }
         }
+        .af-pin {
+          opacity: 0;
+          animation: af-pin-drop 0.55s cubic-bezier(0.34,1.56,0.64,1) forwards;
+        }
+        @keyframes af-pin-drop {
+          from { opacity: 0; margin-top: -18px; }
+          to { opacity: 1; margin-top: 0; }
+        }
+        .af-pin-head {
+          display: block;
+          width: 13px;
+          height: 13px;
+          border-radius: 999px;
+          border: 2px solid #f5f2ec;
+          box-shadow: 0 3px 8px rgba(38,0,0,0.35);
+          transition: background 0.25s;
+        }
+        .af-pin-stem {
+          display: block;
+          width: 2px;
+          height: 9px;
+          margin: -1px auto 0;
+          background: linear-gradient(to bottom, #750006, rgba(117,0,6,0.25));
+          border-radius: 0 0 2px 2px;
+        }
+        .af-pin-ring {
+          position: absolute;
+          left: 50%;
+          bottom: -3px;
+          width: 16px;
+          height: 6px;
+          transform: translateX(-50%);
+          border-radius: 999px;
+          border: 1px solid rgba(117,0,6,0.45);
+          animation: af-ring-pulse 2.4s ease-out infinite;
+        }
+        @keyframes af-ring-pulse {
+          0% { transform: translateX(-50%) scale(0.6); opacity: 0.8; }
+          70% { transform: translateX(-50%) scale(1.7); opacity: 0; }
+          100% { opacity: 0; }
+        }
+        .af-pin:hover .af-pin-head { background: #d98038 !important; }
       `}</style>
     </section>
   );
