@@ -271,13 +271,13 @@ export default function Nav() {
   .nav-links-desktop { display: none !important; }
   .brand-nav-container {
     position: fixed !important;
-    top: 0.6rem !important;
-    left: 50% !important;
-    right: auto !important;
-    transform: translateX(-50%) !important;
-    width: calc(100vw - 1.5rem) !important;
-    max-width: calc(100vw - 1.5rem) !important;
-    border-radius: 14px !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    transform: none !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
     margin: 0 !important;
     border: none !important;
     border-bottom: 1px solid rgba(0,0,0,0.08) !important;

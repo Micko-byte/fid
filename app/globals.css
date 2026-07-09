@@ -366,13 +366,13 @@ th {
     --site-gutter: 1.1rem;
   }
 
-  /* ── Nav pill centered on tiny screens ── */
+  /* ── Nav fixed full-width above the hero on tiny screens ── */
   nav[aria-label="Main navigation"] {
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    width: calc(100vw - 1.6rem) !important;
-    top: 0.6rem !important;
-    border-radius: 14px !important;
+    left: 0 !important;
+    transform: none !important;
+    width: 100vw !important;
+    top: 0 !important;
+    border-radius: 0 !important;
   }
 
   /* ── Footer grid ── */
