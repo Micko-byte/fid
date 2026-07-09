@@ -79,16 +79,22 @@ export default function Founder() {
                 alt="Farida Idris, Founder & Lead Strategist"
                 style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
               />
-              {/* second frame — revealed on hover */}
+              {/* second frame — revealed on hover. Base opacity lives in the
+                  stylesheet (not inline) so the :hover rule can override it. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/photos/founder/farida-seated.jpg"
                 alt=""
                 aria-hidden
                 className="founder-photo-alt"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", opacity: 0, transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)", transform: "scale(1.04)" }}
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
               />
               <style>{`
+                .founder-photo-alt {
+                  opacity: 0;
+                  transform: scale(1.04);
+                  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+                }
                 .founder-photo:hover .founder-photo-alt { opacity: 1; transform: scale(1); }
               `}</style>
             </div>

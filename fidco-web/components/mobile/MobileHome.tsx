@@ -40,17 +40,21 @@ const IG_POSTS = [
   "/photos/projects/africa-forum-displacement.jpg",
 ];
 
+// Sectors follow the 11 blurb categories; sectorSlug routes to /work/[slug].
 const WORK = [
-  { slug: "africa-urban-forum-2026", client: "Africa Urban Forum", sector: "Government", image: cl("auf-01") },
-  { slug: "kansai-plascon", client: "Kansai Plascon", sector: "Corporate", image: cl("kansai-01") },
-  { slug: "thrive-hospitality-group", client: "Chaii Republic", sector: "Hospitality", image: "/photos/projects/thrive-hospitality/glam-01.jpg" },
-  { slug: "allso-beauty", client: "Allso Beauty", sector: "Beauty & Lifestyle", image: cl("allso-01") },
+  { slug: "africa-urban-forum-2026", client: "Africa Urban Forum", sector: "Government", sectorSlug: "government", image: cl("auf-01"), logo: "/logos/executive-office-president.png" },
+  { slug: "lc-waikiki-africa", client: "LC Waikiki", sector: "Retail & Fashion", sectorSlug: "retail-fashion", image: "/photos/projects/lc-waikiki-influencer.jpg", logo: "/logos/lc-waikiki.png" },
+  { slug: "kansai-plascon", client: "Kansai Plascon", sector: "Corporate", sectorSlug: "corporate", image: cl("kansai-01"), logo: "/logos/kansai-plascon.png" },
+  { slug: "thrive-hospitality-group", client: "Chaii Republic", sector: "Hospitality", sectorSlug: "hospitality", image: "/photos/projects/thrive-hospitality/glam-01.jpg", logo: "/logos/chaii-republic.png" },
+  { slug: "africa-forum-on-displacements", client: "UNHCR", sector: "Social Impact", sectorSlug: "social-impact", image: "/photos/projects/africa-forum-displacement.jpg", logo: "/logos/unhcr.png" },
+  { slug: "columbia-africa-healthcare", client: "Columbia Africa", sector: "Healthcare", sectorSlug: "healthcare", image: "/photos/projects/columbia-building.jpg", logo: "/logos/columbia-africa.png" },
+  { slug: "allso-beauty", client: "Allso Beauty", sector: "Beauty & Lifestyle", sectorSlug: "lifestyle", image: cl("allso-01"), logo: "/logos/allso-beauty.png" },
 ];
 
 const PLATFORMS = [
-  { slug: "the-tribe-vibe", name: "The Tribe Vibe", tag: "Lifestyle · Music · Culture", image: "/photos/projects/tribe-vibe.jpg" },
-  { slug: "suhba-series", name: "Suhba Series", tag: "Curated Conversations", image: cl("suhba-01") },
-  { slug: "the-capital-room", name: "The Capital Room", tag: "Leadership · Business", image: "/photos/editorial/podcast-set.jpg" },
+  { slug: "the-tribe-vibe", name: "The Tribe Vibe", num: "01", tag: "Lifestyle · Music · Culture", image: "/photos/projects/tribe-vibe.jpg", logo: "/logos/tribe-vibe.png", logoDark: false },
+  { slug: "suhba-series", name: "Suhba Series", num: "02", tag: "Curated Conversations", image: cl("suhba-01"), logo: "/logos/suhba-series.png", logoDark: false },
+  { slug: "the-capital-room", name: "The Capital Room", num: "03", tag: "Leadership · Business", image: "/photos/editorial/podcast-set.jpg", logo: "/logos/capital-room.png", logoDark: true },
 ];
 
 const STATS = [
@@ -226,10 +230,15 @@ export default function MobileHome() {
         <MobileSectionHead title="Selected Work" href="/#work" label="View all" tone="dark" />
         <MobileSlider tone="dark">
           {WORK.map((w) => (
-            <Link key={w.slug} href={`/work/${(({ Government: "government", Corporate: "corporate", Hospitality: "hospitality", Healthcare: "healthcare", "Beauty & Lifestyle": "lifestyle", Lifestyle: "lifestyle", "Owned IPs": "owned-ips" } as Record<string, string>)[w.sector] ?? "government")}`} style={{ textDecoration: "none", display: "block", paddingRight: "1px" }}>
+            <Link key={w.slug} href={`/work/${w.sectorSlug}`} style={{ textDecoration: "none", display: "block", paddingRight: "1px" }}>
               <div style={{ position: "relative", width: "100%", aspectRatio: "4/5", borderRadius: "16px", overflow: "hidden", background: "#260000" }}>
                 <img src={w.image} alt={w.client} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,0.85), transparent 55%)" }} />
+                {w.logo && (
+                  <span style={{ position: "absolute", top: "0.9rem", left: "0.9rem", display: "inline-flex", alignItems: "center", padding: "0.4rem 0.6rem", borderRadius: "10px", background: "#f5f2ec" }}>
+                    <img src={w.logo} alt={`${w.client} logo`} loading="lazy" style={{ height: "20px", maxWidth: "80px", objectFit: "contain" }} />
+                  </span>
+                )}
                 <div style={{ position: "absolute", left: "1.2rem", bottom: "1.2rem", right: "1.2rem" }}>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "#d98038", margin: 0 }}>{w.sector}</p>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.5rem", letterSpacing: "-0.01em", color: "#f5f2ec", margin: "0.4rem 0 0" }}>{w.client}</h3>
@@ -249,6 +258,12 @@ export default function MobileHome() {
               <div style={{ position: "relative", width: "100%", aspectRatio: "4/5", borderRadius: "16px", overflow: "hidden", background: "#260000" }}>
                 <img src={p.image} alt={p.name} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(38,0,0,0.85), transparent 55%)" }} />
+                <span style={{ position: "absolute", top: "0.9rem", right: "0.9rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", color: "rgba(245,242,236,0.85)", fontWeight: 700 }}>({p.num})</span>
+                {p.logo && (
+                  <span style={{ position: "absolute", top: "0.9rem", left: "0.9rem", display: "inline-flex", alignItems: "center", padding: "0.4rem 0.6rem", borderRadius: "10px", background: p.logoDark ? "#1c1c1c" : "#f5f2ec" }}>
+                    <img src={p.logo} alt={`${p.name} logo`} loading="lazy" style={{ height: "22px", maxWidth: "90px", objectFit: "contain" }} />
+                  </span>
+                )}
                 <div style={{ position: "absolute", left: "1.2rem", bottom: "1.2rem", right: "1.2rem" }}>
                   <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "#d98038", margin: 0 }}>{p.tag}</p>
                   <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.6rem", letterSpacing: "-0.01em", color: "#f5f2ec", margin: "0.4rem 0 0" }}>{p.name}</h3>
@@ -266,7 +281,7 @@ export default function MobileHome() {
         </FadeUp>
         <FadeUp delay={0.06}>
           <img
-            src="/illustrations/founder-portrait.png"
+            src="/photos/founder/farida-studio.jpg"
             alt="Farida Idris"
             loading="lazy"
             style={{ width: "100%", maxWidth: "320px", aspectRatio: "4/5", objectFit: "cover", objectPosition: "center top", borderRadius: "16px", margin: "1.4rem 0 0", border: "1px solid rgba(117,0,6,0.18)" }}
