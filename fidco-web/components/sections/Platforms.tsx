@@ -2,13 +2,9 @@
 
 import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Buildings, ChatsCircle, MusicNotes } from "@phosphor-icons/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import HoverIcon from "@/components/ui/HoverIcon";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -71,6 +67,12 @@ const platforms = [
     Icon: Buildings,
   },
 ];
+
+const MEDIA_Y_RANGES = [
+  ["2vh", "-8vh"],
+  ["8vh", "-14vh"],
+  ["14vh", "-20vh"],
+] as const;
 
 /* One scrolling IP panel — reports itself active when centred */
 function IpPanel({
@@ -172,37 +174,78 @@ function IpPanel({
   );
 }
 
+function PlatformRow({
+  p,
+  i,
+  onActive,
+}: {
+  p: (typeof platforms)[number];
+  i: number;
+  onActive: (i: number) => void;
+}) {
+  const rowRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: rowRef,
+    offset: ["start end", "end start"],
+  });
+  const [startY, endY] = MEDIA_Y_RANGES[i] ?? [`${2 + i * 6}vh`, `${-(8 + i * 6)}vh`];
+  const y = useTransform(scrollYProgress, [0, 1], [startY, endY]);
+  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1.28]);
+
+  return (
+    <div ref={rowRef} className="ip-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+      <div className="ip-media" style={{ position: "relative", minHeight: "clamp(340px, 44vw, 680px)", order: i % 2 ? 2 : 1 }}>
+        <motion.div
+          className="ip-media-card"
+          style={
+            reduceMotion
+              ? { position: "absolute", inset: 0 }
+              : { position: "absolute", inset: 0, y, scale }
+          }
+        >
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              overflow: "hidden",
+              borderRadius: "28px",
+              background: "#1c1208",
+              boxShadow: "0 18px 48px rgba(38,0,0,0.14)",
+            }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={p.image}
+              alt={p.name}
+              loading="lazy"
+              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", willChange: "transform" }}
+            />
+            <div
+              aria-hidden
+              style={{
+                position: "absolute",
+                inset: 0,
+                background: "linear-gradient(180deg, rgba(28,28,28,0.02) 0%, rgba(28,28,28,0.16) 100%)",
+                pointerEvents: "none",
+              }}
+            />
+          </div>
+        </motion.div>
+      </div>
+      <div style={{ order: i % 2 ? 1 : 2 }}>
+        <IpPanel p={p} i={i} onActive={onActive} />
+      </div>
+    </div>
+  );
+}
+
 export default function Platforms() {
   const ref = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
   const [active, setActive] = useState(0);
   const onActive = useCallback((i: number) => setActive(i), []);
-
-  // GSAP — the image drifts inside its clipped frame as the chapter scrolls
-  // past (scrubbed, tied 1:1 to scroll), the reference's signature move.
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.utils.toArray<HTMLElement>(".ip-media img").forEach((img) => {
-        gsap.fromTo(
-          img,
-          { yPercent: -11, scale: 1.24 },
-          {
-            yPercent: 11,
-            scale: 1.24,
-            ease: "none",
-            scrollTrigger: {
-              trigger: img.closest(".ip-row"),
-              start: "top bottom",
-              end: "bottom top",
-              scrub: true,
-            },
-          }
-        );
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section ref={sectionRef} id="platforms" className="fid-section section-light platforms-section" style={{ paddingBottom: 0 }}>
@@ -254,24 +297,10 @@ export default function Platforms() {
         </div>
       </div>
 
-      {/* alternating sticky-media rows — the image stays pinned (same image, no
-          fades) while its text scrolls past; the next row simply pushes it away,
-          exactly like the reference */}
+      {/* alternating rows with scroll-linked image drift, matching the work-page feel */}
       <div style={{ marginTop: "clamp(2rem,4vw,3rem)", position: "relative", zIndex: 1 }}>
         {platforms.map((p, i) => (
-          <div key={p.name} className="ip-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-            <div className="ip-media" style={{ position: "relative", order: i % 2 ? 2 : 1 }}>
-              {/* full-bleed media spanning the whole chapter height — scrolls
-                  with the page (no sticky), flush to the viewport edge */}
-              <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#1c1208" }}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={p.image} alt={p.name} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-              </div>
-            </div>
-            <div style={{ order: i % 2 ? 1 : 2 }}>
-              <IpPanel p={p} i={i} onActive={onActive} />
-            </div>
-          </div>
+          <PlatformRow key={p.name} p={p} i={i} onActive={onActive} />
         ))}
       </div>
 
