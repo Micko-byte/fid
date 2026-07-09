@@ -2,32 +2,10 @@
 
 import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Buildings, ChatsCircle, MusicNotes } from "@phosphor-icons/react";
-import HoverIcon from "@/components/ui/HoverIcon";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-/* Platform name — letters rise out of a clipped line on scroll-in */
-function LetterRise({ text }: { text: string }) {
-  return (
-    <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }} aria-label={text}>
-      {text.split("").map((ch, i) => (
-        <motion.span
-          key={i}
-          aria-hidden
-          initial={{ y: "115%" }}
-          whileInView={{ y: "0%" }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.75, delay: 0.1 + i * 0.03, ease: EASE }}
-          style={{ display: "inline-block", whiteSpace: "pre" }}
-        >
-          {ch}
-        </motion.span>
-      ))}
-    </span>
-  );
-}
 
 const platforms = [
   {
@@ -67,109 +45,290 @@ const platforms = [
     Icon: Buildings,
   },
 ];
-
-const MEDIA_Y_RANGES = [
-  ["2vh", "-8vh"],
-  ["8vh", "-14vh"],
-  ["14vh", "-20vh"],
-] as const;
-
-/* One scrolling IP panel — reports itself active when centred */
-function IpPanel({
-  p,
-  i,
-  onActive,
-}: {
-  p: (typeof platforms)[number];
-  i: number;
-  onActive: (i: number) => void;
-}) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { amount: 0.55 });
-  const iconRef = useRef<HTMLDivElement>(null);
-  const iconInView = useInView(iconRef, { once: true });
-
-  useEffect(() => {
-    if (inView) onActive(i);
-  }, [inView, i, onActive]);
-
-  // Stacked bands, like the reference's right column: light title band,
-  // white story panel, quiet logo band. The media column spans all of them.
+function PlatformCopyCard({ p, inView }: { p: (typeof platforms)[number]; inView: boolean }) {
   return (
-    <div ref={ref} className="ip-panel" style={{ position: "relative" }}>
-      {/* band 1 — title strip (light grey, big serif) */}
-      <div style={{ background: "#ecebe7", padding: "clamp(4rem,12vh,7rem) clamp(1.5rem,4vw,3.5rem)", textAlign: "center" }}>
-        <motion.span
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.6 }}
-          transition={{ duration: 0.6 }}
-          style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.26em", color: "rgba(28,28,28,0.45)", fontWeight: 600, textTransform: "uppercase" }}
+    <motion.article
+      className="platform-copy-card"
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.85, ease: EASE }}
+      style={{
+        borderRadius: "30px",
+        background: "#fbfaf8",
+        border: "1px solid rgba(117,0,6,0.08)",
+        boxShadow: "0 22px 46px rgba(38,0,0,0.06)",
+        padding: "clamp(1.6rem,3vw,2.4rem)",
+      }}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1rem" }}>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.66rem",
+            letterSpacing: "0.24em",
+            textTransform: "uppercase",
+            color: "rgba(28,28,28,0.55)",
+            fontWeight: 700,
+          }}
         >
           ({p.num}) Owned platform
-        </motion.span>
-        <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }} data-cursor="Explore">
-          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem,3.8vw,3.4rem)", lineHeight: 1.02, letterSpacing: "0.04em", color: "#1c1c1c", margin: "1.2rem 0 0", textTransform: "uppercase", fontWeight: 600 }}>
-            <LetterRise text={p.name} />
-          </h3>
-        </Link>
+        </span>
+        <span
+          style={{
+            fontFamily: "var(--font-body)",
+            fontSize: "0.66rem",
+            letterSpacing: "0.2em",
+            textTransform: "uppercase",
+            color: p.accent,
+            fontWeight: 800,
+          }}
+        >
+          FID-owned IP
+        </span>
       </div>
 
-      {/* mobile-only image (media column hides on small screens) */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={p.image} alt={p.name} loading="lazy" className="ip-inline-img" style={{ display: "none", width: "100%", aspectRatio: "4/3", objectFit: "cover" }} />
+      <motion.h3
+        initial={{ opacity: 0, y: 14 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 0.04, ease: EASE }}
+        style={{
+          fontFamily: "var(--font-heading)",
+          fontWeight: 900,
+          fontSize: "clamp(2.2rem,4vw,4.8rem)",
+          lineHeight: 0.9,
+          letterSpacing: "-0.04em",
+          textTransform: "uppercase",
+          color: "#1c1c1c",
+          maxWidth: "10ch",
+          margin: 0,
+        }}
+      >
+        {p.name}
+      </motion.h3>
 
-      {/* band 2 — story (white, centered serif, inset logo) */}
-      <div style={{ background: "#fbfaf8", padding: "clamp(5rem,16vh,9rem) clamp(1.5rem,4.5vw,4rem)", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
-        <div ref={iconRef}>
-          {p.logo ? (
-            <motion.span
-              initial={{ opacity: 0, scale: 0.85 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.6 }}
-              transition={{ duration: 0.6, ease: EASE }}
-              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0.9rem 1.2rem", background: p.logoDark ? "#1c1c1c" : "transparent" }}
-            >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={p.logo} alt={`${p.name} logo`} loading="lazy" style={{ height: "52px", maxWidth: "180px", objectFit: "contain" }} />
-            </motion.span>
-          ) : (
-            <HoverIcon icon={p.Icon} size={36} weight="bold" hoverWeight="fill" color={p.accent} drawOnScroll revealed={iconInView} />
-          )}
-        </div>
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.8, ease: EASE }}
-          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.4rem,2.5vw,2.1rem)", lineHeight: 1.28, color: "#1c1c1c", maxWidth: "30ch", margin: "1.8rem 0 0", fontWeight: 500 }}
-        >
-          {p.desc}
-        </motion.p>
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, delay: 0.1 }}
-          style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: p.accent, fontWeight: 700, margin: "1.6rem 0 0", maxWidth: "46ch", lineHeight: 1.9 }}
+      <motion.p
+        initial={{ opacity: 0, y: 14 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+        style={{
+          fontFamily: "var(--font-body)",
+          fontSize: "1rem",
+          lineHeight: 1.65,
+          color: "#1c1c1c",
+          fontWeight: 500,
+          marginTop: "1.25rem",
+          maxWidth: "42ch",
+        }}
+      >
+        {p.desc}
+      </motion.p>
+
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem", marginTop: "1.4rem" }}>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            padding: "0.55rem 0.8rem",
+            borderRadius: "999px",
+            background: "rgba(217,128,56,0.12)",
+            color: p.accent,
+            fontFamily: "var(--font-body)",
+            fontSize: "0.68rem",
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            fontWeight: 800,
+          }}
         >
           {p.tag}
-        </motion.p>
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.7, delay: 0.16, ease: EASE }}
-        >
-          <Link
-            href={p.href}
-            data-cursor="Explore"
-            style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", marginTop: "2.2rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: p.accent, textDecoration: "none", borderBottom: `1px solid ${p.accent}`, paddingBottom: "0.3rem" }}
-          >
-            Explore platform <ArrowUpRight size={16} weight="bold" />
-          </Link>
-        </motion.div>
+        </span>
       </div>
+
+      <motion.div
+        initial={{ opacity: 0, y: 10 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.7, delay: 0.16, ease: EASE }}
+        style={{ marginTop: "1.6rem" }}
+      >
+        <Link
+          href={p.href}
+          data-cursor="Explore"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.55rem",
+            fontFamily: "var(--font-body)",
+            fontSize: "0.74rem",
+            fontWeight: 800,
+            letterSpacing: "0.15em",
+            textTransform: "uppercase",
+            color: p.accent,
+            textDecoration: "none",
+            borderBottom: `1px solid ${p.accent}`,
+            paddingBottom: "0.3rem",
+          }}
+        >
+          Explore platform <ArrowUpRight size={16} weight="bold" />
+        </Link>
+      </motion.div>
+    </motion.article>
+  );
+}
+
+function PlatformArtStack({
+  p,
+  reverse,
+  inView,
+}: {
+  p: (typeof platforms)[number];
+  reverse: boolean;
+  inView: boolean;
+}) {
+  const reduceMotion = useReducedMotion();
+  const direction = reverse ? -1 : 1;
+  const layers = [
+    {
+      inset: "14% 16% 8% 0%",
+      x: -24 * direction,
+      y: 18,
+      rotate: -9 * direction,
+      scale: 0.92,
+      opacity: 0.18,
+      z: 1,
+      border: "1px solid rgba(117,0,6,0.08)",
+      shade: "linear-gradient(180deg, rgba(117,0,6,0.18), rgba(28,28,28,0.42))",
+    },
+    {
+      inset: "7% 0% 14% 10%",
+      x: 20 * direction,
+      y: -12,
+      rotate: 7 * direction,
+      scale: 0.96,
+      opacity: 0.32,
+      z: 2,
+      border: "1px solid rgba(217,128,56,0.16)",
+      shade: "linear-gradient(180deg, rgba(38,0,0,0.08), rgba(38,0,0,0.28))",
+    },
+    {
+      inset: "0",
+      x: 0,
+      y: 0,
+      rotate: 0,
+      scale: 1,
+      opacity: 1,
+      z: 3,
+      border: "1px solid rgba(255,255,255,0.55)",
+      shade: "linear-gradient(180deg, rgba(255,255,255,0.01), rgba(28,28,28,0.1))",
+    },
+  ] as const;
+
+  return (
+    <div
+      className="platform-art"
+      style={{
+        position: "relative",
+        minHeight: "clamp(340px, 44vw, 680px)",
+        isolation: "isolate",
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 22 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.8, ease: EASE }}
+        style={{
+          position: "absolute",
+          inset: "10% 6% 0 8%",
+          borderRadius: "34px",
+          background: "linear-gradient(145deg, rgba(117,0,6,0.16), rgba(217,128,56,0.1))",
+          filter: "blur(1px)",
+        }}
+      />
+      {layers.map((layer, idx) => (
+        <motion.div
+          key={idx}
+          initial={
+            reduceMotion
+              ? { opacity: 0 }
+              : {
+                  opacity: 0,
+                  x: layer.x * 0.5,
+                  y: layer.y * 0.5,
+                  rotate: layer.rotate * 0.5,
+                  scale: layer.scale - 0.04,
+                }
+          }
+          animate={
+            inView
+              ? {
+                  opacity: layer.opacity,
+                  x: layer.x,
+                  y: layer.y,
+                  rotate: layer.rotate,
+                  scale: layer.scale,
+                }
+              : {}
+          }
+          transition={{ duration: 0.9, delay: idx * 0.08, ease: EASE }}
+          style={{
+            position: "absolute",
+            inset: layer.inset,
+            zIndex: layer.z,
+            borderRadius: "32px",
+            overflow: "hidden",
+            boxShadow: "0 30px 60px rgba(38,0,0,0.14)",
+            border: layer.border,
+            backgroundColor: "#260000",
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={p.image}
+            alt={p.name}
+            loading="lazy"
+            style={{
+              position: "absolute",
+              inset: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transform: "scale(1.05)",
+              filter:
+                idx === 2
+                  ? "saturate(1.03) contrast(1.05)"
+                  : "saturate(0.8) contrast(0.92) brightness(0.84)",
+            }}
+          />
+          <div aria-hidden style={{ position: "absolute", inset: 0, background: layer.shade, pointerEvents: "none" }} />
+        </motion.div>
+      ))}
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ duration: 0.75, delay: 0.16, ease: EASE }}
+        style={{
+          position: "absolute",
+          left: "1rem",
+          top: "1rem",
+          zIndex: 4,
+          display: "inline-flex",
+          alignItems: "center",
+          gap: "0.45rem",
+          borderRadius: "999px",
+          background: "rgba(245,242,236,0.92)",
+          color: "#1c1c1c",
+          border: "1px solid rgba(117,0,6,0.12)",
+          padding: "0.5rem 0.8rem",
+          fontFamily: "var(--font-body)",
+          fontSize: "0.66rem",
+          letterSpacing: "0.16em",
+          textTransform: "uppercase",
+          fontWeight: 800,
+        }}
+      >
+        Layered frame
+      </motion.div>
     </div>
   );
 }
@@ -184,59 +343,29 @@ function PlatformRow({
   onActive: (i: number) => void;
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
-  const reduceMotion = useReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: rowRef,
-    offset: ["start end", "end start"],
-  });
-  const [startY, endY] = MEDIA_Y_RANGES[i] ?? [`${2 + i * 6}vh`, `${-(8 + i * 6)}vh`];
-  const y = useTransform(scrollYProgress, [0, 1], [startY, endY]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1.15, 1.28]);
+  const inView = useInView(rowRef, { amount: 0.35 });
+  const reverse = i % 2 === 1;
+
+  useEffect(() => {
+    if (inView) onActive(i);
+  }, [inView, i, onActive]);
 
   return (
-    <div ref={rowRef} className="ip-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
-      <div className="ip-media" style={{ position: "relative", minHeight: "clamp(340px, 44vw, 680px)", order: i % 2 ? 2 : 1 }}>
-        <motion.div
-          className="ip-media-card"
-          style={
-            reduceMotion
-              ? { position: "absolute", inset: 0 }
-              : { position: "absolute", inset: 0, y, scale }
-          }
-        >
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              overflow: "hidden",
-              borderRadius: "28px",
-              background: "#1c1208",
-              boxShadow: "0 18px 48px rgba(38,0,0,0.14)",
-            }}
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={p.image}
-              alt={p.name}
-              loading="lazy"
-              style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", willChange: "transform" }}
-            />
-            <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "linear-gradient(180deg, rgba(28,28,28,0.02) 0%, rgba(28,28,28,0.16) 100%)",
-                pointerEvents: "none",
-              }}
-            />
-          </div>
-        </motion.div>
+    <motion.div
+      ref={rowRef}
+      initial={{ opacity: 0, y: 32 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.85, ease: EASE }}
+      className="ip-row"
+      style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(1.5rem,4vw,3.2rem)", alignItems: "center", marginTop: "clamp(2rem,4vw,3.5rem)" }}
+    >
+      <div style={{ order: reverse ? 2 : 1 }}>
+        <PlatformCopyCard p={p} inView={inView} />
       </div>
-      <div style={{ order: i % 2 ? 1 : 2 }}>
-        <IpPanel p={p} i={i} onActive={onActive} />
+      <div style={{ order: reverse ? 1 : 2 }}>
+        <PlatformArtStack p={p} reverse={reverse} inView={inView} />
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -271,7 +400,9 @@ export default function Platforms() {
           >
             Culture, conversation
             <br />
-            &amp; brand experience <em style={{ fontStyle: "italic", fontWeight: 500, textTransform: "none" }}>on our terms.</em>
+            and brand experience
+            <br />
+            on our terms.
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -297,9 +428,7 @@ export default function Platforms() {
         </div>
       </div>
 
-      {/* alternating sticky-media rows — the image stays pinned (same image, no
-          fades) while its text scrolls past; the next row simply pushes it away,
-          exactly like the reference */}
+      {/* layered cards that stay light and responsive, without scroll-jank */}
       <div style={{ marginTop: "clamp(2rem,4vw,3rem)", position: "relative", zIndex: 1 }}>
         {platforms.map((p, i) => (
           <PlatformRow key={p.name} p={p} i={i} onActive={onActive} />
@@ -344,13 +473,13 @@ export default function Platforms() {
         }
         .platforms-title {
           margin: 1rem auto 0;
-          max-width: 22ch;
+          max-width: 16ch;
           font-family: var(--font-heading);
-          font-size: clamp(2rem, 4vw, 3.5rem);
-          line-height: 0.86;
+          font-size: clamp(3rem, 7vw, 6.6rem);
+          line-height: 0.88;
           font-weight: 900;
-          letter-spacing: 0;
-          text-transform: uppercase;
+          letter-spacing: -0.05em;
+          text-transform: none;
           color: #1c1c1c;
           text-wrap: balance;
         }
@@ -364,7 +493,8 @@ export default function Platforms() {
             grid-template-columns: 1fr;
           }
           .platforms-title {
-            max-width: 11ch;
+            max-width: 14ch;
+            font-size: clamp(2.6rem, 12vw, 4.8rem);
           }
           .platforms-intro {
             max-width: 54ch;
@@ -372,15 +502,11 @@ export default function Platforms() {
           .ip-row {
             grid-template-columns: 1fr !important;
           }
-          .ip-media {
-            display: none !important;
+          .platform-art {
+            min-height: clamp(250px, 74vw, 440px) !important;
           }
-          .ip-inline-img {
-            display: block !important;
-          }
-          .ip-panel,
-          .ip-subpanel {
-            min-height: 0 !important;
+          .platform-copy-card {
+            padding: 1.4rem !important;
           }
         }
       `}</style>
