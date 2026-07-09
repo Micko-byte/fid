@@ -226,7 +226,7 @@ export default function MobileHome() {
         <MobileSectionHead title="Selected Work" href="/#work" label="View all" tone="dark" />
         <MobileSlider tone="dark">
           {WORK.map((w) => (
-            <Link key={w.slug} href={`/work/${w.slug}`} style={{ textDecoration: "none", display: "block", paddingRight: "1px" }}>
+            <Link key={w.slug} href={`/work/${(({ Government: "government", Corporate: "corporate", Hospitality: "hospitality", Healthcare: "healthcare", "Beauty & Lifestyle": "lifestyle", Lifestyle: "lifestyle", "Owned IPs": "owned-ips" } as Record<string, string>)[w.sector] ?? "government")}`} style={{ textDecoration: "none", display: "block", paddingRight: "1px" }}>
               <div style={{ position: "relative", width: "100%", aspectRatio: "4/5", borderRadius: "16px", overflow: "hidden", background: "#260000" }}>
                 <img src={w.image} alt={w.client} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
                 <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,0.85), transparent 55%)" }} />

@@ -36,6 +36,37 @@ function FloralMedallion({ size = 160, color = "#d98038", opacity = 0.16 }: { si
   );
 }
 
+/* ── Eight-point star — classic Islamic geometric motif, used as a subtle accent. ── */
+function GeometricStar({ size = 24, color = "#750006", opacity = 0.35 }: { size?: number; color?: string; opacity?: number }) {
+  return (
+    <svg viewBox="0 0 40 40" width={size} height={size} aria-hidden="true">
+      <g fill="none" stroke={color} strokeOpacity={opacity} strokeWidth="0.8">
+        {[0, 45].map((deg) => (
+          <polygon key={deg} points="20,2 24,16 38,16 27,24 31,38 20,29 9,38 13,24 2,16 16,16" transform={`rotate(${deg} 20 20)`} />
+        ))}
+        <circle cx="20" cy="20" r="3" fill={color} fillOpacity={opacity * 0.6} stroke="none" />
+      </g>
+    </svg>
+  );
+}
+
+/* ── Islamic geometric section divider — interlocking star lattice. ── */
+function ArabesqueDivider({ accent }: { accent: string }) {
+  return (
+    <div aria-hidden style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+      <svg viewBox="0 0 1200 40" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block", opacity: 0.35 }}>
+        <path d="M0 20 C200 8, 400 32, 600 20 S1000 8, 1200 20" stroke={accent} strokeWidth="1" fill="none" />
+        {[150, 300, 450, 600, 750, 900, 1050].map((x) => (
+          <g key={x} transform={`translate(${x}, 20)`}>
+            <polygon points="0,-8 2,-2 8,0 2,2 0,8 -2,2 -8,0 -2,-2" fill={accent} fillOpacity="0.25" stroke={accent} strokeWidth="0.5" strokeOpacity="0.4" />
+          </g>
+        ))}
+        <circle cx="600" cy="20" r="4" fill={accent} fillOpacity="0.4" stroke="none" />
+      </svg>
+    </div>
+  );
+}
+
 export default function PlatformClient({ platform: p }: { platform: OwnedPlatform }) {
   const heroRef = useRef<HTMLDivElement>(null);
   const inView = useInView(heroRef, { once: true });
@@ -50,6 +81,25 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
       <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh" }}>
         {/* ── HERO ── */}
         <section ref={heroRef} style={{ position: "relative", paddingTop: "clamp(8rem,16vw,12rem)", paddingBottom: "clamp(4rem,8vw,7rem)", overflow: "hidden" }}>
+          {/* Suhba: soft blurred backdrop photo — no colour overlay. */}
+          {isSuhba && (
+            <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", zIndex: 0, overflow: "hidden" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={p.gallery?.[1] ?? p.image}
+                alt=""
+                loading="lazy"
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  filter: "blur(6px)",
+                  transform: "scale(1.06)",
+                }}
+              />
+            </div>
+          )}
+
           {/* warm ambient wash */}
           <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", background: `radial-gradient(60% 70% at 80% 0%, ${p.accent}22 0%, transparent 55%), radial-gradient(60% 70% at 10% 100%, rgba(117,0,6,0.08) 0%, transparent 55%)` }} />
 
@@ -137,6 +187,114 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
           </div>
         </section>
 
+        {/* ── Featured partners — section 2 for Suhba (client brief) ── */}
+        {p.partners && p.partners.length > 0 && (
+          <>
+            {isSuhba && <ArabesqueDivider accent={p.accent} />}
+            <section
+              className={isSuhba ? "bg-brand-texture" : undefined}
+              style={{
+                backgroundColor: isSuhba ? undefined : "#f5f2ec",
+                paddingTop: "clamp(3rem,6vw,5rem)",
+                paddingBottom: "clamp(3rem,6vw,5rem)",
+                position: "relative",
+                overflow: "hidden",
+              }}
+            >
+              {isSuhba && (
+                <>
+                  <div aria-hidden style={{ position: "absolute", top: "8%", left: "2%", pointerEvents: "none", opacity: 0.55 }}>
+                    <FloralMedallion size={120} color={p.accent} opacity={0.14} />
+                  </div>
+                  <div aria-hidden style={{ position: "absolute", bottom: "5%", right: "3%", pointerEvents: "none", opacity: 0.5 }}>
+                    <GeometricStar size={80} color="#c9aa3c" opacity={0.18} />
+                  </div>
+                </>
+              )}
+              <div style={{ position: "relative", zIndex: 1, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+                <span style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.28em", textTransform: "uppercase", color: p.accent }}>
+                  {isSuhba && <GeometricStar size={14} color={p.accent} opacity={0.7} />}
+                  <span style={{ width: "26px", height: "1px", background: p.accent, opacity: 0.7 }} />
+                  Featured Partners
+                  {isSuhba && <GeometricStar size={14} color={p.accent} opacity={0.7} />}
+                </span>
+                <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "clamp(2rem,4vw,3rem)", color: "#1c1c1c", letterSpacing: "-0.02em", marginTop: "0.8rem", marginBottom: "clamp(2rem,4vw,3rem)" }}>
+                  Partners shaping the experience
+                </h2>
+
+                <div className="suhba-mq-mask">
+                  <div className="suhba-mq-track">
+                    {[...p.partners, ...p.partners].map((pt, i) => (
+                      <div key={i} className="suhba-mq-item">
+                        {pt.logo ? (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={pt.logo} alt={`${pt.name} logo`} loading="lazy" />
+                        ) : (
+                          <span className="suhba-mq-wordmark" style={{ color: p.accent }}>{pt.name}</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <style>{`
+              .suhba-mq-mask {
+                -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+                mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+              }
+              .suhba-mq-track {
+                display: flex;
+                align-items: center;
+                gap: clamp(2.5rem, 5vw, 4.5rem);
+                width: max-content;
+                animation: suhba-mq-scroll 36s linear infinite;
+              }
+              .suhba-mq-track:hover { animation-play-state: paused; }
+              .suhba-mq-item {
+                flex: 0 0 auto;
+                height: clamp(48px, 8vw, 64px);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              }
+              .suhba-mq-item img {
+                max-height: 100%;
+                max-width: 170px;
+                width: auto;
+                object-fit: contain;
+                filter: grayscale(1) contrast(1.1);
+                opacity: 0.65;
+                transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
+              }
+              .suhba-mq-item img:hover {
+                filter: grayscale(0);
+                opacity: 1;
+                transform: scale(1.08);
+              }
+              .suhba-mq-wordmark {
+                font-family: var(--font-heading);
+                font-weight: 600;
+                font-size: clamp(1rem, 1.6vw, 1.3rem);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                white-space: nowrap;
+                opacity: 0.75;
+                transition: opacity 0.4s ease, transform 0.4s ease;
+              }
+              .suhba-mq-wordmark:hover { opacity: 1; transform: scale(1.05); }
+              @keyframes suhba-mq-scroll {
+                from { transform: translateX(0); }
+                to { transform: translateX(-50%); }
+              }
+              @media (prefers-reduced-motion: reduce) {
+                .suhba-mq-track { animation: none; flex-wrap: wrap; justify-content: center; }
+              }
+            `}</style>
+          </>
+        )}
+
         {/* ── Cover image ── */}
         <section style={{ paddingBottom: "clamp(4rem,8vw,6rem)" }}>
           <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
@@ -198,10 +356,18 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
         )}
 
         {/* ── Intro paragraph ── */}
-        <section style={{ paddingBottom: "clamp(5rem,10vw,8rem)" }}>
+        <section style={{ paddingBottom: "clamp(5rem,10vw,8rem)", position: "relative" }}>
+          {isSuhba && (
+            <div aria-hidden style={{ position: "absolute", top: "10%", right: "4%", pointerEvents: "none", opacity: 0.45 }}>
+              <GeometricStar size={56} color="#c9aa3c" opacity={0.2} />
+            </div>
+          )}
           <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
             <div style={{ display: "grid", gridTemplateColumns: "1fr 1.8fr", gap: "clamp(2rem,5vw,5rem)", alignItems: "start" }} className="plat-page-grid">
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: p.accent, margin: 0 }}>About the platform</p>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.28em", textTransform: "uppercase", color: p.accent, margin: 0, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                {isSuhba && <GeometricStar size={10} color={p.accent} opacity={0.6} />}
+                About the platform
+              </p>
               <p style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.35vw,1.2rem)", lineHeight: 1.75, color: "#1c1c1c", maxWidth: "70ch", margin: 0 }}>
                 {p.intro}
               </p>
@@ -253,56 +419,6 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
             </div>
           </div>
         </section>
-
-        {/* ── Ornamental SVG divider ── */}
-        {p.partners && p.partners.length > 0 && (
-          <div aria-hidden style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
-            <svg viewBox="0 0 1200 32" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "auto", display: "block", opacity: 0.3 }}>
-              <path d="M0 16 C200 4, 400 28, 600 16 S1000 4, 1200 16" stroke={p.accent} strokeWidth="1.2" fill="none" />
-              <circle cx="600" cy="16" r="3" fill={p.accent} opacity="0.5" />
-              <circle cx="300" cy="10" r="1.5" fill={p.accent} opacity="0.3" />
-              <circle cx="900" cy="10" r="1.5" fill={p.accent} opacity="0.3" />
-            </svg>
-          </div>
-        )}
-
-        {/* ── Featured partners (Suhba etc.) ── */}
-        {p.partners && p.partners.length > 0 && (
-          <section style={{ backgroundColor: "#fbf3d6", backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23d98038' stroke-opacity='0.08' stroke-width='1'%3E%3Cpath d='M0 40 L40 0 L80 40 L40 80 Z'/%3E%3Cpath d='M10 40 L40 10 L70 40 L40 70 Z'/%3E%3Cpath d='M20 40 L40 20 L60 40 L40 60 Z'/%3E%3C/g%3E%3C/svg%3E\")", paddingTop: "clamp(4rem,8vw,6rem)", paddingBottom: "clamp(4rem,8vw,6rem)" }}>
-            <div style={{ maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
-              <span style={{ display: "inline-flex", alignItems: "center", gap: "0.7rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.28em", textTransform: "uppercase", color: p.accent }}>
-                <span style={{ width: "26px", height: "1px", background: p.accent, opacity: 0.7 }} />
-                Featured Partners
-              </span>
-              <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "clamp(2rem,4vw,3rem)", color: "#1c1c1c", letterSpacing: "-0.02em", marginTop: "0.8rem", marginBottom: "clamp(2rem,4vw,3rem)" }}>
-                Partners shaping the experience
-              </h2>
-
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "clamp(1rem,2vw,1.5rem)" }}>
-                {p.partners.map((pt, i) => (
-                  <motion.div
-                    key={i}
-                    whileHover={{ scale: 1.02, borderLeftColor: p.accent }}
-                    transition={{ duration: 0.25, ease: "easeOut" }}
-                    style={{ padding: "1.4rem 1.5rem", backgroundColor: "#f5f2ec", border: "1px solid rgba(117,0,6,0.1)", borderLeft: `3px solid transparent`, borderRadius: "6px", cursor: "default" }}
-                  >
-                    <p style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "1.05rem", color: "#1c1c1c", textTransform: "uppercase", letterSpacing: "0.02em", margin: 0 }}>
-                      {pt.name}
-                    </p>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.16em", textTransform: "uppercase", color: p.accent, margin: "0.4rem 0 0.7rem" }}>
-                      {pt.role}
-                    </p>
-                    {pt.note && (
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", lineHeight: 1.55, color: "#1c1c1c", margin: 0 }}>
-                        {pt.note}
-                      </p>
-                    )}
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </section>
-        )}
 
         {/* ── CTA ── */}
         <section className="section-light" style={{ position: "relative", paddingTop: "clamp(5rem,10vw,8rem)", paddingBottom: "clamp(6rem,12vw,10rem)", overflow: "hidden" }}>

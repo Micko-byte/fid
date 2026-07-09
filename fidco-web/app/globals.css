@@ -366,8 +366,10 @@ th {
     --site-gutter: 1.1rem;
   }
 
-  /* ── Nav pill full width on tiny screens ── */
+  /* ── Nav pill centered on tiny screens ── */
   nav[aria-label="Main navigation"] {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
     width: calc(100vw - 1.6rem) !important;
     top: 0.6rem !important;
     border-radius: 14px !important;

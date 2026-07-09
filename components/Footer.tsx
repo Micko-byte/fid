@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { InstagramLogo, FacebookLogo, YoutubeLogo, Phone, Globe } from "@phosphor-icons/react";
+import { InstagramLogo, FacebookLogo, YoutubeLogo, LinkedinLogo, TiktokLogo, Phone, Globe } from "@phosphor-icons/react";
 import FooterClimb from "@/components/motion/FooterClimb";
 import FidLogo from "@/components/ui/FidLogo";
 
@@ -46,16 +46,23 @@ export default function Footer() {
                 { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
                 { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
                 { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
+                { Icon: LinkedinLogo, href: "https://www.linkedin.com/company/fidpr", label: "LinkedIn" },
+                { Icon: TiktokLogo, href: "https://www.tiktok.com/@fidpr", label: "TikTok" },
               ].map(({ Icon, href, label }, i) => (
                 <motion.a
-                  key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   initial={{ opacity: 0, y: 14, scale: 0.8 }}
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.1 + i * 0.1, ease: EASE }}
                   style={{ width: "44px", height: "44px", border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", color: "rgba(245,242,236,0.6)", textDecoration: "none", transition: "all 0.25s" }}
                   onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#d98038"; e.currentTarget.style.borderColor = "#d98038"; e.currentTarget.style.color = "#260000"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; e.currentTarget.style.color = "rgba(245,242,236,0.6)"; }}>
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; e.currentTarget.style.color = "rgba(245,242,236,0.6)"; }}
+                >
                   <Icon size={22} weight="bold" />
                 </motion.a>
               ))}
@@ -77,8 +84,11 @@ export default function Footer() {
         <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "#750006", fontWeight: 600 }}>
           Insight · Strategy · Impact
         </span>
-        <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.02em", color: "rgba(28,28,28,0.55)", marginTop: "0.4rem" }}>
+        <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.04em", color: "rgba(28,28,28,0.72)", textAlign: "center", maxWidth: "42ch", lineHeight: 1.6 }}>
           FID &amp; Co. is owned &amp; managed by FID Public Relations Ltd.
+        </span>
+        <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.02em", color: "rgba(28,28,28,0.55)", marginTop: "0.1rem" }}>
+          Built in Nairobi, for brands, institutions and cultural platforms across Africa.
         </span>
       </div>
 

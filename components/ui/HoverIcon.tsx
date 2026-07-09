@@ -32,7 +32,7 @@ export default function HoverIcon({
   weight = "regular",
   hoverWeight = "fill",
   rotate = 0,
-  scale = 1.12,
+  scale = 1.18,
   drawOnScroll = false,
   revealed = true,
 }: Props) {
@@ -41,10 +41,23 @@ export default function HoverIcon({
     <motion.span
       onHoverStart={() => setHover(true)}
       onHoverEnd={() => setHover(false)}
-      animate={{ scale: hover ? scale : 1, rotate: hover ? rotate : 0 }}
-      transition={{ duration: ICON_DURATION, ease: ICON_EASE }}
-      style={{ display: "inline-flex", transformOrigin: "center" }}
+      animate={{ scale: hover ? scale : 1, rotate: hover ? (rotate || 8) : 0, y: hover ? -2 : 0 }}
+      transition={{ duration: 0.34, ease: ICON_EASE }}
+      style={{ display: "inline-flex", transformOrigin: "center", position: "relative" }}
     >
+      <motion.span
+        aria-hidden
+        animate={{ opacity: hover ? 1 : 0, scale: hover ? 1 : 0.65 }}
+        transition={{ duration: 0.34, ease: ICON_EASE }}
+        style={{
+          position: "absolute",
+          inset: "-0.42rem",
+          borderRadius: "999px",
+          background: "radial-gradient(circle, rgba(217,128,56,0.26) 0%, rgba(217,128,56,0.08) 46%, transparent 72%)",
+          filter: "blur(4px)",
+          pointerEvents: "none",
+        }}
+      />
       <IconCmp size={size} weight={hover ? hoverWeight : weight} color={color} />
     </motion.span>
   );

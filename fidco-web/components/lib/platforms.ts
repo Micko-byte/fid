@@ -10,7 +10,7 @@ export interface OwnedPlatform {
   /** Brand partnership opportunities */
   partnerships: string[];
   /** Featured partners (Suhba primarily, others left empty for now) */
-  partners?: { name: string; role: string; note?: string }[];
+  partners?: { name: string; role: string; note?: string; logo?: string }[];
   /** Photo gallery — Google Drive direct URLs or local /public paths */
   gallery?: string[];
   image: string;
@@ -70,13 +70,13 @@ export const platforms: OwnedPlatform[] = [
       "Content and digital storytelling collaborations",
     ],
     partners: [
-      { name: "ABSA La Riba", role: "Financial Partner", note: "Supporting conversations around intentional growth, financial wellbeing and modern African leadership." },
-      { name: "Gulf Bank", role: "Banking Partner", note: "Supporting platforms that encourage entrepreneurship, connection and future-focused conversations across African markets." },
+      { name: "ABSA La Riba", role: "Financial Partner", logo: "/logos/suhba-partners/absa.png" },
+      { name: "Gulf Bank", role: "Banking Partner", logo: "/logos/suhba-partners/gulf-bank.png" },
       { name: "Luton Hospital Foundation", role: "Wellness & Community Partner" },
-      { name: "Abyan Salon & Spa", role: "Beauty & Self-Care Partner" },
-      { name: "Kingfisher Nest Hotel", role: "Hospitality Partner" },
-      { name: "Goodlife Pharmacy", role: "Wellness Partner" },
-      { name: "Allso Beauty", role: "Beauty Partner" },
+      { name: "Abyan Salon & Spa", role: "Beauty & Self-Care Partner", logo: "/logos/suhba-partners/abyan-salon-spa.png" },
+      { name: "Kingfisher Nest Hotel", role: "Hospitality Partner", logo: "/logos/suhba-partners/kingfisher-nest-hotel.png" },
+      { name: "Goodlife Pharmacy", role: "Wellness Partner", logo: "/logos/suhba-partners/goodlife-pharmacy.png" },
+      { name: "Allso Beauty", role: "Beauty Partner", logo: "/logos/suhba-partners/allso-beauty.png" },
       { name: "Dessert Galore", role: "Experience Partner" },
     ],
     gallery: [

@@ -1,11 +1,12 @@
-﻿"use client";
+"use client";
 
-import { useRef } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, Buildings, ChatsCircle, MusicNotes } from "@phosphor-icons/react";
 import HoverIcon from "@/components/ui/HoverIcon";
-import CutoutCard from "@/components/ui/CutoutCard";
+
+const EASE = [0.16, 1, 0.3, 1] as const;
 
 const platforms = [
   {
@@ -15,6 +16,8 @@ const platforms = [
     desc: "FID & Co.'s flagship experiential lifestyle platform, bringing together music, hospitality, creator culture and socially engaged urban audiences through curated day experiences.",
     num: "01",
     image: "/photos/projects/tribe-vibe.jpg",
+    logo: "/logos/tribe-vibe.png" as string | undefined,
+    logoDark: false,
     accent: "#d98038",
     Icon: MusicNotes,
   },
@@ -25,7 +28,9 @@ const platforms = [
     desc: "An intimate conversation platform created to foster meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences.",
     num: "02",
     image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
-    accent: "#d9ab88",
+    logo: "/logos/suhba-series.png" as string | undefined,
+    logoDark: false,
+    accent: "#8a6a52",
     Icon: ChatsCircle,
   },
   {
@@ -35,99 +40,145 @@ const platforms = [
     desc: "A conversation-led platform focused on leadership, entrepreneurship, business and the realities of building within African markets, bringing together founders, executives and changemakers.",
     num: "03",
     image: "/photos/editorial/podcast-set.jpg",
-    accent: "#d9ab88",
+    logo: "/logos/capital-room.png" as string | undefined,
+    logoDark: true,
+    accent: "#750006",
     Icon: Buildings,
   },
 ];
 
-function FeaturePlatform({ platform: p }: { platform: (typeof platforms)[number] }) {
-  const Icon = p.Icon;
+/* One scrolling IP panel — reports itself active when centred */
+function IpPanel({
+  p,
+  i,
+  onActive,
+}: {
+  p: (typeof platforms)[number];
+  i: number;
+  onActive: (i: number) => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.55 });
   const iconRef = useRef<HTMLDivElement>(null);
   const iconInView = useInView(iconRef, { once: true });
 
+  useEffect(() => {
+    if (inView) onActive(i);
+  }, [inView, i, onActive]);
+
+  // Stacked bands, like the reference's right column: light title band,
+  // white story panel, quiet logo band. The media column spans all of them.
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 28 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-12% 0px" }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="platform-feature fid-art-panel"
-    >
-      <Link href={p.href} className="platform-feature-media" data-cursor="Explore">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={p.image} alt={p.name} loading="lazy" />
-      </Link>
-
-      <div className="platform-feature-copy">
-        <div ref={iconRef} className="platform-meta-row">
-          <span style={{ color: "#f5f2ec" }}>{p.num} / Owned platform</span>
-          <HoverIcon icon={Icon} size={38} weight="bold" hoverWeight="fill" color="#d98038" drawOnScroll revealed={iconInView} />
-        </div>
-
-        <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }}>
-          <h3 className="platform-feature-title" style={{ color: "#f5f2ec" }}>{p.name}</h3>
-        </Link>
-
-        <p className="platform-tag">{p.tag}</p>
-        <p className="platform-desc" style={{ color: "#f5f2ec", fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.6, maxWidth: "52ch", margin: "1rem 0 0" }}>{p.desc}</p>
-
-        <Link href={p.href} className="platform-link" data-cursor="Explore">
-          Explore platform <ArrowUpRight size={17} weight="bold" />
+    <div ref={ref} className="ip-panel" style={{ position: "relative" }}>
+      {/* band 1 — title strip (light grey, big serif) */}
+      <div style={{ background: "#ecebe7", padding: "clamp(4rem,12vh,7rem) clamp(1.5rem,4vw,3.5rem)", textAlign: "center" }}>
+        <motion.span
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6 }}
+          style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.26em", color: "rgba(28,28,28,0.45)", fontWeight: 600, textTransform: "uppercase" }}
+        >
+          ({p.num}) Owned platform
+        </motion.span>
+        <Link href={p.href} style={{ color: "inherit", textDecoration: "none" }} data-cursor="Explore">
+          <motion.h3
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.85, ease: EASE }}
+            style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2rem,3.8vw,3.4rem)", lineHeight: 1.02, letterSpacing: "0.04em", color: "#1c1c1c", margin: "1.2rem 0 0", textTransform: "uppercase", fontWeight: 600 }}
+          >
+            {p.name}
+          </motion.h3>
         </Link>
       </div>
-    </motion.article>
-  );
-}
 
-function PlatformTile({ platform: p, index }: { platform: (typeof platforms)[number]; index: number }) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-10% 0px" }}
-      transition={{ duration: 0.75, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-      style={{ minHeight: "clamp(220px, 28vw, 360px)" }}
-    >
-      <CutoutCard
-        image={p.image}
-        label={p.name}
-        sublabel={`${p.num} · ${p.tag}`}
-        href={p.href}
-        style={{ height: "100%" }}
-      >
-        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.45rem", marginTop: "0.8rem", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: p.accent, textDecoration: "none" }}>
-          Explore <ArrowUpRight size={14} weight="bold" />
-        </span>
-      </CutoutCard>
-    </motion.div>
+      {/* mobile-only image (media column hides on small screens) */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img src={p.image} alt={p.name} loading="lazy" className="ip-inline-img" style={{ display: "none", width: "100%", aspectRatio: "4/3", objectFit: "cover" }} />
+
+      {/* band 2 — story (white, centered serif, inset logo) */}
+      <div style={{ background: "#fbfaf8", padding: "clamp(5rem,16vh,9rem) clamp(1.5rem,4.5vw,4rem)", textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div ref={iconRef}>
+          {p.logo ? (
+            <motion.span
+              initial={{ opacity: 0, scale: 0.85 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true, amount: 0.6 }}
+              transition={{ duration: 0.6, ease: EASE }}
+              style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0.9rem 1.2rem", background: p.logoDark ? "#1c1c1c" : "transparent" }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={p.logo} alt={`${p.name} logo`} loading="lazy" style={{ height: "52px", maxWidth: "180px", objectFit: "contain" }} />
+            </motion.span>
+          ) : (
+            <HoverIcon icon={p.Icon} size={36} weight="bold" hoverWeight="fill" color={p.accent} drawOnScroll revealed={iconInView} />
+          )}
+        </div>
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.4rem,2.5vw,2.1rem)", lineHeight: 1.28, color: "#1c1c1c", maxWidth: "30ch", margin: "1.8rem 0 0", fontWeight: 500 }}
+        >
+          {p.desc}
+        </motion.p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: p.accent, fontWeight: 700, margin: "1.6rem 0 0", maxWidth: "46ch", lineHeight: 1.9 }}
+        >
+          {p.tag}
+        </motion.p>
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.7, delay: 0.16, ease: EASE }}
+        >
+          <Link
+            href={p.href}
+            data-cursor="Explore"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", marginTop: "2.2rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", fontWeight: 800, letterSpacing: "0.15em", textTransform: "uppercase", color: p.accent, textDecoration: "none", borderBottom: `1px solid ${p.accent}`, paddingBottom: "0.3rem" }}
+          >
+            Explore platform <ArrowUpRight size={16} weight="bold" />
+          </Link>
+        </motion.div>
+      </div>
+    </div>
   );
 }
 
 export default function Platforms() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [feature, ...rest] = platforms;
+  const [active, setActive] = useState(0);
+  const onActive = useCallback((i: number) => setActive(i), []);
 
   return (
-    <section id="platforms" className="fid-section section-light platforms-section">
+    <section id="platforms" className="fid-section section-light platforms-section" style={{ paddingBottom: 0 }}>
       <div aria-hidden className="platforms-bg-word">CULTURE</div>
       <div ref={ref} className="section-shell" style={{ position: "relative", zIndex: 1 }}>
         <div className="platforms-head">
           <div>
-         <motion.span
-          initial={{ opacity: 0, y: 18 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="type-eyebrow"
-          style={{ color: "#750006" }}
-        >
-          Owned platforms &amp; cultural IPs
-        </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, ease: EASE }}
+              className="type-eyebrow"
+              style={{ color: "#750006" }}
+            >
+              Owned platforms &amp; cultural IPs
+            </motion.span>
             <motion.h2
               data-skew
               initial={{ opacity: 0, y: 26 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.85, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.85, delay: 0.08, ease: EASE }}
               className="platforms-title"
             >
               Culture, conversation and brand experience on our terms.
@@ -137,21 +188,45 @@ export default function Platforms() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.75, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.75, delay: 0.16, ease: EASE }}
             className="type-body platforms-intro"
           >
             These are not filler event pages. They are FID-owned audience platforms designed for cultural relevance, commercial partnership and repeatable brand moments.
           </motion.p>
         </div>
 
-        <div className="platforms-layout">
-          <FeaturePlatform platform={feature} />
-          <div className="platforms-side">
-            {rest.map((platform, index) => (
-              <PlatformTile key={platform.name} platform={platform} index={index} />
-            ))}
-          </div>
+        {/* numbered index strip */}
+        <div style={{ borderTop: "1px solid rgba(28,28,28,0.1)", paddingTop: "1rem", display: "flex", flexWrap: "wrap", gap: "0.4rem 2rem" }}>
+          {platforms.map((p, i) => (
+            <span
+              key={p.name}
+              style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.18em", textTransform: "uppercase", color: i === active ? p.accent : "rgba(28,28,28,0.5)", fontWeight: i === active ? 700 : 600, transition: "color 0.3s" }}
+            >
+              ({p.num}) {p.name}
+            </span>
+          ))}
         </div>
+      </div>
+
+      {/* alternating sticky-media rows — the image stays pinned (same image, no
+          fades) while its text scrolls past; the next row simply pushes it away,
+          exactly like the reference */}
+      <div style={{ marginTop: "clamp(2rem,4vw,3rem)", position: "relative", zIndex: 1 }}>
+        {platforms.map((p, i) => (
+          <div key={p.name} className="ip-row" style={{ display: "grid", gridTemplateColumns: "1fr 1fr" }}>
+            <div className="ip-media" style={{ position: "relative", order: i % 2 ? 2 : 1 }}>
+              {/* full-bleed media spanning the whole chapter height — scrolls
+                  with the page (no sticky), flush to the viewport edge */}
+              <div style={{ position: "absolute", inset: 0, overflow: "hidden", background: "#1c1208" }}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.image} alt={p.name} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+              </div>
+            </div>
+            <div style={{ order: i % 2 ? 1 : 2 }}>
+              <IpPanel p={p} i={i} onActive={onActive} />
+            </div>
+          </div>
+        ))}
       </div>
 
       <style>{`
@@ -210,152 +285,8 @@ export default function Platforms() {
           color: #1c1c1c;
           margin: 0;
         }
-        .platforms-layout {
-          display: grid;
-          grid-template-columns: minmax(0, 1.32fr) minmax(320px, 0.68fr);
-          gap: clamp(1rem, 2vw, 1.5rem);
-          align-items: stretch;
-        }
-        .platform-feature {
-          min-height: clamp(620px, 72vw, 840px);
-          display: grid;
-          grid-template-rows: minmax(0, 1fr) auto;
-          background: #f5f2ec;
-          border-color: rgba(117,0,6,0.12);
-          box-shadow: 0 24px 80px rgba(38,0,0,0.12);
-        }
-        .platform-feature-media,
-        .platform-tile-media {
-          position: relative;
-          display: block;
-          overflow: hidden;
-          min-height: 0;
-          background: #260000;
-        }
-        .platform-feature-media::after,
-        .platform-tile-media::after {
-          content: "";
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(180deg, rgba(28,28,28,0.04), rgba(28,28,28,0.42));
-          pointer-events: none;
-        }
-        .platform-feature-media img,
-        .platform-tile-media img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-          filter: saturate(0.96) contrast(1.05);
-          transition: transform 0.9s var(--ease-out), filter 0.9s var(--ease-out);
-        }
-        .platform-feature:hover img,
-        .platform-tile:hover img {
-          transform: scale(1.045);
-          filter: saturate(1.08) contrast(1.05);
-        }
-        .platform-feature-copy {
-          padding: clamp(1.5rem, 3.4vw, 3rem);
-          background: linear-gradient(135deg, rgba(117,0,6,0.98), rgba(38,0,0,0.98));
-          color: #f5f2ec;
-        }
-        .platform-meta-row {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-          color: #f5f2ec;
-          font-family: var(--font-body);
-          font-size: 0.72rem;
-          letter-spacing: 0.16em;
-          text-transform: uppercase;
-        }
-        .platform-feature-title {
-          max-width: 10ch;
-          margin: clamp(1rem, 2vw, 1.4rem) 0 0;
-          font-family: var(--font-heading);
-          font-size: clamp(3rem, 7vw, 7.2rem);
-          line-height: 0.86;
-          font-weight: 900;
-          letter-spacing: 0;
-          text-transform: uppercase;
-          color: #f5f2ec;
-        }
-        .platform-tag {
-          margin: clamp(1rem, 2vw, 1.2rem) 0 0;
-          max-width: 54ch;
-          color: #d98038;
-          font-family: var(--font-body);
-          font-size: 0.75rem;
-          line-height: 1.55;
-          letter-spacing: 0.13em;
-          text-transform: uppercase;
-        }
-        .platform-desc {
-          max-width: 52ch;
-          margin: 1rem 0 0;
-          color: #f5f2ec;
-        }
-        .platform-link,
-        .platform-tile-link {
-          display: inline-flex;
-          align-items: center;
-          gap: 0.55rem;
-          margin-top: clamp(1.2rem, 2.5vw, 2rem);
-          color: #f5f2ec;
-          font-family: var(--font-body);
-          font-size: 0.74rem;
-          font-weight: 800;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          text-decoration: none;
-        }
-        .platform-link {
-          color: #d98038;
-        }
-        .platforms-side {
-          display: grid;
-          gap: clamp(1rem, 2vw, 1.5rem);
-        }
-        .platform-tile {
-          min-height: 0;
-          display: grid;
-          grid-template-rows: minmax(220px, 1fr) auto;
-          overflow: hidden;
-          border-radius: 14px;
-          border: 1px solid rgba(117,0,6,0.1);
-          background: #f5f2ec;
-          box-shadow: 0 12px 40px rgba(38,0,0,0.08);
-        }
-        .platform-tile-copy {
-          padding: clamp(1.2rem, 2.4vw, 1.8rem);
-        }
-        .platform-tile h3 {
-          margin: 1rem 0 0;
-          color: #1c1c1c;
-          font-family: var(--font-heading);
-          font-size: clamp(1.75rem, 3vw, 2.8rem);
-          line-height: 0.96;
-          font-weight: 900;
-          letter-spacing: 0;
-          text-transform: uppercase;
-        }
-        .platform-tile p {
-          max-width: 34ch;
-          margin: 0.85rem 0 0;
-          color: #1c1c1c;
-          font-family: var(--font-body);
-          font-size: 0.7rem;
-          letter-spacing: 0.12em;
-          line-height: 1.5;
-          text-transform: uppercase;
-        }
-        .platform-tile-link {
-          color: var(--tile-accent);
-        }
         @media (max-width: 980px) {
-          .platforms-head,
-          .platforms-layout {
+          .platforms-head {
             grid-template-columns: 1fr;
           }
           .platforms-title {
@@ -364,25 +295,18 @@ export default function Platforms() {
           .platforms-intro {
             max-width: 54ch;
           }
-          .platform-feature {
-            min-height: auto;
+          .ip-row {
+            grid-template-columns: 1fr !important;
           }
-          .platform-feature-media {
-            min-height: 420px;
+          .ip-media {
+            display: none !important;
           }
-          .platforms-side {
-            grid-template-columns: 1fr 1fr;
+          .ip-inline-img {
+            display: block !important;
           }
-        }
-        @media (max-width: 680px) {
-          .platforms-side {
-            grid-template-columns: 1fr;
-          }
-          .platform-feature-media {
-            min-height: 340px;
-          }
-          .platforms-title {
-            font-size: clamp(3rem, 16vw, 5.4rem);
+          .ip-panel,
+          .ip-subpanel {
+            min-height: 0 !important;
           }
         }
       `}</style>
