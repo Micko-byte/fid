@@ -1,14 +1,17 @@
 ﻿"use client";
 
-import { useRef, type MutableRefObject } from "react";
+import { useRef, useState, type MutableRefObject } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import VariableProximity from "@/components/ui/VariableProximity";
 import { TextRoll } from "@/components/core/text-roll";
+import TiltedCard from "@/components/ui/TiltedCard";
+import PixelCard from "@/components/ui/PixelCard";
 
 export default function Founder() {
   const sectionRef = useRef<HTMLElement>(null);
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
+  const [photoHover, setPhotoHover] = useState(false);
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const watermarkY = useTransform(scrollYProgress, [0, 1], ["10%", "-15%"]);
@@ -72,32 +75,49 @@ export default function Founder() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.08 }}
           >
-            <div className="founder-photo" style={{ height: "clamp(360px, 46vw, 560px)", backgroundColor: "#f5f2ec", position: "relative", overflow: "hidden" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/photos/founder/farida-studio.jpg"
-                alt="Farida Idris, Founder & Lead Strategist"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
-              />
-              {/* second frame — revealed on hover. Base opacity lives in the
-                  stylesheet (not inline) so the :hover rule can override it. */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/photos/founder/farida-seated.jpg"
-                alt=""
-                aria-hidden
-                className="founder-photo-alt"
-                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
-              />
-              <style>{`
-                .founder-photo-alt {
-                  opacity: 0;
-                  transform: scale(1.04);
-                  transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
-                }
-                .founder-photo:hover .founder-photo-alt { opacity: 1; transform: scale(1); }
-              `}</style>
-            </div>
+            <TiltedCard
+              imageSrc="/photos/founder/farida-studio.jpg"
+              altText="Farida Idris, Founder & Lead Strategist"
+              captionText="Farida Idris"
+              containerHeight="clamp(360px, 46vw, 560px)"
+              containerWidth="100%"
+              imageHeight="clamp(360px, 46vw, 560px)"
+              imageWidth="100%"
+              rotateAmplitude={10}
+              scaleOnHover={1.04}
+              showTooltip
+              displayOverlayContent
+              onHoverChange={setPhotoHover}
+              overlayContent={
+                <>
+                  {/* second frame — crossfades in on hover */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/photos/founder/farida-seated.jpg"
+                    alt=""
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center top",
+                      borderRadius: "16px",
+                      opacity: photoHover ? 1 : 0,
+                      transform: photoHover ? "scale(1)" : "scale(1.04)",
+                      transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
+                    }}
+                  />
+                  {/* pixel shimmer across the transition */}
+                  <PixelCard
+                    variant="brand"
+                    active={photoHover}
+                    style={{ position: "absolute", inset: 0, borderRadius: "16px", mixBlendMode: "screen", opacity: 0.85 }}
+                  />
+                </>
+              }
+            />
           </motion.div>
 
           {/* Text */}

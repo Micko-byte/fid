@@ -1,386 +1,131 @@
 "use client";
 
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef } from "react";
 import Link from "next/link";
-import { motion, useInView, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Buildings, ChatsCircle, MusicNotes } from "@phosphor-icons/react";
+import { motion, useInView } from "framer-motion";
+import { ArrowUpRight } from "@phosphor-icons/react";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 const platforms = [
   {
     name: "The Tribe Vibe",
-    tag: "Lifestyle / Music / Culture / Community",
-    href: "/platforms/the-tribe-vibe",
-    desc: "FID & Co.'s flagship experiential lifestyle platform, bringing together music, hospitality, creator culture and socially engaged urban audiences through curated day experiences.",
     num: "01",
+    tag: "Lifestyle · Music · Culture · Community",
+    href: "/platforms/the-tribe-vibe",
+    desc: "FID & Co.'s flagship experiential lifestyle platform — music, hospitality, creator culture and socially engaged urban audiences through curated day experiences.",
     image: "/photos/projects/tribe-vibe.jpg",
-    logo: "/logos/tribe-vibe.png" as string | undefined,
+    logo: "/logos/tribe-vibe.png",
     logoDark: false,
     accent: "#d98038",
-    Icon: MusicNotes,
   },
   {
     name: "Suhba Series",
-    tag: "Curated Conversations / Modern Identity / Thoughtful Experiences",
-    href: "/platforms/suhba-series",
-    desc: "An intimate conversation platform created to foster meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences.",
     num: "02",
+    tag: "Curated Conversations · Modern Identity",
+    href: "/platforms/suhba-series",
+    desc: "An intimate conversation platform fostering meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences.",
     image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
-    logo: "/logos/suhba-series.png" as string | undefined,
+    logo: "/logos/suhba-series.png",
     logoDark: false,
     accent: "#8a6a52",
-    Icon: ChatsCircle,
   },
   {
     name: "The Capital Room",
-    tag: "Leadership / Business / Influence / African Perspectives",
-    href: "/platforms/the-capital-room",
-    desc: "A conversation-led platform focused on leadership, entrepreneurship, business and the realities of building within African markets, bringing together founders, executives and changemakers.",
     num: "03",
+    tag: "Leadership · Business · African Perspectives",
+    href: "/platforms/the-capital-room",
+    desc: "A conversation-led platform on leadership, entrepreneurship and the realities of building within African markets — founders, executives and changemakers.",
     image: "/photos/editorial/podcast-set.jpg",
-    logo: "/logos/capital-room.png" as string | undefined,
+    logo: "/logos/capital-room.png",
     logoDark: true,
     accent: "#750006",
-    Icon: Buildings,
   },
 ];
-function PlatformCopyCard({ p, inView }: { p: (typeof platforms)[number]; inView: boolean }) {
+
+/* Letters rise out of a clipped line as the tile scrolls in.
+   The in-view watcher sits on the WRAPPER, not the letters: IntersectionObserver
+   clips a target against its ancestors' overflow, and the letters start
+   translated below this overflow:hidden box — observing them directly means
+   they read as 0% visible and never animate. */
+function LetterRise({ text }: { text: string }) {
   return (
-    <motion.article
-      className="platform-copy-card"
-      initial={{ opacity: 0, y: 24 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.85, ease: EASE }}
-      style={{
-        borderRadius: "30px",
-        background: "#fbfaf8",
-        border: "1px solid rgba(117,0,6,0.08)",
-        boxShadow: "0 22px 46px rgba(38,0,0,0.06)",
-        padding: "clamp(1.6rem,3vw,2.4rem)",
-      }}
+    <motion.span
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+      style={{ display: "inline-block", overflow: "hidden", verticalAlign: "bottom" }}
+      aria-label={text}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap", marginBottom: "1rem" }}>
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.5rem",
-            fontFamily: "var(--font-body)",
-            fontSize: "0.66rem",
-            letterSpacing: "0.24em",
-            textTransform: "uppercase",
-            color: "rgba(28,28,28,0.55)",
-            fontWeight: 700,
-          }}
+      {text.split("").map((ch, i) => (
+        <motion.span
+          key={i}
+          aria-hidden
+          variants={{ hidden: { y: "115%" }, show: { y: "0%" } }}
+          transition={{ duration: 0.7, delay: 0.08 + i * 0.028, ease: EASE }}
+          style={{ display: "inline-block", whiteSpace: "pre" }}
         >
-          ({p.num}) Owned platform
-        </span>
-        <span
-          style={{
-            fontFamily: "var(--font-body)",
-            fontSize: "0.66rem",
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: p.accent,
-            fontWeight: 800,
-          }}
-        >
-          FID-owned IP
-        </span>
-      </div>
-
-      <motion.h3
-        initial={{ opacity: 0, y: 14 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.04, ease: EASE }}
-        style={{
-          fontFamily: "var(--font-heading)",
-          fontWeight: 900,
-          fontSize: "clamp(2.2rem,4vw,4.8rem)",
-          lineHeight: 0.9,
-          letterSpacing: "-0.04em",
-          textTransform: "uppercase",
-          color: "#1c1c1c",
-          maxWidth: "10ch",
-          margin: 0,
-        }}
-      >
-        {p.name}
-      </motion.h3>
-
-      <motion.p
-        initial={{ opacity: 0, y: 14 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-        style={{
-          fontFamily: "var(--font-body)",
-          fontSize: "1rem",
-          lineHeight: 1.65,
-          color: "#1c1c1c",
-          fontWeight: 500,
-          marginTop: "1.25rem",
-          maxWidth: "42ch",
-        }}
-      >
-        {p.desc}
-      </motion.p>
-
-      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem", marginTop: "1.4rem" }}>
-        <span
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            padding: "0.55rem 0.8rem",
-            borderRadius: "999px",
-            background: "rgba(217,128,56,0.12)",
-            color: p.accent,
-            fontFamily: "var(--font-body)",
-            fontSize: "0.68rem",
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            fontWeight: 800,
-          }}
-        >
-          {p.tag}
-        </span>
-      </div>
-
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.7, delay: 0.16, ease: EASE }}
-        style={{ marginTop: "1.6rem" }}
-      >
-        <Link
-          href={p.href}
-          data-cursor="Explore"
-          style={{
-            display: "inline-flex",
-            alignItems: "center",
-            gap: "0.55rem",
-            fontFamily: "var(--font-body)",
-            fontSize: "0.74rem",
-            fontWeight: 800,
-            letterSpacing: "0.15em",
-            textTransform: "uppercase",
-            color: p.accent,
-            textDecoration: "none",
-            borderBottom: `1px solid ${p.accent}`,
-            paddingBottom: "0.3rem",
-          }}
-        >
-          Explore platform <ArrowUpRight size={16} weight="bold" />
-        </Link>
-      </motion.div>
-    </motion.article>
-  );
-}
-
-function PlatformArtStack({
-  p,
-  reverse,
-  inView,
-}: {
-  p: (typeof platforms)[number];
-  reverse: boolean;
-  inView: boolean;
-}) {
-  const reduceMotion = useReducedMotion();
-  const direction = reverse ? -1 : 1;
-  const layers = [
-    {
-      inset: "14% 16% 8% 0%",
-      x: -24 * direction,
-      y: 18,
-      rotate: -9 * direction,
-      scale: 0.92,
-      opacity: 0.18,
-      z: 1,
-      border: "1px solid rgba(117,0,6,0.08)",
-      shade: "linear-gradient(180deg, rgba(117,0,6,0.18), rgba(28,28,28,0.42))",
-    },
-    {
-      inset: "7% 0% 14% 10%",
-      x: 20 * direction,
-      y: -12,
-      rotate: 7 * direction,
-      scale: 0.96,
-      opacity: 0.32,
-      z: 2,
-      border: "1px solid rgba(217,128,56,0.16)",
-      shade: "linear-gradient(180deg, rgba(38,0,0,0.08), rgba(38,0,0,0.28))",
-    },
-    {
-      inset: "0",
-      x: 0,
-      y: 0,
-      rotate: 0,
-      scale: 1,
-      opacity: 1,
-      z: 3,
-      border: "1px solid rgba(255,255,255,0.55)",
-      shade: "linear-gradient(180deg, rgba(255,255,255,0.01), rgba(28,28,28,0.1))",
-    },
-  ] as const;
-
-  return (
-    <div
-      className="platform-art"
-      style={{
-        position: "relative",
-        minHeight: "clamp(340px, 44vw, 680px)",
-        isolation: "isolate",
-      }}
-    >
-      <motion.div
-        initial={{ opacity: 0, y: 22 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.8, ease: EASE }}
-        style={{
-          position: "absolute",
-          inset: "10% 6% 0 8%",
-          borderRadius: "34px",
-          background: "linear-gradient(145deg, rgba(117,0,6,0.16), rgba(217,128,56,0.1))",
-          filter: "blur(1px)",
-        }}
-      />
-      {layers.map((layer, idx) => (
-        <motion.div
-          key={idx}
-          initial={
-            reduceMotion
-              ? { opacity: 0 }
-              : {
-                  opacity: 0,
-                  x: layer.x * 0.5,
-                  y: layer.y * 0.5,
-                  rotate: layer.rotate * 0.5,
-                  scale: layer.scale - 0.04,
-                }
-          }
-          animate={
-            inView
-              ? {
-                  opacity: layer.opacity,
-                  x: layer.x,
-                  y: layer.y,
-                  rotate: layer.rotate,
-                  scale: layer.scale,
-                }
-              : {}
-          }
-          transition={{ duration: 0.9, delay: idx * 0.08, ease: EASE }}
-          style={{
-            position: "absolute",
-            inset: layer.inset,
-            zIndex: layer.z,
-            borderRadius: "32px",
-            overflow: "hidden",
-            boxShadow: "0 30px 60px rgba(38,0,0,0.14)",
-            border: layer.border,
-            backgroundColor: "#260000",
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={p.image}
-            alt={p.name}
-            loading="lazy"
-            style={{
-              position: "absolute",
-              inset: 0,
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              transform: "scale(1.05)",
-              filter:
-                idx === 2
-                  ? "saturate(1.03) contrast(1.05)"
-                  : "saturate(0.8) contrast(0.92) brightness(0.84)",
-            }}
-          />
-          <div aria-hidden style={{ position: "absolute", inset: 0, background: layer.shade, pointerEvents: "none" }} />
-        </motion.div>
+          {ch}
+        </motion.span>
       ))}
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.75, delay: 0.16, ease: EASE }}
-        style={{
-          position: "absolute",
-          left: "1rem",
-          top: "1rem",
-          zIndex: 4,
-          display: "inline-flex",
-          alignItems: "center",
-          gap: "0.45rem",
-          borderRadius: "999px",
-          background: "rgba(245,242,236,0.92)",
-          color: "#1c1c1c",
-          border: "1px solid rgba(117,0,6,0.12)",
-          padding: "0.5rem 0.8rem",
-          fontFamily: "var(--font-body)",
-          fontSize: "0.66rem",
-          letterSpacing: "0.16em",
-          textTransform: "uppercase",
-          fontWeight: 800,
-        }}
-      >
-        Layered frame
-      </motion.div>
-    </div>
+    </motion.span>
   );
 }
 
-function PlatformRow({
-  p,
-  i,
-  onActive,
-}: {
-  p: (typeof platforms)[number];
-  i: number;
-  onActive: (i: number) => void;
-}) {
-  const rowRef = useRef<HTMLDivElement>(null);
-  const inView = useInView(rowRef, { amount: 0.35 });
-  const reverse = i % 2 === 1;
-
-  useEffect(() => {
-    if (inView) onActive(i);
-  }, [inView, i, onActive]);
-
+function PlatformTile({ p, i }: { p: (typeof platforms)[number]; i: number }) {
+  // First tile spans the full row, like the reference's hero project.
+  const wide = i === 0;
   return (
     <motion.div
-      ref={rowRef}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.85, ease: EASE }}
-      className="ip-row"
-      style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(1.5rem,4vw,3.2rem)", alignItems: "center", marginTop: "clamp(2rem,4vw,3.5rem)" }}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.85, delay: (i % 2) * 0.08, ease: EASE }}
+      className={wide ? "ip-tile ip-tile-wide" : "ip-tile"}
     >
-      <div style={{ order: reverse ? 2 : 1 }}>
-        <PlatformCopyCard p={p} inView={inView} />
-      </div>
-      <div style={{ order: reverse ? 1 : 2 }}>
-        <PlatformArtStack p={p} reverse={reverse} inView={inView} />
-      </div>
+      <Link href={p.href} className="ip-card" data-cursor="Explore" style={{ textDecoration: "none", display: "block" }}>
+        <div className="ip-media" style={{ position: "relative", overflow: "hidden", borderRadius: "6px", aspectRatio: wide ? "16 / 8" : "4 / 3", background: "#1c1208" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img className="ip-img" src={p.image} alt={p.name} loading="lazy" />
+          <div className="ip-scrim" />
+
+          <span className="ip-num">({p.num})</span>
+
+          <span className="ip-logo" style={{ background: p.logoDark ? "#1c1c1c" : "#f5f2ec" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={p.logo} alt={`${p.name} logo`} loading="lazy" style={{ height: wide ? "48px" : "38px", maxWidth: "170px", objectFit: "contain" }} />
+          </span>
+
+          <span className="ip-view">
+            Explore platform <ArrowUpRight size={15} weight="bold" />
+          </span>
+        </div>
+
+        {/* caption below the media, like the reference */}
+        <div style={{ paddingTop: "1.1rem" }}>
+          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: wide ? "clamp(1.9rem,3.6vw,3.1rem)" : "clamp(1.5rem,2.4vw,2.1rem)", lineHeight: 1.02, letterSpacing: "-0.01em", color: "#1c1c1c", margin: 0, fontWeight: 700 }}>
+            <LetterRise text={p.name} />
+          </h3>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.18em", textTransform: "uppercase", color: p.accent, fontWeight: 700, margin: "0.6rem 0 0" }}>
+            {p.tag}
+          </p>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.7, color: "rgba(28,28,28,0.66)", margin: "0.9rem 0 0", maxWidth: wide ? "62ch" : "44ch" }}>
+            {p.desc}
+          </p>
+        </div>
+      </Link>
     </motion.div>
   );
 }
 
 export default function Platforms() {
   const ref = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [active, setActive] = useState(0);
-  const onActive = useCallback((i: number) => setActive(i), []);
 
   return (
-    <section ref={sectionRef} id="platforms" className="fid-section section-light platforms-section" style={{ paddingBottom: 0 }}>
+    <section id="platforms" className="fid-section section-light platforms-section">
       <div aria-hidden className="platforms-bg-word">CULTURE</div>
       <div ref={ref} className="section-shell" style={{ position: "relative", zIndex: 1 }}>
-        {/* centered typographic interlude, like the reference's white intro */}
         <div className="platforms-head" style={{ textAlign: "center" }}>
           <motion.span
             initial={{ opacity: 0, y: 18 }}
@@ -400,9 +145,7 @@ export default function Platforms() {
           >
             Culture, conversation
             <br />
-            and brand experience
-            <br />
-            on our terms.
+            &amp; brand experience <em style={{ fontStyle: "italic", fontWeight: 500, textTransform: "none" }}>on our terms.</em>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -415,24 +158,12 @@ export default function Platforms() {
           </motion.p>
         </div>
 
-        {/* numbered index strip */}
-        <div style={{ borderTop: "1px solid rgba(28,28,28,0.1)", paddingTop: "1rem", display: "flex", flexWrap: "wrap", gap: "0.4rem 2rem", justifyContent: "center" }}>
+        {/* media-tile grid */}
+        <div className="ip-grid">
           {platforms.map((p, i) => (
-            <span
-              key={p.name}
-              style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.18em", textTransform: "uppercase", color: i === active ? p.accent : "rgba(28,28,28,0.5)", fontWeight: i === active ? 700 : 600, transition: "color 0.3s" }}
-            >
-              ({p.num}) {p.name}
-            </span>
+            <PlatformTile key={p.name} p={p} i={i} />
           ))}
         </div>
-      </div>
-
-      {/* layered cards that stay light and responsive, without scroll-jank */}
-      <div style={{ marginTop: "clamp(2rem,4vw,3rem)", position: "relative", zIndex: 1 }}>
-        {platforms.map((p, i) => (
-          <PlatformRow key={p.name} p={p} i={i} onActive={onActive} />
-        ))}
       </div>
 
       <style>{`
@@ -459,55 +190,82 @@ export default function Platforms() {
           font-weight: 900;
           line-height: 0.8;
           color: rgba(117,0,6,0.04);
-          letter-spacing: 0;
           white-space: nowrap;
           pointer-events: none;
           user-select: none;
         }
-        .platforms-head {
-          display: block;
-          margin-bottom: clamp(2rem, 5vw, 4rem);
-        }
-        .platforms-head .type-eyebrow {
-          color: #d98038;
-        }
+        .platforms-head { display: block; margin-bottom: clamp(2.5rem, 6vw, 4.5rem); }
         .platforms-title {
           margin: 1rem auto 0;
-          max-width: 16ch;
+          max-width: 22ch;
           font-family: var(--font-heading);
-          font-size: clamp(3rem, 7vw, 6.6rem);
-          line-height: 0.88;
-          font-weight: 900;
-          letter-spacing: -0.05em;
-          text-transform: none;
+          font-size: clamp(2rem, 4vw, 3.5rem);
+          line-height: 0.94;
+          font-weight: 800;
+          text-transform: uppercase;
           color: #1c1c1c;
           text-wrap: balance;
         }
-        .platforms-intro {
-          max-width: 52ch;
-          color: #1c1c1c;
-          margin: 0 auto;
+        .platforms-intro { max-width: 52ch; color: rgba(28,28,28,0.7); margin: 0 auto; }
+
+        .ip-grid {
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: clamp(2rem, 4vw, 3.5rem) clamp(1.2rem, 2.4vw, 2rem);
         }
-        @media (max-width: 980px) {
-          .platforms-head {
-            grid-template-columns: 1fr;
-          }
-          .platforms-title {
-            max-width: 14ch;
-            font-size: clamp(2.6rem, 12vw, 4.8rem);
-          }
-          .platforms-intro {
-            max-width: 54ch;
-          }
-          .ip-row {
-            grid-template-columns: 1fr !important;
-          }
-          .platform-art {
-            min-height: clamp(250px, 74vw, 440px) !important;
-          }
-          .platform-copy-card {
-            padding: 1.4rem !important;
-          }
+        .ip-tile-wide { grid-column: 1 / -1; }
+
+        /* media motion — zoom + lift on hover, reveal the CTA */
+        .ip-img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+          transform: scale(1.02);
+          transition: transform 0.85s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
+          filter: saturate(0.94) contrast(1.04);
+        }
+        .ip-card:hover .ip-img { transform: scale(1.09); filter: saturate(1.06) contrast(1.05); }
+        .ip-scrim {
+          position: absolute; inset: 0; pointer-events: none;
+          background: linear-gradient(180deg, rgba(13,5,5,0.28) 0%, rgba(13,5,5,0) 42%, rgba(13,5,5,0.6) 100%);
+          transition: opacity 0.5s ease;
+        }
+        .ip-card:hover .ip-scrim { opacity: 0.82; }
+        .ip-media { transition: box-shadow 0.5s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+        .ip-card:hover .ip-media { box-shadow: 0 34px 90px rgba(38,0,0,0.28); transform: translateY(-6px); }
+
+        .ip-num {
+          position: absolute; top: 1rem; right: 1.2rem; z-index: 2;
+          font-family: var(--font-body); font-size: 0.66rem; font-weight: 700;
+          letter-spacing: 0.22em; color: rgba(245,242,236,0.9);
+        }
+        .ip-logo {
+          position: absolute; top: 1rem; left: 1.2rem; z-index: 2;
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 0.6rem 0.85rem; border-radius: 10px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.28);
+          transform: translateY(0) scale(1);
+          transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+        }
+        .ip-card:hover .ip-logo { transform: translateY(-2px) scale(1.07); }
+
+        .ip-view {
+          position: absolute; left: 1.2rem; bottom: 1.1rem; z-index: 2;
+          display: inline-flex; align-items: center; gap: 0.45rem;
+          font-family: var(--font-body); font-size: 0.7rem; font-weight: 800;
+          letter-spacing: 0.16em; text-transform: uppercase; color: #f5f2ec;
+          opacity: 0; transform: translateY(10px);
+          transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1);
+        }
+        .ip-card:hover .ip-view { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 860px) {
+          .ip-grid { grid-template-columns: 1fr; }
+          .ip-tile-wide { grid-column: auto; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ip-img, .ip-media, .ip-logo, .ip-view { transition: none !important; }
         }
       `}</style>
     </section>

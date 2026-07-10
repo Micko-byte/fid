@@ -77,7 +77,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Sports, Tourism & Mass-Audience Platforms",
     intro: "High-visibility sporting moments and mass-audience platforms — from the WRC Safari Rally to Gor Mahia FC.",
     accent: "#0f766e",
-    cover: "/photos/projects/kansai-gor-mahia.jpg",
+    cover: "/photos/editorial/crowd-audience.jpg",
     Icon: Trophy,
   },
   {

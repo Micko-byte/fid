@@ -55,10 +55,9 @@ function buildCss(active: string | null, marketCodes: string[]): string {
   const marketSelector = marketCodes.map((c) => `.af-map svg path#${c}`).join(",\n    ");
   const marketRule = `
     ${marketSelector} {
-      fill: url(#fid-dot-hi);
-      stroke: #750006;
-      stroke-width: 0.4;
-      filter: drop-shadow(0 0 4px rgba(217,128,56,0.4));
+      fill: #750006;
+      stroke: #f5f2ec;
+      stroke-width: 0.35;
     }`;
   const base = `
     .af-shell {
@@ -91,39 +90,38 @@ function buildCss(active: string | null, marketCodes: string[]): string {
       pointer-events: none;
     }
     .af-map { width:100% !important; height:100% !important; display:block; position:relative; z-index:1; }
-    .af-map svg { width:100% !important; height:100% !important; display:block; filter: drop-shadow(0 18px 18px rgba(117,0,6,0.08)); }
+    .af-map svg {
+      width:100% !important; height:100% !important; display:block;
+      shape-rendering: geometricPrecision;
+      overflow: visible;
+    }
+    /* non-market countries — quiet sand, brand-toned */
     .af-map svg path {
-      fill: url(#fid-dot);
-      stroke: rgba(117,0,6,0.18);
-      stroke-width: 0.28;
-      transition: fill 0.45s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1), filter 0.45s ease, opacity 0.45s ease;
+      fill: #e7ddcd;
+      stroke: rgba(117,0,6,0.16);
+      stroke-width: 0.25;
+      transition: fill 0.35s ease, stroke 0.35s ease;
       transform-box: fill-box;
       transform-origin: center;
     }
-    .af-map svg path:hover {
-      filter: drop-shadow(0 0 10px rgba(217,128,56,0.28));
-    }
+    .af-map svg path:hover { fill: #d9ab88; }
+    /* static brand wash — no per-frame repaint */
     .af-map-glow {
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 30% 30%, rgba(217,128,56,0.30), transparent 24%),
-        radial-gradient(circle at 68% 62%, rgba(117,0,6,0.22), transparent 28%),
-        radial-gradient(circle at 50% 50%, rgba(245,242,236,0.55), transparent 55%);
-      mix-blend-mode: screen;
+        radial-gradient(circle at 32% 28%, rgba(217,128,56,0.16), transparent 42%),
+        radial-gradient(circle at 70% 66%, rgba(117,0,6,0.10), transparent 44%);
       pointer-events: none;
-      opacity: 0.68;
-      animation: af-glow 16s ease-in-out infinite;
+      z-index: 0;
     }
   `;
   if (!active) return base + marketRule;
   return base + marketRule + `
     .af-map svg path#${active} {
-      fill: url(#fid-dot-hi);
-      stroke: #750006;
-      stroke-width: 0.6;
-      transform: scale(1.08);
-      filter: drop-shadow(0 0 10px rgba(217,128,56,0.7));
+      fill: #d98038;
+      stroke: #260000;
+      stroke-width: 0.5;
     }`;
 }
 
@@ -182,13 +180,24 @@ export default function AfricanFootprint() {
     };
   }, [svgMarkup]);
 
-  // 3D tilt — the map leans toward the pointer.
+  // 3D tilt — the map leans toward the pointer. Coalesced into one rAF so a
+  // burst of mousemove events can't thrash React state (the old cause of lag).
+  const tiltRaf = useRef<number | null>(null);
+  const pending = useRef({ x: 0, y: 0 });
   const onTilt = (e: React.MouseEvent<HTMLDivElement>) => {
     const r = e.currentTarget.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width - 0.5;
     const py = (e.clientY - r.top) / r.height - 0.5;
-    setTilt({ x: py * -9, y: px * 11 });
+    pending.current = { x: py * -8, y: px * 10 };
+    if (tiltRaf.current !== null) return;
+    tiltRaf.current = requestAnimationFrame(() => {
+      tiltRaf.current = null;
+      setTilt(pending.current);
+    });
   };
+  useEffect(() => () => {
+    if (tiltRaf.current !== null) cancelAnimationFrame(tiltRaf.current);
+  }, []);
 
   return (
     <section className="af-footprint" style={{ marginTop: "clamp(3rem,6vw,5rem)", paddingTop: 0 }}>

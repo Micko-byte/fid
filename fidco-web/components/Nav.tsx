@@ -3,7 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import FidLogo from "@/components/ui/FidLogo";
+import LineSidebar from "@/components/ui/LineSidebar";
 
 const navLinks = [
   { label: "Expertise", href: "/#services" },
@@ -16,6 +18,7 @@ const navLinks = [
 
 export default function Nav() {
   const navRef   = useRef<HTMLElement>(null);
+  const router   = useRouter();
   const [menuOpen,  setMenuOpen]  = useState(false);
   const [scrolled,  setScrolled]  = useState(false);
   const [isMobile,  setIsMobile]  = useState(false);
@@ -208,33 +211,28 @@ export default function Nav() {
             </div>
 
             <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: "0.2rem", padding: "0 clamp(1.5rem,5vw,3rem)" }}>
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.label}
-                  initial={{ y: 32, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ duration: 0.45, delay: i * 0.06, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setMenuOpen(false)}
-                    style={{
-                      fontFamily: "var(--font-heading)",
-                      fontSize: "clamp(2rem,8vw,3.2rem)",
-                      color: "#1c1c1c",
-                      lineHeight: 1.2,
-                      fontWeight: 700,
-                      display: "block",
-                      textDecoration: "none",
-                      padding: "0.3rem 0",
-                    }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = "#770006")}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = "#1c1c1c")}
-                  >
-                    {link.label}
-                  </Link>
-                </motion.div>
-              ))}
+              <motion.div
+                initial={{ opacity: 0, x: -18 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <LineSidebar
+                  items={navLinks.map((l) => l.label)}
+                  accentColor="#750006"
+                  textColor="#1c1c1c"
+                  markerColor="rgba(117,0,6,0.35)"
+                  proximityRadius={90}
+                  maxShift={18}
+                  markerLength={40}
+                  itemGap={16}
+                  fontSize={2}
+                  smoothing={90}
+                  onItemClick={(i) => {
+                    setMenuOpen(false);
+                    router.push(navLinks[i].href);
+                  }}
+                />
+              </motion.div>
 
               <motion.div
                 initial={{ y: 32, opacity: 0 }}
