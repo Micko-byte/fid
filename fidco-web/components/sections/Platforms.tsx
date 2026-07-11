@@ -1,53 +1,13 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "@phosphor-icons/react";
+import { platforms as platformData } from "@/components/lib/platforms";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const platforms = [
-  {
-    name: "The Tribe Vibe",
-    num: "01",
-    tag: "Lifestyle · Music · Culture · Community",
-    href: "/platforms/the-tribe-vibe",
-    desc: "FID & Co.'s flagship experiential lifestyle platform — music, hospitality, creator culture and socially engaged urban audiences through curated day experiences.",
-    image: "/photos/projects/tribe-vibe.jpg",
-    logo: "/logos/tribe-vibe.png",
-    logoDark: false,
-    accent: "#d98038",
-  },
-  {
-    name: "Suhba Series",
-    num: "02",
-    tag: "Curated Conversations · Modern Identity",
-    href: "/platforms/suhba-series",
-    desc: "An intimate conversation platform fostering meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences.",
-    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
-    logo: "/logos/suhba-series.png",
-    logoDark: false,
-    accent: "#8a6a52",
-  },
-  {
-    name: "The Capital Room",
-    num: "03",
-    tag: "Leadership · Business · African Perspectives",
-    href: "/platforms/the-capital-room",
-    desc: "A conversation-led platform on leadership, entrepreneurship and the realities of building within African markets — founders, executives and changemakers.",
-    image: "/photos/editorial/podcast-set.jpg",
-    logo: "/logos/capital-room.png",
-    logoDark: true,
-    accent: "#750006",
-  },
-];
-
-/* Letters rise out of a clipped line as the tile scrolls in.
-   The in-view watcher sits on the WRAPPER, not the letters: IntersectionObserver
-   clips a target against its ancestors' overflow, and the letters start
-   translated below this overflow:hidden box — observing them directly means
-   they read as 0% visible and never animate. */
 function LetterRise({ text }: { text: string }) {
   return (
     <motion.span
@@ -72,48 +32,55 @@ function LetterRise({ text }: { text: string }) {
   );
 }
 
-function PlatformTile({ p, i }: { p: (typeof platforms)[number]; i: number }) {
-  // First tile spans the full row, like the reference's hero project.
-  const wide = i === 0;
+function PlatformTile({ p, i }: { p: (typeof platformData)[number]; i: number }) {
+  const [hovered, setHovered] = useState(false);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 0.85, delay: (i % 2) * 0.08, ease: EASE }}
-      className={wide ? "ip-tile ip-tile-wide" : "ip-tile"}
+      transition={{ duration: 0.85, delay: (i % 3) * 0.08, ease: EASE }}
+      className="ip-tile"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <Link href={p.href} className="ip-card" data-cursor="Explore" style={{ textDecoration: "none", display: "block" }}>
-        <div className="ip-media" style={{ position: "relative", overflow: "hidden", borderRadius: "6px", aspectRatio: wide ? "16 / 8" : "4 / 3", background: "#1c1208" }}>
+      <div className="ip-card">
+        {/* atmospheric image — preview only, revealed on hover */}
+        <div className={`ip-media ${hovered ? "ip-media-on" : ""}`} aria-hidden>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img className="ip-img" src={p.image} alt={p.name} loading="lazy" />
+          <img className="ip-img" src={p.image} alt="" loading="lazy" />
           <div className="ip-scrim" />
+        </div>
 
-          <span className="ip-num">({p.num})</span>
+        <span className="ip-num">({p.num})</span>
 
+        {/* logo is the entry point — tap to open the dedicated platform page */}
+        <Link
+          href={`/platforms/${p.slug}`}
+          className="ip-logo-link"
+          data-cursor="Explore"
+          aria-label={`Open ${p.name} — view platform`}
+        >
           <span className="ip-logo" style={{ background: p.logoDark ? "#1c1c1c" : "#f5f2ec" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={p.logo} alt={`${p.name} logo`} loading="lazy" style={{ height: wide ? "48px" : "38px", maxWidth: "170px", objectFit: "contain" }} />
+            <img src={p.logo} alt={`${p.name} logo`} loading="lazy" />
           </span>
-
-          <span className="ip-view">
-            Explore platform <ArrowUpRight size={15} weight="bold" />
+          <span className="ip-logo-cta">
+            View platform <ArrowUpRight size={14} weight="bold" />
           </span>
-        </div>
+        </Link>
 
-        {/* caption below the media, like the reference */}
-        <div style={{ paddingTop: "1.1rem" }}>
-          <h3 style={{ fontFamily: "var(--font-heading)", fontSize: wide ? "clamp(1.9rem,3.6vw,3.1rem)" : "clamp(1.5rem,2.4vw,2.1rem)", lineHeight: 1.02, letterSpacing: "-0.01em", color: "#1c1c1c", margin: 0, fontWeight: 700 }}>
+        <div className="ip-copy">
+          <h3>
             <LetterRise text={p.name} />
           </h3>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.18em", textTransform: "uppercase", color: p.accent, fontWeight: 700, margin: "0.6rem 0 0" }}>
-            {p.tag}
+          <p className="ip-tag" style={{ color: p.accent }}>
+            {p.tagline}
           </p>
-          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.7, color: "rgba(28,28,28,0.66)", margin: "0.9rem 0 0", maxWidth: wide ? "62ch" : "44ch" }}>
-            {p.desc}
-          </p>
+          <p className="ip-desc">{p.shortDesc}</p>
         </div>
-      </Link>
+      </div>
     </motion.div>
   );
 }
@@ -154,14 +121,13 @@ export default function Platforms() {
             className="type-body platforms-intro"
             style={{ margin: "1.8rem auto 0" }}
           >
-            These are not filler event pages. They are FID-owned audience platforms designed for cultural relevance, commercial partnership and repeatable brand moments.
+            These are not filler event pages. They are FID-owned audience platforms designed for cultural relevance, commercial partnership and repeatable brand moments. Select a logo to explore each platform.
           </motion.p>
         </div>
 
-        {/* media-tile grid */}
         <div className="ip-grid">
-          {platforms.map((p, i) => (
-            <PlatformTile key={p.name} p={p} i={i} />
+          {platformData.map((p, i) => (
+            <PlatformTile key={p.slug} p={p} i={i} />
           ))}
         </div>
       </div>
@@ -210,62 +176,159 @@ export default function Platforms() {
 
         .ip-grid {
           display: grid;
-          grid-template-columns: repeat(2, minmax(0, 1fr));
-          gap: clamp(2rem, 4vw, 3.5rem) clamp(1.2rem, 2.4vw, 2rem);
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: clamp(1.2rem, 2.4vw, 2rem);
         }
-        .ip-tile-wide { grid-column: 1 / -1; }
 
-        /* media motion — zoom + lift on hover, reveal the CTA */
+        .ip-card {
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          min-height: clamp(380px, 42vw, 480px);
+          padding: clamp(1.8rem, 3vw, 2.4rem) clamp(1.2rem, 2vw, 1.6rem) clamp(1.4rem, 2.5vw, 2rem);
+          border-radius: 12px;
+          border: 1px solid rgba(117,0,6,0.1);
+          background: rgba(255,255,255,0.42);
+          overflow: hidden;
+          transition: box-shadow 0.55s cubic-bezier(0.16,1,0.3,1), transform 0.55s cubic-bezier(0.16,1,0.3,1), border-color 0.4s ease;
+        }
+        .ip-tile:hover .ip-card {
+          box-shadow: 0 28px 80px rgba(38,0,0,0.14);
+          transform: translateY(-5px);
+          border-color: rgba(117,0,6,0.18);
+        }
+
+        .ip-media {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
+          opacity: 0;
+          transform: scale(1.04);
+          transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 1.1s cubic-bezier(0.16,1,0.3,1);
+          pointer-events: none;
+        }
+        .ip-media-on {
+          opacity: 1;
+          transform: scale(1);
+        }
         .ip-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
           display: block;
-          transform: scale(1.02);
-          transition: transform 0.85s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease;
-          filter: saturate(0.94) contrast(1.04);
+          filter: saturate(0.92) contrast(1.04);
         }
-        .ip-card:hover .ip-img { transform: scale(1.09); filter: saturate(1.06) contrast(1.05); }
         .ip-scrim {
-          position: absolute; inset: 0; pointer-events: none;
-          background: linear-gradient(180deg, rgba(13,5,5,0.28) 0%, rgba(13,5,5,0) 42%, rgba(13,5,5,0.6) 100%);
-          transition: opacity 0.5s ease;
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(180deg, rgba(245,242,236,0.72) 0%, rgba(245,242,236,0.55) 38%, rgba(245,242,236,0.88) 100%);
         }
-        .ip-card:hover .ip-scrim { opacity: 0.82; }
-        .ip-media { transition: box-shadow 0.5s ease, transform 0.6s cubic-bezier(0.16,1,0.3,1); }
-        .ip-card:hover .ip-media { box-shadow: 0 34px 90px rgba(38,0,0,0.28); transform: translateY(-6px); }
 
         .ip-num {
-          position: absolute; top: 1rem; right: 1.2rem; z-index: 2;
-          font-family: var(--font-body); font-size: 0.66rem; font-weight: 700;
-          letter-spacing: 0.22em; color: rgba(245,242,236,0.9);
+          position: relative;
+          z-index: 2;
+          font-family: var(--font-body);
+          font-size: 0.66rem;
+          font-weight: 700;
+          letter-spacing: 0.22em;
+          color: rgba(28,28,28,0.45);
+          margin-bottom: auto;
+        }
+
+        .ip-logo-link {
+          position: relative;
+          z-index: 3;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 0.85rem;
+          text-decoration: none;
+          margin: clamp(1rem, 3vh, 2rem) 0;
         }
         .ip-logo {
-          position: absolute; top: 1rem; left: 1.2rem; z-index: 2;
-          display: inline-flex; align-items: center; justify-content: center;
-          padding: 0.6rem 0.85rem; border-radius: 10px;
-          box-shadow: 0 10px 30px rgba(0,0,0,0.28);
-          transform: translateY(0) scale(1);
-          transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          padding: clamp(0.75rem, 1.4vw, 1rem) clamp(1rem, 2vw, 1.4rem);
+          border-radius: 14px;
+          box-shadow: 0 14px 40px rgba(38,0,0,0.14);
+          transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.45s ease;
         }
-        .ip-card:hover .ip-logo { transform: translateY(-2px) scale(1.07); }
-
-        .ip-view {
-          position: absolute; left: 1.2rem; bottom: 1.1rem; z-index: 2;
-          display: inline-flex; align-items: center; gap: 0.45rem;
-          font-family: var(--font-body); font-size: 0.7rem; font-weight: 800;
-          letter-spacing: 0.16em; text-transform: uppercase; color: #f5f2ec;
-          opacity: 0; transform: translateY(10px);
-          transition: opacity 0.45s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1);
+        .ip-logo img {
+          height: clamp(36px, 4.5vw, 48px);
+          max-width: min(200px, 28vw);
+          object-fit: contain;
+          display: block;
         }
-        .ip-card:hover .ip-view { opacity: 1; transform: translateY(0); }
+        .ip-logo-link:hover .ip-logo,
+        .ip-logo-link:focus-visible .ip-logo {
+          transform: translateY(-3px) scale(1.04);
+          box-shadow: 0 20px 50px rgba(38,0,0,0.2);
+        }
+        .ip-logo-cta {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          font-family: var(--font-body);
+          font-size: 0.68rem;
+          font-weight: 800;
+          letter-spacing: 0.16em;
+          text-transform: uppercase;
+          color: #750006;
+          opacity: 0;
+          transform: translateY(6px);
+          transition: opacity 0.4s ease, transform 0.45s cubic-bezier(0.16,1,0.3,1);
+        }
+        .ip-logo-link:hover .ip-logo-cta,
+        .ip-logo-link:focus-visible .ip-logo-cta {
+          opacity: 1;
+          transform: translateY(0);
+        }
 
-        @media (max-width: 860px) {
-          .ip-grid { grid-template-columns: 1fr; }
-          .ip-tile-wide { grid-column: auto; }
+        .ip-copy {
+          position: relative;
+          z-index: 2;
+          margin-top: auto;
+        }
+        .ip-copy h3 {
+          font-family: var(--font-heading);
+          font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+          line-height: 1.04;
+          letter-spacing: -0.01em;
+          color: #1c1c1c;
+          margin: 0;
+          font-weight: 700;
+        }
+        .ip-tag {
+          font-family: var(--font-body);
+          font-size: 0.66rem;
+          letter-spacing: 0.18em;
+          text-transform: uppercase;
+          font-weight: 700;
+          margin: 0.55rem 0 0;
+        }
+        .ip-desc {
+          font-family: var(--font-body);
+          font-size: 0.88rem;
+          line-height: 1.65;
+          color: rgba(28,28,28,0.62);
+          margin: 0.75rem 0 0;
+          max-width: 36ch;
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        @media (max-width: 980px) {
+          .ip-grid { grid-template-columns: 1fr; gap: 1rem; }
+          .ip-card { min-height: 0; padding: 1.5rem 1.2rem 1.3rem; }
+          .ip-media { opacity: 0.35; }
+          .ip-media-on { opacity: 0.5; }
+          .ip-logo-cta { opacity: 1; transform: none; }
         }
         @media (prefers-reduced-motion: reduce) {
-          .ip-img, .ip-media, .ip-logo, .ip-view { transition: none !important; }
+          .ip-img, .ip-card, .ip-logo, .ip-logo-cta, .ip-media { transition: none !important; }
         }
       `}</style>
     </section>

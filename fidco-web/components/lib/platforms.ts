@@ -15,6 +15,8 @@ export interface OwnedPlatform {
   gallery?: string[];
   image: string;
   accent: string;
+  logo: string;
+  logoDark?: boolean;
 }
 
 export const platforms: OwnedPlatform[] = [
@@ -44,6 +46,8 @@ export const platforms: OwnedPlatform[] = [
     ],
     image: "/photos/projects/tribe-vibe.jpg",
     accent: "#d98038",
+    logo: "/logos/tribe-vibe.png",
+    logoDark: false,
   },
   {
     slug: "suhba-series",
@@ -86,6 +90,8 @@ export const platforms: OwnedPlatform[] = [
     ],
     image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
     accent: "#750006",
+    logo: "/logos/suhba-series.png",
+    logoDark: false,
   },
   {
     slug: "the-capital-room",
@@ -113,6 +119,8 @@ export const platforms: OwnedPlatform[] = [
     ],
     image: "/photos/editorial/podcast-set.jpg",
     accent: "#1c1c1c",
+    logo: "/logos/capital-room.png",
+    logoDark: true,
   },
 ];
 
