@@ -7,6 +7,7 @@ const cl = (id: string) =>
 export const projectGalleryImages: Record<string, WorkImage[]> = {
   "national-minorities-day": [],
   "africa-urban-forum-2026": [
+    { src: "/photos/projects/auf-2026.jpg", label: "Africa Urban Forum 2026 — KICC" },
     { src: cl("auf-01"), label: "Continental convening" },
     { src: cl("auf-02"), label: "Delegate experience" },
     { src: cl("auf-03"), label: "Stakeholder dialogue" },
@@ -15,6 +16,7 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
   "utamaduni-day": [],
   "lc-waikiki-africa": [],
   "kansai-plascon": [
+    { src: "/photos/projects/kansai-plascon-launch.jpg", label: "Colours of Victory — Gor Mahia launch" },
     { src: cl("kansai-01"), label: "Gor Mahia partnership launch" },
     { src: cl("kansai-02"), label: "Colour and community" },
     { src: cl("kansai-03"), label: "Corporate storytelling" },
@@ -22,6 +24,7 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: cl("kansai-05"), label: "Brand moment" },
   ],
   "thrive-hospitality-group": [
+    { src: "/photos/projects/glam-hotel.jpg", label: "Glam Hotel — rooftop launch" },
     { src: "/photos/projects/chaii-republic/DSC02130.jpg", label: "Chaii Republic NBO — launch" },
     { src: "/photos/projects/chaii-republic/DSC01740.jpg", label: "Chaii Republic NBO — community" },
     { src: "/photos/projects/chaii-republic/DSC02138.jpg", label: "Chaii Republic NBO — experience" },
@@ -37,6 +40,7 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
   "africa-forum-on-displacements": [],
   "columbia-africa-healthcare": [],
   "allso-beauty": [
+    { src: "/photos/projects/allso-launch.jpg", label: "Allso Beauty launch — experiential set" },
     { src: cl("allso-01"), label: "Launch event atmosphere" },
     { src: cl("allso-02"), label: "Beauty creator engagement" },
     { src: cl("allso-03"), label: "Influencer storytelling" },
