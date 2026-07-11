@@ -202,6 +202,9 @@ export default function WorkSectorsScroll() {
         if (inside !== lastInside) {
           lastInside = inside;
           setInExperience(inside);
+          // Retract the site nav while the experience owns the viewport;
+          // it slides back once the visitor scrolls past (map, footer).
+          document.body.classList.toggle("fid-hide-nav", inside);
         }
 
         let best = 0;
@@ -225,7 +228,10 @@ export default function WorkSectorsScroll() {
     };
 
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      document.body.classList.remove("fid-hide-nav");
+    };
   }, []);
 
   const jumpTo = useCallback((i: number) => {
@@ -446,6 +452,14 @@ export default function WorkSectorsScroll() {
       ))}
 
       <style>{`
+        /* site nav retracts (slides up) while the experience is active,
+           and slides back when the visitor scrolls past it */
+        .brand-nav-container {
+          transition: box-shadow 0.3s, transform 0.3s, top 0.55s cubic-bezier(0.16,1,0.3,1) !important;
+        }
+        body.fid-hide-nav .brand-nav-container {
+          top: -150px !important;
+        }
         .wss-root {
           scroll-snap-type: y proximity;
         }

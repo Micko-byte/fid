@@ -29,6 +29,8 @@ type Entry = {
   image: string;
   inset?: string;
   logo?: string;
+  logoDark?: boolean;
+  href?: string;
 };
 
 /* One scrolling editorial panel — reports itself active when centred */
@@ -49,6 +51,24 @@ function Panel({
   useEffect(() => {
     if (inView) onActive(i);
   }, [inView, i, onActive]);
+
+  const logoBadge = entry.logo ? (
+    <span
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: "0.6rem 0.9rem",
+        borderRadius: "12px",
+        background: entry.logoDark ? "#1c1c1c" : "#fff",
+        border: "1px solid rgba(28,28,28,0.08)",
+        marginTop: "1.6rem",
+        boxShadow: "0 10px 30px rgba(38,0,0,0.07)",
+      }}
+    >
+      <img src={entry.logo} alt={`${entry.title} logo`} loading="lazy" style={{ height: "30px", maxWidth: "120px", objectFit: "contain" }} />
+    </span>
+  ) : null;
 
   return (
     <div
@@ -80,17 +100,27 @@ function Panel({
       {/* mobile-only main image (the sticky pane hides on small screens) */}
       <img src={entry.image} alt={entry.title} loading="lazy" className="wsp-inline-img" style={{ display: "none", width: "100%", maxWidth: "460px", aspectRatio: "4/3", objectFit: "cover", borderRadius: "10px", margin: "1.4rem 0 0" }} />
 
-      {entry.logo && (
-        <motion.span
+      {entry.logo && entry.href ? (
+        <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
-          style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0.6rem 0.9rem", borderRadius: "12px", background: "#fff", border: "1px solid rgba(28,28,28,0.08)", marginTop: "1.6rem", boxShadow: "0 10px 30px rgba(38,0,0,0.07)" }}
         >
-          <img src={entry.logo} alt={`${entry.title} logo`} loading="lazy" style={{ height: "30px", maxWidth: "120px", objectFit: "contain" }} />
-        </motion.span>
-      )}
+          <Link href={entry.href} aria-label={`Open ${entry.title}`} style={{ textDecoration: "none", display: "inline-block" }}>
+            {logoBadge}
+          </Link>
+        </motion.div>
+      ) : entry.logo ? (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.6 }}
+          transition={{ duration: 0.6, delay: 0.1, ease: EASE }}
+        >
+          {logoBadge}
+        </motion.div>
+      ) : null}
 
       <motion.h3
         initial={{ opacity: 0, y: 24 }}
