@@ -71,8 +71,8 @@ export function MobileSectionHead({
         style={{
           fontFamily: "var(--font-heading)",
           fontWeight: 700,
-          fontSize: "clamp(1.6rem, 7vw, 2.2rem)",
-          letterSpacing: "-0.02em",
+          fontSize: "clamp(2rem, 9.5vw, 2.9rem)",
+          letterSpacing: "-0.025em",
           lineHeight: 1,
           color: ink(tone),
           margin: 0,

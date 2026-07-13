@@ -6,6 +6,7 @@ import { motion, useInView } from "framer-motion";
 import { ArrowUpLeft, CheckCircle, Handshake } from "@phosphor-icons/react";
 import Button from "@/components/ui/Button";
 import Footer from "@/components/Footer";
+import PressLinks from "@/components/articles/PressLinks";
 import SplitText from "@/components/ui/SplitText";
 import type { OwnedPlatform } from "@/components/lib/platforms";
 
@@ -461,6 +462,8 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
           </div>
         </section>
       </main>
+      {p.slug === "suhba-series" ? <PressLinks campaigns={["suhba-series"]} /> : null}
+
       <Footer />
 
       <style>{`

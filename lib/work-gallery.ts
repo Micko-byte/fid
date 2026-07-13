@@ -5,6 +5,10 @@ const cl = (id: string) =>
   `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/${id}`;
 
 export const projectGalleryImages: Record<string, WorkImage[]> = {
+  "woolworths-kenya": [
+    { src: "/photos/projects/woolworths/woolworths-01.jpg", label: "Woolworths — Sarit beauty launch" },
+    { src: "/photos/projects/woolworths/woolworths-02.jpg", label: "Woolworths — flagship store" },
+  ],
   "national-minorities-day": [],
   "africa-urban-forum-2026": [
     { src: "/photos/projects/auf-2026.jpg", label: "Africa Urban Forum 2026 — KICC" },
@@ -17,6 +21,8 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
   "lc-waikiki-africa": [],
   "kansai-plascon": [
     { src: "/photos/projects/kansai-plascon-launch.jpg", label: "Colours of Victory — Gor Mahia launch" },
+    { src: "/photos/projects/kansai-plascon-shoot/plascon-01.jpg", label: "Plascon brand shoot" },
+    { src: "/photos/projects/kansai-plascon-shoot/plascon-b-01.jpg", label: "Plascon campaign edit" },
     { src: cl("kansai-01"), label: "Gor Mahia partnership launch" },
     { src: cl("kansai-02"), label: "Colour and community" },
     { src: cl("kansai-03"), label: "Corporate storytelling" },
@@ -25,10 +31,12 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
   ],
   "thrive-hospitality-group": [
     { src: "/photos/projects/glam-hotel.jpg", label: "Glam Hotel — rooftop launch" },
-    { src: "/photos/projects/chaii-republic/DSC02130.jpg", label: "Chaii Republic NBO — launch" },
-    { src: "/photos/projects/chaii-republic/DSC01740.jpg", label: "Chaii Republic NBO — community" },
-    { src: "/photos/projects/chaii-republic/DSC02138.jpg", label: "Chaii Republic NBO — experience" },
-    { src: "/photos/projects/chaii-republic/DSC01938.jpg", label: "Chaii Republic NBO — brand moment" },
+    { src: "/photos/projects/chaii-republic/chaii-01.jpg", label: "Chaii Republic — launch" },
+    { src: "/photos/projects/chaii-republic/chaii-02.jpg", label: "Chaii Republic — experience" },
+    { src: "/photos/projects/chaii-republic/chaii-03.jpg", label: "Chaii Republic — brand moment" },
+    { src: "/photos/projects/kingfisher/kingfisher-01.jpg", label: "Kingfisher Nest — launch" },
+    { src: "/photos/projects/kingfisher/kingfisher-02.jpg", label: "Kingfisher Nest — hosting" },
+    { src: "/photos/projects/glam-rooftop/glam-rooftop-01.jpg", label: "Glam Hotel — rooftop night" },
     { src: cl("glam-01"), label: "Glam Hotel — property" },
     { src: cl("glam-02"), label: "Glam Hotel — atmosphere" },
     { src: cl("glam-03"), label: "Glam Hotel — experience" },
@@ -41,6 +49,8 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
   "columbia-africa-healthcare": [],
   "allso-beauty": [
     { src: "/photos/projects/allso-launch.jpg", label: "Allso Beauty launch — experiential set" },
+    { src: "/photos/projects/allso-launch/allso-l-01.jpg", label: "Allso launch — creators" },
+    { src: "/photos/projects/allso-launch/allso-l-02.jpg", label: "Allso launch — brand moment" },
     { src: cl("allso-01"), label: "Launch event atmosphere" },
     { src: cl("allso-02"), label: "Beauty creator engagement" },
     { src: cl("allso-03"), label: "Influencer storytelling" },
@@ -52,6 +62,11 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: cl("abyan-02"), label: "Beauty destination" },
     { src: cl("abyan-03"), label: "Spa experience" },
     { src: cl("abyan-04"), label: "Interior detail" },
+    { src: cl("abyan-05"), label: "Signature styling" },
+    { src: cl("abyan-06"), label: "Guest experience" },
+    { src: cl("abyan-07"), label: "Beauty craft" },
+    { src: cl("abyan-08"), label: "Salon atmosphere" },
+    { src: cl("abyan-09"), label: "Brand identity" },
     { src: cl("abyan-05"), label: "Treatment space" },
     { src: cl("abyan-06"), label: "Brand atmosphere" },
     { src: cl("abyan-07"), label: "Lifestyle editorial" },

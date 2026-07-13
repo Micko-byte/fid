@@ -15,6 +15,7 @@ export interface Project {
   impact: string;
   color?: string;
   logo?: string;
+  logoDark?: boolean;
   properties?: SubProperty[];
 }
 
@@ -54,6 +55,7 @@ export const projects: Project[] = [
     ],
     impact: "Advanced dialogue around urban development, sustainable cities and infrastructure, and the future of African urban spaces.",
     color: "#D98038",
+    logo: "/logos/auf.png",
   },
   {
     slug: "utamaduni-day",
@@ -314,7 +316,8 @@ export const projects: Project[] = [
     ],
     impact: "A critical platform for mobilising corporate support, reinforcing Kenya's position on the international rally calendar.",
     color: "#750006",
-    logo: "/logos/wrc-safari-rally.png",
+    logo: "/logos/wrc-safari-rally.svg",
+    logoDark: true,
   },
   {
     slug: "gor-mahia-launch",
@@ -330,7 +333,7 @@ export const projects: Project[] = [
     ],
     impact: "Strong national visibility while maintaining brand integrity for one of Kenya's most iconic sporting institutions.",
     color: "#1f6b4a",
-    logo: "/logos/kansai-plascon.png",
+    logo: "/logos/gor-mahia.png",
   },
   {
     slug: "gertrudes-foundation",
@@ -348,6 +351,7 @@ export const projects: Project[] = [
     ],
     impact: "Healthcare impact translated into accessible, human-centered narratives for stakeholders, partners and the wider public.",
     color: "#2f6f8f",
+    logo: "/logos/gertrudes.png",
   },
   {
     slug: "elysium-capital",

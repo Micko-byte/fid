@@ -26,7 +26,8 @@ export default function BrandHero() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
+        poster="/photos/hero-poster.jpg"
         aria-hidden
         className="brand-hero-video"
         style={{
@@ -56,6 +57,8 @@ export default function BrandHero() {
           .brand-hero-section {
             height: auto !important;
             min-height: 0 !important;
+            /* nav bar first, video below it — not overlaid */
+            padding-top: 64px !important;
           }
           .brand-hero-video {
             position: relative !important;

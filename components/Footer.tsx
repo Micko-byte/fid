@@ -4,7 +4,6 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { InstagramLogo, FacebookLogo, YoutubeLogo, LinkedinLogo, TiktokLogo, Phone, Globe } from "@phosphor-icons/react";
-import FooterClimb from "@/components/motion/FooterClimb";
 import FidLogo from "@/components/ui/FidLogo";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -15,17 +14,12 @@ export default function Footer() {
 
   return (
     <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#260000", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid #1c0303" }}>
-      {/* ── Sign-off animation: footer's background layer ── */}
-      <div style={{ position: "absolute", inset: 0, zIndex: 1, pointerEvents: "none" }}>
-        <FooterClimb tagline="Insight · Strategy · Impact" />
-      </div>
-
       {/* ── Columns ── */}
-      <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(6rem,11vw,9rem)" }}>
+      <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(4rem,7vw,6rem)" }}>
         <div className="ft-grid" style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "clamp(2rem,5vw,4rem)" }}>
           <div>
             <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#f5f2ec", marginBottom: "1.4rem", fontWeight: 700, fontFamily: "var(--font-body)" }}>Navigation</h5>
-            {[{ label: "Expertise", href: "/#services" }, { label: "Work", href: "/#work" }, { label: "About", href: "/#about" }, { label: "Events", href: "/events" }, { label: "Insights", href: "/#insights" }, { label: "Contact", href: "/#contact" }].map((l) => (
+            {[{ label: "Expertise", href: "/#services" }, { label: "Work", href: "/#work" }, { label: "About", href: "/#about" }, { label: "Events", href: "/events" }, { label: "Press & Articles", href: "/articles" }, { label: "Insights", href: "/#insights" }, { label: "Contact", href: "/#contact" }].map((l) => (
               <Link key={l.label} href={l.href} style={{ display: "block", color: "rgba(245,242,236,0.72)", fontSize: "0.9rem", marginBottom: "0.8rem", fontFamily: "var(--font-body)", textDecoration: "none", transition: "color 0.3s" }}
                 onMouseEnter={(e) => (e.currentTarget.style.color = "#d98038")} onMouseLeave={(e) => (e.currentTarget.style.color = "rgba(245,242,236,0.72)")}>
                 {l.label}

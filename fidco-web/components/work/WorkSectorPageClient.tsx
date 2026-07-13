@@ -8,6 +8,22 @@ import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import Footer from "@/components/Footer";
 import { getPlatformsForWorkSector, getProjectsForWorkSector, getWorkSectorMeta, type WorkSectorSlug } from "@/components/lib/work-sectors";
 import { projectGalleryImages } from "@/lib/work-gallery";
+import PressLinks from "@/components/articles/PressLinks";
+
+// Press campaigns that belong to each sector page.
+// Thrive Hospitality venues — each gets its own panel with its own identity.
+const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: string; inset?: string }> = {
+  "Café NBO": { logo: "/logos/cafe-nbo.png", image: "/photos/projects/cafe-nbo/cafenbo-01.jpg", inset: "/photos/projects/cafe-nbo/cafenbo-02.jpg" },
+  "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "/photos/projects/glam-hotel.jpg", inset: "/photos/projects/glam-rooftop/glam-rooftop-01.jpg" },
+  "Social 8": { logo: "/logos/social8.png", image: "/photos/projects/thrive-hospitality/glam-02.jpg" },
+  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "/photos/projects/chaii-republic/chaii-01.jpg", inset: "/photos/projects/chaii-republic/chaii-02.jpg" },
+  "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "/photos/projects/kingfisher/kingfisher-01.jpg", inset: "/photos/projects/kingfisher/kingfisher-02.jpg" },
+};
+
+const SECTOR_PRESS: Partial<Record<WorkSectorSlug, string[]>> = {
+  hospitality: ["chaii-republic", "cafe-nbo", "glam-hotel", "the-perch"],
+  "owned-ips": ["suhba-series"],
+};
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -229,9 +245,27 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
   if (!meta) return null;
 
   const entries: Entry[] = [
-    ...projects.map((p) => {
+    ...projects.flatMap((p): Entry[] => {
+      // Thrive expands into one panel per venue, each with its own logo/photos.
+      if (p.slug === "thrive-hospitality-group" && p.properties?.length) {
+        return p.properties.map((prop) => {
+          const v = THRIVE_VENUES[prop.name] ?? { image: meta.cover };
+          return {
+            key: `thrive-${prop.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+            title: prop.name,
+            eyebrow: "Thrive Hospitality Group",
+            years: p.years,
+            body: prop.desc,
+            bullets: [],
+            image: v.image,
+            inset: v.inset,
+            logo: v.logo,
+            logoDark: v.logoDark,
+          };
+        });
+      }
       const imgs = projectImages(p.slug);
-      return {
+      return [{
         key: p.slug,
         title: p.client,
         eyebrow: p.title,
@@ -241,7 +275,8 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
         image: imgs[0] ? toSrc(imgs[0].src) : meta.cover,
         inset: imgs[1] ? toSrc(imgs[1].src) : undefined,
         logo: p.logo,
-      };
+        logoDark: p.logoDark,
+      }];
     }),
     ...platforms.map((pl) => ({
       key: pl.slug,
@@ -435,6 +470,8 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
           </motion.div>
         );
       })()}
+
+      {SECTOR_PRESS[sector] ? <PressLinks campaigns={SECTOR_PRESS[sector]!} /> : null}
 
       <Footer />
 

@@ -41,20 +41,24 @@ const IG_POSTS = [
   "/photos/projects/africa-forum-displacement.jpg",
 ];
 
-// Sectors follow the 11 blurb categories; sectorSlug routes to /work/[slug].
+// All 11 sectors — the phone gets the same reel as desktop.
 const WORK = [
-  { slug: "africa-urban-forum-2026", client: "Africa Urban Forum", sector: "Government", sectorSlug: "government", image: cl("auf-01"), logo: "/logos/executive-office-president.png" },
-  { slug: "lc-waikiki-africa", client: "LC Waikiki", sector: "Retail & Fashion", sectorSlug: "retail-fashion", image: "/photos/projects/lc-waikiki-influencer.jpg", logo: "/logos/lc-waikiki.png" },
-  { slug: "kansai-plascon", client: "Kansai Plascon", sector: "Corporate", sectorSlug: "corporate", image: cl("kansai-01"), logo: "/logos/kansai-plascon.png" },
-  { slug: "thrive-hospitality-group", client: "Chaii Republic", sector: "Hospitality", sectorSlug: "hospitality", image: "/photos/projects/thrive-hospitality/glam-01.jpg", logo: "/logos/chaii-republic.png" },
-  { slug: "africa-forum-on-displacements", client: "UNHCR", sector: "Social Impact", sectorSlug: "social-impact", image: "/photos/projects/africa-forum-displacement.jpg", logo: "/logos/unhcr.png" },
-  { slug: "columbia-africa-healthcare", client: "Columbia Africa", sector: "Healthcare", sectorSlug: "healthcare", image: "/photos/projects/columbia-building.jpg", logo: "/logos/columbia-africa.png" },
-  { slug: "allso-beauty", client: "Allso Beauty", sector: "Beauty & Lifestyle", sectorSlug: "lifestyle", image: cl("allso-01"), logo: "/logos/allso-beauty.png" },
+  { sectorSlug: "government", sector: "Government", client: "Africa Urban Forum 2026", image: "/photos/projects/auf-2026.jpg", logo: "/logos/executive-office-president.png" },
+  { sectorSlug: "retail-fashion", sector: "Retail & Fashion", client: "LC Waikiki Africa", image: "/photos/projects/lc-waikiki-influencer.jpg", logo: "/logos/lc-waikiki.png" },
+  { sectorSlug: "corporate", sector: "Corporate", client: "Kansai Plascon", image: "/photos/projects/kansai-plascon-launch.jpg", logo: "/logos/kansai-plascon.png" },
+  { sectorSlug: "hospitality", sector: "Hospitality", client: "Thrive Hospitality Group", image: "/photos/projects/glam-hotel.jpg", logo: "/logos/thrive-hospitality.png" },
+  { sectorSlug: "sports-tourism", sector: "Sports & Tourism", client: "Gor Mahia FC", image: "/photos/projects/kansai-gor-mahia.jpg", logo: "/logos/kansai-plascon.png" },
+  { sectorSlug: "healthcare", sector: "Healthcare", client: "Columbia Africa", image: "/photos/projects/columbia-building.jpg", logo: "/logos/columbia-africa.png" },
+  { sectorSlug: "social-impact", sector: "Social Impact", client: "UNHCR & Amahoro", image: "/photos/projects/africa-forum-displacement.jpg", logo: "/logos/unhcr.png" },
+  { sectorSlug: "finance", sector: "Finance", client: "Elysium Capital", image: "/photos/projects/elysium-finance.jpg", logo: "/logos/elysium-capital.png" },
+  { sectorSlug: "lifestyle", sector: "Beauty & Lifestyle", client: "Allso Beauty", image: "/photos/projects/allso-launch.jpg", logo: "/logos/allso-beauty.png" },
+  { sectorSlug: "culture-entertainment", sector: "Culture", client: "Talanta Afrika Festival", image: "/photos/projects/cultural-dancers.jpg", logo: undefined },
+  { sectorSlug: "owned-ips", sector: "Owned IPs", client: "Tribe Vibe · Suhba · Capital Room", image: "/photos/projects/tribe-vibe.jpg", logo: "/logos/tribe-vibe.png" },
 ];
 
 const PLATFORMS = [
   { slug: "the-tribe-vibe", name: "The Tribe Vibe", num: "01", tag: "Lifestyle · Music · Culture", image: "/photos/projects/tribe-vibe.jpg", logo: "/logos/tribe-vibe.png", logoDark: false },
-  { slug: "suhba-series", name: "Suhba Series", num: "02", tag: "Curated Conversations", image: cl("suhba-01"), logo: "/logos/suhba-series.png", logoDark: false },
+  { slug: "suhba-series", name: "Suhba Series", num: "02", tag: "Curated Conversations", image: "/photos/platforms/suhba-series/suhba-01.jpg", logo: "/logos/suhba-series.png", logoDark: false },
   { slug: "the-capital-room", name: "The Capital Room", num: "03", tag: "Leadership · Business", image: "/photos/editorial/podcast-set.jpg", logo: "/logos/capital-room.png", logoDark: true },
 ];
 
@@ -119,7 +123,7 @@ export default function MobileHome() {
             style={{
               fontFamily: "var(--font-heading)",
               fontWeight: 800,
-              fontSize: "clamp(2rem, 9vw, 2.8rem)",
+              fontSize: "clamp(2.3rem, 10.5vw, 3.1rem)",
               lineHeight: 1.02,
               letterSpacing: "-0.025em",
               margin: "1.2rem 0 0",
@@ -251,28 +255,36 @@ export default function MobileHome() {
         </FadeUp>
       </section>
 
-      {/* ── SELECTED WORK (slider) ── */}
-      <section className="section-dark" style={{ color: "#f5f2ec", padding: `${PY} ${PX}` }}>
-        <MobileSectionHead title="Selected Work" href="/#work" label="View all" tone="dark" />
-        <MobileSlider tone="dark">
-          {WORK.map((w) => (
-            <Link key={w.slug} href={`/work/${w.sectorSlug}`} style={{ textDecoration: "none", display: "block", paddingRight: "1px" }}>
-              <div style={{ position: "relative", width: "100%", aspectRatio: "4/5", borderRadius: "16px", overflow: "hidden", background: "#260000" }}>
-                <img src={w.image} alt={w.client} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(10,10,10,0.85), transparent 55%)" }} />
-                {w.logo && (
-                  <span style={{ position: "absolute", top: "0.9rem", left: "0.9rem", display: "inline-flex", alignItems: "center", padding: "0.4rem 0.6rem", borderRadius: "10px", background: "#f5f2ec" }}>
-                    <img src={w.logo} alt={`${w.client} logo`} loading="lazy" style={{ height: "20px", maxWidth: "80px", objectFit: "contain" }} />
-                  </span>
-                )}
-                <div style={{ position: "absolute", left: "1.2rem", bottom: "1.2rem", right: "1.2rem" }}>
-                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", fontWeight: 600, letterSpacing: "0.16em", textTransform: "uppercase", color: "#d98038", margin: 0 }}>{w.sector}</p>
-                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "1.5rem", letterSpacing: "-0.01em", color: "#f5f2ec", margin: "0.4rem 0 0" }}>{w.client}</h3>
-                </div>
+      {/* ── SELECTED WORK — full-bleed vertical reel, desktop energy ── */}
+      <section className="section-dark" style={{ color: "#f5f2ec", padding: 0 }}>
+        <div style={{ padding: `${PY} ${PX} 1.2rem` }}>
+          <MobileSectionHead title="Selected Work" href="/work" label="View all" tone="dark" />
+        </div>
+        <div className="mwr-reel">
+          {WORK.map((w, i) => (
+            <Link key={w.sectorSlug} href={`/work/${w.sectorSlug}`} className="mwr-slide" style={{ textDecoration: "none", display: "block", position: "relative" }}>
+              <img src={w.image} alt={w.client} loading={i < 2 ? "eager" : "lazy"} decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(13,5,5,0.42) 0%, rgba(13,5,5,0.05) 40%, rgba(13,5,5,0.86) 100%)" }} />
+              <span style={{ position: "absolute", top: "1.1rem", right: "1.2rem", fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.22em", color: "rgba(245,242,236,0.85)", fontWeight: 700 }}>
+                {String(i + 1).padStart(2, "0")} / {String(WORK.length).padStart(2, "0")}
+              </span>
+              {w.logo && (
+                <span style={{ position: "absolute", top: "1rem", left: "1.2rem", display: "inline-flex", alignItems: "center", padding: "0.45rem 0.65rem", borderRadius: "10px", background: "#f5f2ec" }}>
+                  <img src={w.logo} alt={`${w.client} logo`} loading="lazy" style={{ height: "20px", maxWidth: "84px", objectFit: "contain" }} />
+                </span>
+              )}
+              <div style={{ position: "absolute", left: "1.2rem", right: "1.2rem", bottom: "1.4rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", margin: 0 }}>({String(i + 1).padStart(2, "0")}) {w.sector}</p>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(1.9rem, 9vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 0.96, color: "#f5f2ec", margin: "0.5rem 0 0", textTransform: "uppercase" }}>{w.client}</h3>
+                <span style={{ display: "inline-block", marginTop: "0.8rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,242,236,0.75)", fontWeight: 700, borderBottom: "1px solid rgba(245,242,236,0.4)", paddingBottom: "0.2rem" }}>Open sector</span>
               </div>
             </Link>
           ))}
-        </MobileSlider>
+        </div>
+        <style>{`
+          .mwr-reel { scroll-snap-type: y proximity; }
+          .mwr-slide { height: 72svh; scroll-snap-align: start; overflow: hidden; }
+        `}</style>
       </section>
 
       {/* ── PLATFORMS (slider) ── */}

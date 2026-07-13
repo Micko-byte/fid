@@ -165,7 +165,7 @@ const CHAPTERS: Chapter[] = [
         name: "Suhba Series",
         logo: "/logos/suhba-series.png",
         logoDark: false,
-        image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
+        image: "/photos/platforms/suhba-series/suhba-01.jpg",
       },
       {
         slug: "the-capital-room",
