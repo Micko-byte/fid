@@ -5,7 +5,7 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import VariableProximity from "@/components/ui/VariableProximity";
 import { TextRoll } from "@/components/core/text-roll";
 import TiltedCard from "@/components/ui/TiltedCard";
-import PixelCard from "@/components/ui/PixelCard";
+import PixelReveal from "@/components/ui/PixelReveal";
 
 export default function Founder() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -109,11 +109,11 @@ export default function Founder() {
                       transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
                     }}
                   />
-                  {/* pixel shimmer across the transition */}
-                  <PixelCard
-                    variant="brand"
+                  {/* pixel band sweeping through the crossfade */}
+                  <PixelReveal
                     active={photoHover}
-                    style={{ position: "absolute", inset: 0, borderRadius: "16px", mixBlendMode: "screen", opacity: 0.85 }}
+                    direction="up"
+                    style={{ borderRadius: "16px" }}
                   />
                 </>
               }

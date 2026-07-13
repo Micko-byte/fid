@@ -3,9 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { projects } from "@/components/lib/projects";
-import { getWorkSectorSlugFromProject } from "@/components/lib/work-sectors";
-import { projectGalleryImages } from "@/lib/work-gallery";
+import FidLogo from "@/components/ui/FidLogo";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -14,56 +12,28 @@ const CARD = 34;
 const GAP = 2.4;
 const STEP = CARD + GAP;
 
-function toSrc(src: string) {
-  return src.startsWith("/") ? src : `/${src.replace(/^public\//, "")}`;
-}
-
-const SECTOR_COVER: Record<string, string> = {
-  government: "/photos/projects/national-minorities-day.jpg",
-  "retail-fashion": "/photos/projects/lc-waikiki-influencer.jpg",
-  corporate: "/photos/projects/kansai-gor-mahia.jpg",
-  hospitality: "/photos/projects/thrive-hospitality/glam-01.jpg",
-  "sports-tourism": "/photos/projects/kansai-gor-mahia.jpg",
-  healthcare: "/photos/projects/columbia-building.jpg",
-  "social-impact": "/photos/projects/africa-forum-displacement.jpg",
-  finance: "/photos/projects/elysium-finance.jpg",
-  lifestyle: "/photos/projects/allso-beauty.jpg",
-  "culture-entertainment": "/photos/projects/cultural-dancers.jpg",
-  "owned-ips": "/photos/projects/tribe-vibe.jpg",
-};
-
 type Slide = { slug: string; title: string; client: string; image: string; sector: string };
 
-/* Flagship works — one slide each, in narrative order. */
-const FEATURED = [
-  "national-minorities-day",
-  "africa-urban-forum-2026",
-  "lc-waikiki-africa",
-  "kansai-plascon",
-  "thrive-hospitality-group",
-  "africa-forum-on-displacements",
-  "columbia-africa-healthcare",
-  "allso-beauty",
-  "talanta-afrika",
+/* All 11 sectors — one slide each, mirroring the /work page. */
+const SLIDES: Slide[] = [
+  { sector: "government", slug: "government", title: "Government & Public Institutions", client: "Africa Urban Forum 2026", image: "/photos/projects/auf-2026.jpg" },
+  { sector: "retail-fashion", slug: "retail-fashion", title: "Retail & Fashion", client: "LC Waikiki Africa", image: "/photos/projects/lc-waikiki-influencer.jpg" },
+  { sector: "corporate", slug: "corporate", title: "Manufacturing & Corporate", client: "Kansai Plascon", image: "/photos/projects/kansai-plascon-launch.jpg" },
+  { sector: "hospitality", slug: "hospitality", title: "Hospitality & Destination Brands", client: "Thrive Hospitality Group", image: "/photos/projects/glam-hotel.jpg" },
+  { sector: "sports-tourism", slug: "sports-tourism", title: "Sports, Tourism & Mass Audiences", client: "Gor Mahia FC", image: "/photos/projects/kansai-gor-mahia.jpg" },
+  { sector: "healthcare", slug: "healthcare", title: "Healthcare & Medical Institutions", client: "Columbia Africa", image: "/photos/projects/columbia-building.jpg" },
+  { sector: "social-impact", slug: "social-impact", title: "Social Impact & Multilateral", client: "UNHCR & The Amahoro Coalition", image: "/photos/projects/africa-forum-displacement.jpg" },
+  { sector: "finance", slug: "finance", title: "Finance, Investment & Advisory", client: "Elysium Capital Partners", image: "/photos/projects/elysium-finance.jpg" },
+  { sector: "lifestyle", slug: "lifestyle", title: "Beauty, Wellness & Lifestyle", client: "Allso Beauty", image: "/photos/projects/allso-launch.jpg" },
+  { sector: "culture-entertainment", slug: "culture-entertainment", title: "Culture & Entertainment", client: "Talanta Afrika Festival", image: "/photos/projects/cultural-dancers.jpg" },
+  { sector: "owned-ips", slug: "owned-ips", title: "Owned Experiences & Cultural IPs", client: "Tribe Vibe · Suhba · Capital Room", image: "/photos/projects/tribe-vibe.jpg" },
 ];
-
-const SLIDES: Slide[] = FEATURED.map((slug) => {
-  const p = projects.find((x) => x.slug === slug)!;
-  const sector = getWorkSectorSlugFromProject(p);
-  const gallery = projectGalleryImages[p.slug];
-  return {
-    slug: p.slug,
-    title: p.title,
-    client: p.client,
-    sector,
-    image: gallery?.[0]?.src ? toSrc(gallery[0].src) : SECTOR_COVER[sector],
-  };
-}).filter((s) => s.image);
 
 export default function WorkReel() {
   const sectionRef = useRef<HTMLElement>(null);
   const reelRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);
+  const [inExperience, setInExperience] = useState(false);
   const n = SLIDES.length;
 
   // Scroll progress is read straight off the section's own rect each frame.
@@ -73,6 +43,7 @@ export default function WorkReel() {
   useEffect(() => {
     let raf = 0;
     let lastIdx = -1;
+    let lastInside = false;
     const tick = () => {
       const sec = sectionRef.current;
       const reel = reelRef.current;
@@ -81,6 +52,16 @@ export default function WorkReel() {
         const vh = window.innerHeight;
         const total = rect.height - vh;
         const p = total > 0 ? Math.min(1, Math.max(0, -rect.top / total)) : 0;
+
+        // Header retracts once the section reaches the top of the viewport and
+        // slides back after the last slide (Owned IPs) — the reel's own logo
+        // hands over to the returning header.
+        const inside = rect.top <= 1 && rect.bottom > vh * 0.6;
+        if (inside !== lastInside) {
+          lastInside = inside;
+          setInExperience(inside);
+          document.body.classList.toggle("fid-hide-nav", inside);
+        }
 
         const startPx = ((50 - CARD / 2) / 100) * vh;
         const travelPx = (((n - 1) * STEP) / 100) * vh;
@@ -96,7 +77,10 @@ export default function WorkReel() {
       raf = requestAnimationFrame(tick);
     };
     raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
+    return () => {
+      cancelAnimationFrame(raf);
+      document.body.classList.remove("fid-hide-nav");
+    };
   }, [n]);
 
   const active = SLIDES[index];
@@ -128,28 +112,32 @@ export default function WorkReel() {
         <div style={{ position: "absolute", inset: 0, background: "rgba(13,5,5,0.55)" }} />
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(90deg, rgba(13,5,5,0.7) 0%, transparent 28%, transparent 72%, rgba(13,5,5,0.7) 100%)" }} />
 
-        {/* letterbox bars, like the reference */}
-        <div aria-hidden style={{ position: "absolute", left: 0, right: 0, top: 0, height: "11vh", background: "#f5f2ec", zIndex: 3 }} />
-        <div aria-hidden style={{ position: "absolute", left: 0, right: 0, bottom: 0, height: "11vh", background: "#f5f2ec", zIndex: 3 }} />
-
-        {/* big scrolling WORK marquee across the top bar */}
-        <div className="wr-marquee" style={{ position: "absolute", top: 0, left: 0, right: 0, height: "11vh", zIndex: 4, overflow: "hidden", display: "flex", alignItems: "center", borderBottom: "1px solid rgba(38,0,0,0.1)" }}>
-          <div className="wr-marquee-track">
-            {Array.from({ length: 4 }).map((_, r) => (
-              <span key={r} className="wr-marquee-group" aria-hidden={r > 0}>
-                <span className="wr-word wr-word-solid">Work</span>
-                <span className="wr-star">✳</span>
-                <span className="wr-word wr-word-ghost">Work</span>
-                <span className="wr-star">✳</span>
-              </span>
-            ))}
-          </div>
+        {/* minimal topbar — the reel's logo takes over while the header is
+            retracted, and fades out as the header merges back after Owned IPs */}
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            right: 0,
+            zIndex: 5,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: "clamp(1rem,2.5vw,1.5rem) clamp(1.5rem,5vw,4rem)",
+            opacity: inExperience ? 1 : 0,
+            transform: inExperience ? "translateY(0)" : "translateY(-12px)",
+            transition: "opacity 0.5s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1)",
+            pointerEvents: inExperience ? "auto" : "none",
+          }}
+        >
+          <Link href="/" aria-label="FID & Co. home" style={{ display: "block", lineHeight: 0 }}>
+            <FidLogo variant="light" style={{ height: "clamp(24px,3.4vw,34px)", width: "auto" }} />
+          </Link>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.24em", color: "#f5f2ec", fontWeight: 700 }}>
+            {String(index + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
+          </span>
         </div>
-
-        {/* counter, floated over the marquee's right edge */}
-        <span style={{ position: "absolute", top: 0, right: 0, height: "11vh", zIndex: 5, display: "flex", alignItems: "center", padding: "0 clamp(1.5rem,5vw,4rem)", background: "linear-gradient(90deg, transparent, #f5f2ec 22%)", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.24em", color: "#750006", fontWeight: 700 }}>
-          {String(index + 1).padStart(2, "0")} / {String(n).padStart(2, "0")}
-        </span>
 
         {/* side titles — project left, client right */}
         <div style={{ position: "absolute", inset: 0, zIndex: 2, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 clamp(1.5rem,5vw,4.5rem)", pointerEvents: "none" }}>
@@ -227,10 +215,11 @@ export default function WorkReel() {
         </div>
 
         {/* bottom bar — CTA */}
-        <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, height: "11vh", zIndex: 4, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {/* floating CTA over the full-bleed image */}
+        <div style={{ position: "absolute", bottom: "clamp(1.2rem,3.5vh,2.2rem)", left: 0, right: 0, zIndex: 4, display: "flex", alignItems: "center", justifyContent: "center", pointerEvents: "none" }}>
           <Link
             href="/work"
-            style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: "#750006", textDecoration: "none", borderBottom: "1px solid #750006", paddingBottom: "0.25rem" }}
+            style={{ pointerEvents: "auto", fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase", fontWeight: 700, color: "#f5f2ec", textDecoration: "none", background: "rgba(13,5,5,0.5)", border: "1px solid rgba(245,242,236,0.35)", borderRadius: "999px", padding: "0.75rem 1.5rem", backdropFilter: "blur(8px)", WebkitBackdropFilter: "blur(8px)" }}
           >
             View all work
           </Link>
@@ -238,43 +227,13 @@ export default function WorkReel() {
       </div>
 
       <style>{`
-        .wr-marquee-track {
-          display: flex;
-          flex-shrink: 0;
-          align-items: center;
-          white-space: nowrap;
-          will-change: transform;
-          animation: wr-marquee 26s linear infinite;
+        /* site header retracts while the reel owns the viewport, then slides
+           back in after the last slide — the reel's logo hands over to it */
+        .brand-nav-container {
+          transition: box-shadow 0.3s, transform 0.3s, top 0.55s cubic-bezier(0.16,1,0.3,1) !important;
         }
-        .wr-marquee-group {
-          display: inline-flex;
-          align-items: center;
-          flex-shrink: 0;
-        }
-        .wr-word {
-          font-family: var(--font-heading);
-          font-weight: 900;
-          text-transform: uppercase;
-          font-size: clamp(2.6rem, 7.4vh, 5.4rem);
-          line-height: 0.9;
-          letter-spacing: -0.02em;
-          padding: 0 0.16em;
-        }
-        .wr-word-solid { color: #260000; }
-        .wr-word-ghost { color: rgba(38,0,0,0.22); }
-        .wr-star {
-          color: #750006;
-          font-size: clamp(1.2rem, 3.4vh, 2.4rem);
-          padding: 0 0.4em;
-          transform: translateY(-0.06em);
-        }
-        /* one group is 1/4 of the track, so -25% loops seamlessly */
-        @keyframes wr-marquee {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-25%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .wr-marquee-track { animation: none; }
+        body.fid-hide-nav .brand-nav-container {
+          top: -150px !important;
         }
         @media (max-width: 860px) {
           .wr-side { display: none !important; }
