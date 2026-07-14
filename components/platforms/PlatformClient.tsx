@@ -336,7 +336,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                     <img
                       src={src}
                       alt={`${p.name} — image ${i + 1}`}
-                      loading={i === 0 ? "eager" : "lazy"}
+                      loading="eager"
                       style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
                     />
                     <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(38,0,0,0.45) 100%)", pointerEvents: "none" }} />
