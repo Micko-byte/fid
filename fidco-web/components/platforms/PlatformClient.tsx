@@ -265,14 +265,6 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                 max-width: 170px;
                 width: auto;
                 object-fit: contain;
-                filter: grayscale(1) contrast(1.1);
-                opacity: 0.65;
-                transition: filter 0.4s ease, opacity 0.4s ease, transform 0.4s ease;
-              }
-              .suhba-mq-item img:hover {
-                filter: grayscale(0);
-                opacity: 1;
-                transform: scale(1.08);
               }
               .suhba-mq-wordmark {
                 font-family: var(--font-heading);

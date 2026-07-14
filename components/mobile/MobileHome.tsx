@@ -281,17 +281,21 @@ export default function MobileHome() {
             </Link>
           ))}
         </div>
-        {/* All Work — big centered CTA with cards peeking from the edges */}
-        <Link href="/work" style={{ textDecoration: "none", display: "block", position: "relative", overflow: "hidden", padding: "clamp(4.5rem,16vw,7rem) 0", background: "#f5f2ec" }}>
-          <img src={WORK[3].image} alt="" aria-hidden loading="lazy" style={{ position: "absolute", left: "-16vw", top: "50%", transform: "translateY(-50%)", width: "34vw", aspectRatio: "3/4", objectFit: "cover", borderRadius: "8px", boxShadow: "0 14px 40px rgba(38,0,0,0.2)" }} />
-          <img src={WORK[4].image} alt="" aria-hidden loading="lazy" style={{ position: "absolute", right: "-16vw", top: "38%", transform: "translateY(-50%)", width: "34vw", aspectRatio: "3/4", objectFit: "cover", borderRadius: "8px", boxShadow: "0 14px 40px rgba(38,0,0,0.2)" }} />
+        {/* All Work — animated marquee of the remaining sectors, CTA hovering over it */}
+        <Link href="/work" style={{ textDecoration: "none", display: "block", position: "relative", overflow: "hidden", padding: "clamp(5rem,18vw,8rem) 0", background: "#260000" }}>
+          <div className="maw-track" aria-hidden>
+            {[...WORK.slice(3), ...WORK.slice(3)].map((w, i) => (
+              <img key={i} src={w.image} alt="" loading="lazy" className="maw-card" style={{ rotate: i % 2 ? "2.5deg" : "-2.5deg", translate: i % 3 === 1 ? "0 10px" : "0 0" }} />
+            ))}
+          </div>
+          <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 75% 90% at 50% 50%, rgba(38,0,0,0.72) 0%, rgba(38,0,0,0.35) 55%, rgba(38,0,0,0.6) 100%)" }} />
           <div style={{ position: "relative", textAlign: "center" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(2.6rem, 12vw, 3.6rem)", letterSpacing: "-0.03em", color: "#1c1c1c" }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(2.6rem, 12vw, 3.6rem)", letterSpacing: "-0.03em", color: "#f5f2ec", textShadow: "0 4px 30px rgba(0,0,0,0.45)" }}>
               All Work
-              <sup style={{ fontFamily: "var(--font-body)", fontSize: "0.42em", fontWeight: 700, color: "#750006", marginLeft: "0.2em" }}>(11)</sup>
+              <sup style={{ fontFamily: "var(--font-body)", fontSize: "0.42em", fontWeight: 700, color: "#d98038", marginLeft: "0.2em" }}>(11)</sup>
             </span>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(28,28,28,0.55)", fontWeight: 700, margin: "0.9rem 0 0" }}>
-              Every sector, every story
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(245,242,236,0.75)", fontWeight: 700, margin: "0.9rem 0 0" }}>
+              Every sector, every story →
             </p>
           </div>
         </Link>
@@ -299,6 +303,29 @@ export default function MobileHome() {
         <style>{`
           .mwr-reel { scroll-snap-type: y proximity; }
           .mwr-slide { height: 72svh; scroll-snap-align: start; overflow: hidden; }
+          .maw-track {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            gap: 4vw;
+            width: max-content;
+            animation: maw-scroll 28s linear infinite;
+          }
+          .maw-card {
+            flex: 0 0 auto;
+            width: 36vw;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 14px 40px rgba(0,0,0,0.45);
+          }
+          @keyframes maw-scroll {
+            from { transform: translateY(-50%) translateX(0); }
+            to { transform: translateY(-50%) translateX(-50%); }
+          }
         `}</style>
       </section>
 
