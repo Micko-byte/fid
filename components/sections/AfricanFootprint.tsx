@@ -55,63 +55,50 @@ function buildCss(active: string | null, marketCodes: string[]): string {
   const marketSelector = marketCodes.map((c) => `.af-map svg path#${c}`).join(",\n    ");
   const marketRule = `
     ${marketSelector} {
-      fill: #750006;
-      stroke: #f5f2ec;
-      stroke-width: 0.35;
+      fill: #d98038;
+      stroke: #260000;
+      stroke-width: 0.4;
     }`;
   const base = `
     .af-shell {
       position: relative;
       overflow: hidden;
       border-radius: 28px;
-      border: 1px solid rgba(117,0,6,0.12);
+      border: 1px solid rgba(217,128,56,0.18);
       background:
-        radial-gradient(circle at 12% 18%, rgba(217,128,56,0.24) 0%, transparent 26%),
-        radial-gradient(circle at 88% 10%, rgba(117,0,6,0.20) 0%, transparent 24%),
-        linear-gradient(135deg, rgba(245,242,236,0.96) 0%, rgba(247,231,219,0.98) 52%, rgba(245,242,236,0.96) 100%);
-      box-shadow: 0 30px 80px rgba(38,0,0,0.12);
+        radial-gradient(ellipse 70% 55% at 30% 20%, rgba(117,0,6,0.55) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 78% 78%, rgba(217,128,56,0.16) 0%, transparent 55%),
+        linear-gradient(160deg, #2e0703 0%, #260000 45%, #180404 100%);
+      box-shadow: 0 40px 110px rgba(38,0,0,0.35);
     }
     .af-shell::before {
       content: "";
       position: absolute;
       inset: 0;
-      background:
-        repeating-linear-gradient(135deg, rgba(217,128,56,0.08) 0 1px, transparent 1px 10px),
-        repeating-linear-gradient(45deg, rgba(117,0,6,0.035) 0 1px, transparent 1px 11px);
-      mix-blend-mode: multiply;
-      pointer-events: none;
-      opacity: 0.7;
-    }
-    .af-shell::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.24), transparent 28%, transparent 72%, rgba(117,0,6,0.07));
+      background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 60%, rgba(0,0,0,0.35) 100%);
       pointer-events: none;
     }
+    .af-shell::after { content: none; }
     .af-map { width:100% !important; height:100% !important; display:block; position:relative; z-index:1; }
     .af-map svg {
       width:100% !important; height:100% !important; display:block;
       shape-rendering: geometricPrecision;
       overflow: visible;
     }
-    /* non-market countries — quiet sand, brand-toned */
+    /* non-market countries — soft cream landmass floating on deep current */
     .af-map svg path {
-      fill: #e7ddcd;
-      stroke: rgba(117,0,6,0.16);
-      stroke-width: 0.25;
+      fill: rgba(245,242,236,0.12);
+      stroke: rgba(245,242,236,0.28);
+      stroke-width: 0.3;
       transition: fill 0.35s ease, stroke 0.35s ease;
       transform-box: fill-box;
       transform-origin: center;
     }
-    .af-map svg path:hover { fill: #d9ab88; }
-    /* static brand wash — no per-frame repaint */
+    .af-map svg path:hover { fill: rgba(217,128,56,0.35); }
     .af-map-glow {
       position: absolute;
       inset: 0;
-      background:
-        radial-gradient(circle at 32% 28%, rgba(217,128,56,0.16), transparent 42%),
-        radial-gradient(circle at 70% 66%, rgba(117,0,6,0.10), transparent 44%);
+      background: radial-gradient(circle at 62% 40%, rgba(217,128,56,0.14), transparent 46%);
       pointer-events: none;
       z-index: 0;
     }
@@ -119,9 +106,9 @@ function buildCss(active: string | null, marketCodes: string[]): string {
   if (!active) return base + marketRule;
   return base + marketRule + `
     .af-map svg path#${active} {
-      fill: #d98038;
-      stroke: #260000;
-      stroke-width: 0.5;
+      fill: #f5f2ec;
+      stroke: #d98038;
+      stroke-width: 0.6;
     }`;
 }
 
@@ -274,7 +261,7 @@ export default function AfricanFootprint() {
               position: "absolute",
               inset: "10% 14%",
               borderRadius: "999px",
-              border: "1px solid rgba(217,128,56,0.16)",
+              border: "none",
               filter: "blur(0.2px)",
               pointerEvents: "none",
               opacity: 0.7,
@@ -391,11 +378,11 @@ export default function AfricanFootprint() {
         }
         .af-pin-head {
           display: block;
-          width: 13px;
-          height: 13px;
+          width: 12px;
+          height: 12px;
           border-radius: 999px;
-          border: 2px solid #f5f2ec;
-          box-shadow: 0 3px 8px rgba(38,0,0,0.35);
+          border: 2px solid #260000;
+          box-shadow: 0 0 0 1.5px rgba(245,242,236,0.85), 0 4px 12px rgba(0,0,0,0.5);
           transition: background 0.25s;
         }
         .af-pin-stem {
@@ -403,7 +390,7 @@ export default function AfricanFootprint() {
           width: 2px;
           height: 9px;
           margin: -1px auto 0;
-          background: linear-gradient(to bottom, #750006, rgba(117,0,6,0.25));
+          background: linear-gradient(to bottom, #f5f2ec, rgba(245,242,236,0.15));
           border-radius: 0 0 2px 2px;
         }
         .af-pin-ring {
@@ -414,7 +401,7 @@ export default function AfricanFootprint() {
           height: 6px;
           transform: translateX(-50%);
           border-radius: 999px;
-          border: 1px solid rgba(117,0,6,0.45);
+          border: 1px solid rgba(245,242,236,0.5);
           animation: af-ring-pulse 2.4s ease-out infinite;
         }
         @keyframes af-ring-pulse {

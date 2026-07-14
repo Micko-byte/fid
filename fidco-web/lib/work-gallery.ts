@@ -31,7 +31,7 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
   ],
   "thrive-hospitality-group": [
     { src: "/photos/projects/glam-hotel.jpg", label: "Glam Hotel — rooftop launch" },
-    { src: "/photos/projects/chaii-republic/chaii-01.jpg", label: "Chaii Republic — launch" },
+    { src: "/photos/projects/social8/social8-01.jpg", label: "Social 8 — launch entrance" },
     { src: "/photos/projects/chaii-republic/chaii-02.jpg", label: "Chaii Republic — experience" },
     { src: "/photos/projects/chaii-republic/chaii-03.jpg", label: "Chaii Republic — brand moment" },
     { src: "/photos/projects/kingfisher/kingfisher-01.jpg", label: "Kingfisher Nest — launch" },
@@ -67,11 +67,6 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: cl("abyan-07"), label: "Beauty craft" },
     { src: cl("abyan-08"), label: "Salon atmosphere" },
     { src: cl("abyan-09"), label: "Brand identity" },
-    { src: cl("abyan-05"), label: "Treatment space" },
-    { src: cl("abyan-06"), label: "Brand atmosphere" },
-    { src: cl("abyan-07"), label: "Lifestyle editorial" },
-    { src: cl("abyan-08"), label: "Visual identity" },
-    { src: cl("abyan-09"), label: "Campaign detail" },
   ],
 };
 

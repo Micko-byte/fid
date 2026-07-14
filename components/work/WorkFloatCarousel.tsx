@@ -56,7 +56,7 @@ const CARDS: FloatCard[] = [
     sector: "Hospitality",
     handle: "Thrive Hospitality Group",
     logo: "/logos/thrive-hospitality.png",
-    image: "/photos/projects/thrive-hospitality/glam-01.jpg",
+    image: "/photos/projects/glam-hotel.jpg",
     headline: "Venues become destinations.",
     copy: "Café NBO, Glam Hotel, Social 8, Chaii Republic, Kingfisher Nest — each launched as a distinct lifestyle destination.",
     accent: "#1f6b4a",

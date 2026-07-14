@@ -141,7 +141,7 @@ export const services: Service[] = [
     ],
     cards: [
       { bg: "#750006", label: "Event Production", textColor: "#F5F2EC", image: "/illustrations/expertise/event-production.jfif", imageAlt: "Event production" },
-      { bg: "#D9AB88", label: "Brand Activations", image: "/photos/projects/thrive-hospitality/glam-01.jpg", imageAlt: "Brand activations" },
+      { bg: "#D9AB88", label: "Brand Activations", image: "/photos/projects/glam-hotel.jpg", imageAlt: "Brand activations" },
       { bg: "#260000", label: "Government Events", textColor: "#F5F2EC", image: "/photos/projects/national-minorities-day.jpg", imageAlt: "Government events" },
       { bg: "#e8e8e8", label: "Roadshows", image: "/photos/projects/utamaduni-day.jpg", imageAlt: "Roadshows" },
     ],

@@ -15,8 +15,8 @@ import PressLinks from "@/components/articles/PressLinks";
 const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: string; inset?: string }> = {
   "Café NBO": { logo: "/logos/cafe-nbo.png", image: "/photos/projects/cafe-nbo/cafenbo-01.jpg", inset: "/photos/projects/cafe-nbo/cafenbo-02.jpg" },
   "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "/photos/projects/glam-hotel.jpg", inset: "/photos/projects/glam-rooftop/glam-rooftop-01.jpg" },
-  "Social 8": { logo: "/logos/social8.png", image: "/photos/projects/thrive-hospitality/glam-02.jpg" },
-  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "/photos/projects/chaii-republic/chaii-01.jpg", inset: "/photos/projects/chaii-republic/chaii-02.jpg" },
+  "Social 8": { logo: "/logos/social8.png", image: "/photos/projects/social8/social8-01.jpg" },
+  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "/photos/projects/chaii-republic/chaii-02.jpg", inset: "/photos/projects/chaii-republic/chaii-03.jpg" },
   "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "/photos/projects/kingfisher/kingfisher-01.jpg", inset: "/photos/projects/kingfisher/kingfisher-02.jpg" },
 };
 

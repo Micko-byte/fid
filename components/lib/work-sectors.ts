@@ -69,7 +69,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Hospitality, Lifestyle & Destination Brands",
     intro: "Launches, destination storytelling and lifestyle experiences for hospitality brands and venue-led businesses.",
     accent: "#1f6b4a",
-    cover: "/photos/projects/thrive-hospitality/glam-01.jpg",
+    cover: "/photos/projects/glam-hotel.jpg",
     Icon: ForkKnife,
   },
   {

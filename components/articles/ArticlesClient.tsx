@@ -8,6 +8,16 @@ import { pressArticles, CAMPAIGNS, type PressArticle } from "@/components/lib/ar
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
+// Campaign accents — each story carries its campaign's colour.
+const CAMPAIGN_ACCENT: Record<string, string> = {
+  "chaii-republic": "#1f6b4a",
+  "cafe-nbo": "#d98038",
+  "glam-hotel": "#750006",
+  "the-perch": "#0f766e",
+  "suhba-series": "#8a6a52",
+};
+const accentFor = (slug: string) => CAMPAIGN_ACCENT[slug] ?? "#750006";
+
 /* Featured story — the strongest national-press piece leads the page */
 const FEATURED_URL = "https://www.standardmedia.co.ke/business/enterprise/article/2001528799/chaii-republic-unveils-cultural-tea-hub-in-nairobi";
 
@@ -27,12 +37,14 @@ function ArticleCard({ a, i }: { a: PressArticle; i: number }) {
       <div className="pa-media" style={{ position: "relative", overflow: "hidden", borderRadius: "4px", aspectRatio: "16 / 10", background: "#e7ddcd" }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={a.image} alt={a.title} loading="lazy" referrerPolicy="no-referrer" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+        <span className="pa-tint" style={{ position: "absolute", inset: 0, background: accentFor(a.campaignSlug), mixBlendMode: "multiply", opacity: 0, transition: "opacity 0.4s ease", pointerEvents: "none" }} />
         <span className="pa-read">
           Read at {a.source} <ArrowUpRight size={13} weight="bold" />
         </span>
       </div>
-      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#750006", fontWeight: 700, margin: "1rem 0 0" }}>
-        {a.source} · {a.campaign}
+      <p style={{ display: "flex", alignItems: "center", gap: "0.5rem", margin: "1rem 0 0" }}>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 800, color: "#f5f2ec", background: accentFor(a.campaignSlug), borderRadius: "999px", padding: "0.3rem 0.7rem" }}>{a.campaign}</span>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.18em", textTransform: "uppercase", color: "rgba(28,28,28,0.5)", fontWeight: 700 }}>{a.source}</span>
       </p>
       <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.1rem,1.6vw,1.4rem)", lineHeight: 1.2, letterSpacing: "-0.01em", color: "#1c1c1c", margin: "0.5rem 0 0", fontWeight: 700 }}>
         {a.title}
@@ -50,7 +62,10 @@ export default function ArticlesClient() {
   const shown = filter === "all" ? rest : rest.filter((a) => a.campaignSlug === filter);
 
   return (
-    <main style={{ background: "#f5f2ec", color: "#1c1c1c", minHeight: "100vh" }}>
+    <main style={{ background: "#f5f2ec", color: "#1c1c1c", minHeight: "100vh", position: "relative", overflow: "hidden" }}>
+      <div aria-hidden style={{ position: "absolute", right: "-0.06em", top: "clamp(3rem,8vw,6rem)", fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(7rem,20vw,20rem)", lineHeight: 0.8, color: "rgba(117,0,6,0.045)", pointerEvents: "none", userSelect: "none", zIndex: 0 }}>
+        PRESS
+      </div>
       {/* ── Hero ── */}
       <section className="section-shell" style={{ paddingTop: "clamp(7rem,15vh,10rem)", paddingBottom: "clamp(2rem,4vw,3rem)" }}>
         <motion.p
@@ -129,8 +144,8 @@ export default function ArticlesClient() {
                 style={{
                   fontFamily: "var(--font-body)", fontSize: "0.76rem", fontWeight: 600, letterSpacing: "0.03em",
                   padding: "0.55rem 1.15rem", borderRadius: "999px", cursor: "pointer",
-                  border: on ? "1px solid #750006" : "1px solid rgba(38,0,0,0.18)",
-                  background: on ? "#750006" : "transparent",
+                  border: on ? `1px solid ${c.slug === "all" ? "#750006" : accentFor(c.slug)}` : "1px solid rgba(38,0,0,0.18)",
+                  background: on ? (c.slug === "all" ? "#750006" : accentFor(c.slug)) : "transparent",
                   color: on ? "#f5f2ec" : "rgba(28,28,28,0.7)",
                   transition: "background 0.25s, color 0.25s, border-color 0.25s",
                 }}
@@ -176,7 +191,11 @@ export default function ArticlesClient() {
         .pa-media img { transition: transform 0.8s cubic-bezier(0.16,1,0.3,1), filter 0.5s ease; filter: saturate(0.96); }
         .pa-card:hover .pa-media img { transform: scale(1.06); filter: saturate(1.05); }
         .pa-media { transition: box-shadow 0.45s ease; }
-        .pa-card:hover .pa-media { box-shadow: 0 24px 60px rgba(38,0,0,0.18); }
+        .pa-card:hover .pa-media { box-shadow: 0 28px 70px rgba(38,0,0,0.22); transform: translateY(-5px) rotate(-0.4deg); }
+        .pa-media { transition: box-shadow 0.45s ease, transform 0.55s cubic-bezier(0.16,1,0.3,1); }
+        .pa-card:hover .pa-tint { opacity: 0.28 !important; }
+        .pa-card h3 { transition: color 0.25s; }
+        .pa-card:hover h3 { color: #750006; }
         .pa-read {
           position: absolute; left: 0.9rem; bottom: 0.8rem; z-index: 2;
           display: inline-flex; align-items: center; gap: 0.4rem;

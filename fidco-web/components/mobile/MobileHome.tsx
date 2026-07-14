@@ -261,12 +261,12 @@ export default function MobileHome() {
           <MobileSectionHead title="Selected Work" href="/work" label="View all" tone="dark" />
         </div>
         <div className="mwr-reel">
-          {WORK.map((w, i) => (
+          {WORK.slice(0, 3).map((w, i) => (
             <Link key={w.sectorSlug} href={`/work/${w.sectorSlug}`} className="mwr-slide" style={{ textDecoration: "none", display: "block", position: "relative" }}>
               <img src={w.image} alt={w.client} loading={i < 2 ? "eager" : "lazy"} decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(13,5,5,0.42) 0%, rgba(13,5,5,0.05) 40%, rgba(13,5,5,0.86) 100%)" }} />
               <span style={{ position: "absolute", top: "1.1rem", right: "1.2rem", fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.22em", color: "rgba(245,242,236,0.85)", fontWeight: 700 }}>
-                {String(i + 1).padStart(2, "0")} / {String(WORK.length).padStart(2, "0")}
+                {String(i + 1).padStart(2, "0")} / 03
               </span>
               {w.logo && (
                 <span style={{ position: "absolute", top: "1rem", left: "1.2rem", display: "inline-flex", alignItems: "center", padding: "0.45rem 0.65rem", borderRadius: "10px", background: "#f5f2ec" }}>
@@ -281,6 +281,21 @@ export default function MobileHome() {
             </Link>
           ))}
         </div>
+        {/* All Work — big centered CTA with cards peeking from the edges */}
+        <Link href="/work" style={{ textDecoration: "none", display: "block", position: "relative", overflow: "hidden", padding: "clamp(4.5rem,16vw,7rem) 0", background: "#f5f2ec" }}>
+          <img src={WORK[3].image} alt="" aria-hidden loading="lazy" style={{ position: "absolute", left: "-16vw", top: "50%", transform: "translateY(-50%)", width: "34vw", aspectRatio: "3/4", objectFit: "cover", borderRadius: "8px", boxShadow: "0 14px 40px rgba(38,0,0,0.2)" }} />
+          <img src={WORK[4].image} alt="" aria-hidden loading="lazy" style={{ position: "absolute", right: "-16vw", top: "38%", transform: "translateY(-50%)", width: "34vw", aspectRatio: "3/4", objectFit: "cover", borderRadius: "8px", boxShadow: "0 14px 40px rgba(38,0,0,0.2)" }} />
+          <div style={{ position: "relative", textAlign: "center" }}>
+            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(2.6rem, 12vw, 3.6rem)", letterSpacing: "-0.03em", color: "#1c1c1c" }}>
+              All Work
+              <sup style={{ fontFamily: "var(--font-body)", fontSize: "0.42em", fontWeight: 700, color: "#750006", marginLeft: "0.2em" }}>(11)</sup>
+            </span>
+            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(28,28,28,0.55)", fontWeight: 700, margin: "0.9rem 0 0" }}>
+              Every sector, every story
+            </p>
+          </div>
+        </Link>
+
         <style>{`
           .mwr-reel { scroll-snap-type: y proximity; }
           .mwr-slide { height: 72svh; scroll-snap-align: start; overflow: hidden; }

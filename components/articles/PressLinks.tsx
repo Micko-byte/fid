@@ -42,7 +42,7 @@ export default function PressLinks({
           In the press
         </motion.h2>
         <Link href="/articles" style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 700, color: "#750006", textDecoration: "none", borderBottom: "1px solid #750006", paddingBottom: "0.2rem" }}>
-          All coverage
+          All articles →
         </Link>
       </div>
 

@@ -72,7 +72,7 @@ const CHAPTERS: Chapter[] = [
     works: ["Café NBO", "Glam Hotel", "Social 8", "Chaii Republic", "Kingfisher Nest"],
     images: [
       { src: "/photos/projects/glam-hotel.jpg", alt: "Glam Hotel Westlands" },
-      { src: "/photos/projects/thrive-hospitality/glam-02.jpg", alt: "Thrive Hospitality experience" },
+      { src: "/photos/projects/kingfisher/kingfisher-01.jpg", alt: "The Perch at Kingfisher Nest" },
     ],
   },
   {
