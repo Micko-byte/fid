@@ -55,9 +55,15 @@ function buildCss(active: string | null, marketCodes: string[]): string {
   const marketSelector = marketCodes.map((c) => `.af-map svg path#${c}`).join(",\n    ");
   const marketRule = `
     ${marketSelector} {
-      fill: #d98038;
+      fill: #e08a35;
       stroke: #260000;
-      stroke-width: 0.4;
+      stroke-width: 0.45;
+    }
+    ${marketSelector.replaceAll(",", ":hover,")}:hover {
+      fill: #f0a050;
+      stroke: #f5f2ec;
+      transform: scale(1.08);
+      filter: drop-shadow(0 0 10px rgba(240,160,80,0.7));
     }`;
   const base = `
     .af-shell {
@@ -87,14 +93,21 @@ function buildCss(active: string | null, marketCodes: string[]): string {
     }
     /* non-market countries — soft cream landmass floating on deep current */
     .af-map svg path {
-      fill: rgba(245,242,236,0.12);
-      stroke: rgba(245,242,236,0.28);
-      stroke-width: 0.3;
-      transition: fill 0.35s ease, stroke 0.35s ease;
+      fill: rgba(245,242,236,0.18);
+      stroke: rgba(245,242,236,0.45);
+      stroke-width: 0.4;
+      transition: fill 0.3s ease, stroke 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), filter 0.3s ease;
       transform-box: fill-box;
       transform-origin: center;
+      cursor: pointer;
     }
-    .af-map svg path:hover { fill: rgba(217,128,56,0.35); }
+    .af-map svg path:hover {
+      fill: rgba(217,128,56,0.6);
+      stroke: #f5f2ec;
+      stroke-width: 0.6;
+      transform: scale(1.06);
+      filter: drop-shadow(0 0 6px rgba(217,128,56,0.55));
+    }
     .af-map-glow {
       position: absolute;
       inset: 0;
@@ -108,7 +121,9 @@ function buildCss(active: string | null, marketCodes: string[]): string {
     .af-map svg path#${active} {
       fill: #f5f2ec;
       stroke: #d98038;
-      stroke-width: 0.6;
+      stroke-width: 0.7;
+      transform: scale(1.07);
+      filter: drop-shadow(0 0 12px rgba(245,242,236,0.55));
     }`;
 }
 
