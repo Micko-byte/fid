@@ -18,7 +18,7 @@ const logos = [
   "/logos/thrive-hospitality.png",
   "/logos/amahoro-coalition.png",
   "/logos/bomas-of-kenya.png",
-  "/logos/wrc-safari-rally.png",
+  "/logos/wrc-safari-rally.svg",
   "/logos/elysium-capital.png",
   "/logos/medigah-london-hair.png",
   "/logos/abyan-salon-spa.png",

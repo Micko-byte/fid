@@ -23,6 +23,7 @@ const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: 
 const SECTOR_PRESS: Partial<Record<WorkSectorSlug, string[]>> = {
   hospitality: ["chaii-republic", "cafe-nbo", "glam-hotel", "the-perch"],
   "owned-ips": ["suhba-series"],
+  lifestyle: ["allso-beauty"],
 };
 
 const EASE = [0.16, 1, 0.3, 1] as const;
