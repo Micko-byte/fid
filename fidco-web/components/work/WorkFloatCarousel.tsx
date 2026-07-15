@@ -96,7 +96,7 @@ const CARDS: FloatCard[] = [
     sector: "Owned IPs",
     handle: "Suhba Series by FID PR",
     logo: "/logos/suhba-series.png",
-    image: "/photos/platforms/suhba-series/suhba-01.jpg",
+    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
     headline: "Curated conversation, modern identity.",
     copy: "An intimate platform for dialogue around identity, leadership, wellbeing and modern African experiences.",
     accent: "#260000",

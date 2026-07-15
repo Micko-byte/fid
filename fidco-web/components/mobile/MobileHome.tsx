@@ -58,7 +58,7 @@ const WORK = [
 
 const PLATFORMS = [
   { slug: "the-tribe-vibe", name: "The Tribe Vibe", num: "01", tag: "Lifestyle · Music · Culture", image: "/photos/projects/tribe-vibe.jpg", logo: "/logos/tribe-vibe.png", logoDark: false },
-  { slug: "suhba-series", name: "Suhba Series", num: "02", tag: "Curated Conversations", image: "/photos/platforms/suhba-series/suhba-01.jpg", logo: "/logos/suhba-series.png", logoDark: false },
+  { slug: "suhba-series", name: "Suhba Series", num: "02", tag: "Curated Conversations", image: cl("suhba-01"), logo: "/logos/suhba-series.png", logoDark: false },
   { slug: "the-capital-room", name: "The Capital Room", num: "03", tag: "Leadership · Business", image: "/photos/editorial/podcast-set.jpg", logo: "/logos/capital-room.png", logoDark: true },
 ];
 

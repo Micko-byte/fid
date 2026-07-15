@@ -150,7 +150,7 @@ const CHAPTERS: Chapter[] = [
     works: [],
     images: [
       { src: "/photos/projects/tribe-vibe.jpg", alt: "The Tribe Vibe" },
-      { src: "/photos/platforms/suhba-series/suhba-01.jpg", alt: "Suhba Series" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01", alt: "Suhba Series" },
     ],
     platforms: [
       {
@@ -165,7 +165,7 @@ const CHAPTERS: Chapter[] = [
         name: "Suhba Series",
         logo: "/logos/suhba-series.png",
         logoDark: false,
-        image: "/photos/platforms/suhba-series/suhba-01.jpg",
+        image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
       },
       {
         slug: "the-capital-room",
