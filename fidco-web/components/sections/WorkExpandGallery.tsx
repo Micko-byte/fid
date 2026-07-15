@@ -31,7 +31,8 @@ const ACCENT: Record<string, string> = Object.fromEntries(WORK_SECTORS.map((s) =
 const COVER: Record<string, string> = Object.fromEntries(WORK_SECTORS.map((s) => [s.slug, s.cover]));
 
 function toSrc(src: string) {
-  return src.startsWith("/") ? src : `/${src.replace(/^public\//, "")}`;
+  if (src.startsWith("http") || src.startsWith("/")) return src;
+  return `/${src.replace(/^public\//, "")}`;
 }
 
 type Tile = {

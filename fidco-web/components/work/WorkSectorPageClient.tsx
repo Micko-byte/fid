@@ -29,7 +29,8 @@ const SECTOR_PRESS: Partial<Record<WorkSectorSlug, string[]>> = {
 const EASE = [0.16, 1, 0.3, 1] as const;
 
 function toSrc(src: string) {
-  return src.startsWith("/") ? src : `/${src.replace(/^public\//, "")}`;
+  if (src.startsWith("http") || src.startsWith("/")) return src;
+  return `/${src.replace(/^public\//, "")}`;
 }
 
 function projectImages(slug: string) {

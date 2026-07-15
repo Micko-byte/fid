@@ -49,7 +49,8 @@ const typeStyles = {
 };
 
 function toSrc(src: string) {
-  return src.startsWith("/") ? src : `/${src.replace(/^public\//, "")}`;
+  if (src.startsWith("http") || src.startsWith("/")) return src;
+  return `/${src.replace(/^public\//, "")}`;
 }
 
 function RevealBlock({
