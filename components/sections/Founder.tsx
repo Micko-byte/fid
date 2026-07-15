@@ -76,7 +76,7 @@ export default function Founder() {
             transition={{ duration: 0.8, delay: 0.08 }}
           >
             <TiltedCard
-              imageSrc="/photos/founder/farida-studio.jpg"
+              imageSrc="https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/farida-studio"
               altText="Farida Idris, Founder & Lead Strategist"
               captionText="Farida Idris"
               containerHeight="clamp(360px, 46vw, 560px)"
@@ -93,7 +93,7 @@ export default function Founder() {
                   {/* second frame — crossfades in on hover */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src="/photos/founder/farida-seated.jpg"
+                    src="https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/farida-seated"
                     alt=""
                     aria-hidden
                     style={{

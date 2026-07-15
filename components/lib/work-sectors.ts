@@ -45,7 +45,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Government & Public Institutions",
     intro: "Public-sector, multilateral and national-interest work that requires precision, protocol and narrative clarity.",
     accent: "#750006",
-    cover: "/photos/projects/national-minorities-day.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/national-minorities-day",
     Icon: Buildings,
   },
   {
@@ -53,7 +53,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Retail & Fashion",
     intro: "Retail campaigns, influencer-led fashion storytelling and digital ecosystems for style-conscious African audiences.",
     accent: "#b5397a",
-    cover: "/photos/projects/lc-waikiki-influencer.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/lc-waikiki-influencer",
     Icon: TShirt,
   },
   {
@@ -61,7 +61,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Manufacturing & Corporate Brands",
     intro: "Corporate partnerships, brand communications and regional campaigns that build reputation and market confidence.",
     accent: "#d98038",
-    cover: "/photos/projects/kansai-gor-mahia.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia",
     Icon: Factory,
   },
   {
@@ -69,7 +69,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Hospitality, Lifestyle & Destination Brands",
     intro: "Launches, destination storytelling and lifestyle experiences for hospitality brands and venue-led businesses.",
     accent: "#1f6b4a",
-    cover: "/photos/projects/glam-hotel.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel",
     Icon: ForkKnife,
   },
   {
@@ -77,7 +77,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Sports, Tourism & Mass-Audience Platforms",
     intro: "High-visibility sporting moments and mass-audience platforms — from the WRC Safari Rally to Gor Mahia FC.",
     accent: "#0f766e",
-    cover: "/photos/editorial/crowd-audience.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/crowd-audience",
     Icon: Trophy,
   },
   {
@@ -85,7 +85,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Healthcare & Medical Institutions",
     intro: "Healthcare communication that prioritises credibility, reassurance and clear institutional storytelling.",
     accent: "#2f6f8f",
-    cover: "/photos/projects/columbia-building.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/columbia-building",
     Icon: Heartbeat,
   },
   {
@@ -93,7 +93,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Social Impact, Development & Multilateral Partnerships",
     intro: "Complex multi-stakeholder communications for UN agencies, NGOs and development partners across Africa.",
     accent: "#7a5c2e",
-    cover: "/photos/projects/africa-forum-displacement.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/africa-forum-displacement",
     Icon: HandHeart,
   },
   {
@@ -101,7 +101,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Finance, Investment & Advisory",
     intro: "Clarifying complex investment narratives for firms operating across emerging and frontier markets.",
     accent: "#1c1c1c",
-    cover: "/photos/projects/elysium-finance.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/elysium-finance",
     Icon: ChartLineUp,
   },
   {
@@ -109,7 +109,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Beauty, Wellness & Lifestyle",
     intro: "Beauty, wellbeing and lifestyle-led campaigns shaped around audience culture and visual appeal.",
     accent: "#b5397a",
-    cover: "/photos/projects/allso-beauty.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/allso-beauty-cover",
     Icon: Sparkle,
   },
   {
@@ -117,7 +117,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Culture, Entertainment & Experiential Platforms",
     intro: "Cross-border cultural platforms celebrating African music, fashion, cuisine and creative expression.",
     accent: "#8a5cf0",
-    cover: "/photos/projects/cultural-dancers.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-dancers",
     Icon: MusicNotes,
   },
   {
@@ -125,7 +125,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Owned Experiences & Cultural IPs",
     intro: "Original platforms and conversation-led properties designed and owned by FID & Co.",
     accent: "#260000",
-    cover: "/photos/projects/tribe-vibe.jpg",
+    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe",
     Icon: SquaresFour,
   },
 ];

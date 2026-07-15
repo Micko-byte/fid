@@ -16,17 +16,17 @@ type Slide = { slug: string; title: string; client: string; image: string; secto
 
 /* All 11 sectors — one slide each, mirroring the /work page. */
 const SLIDES: Slide[] = [
-  { sector: "government", slug: "government", title: "Government & Public Institutions", client: "Africa Urban Forum 2026", image: "/photos/projects/auf-2026.jpg" },
-  { sector: "retail-fashion", slug: "retail-fashion", title: "Retail & Fashion", client: "LC Waikiki Africa", image: "/photos/projects/lc-waikiki-influencer.jpg" },
-  { sector: "corporate", slug: "corporate", title: "Manufacturing & Corporate", client: "Kansai Plascon", image: "/photos/projects/kansai-plascon-launch.jpg" },
-  { sector: "hospitality", slug: "hospitality", title: "Hospitality & Destination Brands", client: "Thrive Hospitality Group", image: "/photos/projects/glam-hotel.jpg" },
-  { sector: "sports-tourism", slug: "sports-tourism", title: "Sports, Tourism & Mass Audiences", client: "Gor Mahia FC", image: "/photos/projects/kansai-gor-mahia.jpg" },
-  { sector: "healthcare", slug: "healthcare", title: "Healthcare & Medical Institutions", client: "Columbia Africa", image: "/photos/projects/columbia-building.jpg" },
-  { sector: "social-impact", slug: "social-impact", title: "Social Impact & Multilateral", client: "UNHCR & The Amahoro Coalition", image: "/photos/projects/africa-forum-displacement.jpg" },
-  { sector: "finance", slug: "finance", title: "Finance, Investment & Advisory", client: "Elysium Capital Partners", image: "/photos/projects/elysium-finance.jpg" },
-  { sector: "lifestyle", slug: "lifestyle", title: "Beauty, Wellness & Lifestyle", client: "Allso Beauty", image: "/photos/projects/allso-launch.jpg" },
-  { sector: "culture-entertainment", slug: "culture-entertainment", title: "Culture & Entertainment", client: "Talanta Afrika Festival", image: "/photos/projects/cultural-dancers.jpg" },
-  { sector: "owned-ips", slug: "owned-ips", title: "Owned Experiences & Cultural IPs", client: "Tribe Vibe · Suhba · Capital Room", image: "/photos/projects/tribe-vibe.jpg" },
+  { sector: "government", slug: "government", title: "Government & Public Institutions", client: "Africa Urban Forum 2026", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/auf-2026" },
+  { sector: "retail-fashion", slug: "retail-fashion", title: "Retail & Fashion", client: "LC Waikiki Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/lc-waikiki-influencer" },
+  { sector: "corporate", slug: "corporate", title: "Manufacturing & Corporate", client: "Kansai Plascon", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-plascon-launch" },
+  { sector: "hospitality", slug: "hospitality", title: "Hospitality & Destination Brands", client: "Thrive Hospitality Group", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel" },
+  { sector: "sports-tourism", slug: "sports-tourism", title: "Sports, Tourism & Mass Audiences", client: "Gor Mahia FC", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia" },
+  { sector: "healthcare", slug: "healthcare", title: "Healthcare & Medical Institutions", client: "Columbia Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/columbia-building" },
+  { sector: "social-impact", slug: "social-impact", title: "Social Impact & Multilateral", client: "UNHCR & The Amahoro Coalition", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/africa-forum-displacement" },
+  { sector: "finance", slug: "finance", title: "Finance, Investment & Advisory", client: "Elysium Capital Partners", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/elysium-finance" },
+  { sector: "lifestyle", slug: "lifestyle", title: "Beauty, Wellness & Lifestyle", client: "Allso Beauty", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/allso-launch" },
+  { sector: "culture-entertainment", slug: "culture-entertainment", title: "Culture & Entertainment", client: "Talanta Afrika Festival", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-dancers" },
+  { sector: "owned-ips", slug: "owned-ips", title: "Owned Experiences & Cultural IPs", client: "Tribe Vibe · Suhba · Capital Room", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe" },
 ];
 
 export default function WorkReel() {

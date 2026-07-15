@@ -13,11 +13,11 @@ import PressLinks from "@/components/articles/PressLinks";
 // Press campaigns that belong to each sector page.
 // Thrive Hospitality venues — each gets its own panel with its own identity.
 const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: string; inset?: string }> = {
-  "Café NBO": { logo: "/logos/cafe-nbo.png", image: "/photos/projects/cafe-nbo/cafenbo-01.jpg", inset: "/photos/projects/cafe-nbo/cafenbo-02.jpg" },
-  "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "/photos/projects/glam-hotel.jpg", inset: "/photos/projects/glam-rooftop/glam-rooftop-01.jpg" },
-  "Social 8": { logo: "/logos/social8.png", image: "/photos/projects/social8/social8-01.jpg" },
-  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "/photos/projects/chaii-republic/chaii-02.jpg", inset: "/photos/projects/chaii-republic/chaii-03.jpg" },
-  "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "/photos/projects/kingfisher/kingfisher-01.jpg", inset: "/photos/projects/kingfisher/kingfisher-02.jpg" },
+  "Café NBO": { logo: "/logos/cafe-nbo.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-02" },
+  "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-rooftop-01" },
+  "Social 8": { logo: "/logos/social8.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/social8-01" },
+  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-02", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-03" },
+  "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-02" },
 };
 
 const SECTOR_PRESS: Partial<Record<WorkSectorSlug, string[]>> = {

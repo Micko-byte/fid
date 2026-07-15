@@ -28,12 +28,12 @@ interface IGPost {
 
 // Fallback tiles (curated) — shown only until a live feed URL is configured
 const fallback: IGPost[] = [
-  { id: "f1", permalink: PROFILE, image: "/photos/projects/tribe-vibe.jpg" },
-  { id: "f2", permalink: PROFILE, image: "/photos/projects/lc-waikiki-influencer.jpg" },
-  { id: "f3", permalink: PROFILE, image: "/photos/projects/kansai-gor-mahia.jpg" },
-  { id: "f4", permalink: PROFILE, image: "/photos/projects/utamaduni-day.jpg" },
-  { id: "f5", permalink: PROFILE, image: "/photos/projects/africa-forum-displacement.jpg" },
-  { id: "f6", permalink: PROFILE, image: "/photos/editorial/cultural-festival.jpg" },
+  { id: "f1", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe" },
+  { id: "f2", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/lc-waikiki-influencer" },
+  { id: "f3", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia" },
+  { id: "f4", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/utamaduni-day" },
+  { id: "f5", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/africa-forum-displacement" },
+  { id: "f6", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-festival" },
 ];
 
 /* Normalize various feed shapes (Behold v2, Graph API, generic) into IGPost */

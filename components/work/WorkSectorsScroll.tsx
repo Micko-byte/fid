@@ -38,8 +38,8 @@ const CHAPTERS: Chapter[] = [
     accent: "#750006",
     works: ["Africa Urban Forum 2026", "National Minorities Day", "Utamaduni Day", "Bomas of Kenya"],
     images: [
-      { src: "/photos/projects/auf-2026.jpg", alt: "Africa Urban Forum 2026 at KICC" },
-      { src: "/photos/projects/national-minorities-day.jpg", alt: "National Minorities Day" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/auf-2026", alt: "Africa Urban Forum 2026 at KICC" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/national-minorities-day", alt: "National Minorities Day" },
     ],
   },
   {
@@ -49,7 +49,7 @@ const CHAPTERS: Chapter[] = [
     short: "Retail",
     accent: "#b5397a",
     works: ["Woolworths Kenya", "LC Waikiki Africa", "2nu Boutique"],
-    images: [{ src: "/photos/projects/lc-waikiki-influencer.jpg", alt: "LC Waikiki influencer campaign" }],
+    images: [{ src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/lc-waikiki-influencer", alt: "LC Waikiki influencer campaign" }],
   },
   {
     slug: "corporate",
@@ -59,8 +59,8 @@ const CHAPTERS: Chapter[] = [
     accent: "#d98038",
     works: ["Kansai Plascon", "Chloride Exide"],
     images: [
-      { src: "/photos/projects/kansai-plascon-launch.jpg", alt: "Kansai Plascon — Colours of Victory" },
-      { src: "/photos/projects/kansai-gor-mahia.jpg", alt: "Kansai Plascon x Gor Mahia" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-plascon-launch", alt: "Kansai Plascon — Colours of Victory" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia", alt: "Kansai Plascon x Gor Mahia" },
     ],
   },
   {
@@ -71,8 +71,8 @@ const CHAPTERS: Chapter[] = [
     accent: "#1f6b4a",
     works: ["Café NBO", "Glam Hotel", "Social 8", "Chaii Republic", "Kingfisher Nest"],
     images: [
-      { src: "/photos/projects/glam-hotel.jpg", alt: "Glam Hotel Westlands" },
-      { src: "/photos/projects/kingfisher/kingfisher-01.jpg", alt: "The Perch at Kingfisher Nest" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel", alt: "Glam Hotel Westlands" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-01", alt: "The Perch at Kingfisher Nest" },
     ],
   },
   {
@@ -83,8 +83,8 @@ const CHAPTERS: Chapter[] = [
     accent: "#0f766e",
     works: ["WRC Safari Rally", "Gor Mahia FC"],
     images: [
-      { src: "/photos/projects/kansai-gor-mahia.jpg", alt: "Gor Mahia launch" },
-      { src: "/photos/editorial/crowd-audience.jpg", alt: "Mass audience event" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia", alt: "Gor Mahia launch" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/crowd-audience", alt: "Mass audience event" },
     ],
   },
   {
@@ -95,8 +95,8 @@ const CHAPTERS: Chapter[] = [
     accent: "#2f6f8f",
     works: ["Gertrude's Children's Hospital Foundation", "Columbia Africa Healthcare"],
     images: [
-      { src: "/photos/projects/columbia-building.jpg", alt: "Columbia Africa Healthcare" },
-      { src: "/photos/projects/healthcare-storytelling.jpg", alt: "Healthcare storytelling" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/columbia-building", alt: "Columbia Africa Healthcare" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/healthcare-storytelling", alt: "Healthcare storytelling" },
     ],
   },
   {
@@ -106,7 +106,7 @@ const CHAPTERS: Chapter[] = [
     short: "Social Impact",
     accent: "#7a5c2e",
     works: ["The Amahoro Coalition & UNHCR"],
-    images: [{ src: "/photos/projects/africa-forum-displacement.jpg", alt: "Africa Forum on Displacements" }],
+    images: [{ src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/africa-forum-displacement", alt: "Africa Forum on Displacements" }],
   },
   {
     slug: "finance",
@@ -115,7 +115,7 @@ const CHAPTERS: Chapter[] = [
     short: "Finance",
     accent: "#1c1c1c",
     works: ["Elysium Capital Partners"],
-    images: [{ src: "/photos/projects/elysium-finance.jpg", alt: "Elysium Capital" }],
+    images: [{ src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/elysium-finance", alt: "Elysium Capital" }],
   },
   {
     slug: "lifestyle",
@@ -125,7 +125,7 @@ const CHAPTERS: Chapter[] = [
     accent: "#b5397a",
     works: ["Allso Beauty", "Abyan Salon & Spa", "Luxury Body Spa", "Medigah London Hair", "RukyBeau"],
     images: [
-      { src: "/photos/projects/allso-launch.jpg", alt: "Allso Beauty launch" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/allso-launch", alt: "Allso Beauty launch" },
       { src: "/photos/projects/abyan-salon/DSC08749.webp", alt: "Abyan Salon & Spa" },
     ],
   },
@@ -137,8 +137,8 @@ const CHAPTERS: Chapter[] = [
     accent: "#8a5cf0",
     works: ["Talanta Afrika Festival"],
     images: [
-      { src: "/photos/projects/cultural-dancers.jpg", alt: "Cultural performance" },
-      { src: "/photos/editorial/cultural-festival.jpg", alt: "Festival atmosphere" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-dancers", alt: "Cultural performance" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-festival", alt: "Festival atmosphere" },
     ],
   },
   {
@@ -149,7 +149,7 @@ const CHAPTERS: Chapter[] = [
     accent: "#260000",
     works: [],
     images: [
-      { src: "/photos/projects/tribe-vibe.jpg", alt: "The Tribe Vibe" },
+      { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe", alt: "The Tribe Vibe" },
       { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01", alt: "Suhba Series" },
     ],
     platforms: [
@@ -158,7 +158,7 @@ const CHAPTERS: Chapter[] = [
         name: "The Tribe Vibe",
         logo: "/logos/tribe-vibe.png",
         logoDark: false,
-        image: "/photos/projects/tribe-vibe.jpg",
+        image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe",
       },
       {
         slug: "suhba-series",
@@ -172,7 +172,7 @@ const CHAPTERS: Chapter[] = [
         name: "The Capital Room",
         logo: "/logos/capital-room.png",
         logoDark: true,
-        image: "/photos/editorial/podcast-set.jpg",
+        image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/podcast-set",
       },
     ],
   },

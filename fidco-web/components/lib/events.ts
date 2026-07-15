@@ -20,7 +20,7 @@ export const events: FidEvent[] = [
     status: "upcoming",
     description:
       "FID & Co.'s flagship experiential lifestyle platform — a curated day experience blending music, hospitality, creator culture and socially engaged urban audiences. More than an event: a lifestyle-driven cultural platform where entertainment, storytelling and brand engagement intersect.",
-    image: "/photos/projects/tribe-vibe.jpg",
+    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe",
     ticketUrl: "#",
   },
   {
@@ -32,7 +32,7 @@ export const events: FidEvent[] = [
     status: "upcoming",
     description:
       "An intimate conversation platform fostering meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences. Each edition brings together professionals, creatives, entrepreneurs and thought leaders through curated panels, high tea and moderated conversations.",
-    image: "/photos/editorial/cultural-festival.jpg",
+    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-festival",
     ticketUrl: "#",
   },
   {
@@ -44,7 +44,7 @@ export const events: FidEvent[] = [
     status: "upcoming",
     description:
       "A conversation-led platform focused on leadership, entrepreneurship, business and the realities of building within African markets. Bringing together founders, executives, creatives, policymakers and changemakers for reflective conversations around ambition, resilience, growth and influence.",
-    image: "/photos/editorial/podcast-set.jpg",
+    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/podcast-set",
     ticketUrl: "#",
   },
 ];

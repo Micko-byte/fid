@@ -26,9 +26,9 @@ const logos = [
 ];
 
 const proof = [
-  { label: "Government", image: "/photos/projects/national-minorities-day.jpg" },
-  { label: "Culture", image: "/photos/projects/tribe-vibe.jpg" },
-  { label: "Healthcare", image: "/photos/projects/columbia-building.jpg" },
+  { label: "Government", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/national-minorities-day" },
+  { label: "Culture", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe" },
+  { label: "Healthcare", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/columbia-building" },
 ];
 
 export default function BrandFlow() {
