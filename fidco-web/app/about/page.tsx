@@ -10,40 +10,26 @@ import WhoWeAreBackdrop from "@/components/graphics/WhoWeAreBackdrop";
 import Responsive from "@/components/mobile/Responsive";
 import MobileAbout from "@/components/mobile/MobileAbout";
 
-const pillars = [
-  {
-    num: "01",
-    word: "INSIGHT",
-    body: "We start with understanding. Before strategy comes research, listening and an honest assessment of where a brand stands in the world it operates in. We do not assume — we investigate.",
-  },
-  {
-    num: "02",
-    word: "STRATEGY",
-    body: "Every mandate has a plan. We build communications frameworks that are structured, measurable and aligned to business outcomes — not just moments. Strategy is the work before the work.",
-  },
-  {
-    num: "03",
-    word: "IMPACT",
-    body: "We measure success by what changes. Coverage earned, audiences moved, narratives shifted, brands positioned. Real outcomes. Real proof. Every engagement is accountable to a result.",
-  },
-];
-
 const values = [
   {
-    title: "Outcome before activity",
-    body: "We are always in service of the result — not the deliverable. If a tactic doesn't serve the strategy, it doesn't belong in the plan.",
+    title: "Strategic Thinking",
+    body: "We approach communications with a clear understanding of the broader business, cultural and reputational environment in which organisations operate.",
   },
   {
-    title: "Rigour at every scale",
-    body: "We bring the same standard to a regional activation as we do to a national campaign. Size of brief does not determine quality of thinking.",
+    title: "Cultural Intelligence",
+    body: "Operating in African markets requires an understanding of social dynamics, local narratives and evolving cultural trends. Our campaigns are designed with these insights at the centre.",
   },
   {
-    title: "African excellence",
-    body: "We believe African brands deserve world-class communications — and we deliver it. Local insight. Global standard. No compromise.",
+    title: "Integrated Delivery",
+    body: "By combining public relations, digital storytelling, influencer engagement and experiential marketing, we ensure communications strategies are translated into tangible audience engagement.",
   },
   {
-    title: "Relationships over transactions",
-    body: "We are not a vendor. We are a communications partner. Our best work happens when clients trust us enough to involve us in the full picture.",
+    title: "Regional Perspective",
+    body: "Through cross-border campaigns and partnerships, FID & Co. supports organisations operating across East and Southern Africa.",
+  },
+  {
+    title: "Execution Excellence",
+    body: "From concept to on-ground implementation, we deliver campaigns with precision, professionalism and attention to detail.",
   },
 ];
 
@@ -118,15 +104,23 @@ function WhoWeAre() {
           initial={{ opacity: 0, y: 32 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.4rem,6vw,5.2rem)", lineHeight: 1, letterSpacing: "-0.03em", color: "#1c1c1c", maxWidth: "18ch", marginBottom: "clamp(2rem,4vw,3.5rem)" }}
+          style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.4rem,6vw,5.2rem)", lineHeight: 1, letterSpacing: "-0.03em", color: "#1c1c1c", maxWidth: "20ch", marginBottom: "clamp(1.5rem,3vw,2.5rem)" }}
         >
-          A communications firm built for Africa&apos;s moment.
+          A strategic communications partner for organisations shaping Africa.
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, delay: 0.12 }}
+          style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.4vw,1.15rem)", lineHeight: 1.7, color: "rgba(28,28,28,0.7)", maxWidth: "60ch", marginBottom: "clamp(2.5rem,5vw,3.5rem)" }}
+        >
+          FID &amp; Co. is a full-service strategic communications and brand experience firm delivering public relations, media engagement, digital storytelling, influencer marketing and experiential activations across Kenya and the wider African region. Our work is grounded in insight, shaped by strategy, and delivered with precision.
+        </motion.p>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "clamp(1.5rem,3vw,2.5rem)" }}>
           {[
-            { title: "Founded in Nairobi", body: "We began in Kenya and grew our practice across East Africa, building relationships with institutions, brands and governments." },
-            { title: "Pan-African perspective", body: "Our work spans more than 8 African markets — we understand how culture, politics and commerce interact differently in each context." },
-            { title: "Integrated practice", body: "We don't separate PR from strategy or digital from experiential. Every engagement draws on the full range of our disciplines." },
+            { title: "Established in 2010", body: "We have evolved into a trusted partner for government institutions, multinational brands, corporates, hospitality groups, healthcare providers, sports organisations, investment firms and social impact initiatives." },
+            { title: "Regional reach & affiliations", body: "FID & Co. is the Kenya Affiliate Agency and Country Representative for Wano Communications (South Africa), supporting the execution and management of regional client portfolios across East Africa." },
+            { title: "A strategic boutique firm", body: "We combine the agility, cultural awareness and hands-on leadership of a boutique agency with the strategic depth required by multinational brands and institutional clients." },
           ].map((item, i) => (
             <motion.div
               key={item.title}
@@ -155,37 +149,48 @@ function Philosophy() {
       <div aria-hidden className="brand-pattern-light absolute inset-0 opacity-40 pointer-events-none" />
       <OrbitalRings color="#C7AC9F" opacity={0.07} className="absolute inset-0 w-full h-full" />
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
-        <p className="font-body text-xs tracking-[0.25em] uppercase mb-20" style={{ color: "#d98038" }}>
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#d98038" }}>
           Our philosophy
         </p>
-        <div className="space-y-0">
-          {pillars.map((p, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -24 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
-              className="grid md:grid-cols-3 gap-6 py-12 border-t"
-              style={{ borderColor: "rgba(255,255,255,0.08)" }}
-            >
-              <div>
-                <span className="font-body text-xs" style={{ color: "rgba(255,255,255,0.3)" }}>{p.num}</span>
-                <h3
-                  className="font-heading mt-3"
-                  style={{ fontSize: "clamp(2rem, 5vw, 4rem)", color: "#FFFFFF", letterSpacing: "-0.03em" }}
-                >
-                  {p.word}
-                </h3>
-              </div>
-              <p
-                className="font-body text-base leading-relaxed md:col-span-2 md:pt-8"
-                style={{ color: "rgba(255,255,255,0.6)" }}
-              >
-                {p.body}
-              </p>
-            </motion.div>
-          ))}
-          <div className="border-t" style={{ borderColor: "rgba(255,255,255,0.08)" }} />
+        <motion.h2
+          initial={{ opacity: 0, y: 24 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="font-heading leading-tight"
+          style={{ fontSize: "clamp(1.9rem, 4.5vw, 3.6rem)", color: "#FFFFFF", letterSpacing: "-0.02em", maxWidth: "22ch" }}
+        >
+          Communication is not noise — it is intentional, contextual and powerful.
+        </motion.h2>
+
+        <div className="grid md:grid-cols-2 gap-x-16 gap-y-12" style={{ marginTop: "clamp(2.5rem,5vw,4rem)" }}>
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.15 }}
+            className="font-body text-base leading-relaxed"
+            style={{ color: "rgba(255,255,255,0.7)" }}
+          >
+            At FID &amp; Co., we approach every engagement with a deep understanding of the client&apos;s objectives, the operating environment, the audience and cultural context, and the reputational and commercial implications. This allows us to design solutions that are strategic, relevant and sustainable, rather than reactive or trend-driven.
+          </motion.p>
+          <motion.ul
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.25 }}
+            className="space-y-4"
+            style={{ listStyle: "none", margin: 0, padding: 0 }}
+          >
+            {[
+              "The client's objectives",
+              "The operating environment",
+              "The audience and cultural context",
+              "The reputational and commercial implications",
+            ].map((point) => (
+              <li key={point} className="font-body flex items-start gap-3 border-t pt-4" style={{ color: "rgba(255,255,255,0.85)", borderColor: "rgba(255,255,255,0.1)", fontSize: "1.02rem" }}>
+                <span style={{ color: "#d98038", fontWeight: 700 }}>—</span>
+                {point}
+              </li>
+            ))}
+          </motion.ul>
         </div>
       </div>
     </section>
@@ -201,7 +206,7 @@ function OurApproach() {
     <section className="section-light py-24 md:py-40">
       <div ref={ref} className="max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#750006" }}>
-          How we work
+          What sets us apart
         </p>
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -210,7 +215,7 @@ function OurApproach() {
           className="font-heading mb-20 max-w-2xl"
           style={{ fontSize: "clamp(2rem, 4.5vw, 3.5rem)", color: "#260000", letterSpacing: "-0.02em" }}
         >
-          Principled by design. Accountable by default.
+          What sets FID &amp; Co. apart.
         </motion.h2>
 
         <div className="grid md:grid-cols-2 gap-0">
@@ -308,7 +313,7 @@ function Founder() {
                 letterSpacing: "-0.01em",
               }}
             >
-              &ldquo;Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people they serve.&rdquo;
+              &ldquo;Communication is not simply about visibility. It is about shaping understanding, building credibility and connecting organisations with the people and communities they serve.&rdquo;
             </blockquote>
             <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
               Farida Idris founded FID &amp; Co. with a conviction that African organisations deserve communications that are strategic, culturally grounded and genuinely effective. With over 15 years of experience spanning government mandates, lifestyle brands, multinational retail and social impact work, she has built an agency that leads with insight and delivers with precision.

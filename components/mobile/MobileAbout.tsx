@@ -10,17 +10,19 @@ const PX = "clamp(1.4rem, 6vw, 2rem)";
 const PY = "clamp(4.5rem, 16vw, 6.5rem)";
 const EASE = [0.16, 1, 0.3, 1] as const;
 
-const pillars = [
-  { num: "01", word: "INSIGHT", body: "Before strategy comes research, listening and an honest assessment of where a brand stands. We do not assume — we investigate." },
-  { num: "02", word: "STRATEGY", body: "We build communications frameworks that are structured, measurable and aligned to business outcomes — not just moments." },
-  { num: "03", word: "IMPACT", body: "Coverage earned, audiences moved, narratives shifted, brands positioned. Every engagement is accountable to a result." },
+const philosophyPoints = [
+  "The client's objectives",
+  "The operating environment",
+  "The audience and cultural context",
+  "The reputational and commercial implications",
 ];
 
 const values = [
-  { title: "Outcome before activity", body: "We are always in service of the result — not the deliverable." },
-  { title: "Rigour at every scale", body: "The same standard for a regional activation as a national campaign." },
-  { title: "African excellence", body: "World-class communications. Local insight. Global standard." },
-  { title: "Relationships over transactions", body: "We are a communications partner, not a vendor." },
+  { title: "Strategic Thinking", body: "We approach communications with a clear understanding of the broader business, cultural and reputational environment in which organisations operate." },
+  { title: "Cultural Intelligence", body: "Operating in African markets requires an understanding of social dynamics, local narratives and evolving cultural trends. Our campaigns are designed with these insights at the centre." },
+  { title: "Integrated Delivery", body: "By combining public relations, digital storytelling, influencer engagement and experiential marketing, we translate strategies into tangible audience engagement." },
+  { title: "Regional Perspective", body: "Through cross-border campaigns and partnerships, FID & Co. supports organisations operating across East and Southern Africa." },
+  { title: "Execution Excellence", body: "From concept to on-ground implementation, we deliver campaigns with precision, professionalism and attention to detail." },
 ];
 
 const markets = ["Kenya", "Uganda", "Rwanda", "Ethiopia", "South Sudan", "Zambia", "Ghana", "Tanzania"];
@@ -62,14 +64,19 @@ export default function MobileAbout() {
         <FadeUp><MobileEyebrow tone="light">Who we are</MobileEyebrow></FadeUp>
         <FadeUp delay={0.06}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2rem, 9vw, 2.8rem)", lineHeight: 1.02, letterSpacing: "-0.025em", margin: "1.2rem 0 0" }}>
-            A communications firm built for Africa&apos;s moment.
+            A strategic communications partner for organisations shaping Africa.
           </h2>
+        </FadeUp>
+        <FadeUp delay={0.1}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.98rem", lineHeight: 1.7, color: "rgba(28,28,28,0.7)", margin: "1.4rem 0 0" }}>
+            FID &amp; Co. is a full-service strategic communications and brand experience firm delivering public relations, media engagement, digital storytelling, influencer marketing and experiential activations across Kenya and the wider African region. Our work is grounded in insight, shaped by strategy, and delivered with precision.
+          </p>
         </FadeUp>
         <div style={{ marginTop: "2.4rem", display: "flex", flexDirection: "column", gap: "1rem" }}>
           {[
-            { title: "Founded in Nairobi", body: "We began in Kenya and grew across East Africa, building relationships with institutions, brands and governments." },
-            { title: "Pan-African perspective", body: "Our work spans 8+ African markets — we understand how culture, politics and commerce interact in each context." },
-            { title: "Integrated practice", body: "Every engagement draws on the full range of our disciplines — PR, strategy, digital and experiential." },
+            { title: "Established in 2010", body: "We have evolved into a trusted partner for government institutions, multinational brands, corporates, hospitality groups, healthcare providers, sports organisations, investment firms and social impact initiatives." },
+            { title: "Regional reach & affiliations", body: "FID & Co. is the Kenya Affiliate Agency and Country Representative for Wano Communications (South Africa), supporting regional client portfolios across East Africa." },
+            { title: "A strategic boutique firm", body: "We combine the agility, cultural awareness and hands-on leadership of a boutique agency with the strategic depth required by multinational and institutional clients." },
           ].map((c, i) => (
             <FadeUp key={c.title} delay={i * 0.06}>
               <div style={{ padding: "1.5rem", borderRadius: "14px", border: "1px solid rgba(28,28,28,0.1)", background: "rgba(255,255,255,0.6)", backdropFilter: "blur(6px)" }}>
@@ -86,12 +93,22 @@ export default function MobileAbout() {
       <section className="bg-brand-deep" style={{ color: "#f5f2ec", padding: `${PY} ${PX}`, position: "relative" }}>
         <div aria-hidden className="brand-pattern-light" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.4 }} />
         <FadeUp><MobileEyebrow>Our philosophy</MobileEyebrow></FadeUp>
-        <div style={{ marginTop: "2.4rem", display: "flex", flexDirection: "column", gap: "2.4rem" }}>
-          {pillars.map((p, i) => (
-            <FadeUp key={p.word} delay={i * 0.06}>
-              <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", color: "rgba(217,128,56,0.8)" }}>{p.num}</span>
-              <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.2rem, 11vw, 3.2rem)", letterSpacing: "-0.03em", color: "#f5f2ec", margin: "0.4rem 0 0.8rem" }}>{p.word}</h3>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.7, color: "rgba(245,242,236,0.6)", margin: 0 }}>{p.body}</p>
+        <FadeUp delay={0.06}>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)", lineHeight: 1.12, letterSpacing: "-0.02em", color: "#f5f2ec", margin: "1.4rem 0 0" }}>
+            Communication is not noise — it is intentional, contextual and powerful.
+          </h2>
+        </FadeUp>
+        <FadeUp delay={0.12}>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.95rem", lineHeight: 1.7, color: "rgba(245,242,236,0.62)", margin: "1.6rem 0 0" }}>
+            At FID &amp; Co., we approach every engagement with a deep understanding of the client&apos;s objectives, the operating environment, the audience and cultural context, and the reputational and commercial implications. This allows us to design solutions that are strategic, relevant and sustainable, rather than reactive or trend-driven.
+          </p>
+        </FadeUp>
+        <div style={{ marginTop: "1.8rem", display: "flex", flexDirection: "column", gap: "0" }}>
+          {philosophyPoints.map((point, i) => (
+            <FadeUp key={point} delay={i * 0.05}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "rgba(245,242,236,0.88)", margin: 0, padding: "0.9rem 0", borderTop: "1px solid rgba(245,242,236,0.12)", display: "flex", gap: "0.6rem" }}>
+                <span style={{ color: "#d98038", fontWeight: 700 }}>—</span>{point}
+              </p>
             </FadeUp>
           ))}
         </div>
@@ -99,10 +116,10 @@ export default function MobileAbout() {
 
       {/* HOW WE WORK */}
       <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
-        <FadeUp><MobileEyebrow tone="light">How we work</MobileEyebrow></FadeUp>
+        <FadeUp><MobileEyebrow tone="light">What sets us apart</MobileEyebrow></FadeUp>
         <FadeUp delay={0.06}>
           <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(1.9rem, 8.5vw, 2.6rem)", lineHeight: 1.05, letterSpacing: "-0.02em", margin: "1.2rem 0 2.2rem" }}>
-            Principled by design. Accountable by default.
+            What sets FID &amp; Co. apart.
           </h2>
         </FadeUp>
         <div style={{ display: "flex", flexDirection: "column", gap: "1.8rem" }}>
