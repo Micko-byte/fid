@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, X, Images } from "@phosphor-icons/react";
 import Footer from "@/components/Footer";
 import { getPlatformsForWorkSector, getProjectsForWorkSector, getWorkSectorMeta, type WorkSectorSlug } from "@/components/lib/work-sectors";
 import { projectGalleryImages } from "@/lib/work-gallery";
@@ -49,7 +49,77 @@ type Entry = {
   logo?: string;
   logoDark?: boolean;
   href?: string;
+  gallery: string[];
 };
+
+/* Full-screen gallery lightbox — opened from a work's "View Gallery" button. */
+function Lightbox({ images, title, start, onClose }: { images: string[]; title: string; start: number; onClose: () => void }) {
+  const [i, setI] = useState(start);
+  const prev = useCallback(() => setI((n) => (n - 1 + images.length) % images.length), [images.length]);
+  const next = useCallback(() => setI((n) => (n + 1) % images.length), [images.length]);
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+      else if (e.key === "ArrowLeft") prev();
+      else if (e.key === "ArrowRight") next();
+    };
+    window.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prevOverflow; };
+  }, [onClose, prev, next]);
+
+  const navBtn: React.CSSProperties = {
+    flexShrink: 0, width: "clamp(40px,5vw,52px)", height: "clamp(40px,5vw,52px)", borderRadius: "999px",
+    border: "1px solid rgba(245,242,236,0.3)", background: "rgba(245,242,236,0.08)", color: "#f5f2ec",
+    display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", backdropFilter: "blur(4px)",
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
+      onClick={onClose}
+      style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(18,8,4,0.95)", display: "flex", flexDirection: "column" }}
+      role="dialog" aria-modal="true" aria-label={`${title} gallery`}
+    >
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(1rem,3vw,1.6rem) clamp(1.2rem,4vw,2.4rem)" }}>
+        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,242,236,0.75)", fontWeight: 700 }}>{title}</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "1.4rem" }}>
+          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", letterSpacing: "0.1em", color: "rgba(245,242,236,0.6)" }}>
+            {String(i + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+          </span>
+          <button onClick={onClose} aria-label="Close gallery" style={{ ...navBtn, width: "clamp(38px,4.5vw,46px)", height: "clamp(38px,4.5vw,46px)" }}>
+            <X size={18} weight="bold" />
+          </button>
+        </div>
+      </div>
+
+      <div onClick={(e) => e.stopPropagation()} style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(0.5rem,2vw,1.5rem)", padding: "0 clamp(0.8rem,3vw,2rem)" }}>
+        {images.length > 1 && <button onClick={prev} aria-label="Previous" style={navBtn}><ArrowLeft size={20} weight="bold" /></button>}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <motion.img
+          key={i} src={images[i]} alt={`${title} — image ${i + 1}`}
+          initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, ease: EASE }}
+          style={{ maxWidth: "100%", maxHeight: "76vh", objectFit: "contain", borderRadius: "8px", boxShadow: "0 30px 80px rgba(0,0,0,0.5)" }}
+        />
+        {images.length > 1 && <button onClick={next} aria-label="Next" style={navBtn}><ArrowRight size={20} weight="bold" /></button>}
+      </div>
+
+      {images.length > 1 && (
+        <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", gap: "0.5rem", justifyContent: "flex-start", padding: "clamp(0.8rem,2vw,1.4rem) clamp(1.2rem,4vw,2.4rem)", overflowX: "auto" }}>
+          {images.map((src, idx) => (
+            <button key={idx} onClick={() => setI(idx)} aria-label={`View image ${idx + 1}`}
+              style={{ flex: "0 0 auto", width: "72px", height: "50px", borderRadius: "5px", overflow: "hidden", border: idx === i ? "2px solid #d98038" : "2px solid transparent", opacity: idx === i ? 1 : 0.5, cursor: "pointer", padding: 0, background: "none", transition: "opacity 0.2s" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            </button>
+          ))}
+        </div>
+      )}
+    </motion.div>
+  );
+}
 
 /* One scrolling editorial panel — reports itself active when centred */
 function Panel({
@@ -57,11 +127,13 @@ function Panel({
   i,
   accent,
   onActive,
+  onOpenGallery,
 }: {
   entry: Entry;
   i: number;
   accent: string;
   onActive: (i: number) => void;
+  onOpenGallery: (images: string[], title: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.55 });
@@ -195,6 +267,28 @@ function Panel({
           {entry.bullets.slice(0, 4).join("  ·  ")}
         </motion.p>
       )}
+
+      {entry.gallery.length >= 2 && (
+        <motion.button
+          type="button"
+          onClick={() => onOpenGallery(entry.gallery, entry.title)}
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.4 }}
+          transition={{ duration: 0.6, delay: 0.26, ease: EASE }}
+          whileHover={{ y: -2 }}
+          style={{
+            marginTop: "2rem", display: "inline-flex", alignItems: "center", gap: "0.6rem",
+            fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 700,
+            color: "#f5f2ec", background: accent, border: "none", borderRadius: "999px",
+            padding: "0.85rem 1.5rem", cursor: "pointer", boxShadow: `0 12px 30px ${accent}44`,
+          }}
+        >
+          <Images size={16} weight="bold" />
+          View gallery
+          <span style={{ opacity: 0.7 }}>({entry.gallery.length})</span>
+        </motion.button>
+      )}
     </div>
   );
 }
@@ -209,6 +303,8 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
   const heroInView = useInView(heroRef, { once: true, margin: "-80px" });
   const [active, setActive] = useState(0);
   const onActive = useCallback((i: number) => setActive(i), []);
+  const [gallery, setGallery] = useState<{ images: string[]; title: string } | null>(null);
+  const onOpenGallery = useCallback((images: string[], title: string) => setGallery({ images, title }), []);
 
   // Entrance — the shared image travels from its card position on the previous
   // page directly into the hero slot here (no fullscreen in between).
@@ -263,6 +359,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
             inset: v.inset,
             logo: v.logo,
             logoDark: v.logoDark,
+            gallery: [v.image, v.inset].filter((s): s is string => Boolean(s)),
           };
         });
       }
@@ -278,6 +375,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
         inset: imgs[1] ? toSrc(imgs[1].src) : undefined,
         logo: p.logo,
         logoDark: p.logoDark,
+        gallery: imgs.map((im) => toSrc(im.src)),
       }];
     }),
     ...platforms.map((pl) => ({
@@ -289,6 +387,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
       image: pl.image,
       inset: undefined,
       logo: pl.slug === "suhba-series" ? "/logos/suhba-series.png" : undefined,
+      gallery: (pl.gallery ?? []).map(toSrc),
     })),
   ];
 
@@ -416,7 +515,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
 
         <div>
           {entries.map((entry, i) => (
-            <Panel key={entry.key} entry={entry} i={i} accent={meta.accent} onActive={onActive} />
+            <Panel key={entry.key} entry={entry} i={i} accent={meta.accent} onActive={onActive} onOpenGallery={onOpenGallery} />
           ))}
         </div>
       </section>
@@ -474,6 +573,10 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
       })()}
 
       {SECTOR_PRESS[sector] ? <PressLinks campaigns={SECTOR_PRESS[sector]!} /> : null}
+
+      {gallery && (
+        <Lightbox images={gallery.images} title={gallery.title} start={0} onClose={() => setGallery(null)} />
+      )}
 
       <Footer />
 
