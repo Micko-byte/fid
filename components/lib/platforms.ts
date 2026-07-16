@@ -87,6 +87,11 @@ export const platforms: OwnedPlatform[] = [
       "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
       "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-02",
       "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-03",
+      // NB: these FID/glam-0X public_ids actually hold Suhba Series photos
+      // (mislabeled on upload) — used here for the correct campaign, deduped.
+      "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-05",
+      "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-06",
+      "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-02",
     ],
     image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/suhba-01",
     accent: "#750006",
