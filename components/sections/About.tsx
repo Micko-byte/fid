@@ -70,8 +70,8 @@ export default function About() {
                 marginRight: "auto",
               }}
             >
-              A communications partner built for influence at{" "}
-              <em style={{ fontStyle: "normal", color: "#760006" }}>scale</em>.
+              A strategic communications partner for organisations{" "}
+              <em style={{ fontStyle: "normal", color: "#760006" }}>shaping Africa</em>.
             </motion.h2>
 
             <motion.div

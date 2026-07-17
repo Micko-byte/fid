@@ -129,8 +129,8 @@ export default function MobileHome() {
               margin: "1.2rem 0 0",
             }}
           >
-            A communications partner built for influence at{" "}
-            <em style={{ fontStyle: "normal", color: "#750006" }}>scale</em>.
+            A strategic communications partner for organisations{" "}
+            <em style={{ fontStyle: "normal", color: "#750006" }}>shaping Africa</em>.
           </h2>
         </FadeUp>
         <FadeUp delay={0.12}>
