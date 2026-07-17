@@ -1,5 +1,9 @@
 ﻿"use client";
 
+// Round trig output: raw floats serialize differently server vs client and trip
+// a hydration mismatch on the SVG coordinate attributes.
+const r3 = (n: number) => Math.round(n * 1000) / 1000;
+
 /**
  * Branded abstract SVG graphics for FID & Co.
  * Palette: burgundy #750006 · gold #C9AA3C / #d98038 · sand #C7AC9F · ink #1c1c1c · cream #FFFFFF
@@ -57,7 +61,7 @@ export function GovernanceGraphic({ size = "100%", className, style }: GraphicPr
       <g stroke={GOLD} strokeWidth="1" opacity="0.4" className="fid-anim" style={{ animation: "fid-pulse 7s ease-in-out infinite" }}>
         {Array.from({ length: 12 }).map((_, i) => {
           const a = (i / 12) * Math.PI * 2;
-          return <line key={i} x1="300" y1="300" x2={300 + Math.cos(a) * 250} y2={300 + Math.sin(a) * 250} />;
+          return <line key={i} x1="300" y1="300" x2={r3(300 + Math.cos(a) * 250)} y2={r3(300 + Math.sin(a) * 250)} />;
         })}
       </g>
 
@@ -109,8 +113,8 @@ export function PlatformGraphic({ size = "100%", className, style }: GraphicProp
       <g className="fid-anim" style={{ animation: "fid-drift 8s ease-in-out infinite" }}>
         {Array.from({ length: 8 }).map((_, i) => {
           const a = (i / 8) * Math.PI * 2;
-          const cx = 300 + Math.cos(a) * 160;
-          const cy = 330 + Math.sin(a) * 67;
+          const cx = r3(300 + Math.cos(a) * 160);
+          const cy = r3(330 + Math.sin(a) * 67);
           return <circle key={i} cx={cx} cy={cy} r="9" fill={i % 2 ? GOLD : BURGUNDY} opacity="0.85" />;
         })}
       </g>

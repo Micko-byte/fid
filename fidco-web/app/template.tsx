@@ -34,13 +34,15 @@ export default function Template({ children }: { children: React.ReactNode }) {
           </motion.span>
         </motion.div>
       )}
-      <motion.div
-        initial={reduce ? false : { opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: reduce ? 0 : 0.35, ease: [0.16, 1, 0.3, 1] }}
-      >
-        {children}
-      </motion.div>
+      {/* Children render plainly — no opacity wrapper.
+          It previously faded in with `initial={reduce ? false : {opacity:0}}`, but
+          useReducedMotion() is null on the server and a boolean on the client, so
+          the server emitted opacity:0 while the client expected opacity:1 — a
+          hydration mismatch that flashed the page in on every navigation.
+          Fading unconditionally instead would leave content invisible until rAF
+          runs. The overlay above already covers the transition, and dropping the
+          0.35s delay makes navigation land noticeably faster. */}
+      {children}
     </>
   );
 }

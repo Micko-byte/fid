@@ -16,16 +16,21 @@ const TICK_N = 100;
 
 type Tick = { x1: number; y1: number; x2: number; y2: number; weight: number; opacity: number };
 
+// Rounded to 3dp: raw trig floats serialize differently on the server than the
+// client (192.9929041511887 vs 192.99290415118867), which tripped a hydration
+// mismatch on every load. Fixed precision makes both sides emit the same string.
+const r3 = (n: number) => Math.round(n * 1000) / 1000;
+
 const TICKS: Tick[] = Array.from({ length: TICK_N }, (_, i) => {
   const angle = (i / TICK_N) * 360;
   const rad = (angle * Math.PI) / 180;
   const long = i % 10 === 0;
   const inner = R - (long ? 14 : 8);
   return {
-    x1: CX + inner * Math.cos(rad),
-    y1: CY + inner * Math.sin(rad),
-    x2: CX + R * Math.cos(rad),
-    y2: CY + R * Math.sin(rad),
+    x1: r3(CX + inner * Math.cos(rad)),
+    y1: r3(CY + inner * Math.sin(rad)),
+    x2: r3(CX + R * Math.cos(rad)),
+    y2: r3(CY + R * Math.sin(rad)),
     weight: 0.6,
     opacity: long ? 0.5 : 0.28,
   };
