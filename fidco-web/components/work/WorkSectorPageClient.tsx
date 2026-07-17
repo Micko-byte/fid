@@ -12,17 +12,22 @@ import PressLinks from "@/components/articles/PressLinks";
 
 // Press campaigns that belong to each sector page.
 // Thrive Hospitality venues — each gets its own panel with its own identity.
-const GLAM_GALLERY = [
-  ...Array.from({ length: 8 }, (_, i) => `/photos/projects/glam-hotel/glam-h-${String(i + 1).padStart(2, "0")}.jpg`),
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-rooftop-01",
-];
+const cld = (id: string) => `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/${id}`;
+const seq = (dir: string, prefix: string, n: number) =>
+  Array.from({ length: n }, (_, i) => `/photos/projects/${dir}/${prefix}-${String(i + 1).padStart(2, "0")}.jpg`);
+
+const GLAM_GALLERY = [...seq("glam-hotel", "glam-h", 8), cld("glam-rooftop-01")];
+// Café NBO: the two venue interiors already on Cloudinary + the launch shoot.
+const CAFENBO_GALLERY = [cld("cafenbo-01"), cld("cafenbo-02"), ...seq("cafe-nbo", "cafenbo-l", 8)];
+// Kingfisher Nest: the Drive folder is The Perch launch — The Perch is its restaurant.
+const KINGFISHER_GALLERY = [cld("kingfisher-01"), cld("kingfisher-02"), ...seq("kingfisher", "kingfisher-p", 8)];
 
 const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: string; inset?: string; gallery?: string[] }> = {
-  "Café NBO": { logo: "/logos/cafe-nbo.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-02" },
+  "Café NBO": { logo: "/logos/cafe-nbo.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-02", gallery: CAFENBO_GALLERY },
   "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-rooftop-01", gallery: GLAM_GALLERY },
   "Social 8": { logo: "/logos/social8.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/social8-01" },
   "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-02", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-03" },
-  "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-02" },
+  "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-02", gallery: KINGFISHER_GALLERY },
 };
 
 const SECTOR_PRESS: Partial<Record<WorkSectorSlug, string[]>> = {
