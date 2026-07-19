@@ -218,29 +218,77 @@ function OurApproach() {
           What sets FID &amp; Co. apart.
         </motion.h2>
 
-        <div className="grid md:grid-cols-2 gap-0">
+        {/* Farida called these out specifically — they're differentiators, so they
+            carry real visual weight rather than sitting in a paragraph. */}
+        <div className="sets-grid">
           {values.map((v, i) => (
             <motion.div
-              key={i}
-              initial={{ opacity: 0 }}
-              animate={inView ? { opacity: 1 } : {}}
-              transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
-              className="py-10 pr-0 md:pr-16 border-t"
-              style={{ borderColor: "rgba(117,0,6,0.1)" }}
+              key={v.title}
+              initial={{ opacity: 0, y: 26 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: 0.15 + i * 0.09, ease: [0.16, 1, 0.3, 1] }}
+              className="sets-card"
             >
-              <h3
-                className="font-heading mb-4"
-                style={{ fontSize: "clamp(1.2rem, 2.5vw, 1.8rem)", color: "#260000", letterSpacing: "-0.01em" }}
-              >
-                {v.title}
-              </h3>
-              <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(28,28,28,0.6)" }}>
-                {v.body}
-              </p>
+              <span className="sets-num">{String(i + 1).padStart(2, "0")}</span>
+              <h3 className="font-heading sets-title">{v.title}</h3>
+              <p className="font-body sets-body">{v.body}</p>
             </motion.div>
           ))}
-          <div className="border-t col-span-2" style={{ borderColor: "rgba(117,0,6,0.1)" }} />
         </div>
+
+        <style>{`
+          .sets-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: clamp(1rem, 2vw, 1.6rem);
+          }
+          /* first two lead the row at a larger scale */
+          .sets-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: clamp(1.6rem, 3vw, 2.4rem);
+            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid rgba(117,0,6,0.12);
+            border-top: 3px solid #750006;
+            box-shadow: 0 14px 40px rgba(38,0,0,0.06);
+            transition: transform 0.45s cubic-bezier(0.16,1,0.3,1), box-shadow 0.45s ease, border-color 0.3s ease;
+          }
+          .sets-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 28px 70px rgba(38,0,0,0.13);
+            border-color: rgba(117,0,6,0.28);
+          }
+          .sets-card .sets-num {
+            font-family: var(--font-body);
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.22em;
+            color: #d98038 !important;
+            margin-bottom: 1rem;
+          }
+          .sets-card .sets-title {
+            font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            color: #750006 !important;
+            margin: 0 0 0.9rem;
+            font-weight: 800;
+          }
+          .sets-card .sets-body {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: rgba(28,28,28,0.7);
+            margin: 0;
+          }
+          @media (max-width: 980px) {
+            .sets-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+          }
+          @media (max-width: 620px) {
+            .sets-grid { grid-template-columns: 1fr; }
+          }
+        `}</style>
       </div>
     </section>
   );
