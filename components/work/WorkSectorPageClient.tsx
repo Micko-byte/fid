@@ -9,10 +9,47 @@ import Footer from "@/components/Footer";
 import { getPlatformsForWorkSector, getProjectsForWorkSector, getWorkSectorMeta, type WorkSectorSlug } from "@/components/lib/work-sectors";
 import { projectGalleryImages } from "@/lib/work-gallery";
 import PressLinks from "@/components/articles/PressLinks";
+import { STOCK } from "@/lib/stock-photos";
+
+/* Projects with no photos of their own used to all fall back to meta.cover, so
+   several panels in a sector showed the *same* picture as you scrolled (Luxury
+   Body Spa and RukyBeau, for one). Each sector gets a pool of topic-appropriate
+   stock so those panels can be filled with distinct images instead. */
+const SECTOR_STOCK: Partial<Record<WorkSectorSlug, string[]>> = {
+  lifestyle: (STOCK.beauty ?? []).map((s) => s.src),
+  hospitality: (STOCK.hospitality ?? []).map((s) => s.src),
+  government: (STOCK.government ?? []).map((s) => s.src),
+  corporate: (STOCK.corporate ?? []).map((s) => s.src),
+  finance: (STOCK.corporate ?? []).map((s) => s.src),
+  "retail-fashion": (STOCK.digital ?? []).map((s) => s.src),
+  healthcare: (STOCK.about ?? []).map((s) => s.src),
+  "social-impact": (STOCK.pressConf ?? []).map((s) => s.src),
+  "sports-tourism": (STOCK.experiential ?? []).map((s) => s.src),
+  "culture-entertainment": (STOCK.experiential ?? []).map((s) => s.src),
+  "owned-ips": (STOCK.experiential ?? []).map((s) => s.src),
+};
+
+/* Guarantee every panel in a sector shows a different image. */
+function dedupeEntryImages(list: Entry[], sector: WorkSectorSlug): Entry[] {
+  const pool = SECTOR_STOCK[sector] ?? [];
+  const used = new Set<string>();
+  let p = 0;
+  return list.map((e) => {
+    if (e.image && !used.has(e.image)) {
+      used.add(e.image);
+      return e;
+    }
+    while (p < pool.length && used.has(pool[p])) p += 1;
+    const replacement = pool[p];
+    if (!replacement) return e; // nothing left to swap in — keep as-is
+    used.add(replacement);
+    return { ...e, image: replacement };
+  });
+}
 
 // Press campaigns that belong to each sector page.
 // Thrive Hospitality venues — each gets its own panel with its own identity.
-const cld = (id: string) => `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/${id}`;
+const cld = (id: string) => `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/${id}`;
 const seq = (dir: string, prefix: string, n: number) =>
   Array.from({ length: n }, (_, i) => `/photos/projects/${dir}/${prefix}-${String(i + 1).padStart(2, "0")}.jpg`);
 
@@ -23,11 +60,11 @@ const CAFENBO_GALLERY = [cld("cafenbo-01"), cld("cafenbo-02"), ...seq("cafe-nbo"
 const KINGFISHER_GALLERY = [cld("kingfisher-01"), cld("kingfisher-02"), ...seq("kingfisher", "kingfisher-p", 8)];
 
 const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: string; inset?: string; gallery?: string[] }> = {
-  "Café NBO": { logo: "/logos/cafe-nbo.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cafenbo-02", gallery: CAFENBO_GALLERY },
-  "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-rooftop-01", gallery: GLAM_GALLERY },
-  "Social 8": { logo: "/logos/social8.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/social8-01" },
-  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-02", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-03" },
-  "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-02", gallery: KINGFISHER_GALLERY },
+  "Café NBO": { logo: "/logos/cafe-nbo.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cafenbo-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cafenbo-02", gallery: CAFENBO_GALLERY },
+  "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-hotel", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-rooftop-01", gallery: GLAM_GALLERY },
+  "Social 8": { logo: "/logos/social8.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/social8-01" },
+  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-02", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-03" },
+  "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kingfisher-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kingfisher-02", gallery: KINGFISHER_GALLERY },
 };
 
 const SECTOR_PRESS: Partial<Record<WorkSectorSlug, string[]>> = {
@@ -352,7 +389,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
 
   if (!meta) return null;
 
-  const entries: Entry[] = [
+  const rawEntries: Entry[] = [
     ...projects.flatMap((p): Entry[] => {
       // Thrive expands into one panel per venue, each with its own logo/photos.
       if (p.slug === "thrive-hospitality-group" && p.properties?.length) {
@@ -400,6 +437,8 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
       gallery: (pl.gallery ?? []).map(toSrc),
     })),
   ];
+
+  const entries = dedupeEntryImages(rawEntries, sector);
 
   const activeEntry = entries[Math.min(active, entries.length - 1)];
   const heroImage = meta.cover || entries[0]?.image || "";

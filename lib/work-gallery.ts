@@ -2,16 +2,16 @@ import { projects, type Project } from "@/components/lib/projects";
 import type { WorkImage, WorkProject } from "@/components/lib/work-types";
 
 const cl = (id: string) =>
-  `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/${id}`;
+  `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/${id}`;
 
 export const projectGalleryImages: Record<string, WorkImage[]> = {
   "woolworths-kenya": [
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/woolworths-01", label: "Woolworths — Sarit beauty launch" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/woolworths-02", label: "Woolworths — flagship store" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/woolworths-01", label: "Woolworths — Sarit beauty launch" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/woolworths-02", label: "Woolworths — flagship store" },
   ],
   "national-minorities-day": [],
   "africa-urban-forum-2026": [
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/auf-2026", label: "Africa Urban Forum 2026 — KICC" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/auf-2026", label: "Africa Urban Forum 2026 — KICC" },
     { src: "/photos/projects/africa-urban-forum-2026/auf-n-01.jpg", label: "Africa Urban Forum 2026" },
     { src: "/photos/projects/africa-urban-forum-2026/auf-n-02.jpg", label: "Africa Urban Forum 2026" },
     { src: "/photos/projects/africa-urban-forum-2026/auf-n-03.jpg", label: "Africa Urban Forum 2026" },
@@ -32,9 +32,9 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: "/photos/projects/lc-waikiki/lcw-08.jpg", label: "LC Waikiki — denim campaign" },
   ],
   "kansai-plascon": [
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-plascon-launch", label: "Colours of Victory — Gor Mahia launch" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/plascon-01", label: "Plascon brand shoot" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/plascon-b-01", label: "Plascon campaign edit" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-plascon-launch", label: "Colours of Victory — Gor Mahia launch" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/plascon-01", label: "Plascon brand shoot" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/plascon-b-01", label: "Plascon campaign edit" },
     { src: "/photos/projects/kansai-plascon-shoot/plascon-s-01.jpg", label: "Kansai Plascon — brand shoot" },
     { src: "/photos/projects/kansai-plascon-shoot/plascon-s-02.jpg", label: "Kansai Plascon — brand shoot" },
     { src: "/photos/projects/kansai-plascon-shoot/plascon-s-03.jpg", label: "Kansai Plascon — brand shoot" },
@@ -48,13 +48,13 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: cl("kansai-05"), label: "Brand moment" },
   ],
   "thrive-hospitality-group": [
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel", label: "Glam Hotel — rooftop launch" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/social8-01", label: "Social 8 — launch entrance" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-02", label: "Chaii Republic — experience" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/chaii-03", label: "Chaii Republic — brand moment" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-01", label: "Kingfisher Nest — launch" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kingfisher-02", label: "Kingfisher Nest — hosting" },
-    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-rooftop-01", label: "Glam Hotel — rooftop night" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-hotel", label: "Glam Hotel — rooftop launch" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/social8-01", label: "Social 8 — launch entrance" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-02", label: "Chaii Republic — experience" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-03", label: "Chaii Republic — brand moment" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kingfisher-01", label: "Kingfisher Nest — launch" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kingfisher-02", label: "Kingfisher Nest — hosting" },
+    { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-rooftop-01", label: "Glam Hotel — rooftop night" },
   ],
   "africa-forum-on-displacements": [],
   "columbia-africa-healthcare": [],

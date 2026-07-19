@@ -28,12 +28,12 @@ interface IGPost {
 
 // Fallback tiles (curated) — shown only until a live feed URL is configured
 const fallback: IGPost[] = [
-  { id: "f1", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe" },
-  { id: "f2", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/lc-waikiki-influencer" },
-  { id: "f3", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia" },
-  { id: "f4", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/utamaduni-day" },
-  { id: "f5", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/africa-forum-displacement" },
-  { id: "f6", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-festival" },
+  { id: "f1", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/tribe-vibe" },
+  { id: "f2", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/lc-waikiki-influencer" },
+  { id: "f3", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-gor-mahia" },
+  { id: "f4", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/utamaduni-day" },
+  { id: "f5", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/africa-forum-displacement" },
+  { id: "f6", permalink: PROFILE, image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cultural-festival" },
 ];
 
 /* Normalize various feed shapes (Behold v2, Graph API, generic) into IGPost */

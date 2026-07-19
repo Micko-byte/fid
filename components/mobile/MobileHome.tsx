@@ -19,7 +19,7 @@ import {
 import { STOCK } from "@/lib/stock-photos";
 
 const cl = (id: string) =>
-  `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/${id}`;
+  `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/${id}`;
 
 const PX = "clamp(1.4rem, 6vw, 2rem)";
 const PY = "clamp(4.5rem, 16vw, 6.5rem)";
@@ -34,32 +34,32 @@ const SERVICES = [
 ];
 
 const IG_POSTS = [
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/lc-waikiki-influencer",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/utamaduni-day",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/africa-forum-displacement",
+  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/tribe-vibe",
+  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/lc-waikiki-influencer",
+  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-gor-mahia",
+  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/utamaduni-day",
+  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/africa-forum-displacement",
 ];
 
 // All 11 sectors — the phone gets the same reel as desktop.
 const WORK = [
-  { sectorSlug: "government", sector: "Government", client: "Africa Urban Forum 2026", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/auf-2026", logo: "/logos/executive-office-president.png" },
-  { sectorSlug: "retail-fashion", sector: "Retail & Fashion", client: "LC Waikiki Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/lc-waikiki-influencer", logo: "/logos/lc-waikiki.png" },
-  { sectorSlug: "corporate", sector: "Corporate", client: "Kansai Plascon", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-plascon-launch", logo: "/logos/kansai-plascon.png" },
-  { sectorSlug: "hospitality", sector: "Hospitality", client: "Thrive Hospitality Group", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel", logo: "/logos/thrive-hospitality.png" },
-  { sectorSlug: "sports-tourism", sector: "Sports & Tourism", client: "Gor Mahia FC", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-gor-mahia", logo: "/logos/kansai-plascon.png" },
-  { sectorSlug: "healthcare", sector: "Healthcare", client: "Columbia Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/columbia-building", logo: "/logos/columbia-africa.png" },
-  { sectorSlug: "social-impact", sector: "Social Impact", client: "UNHCR & Amahoro", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/africa-forum-displacement", logo: "/logos/unhcr.png" },
-  { sectorSlug: "finance", sector: "Finance", client: "Elysium Capital", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/elysium-finance", logo: "/logos/elysium-capital.png" },
-  { sectorSlug: "lifestyle", sector: "Beauty & Lifestyle", client: "Allso Beauty", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/allso-launch", logo: "/logos/allso-beauty.png" },
-  { sectorSlug: "culture-entertainment", sector: "Culture", client: "Talanta Afrika Festival", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/cultural-dancers", logo: undefined },
-  { sectorSlug: "owned-ips", sector: "Owned IPs", client: "Tribe Vibe · Suhba · Capital Room", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe", logo: "/logos/tribe-vibe.png" },
+  { sectorSlug: "government", sector: "Government", client: "Africa Urban Forum 2026", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/auf-2026", logo: "/logos/executive-office-president.png" },
+  { sectorSlug: "retail-fashion", sector: "Retail & Fashion", client: "LC Waikiki Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/lc-waikiki-influencer", logo: "/logos/lc-waikiki.png" },
+  { sectorSlug: "corporate", sector: "Corporate", client: "Kansai Plascon", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-plascon-launch", logo: "/logos/kansai-plascon.png" },
+  { sectorSlug: "hospitality", sector: "Hospitality", client: "Thrive Hospitality Group", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-hotel", logo: "/logos/thrive-hospitality.png" },
+  { sectorSlug: "sports-tourism", sector: "Sports & Tourism", client: "Gor Mahia FC", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-gor-mahia", logo: "/logos/kansai-plascon.png" },
+  { sectorSlug: "healthcare", sector: "Healthcare", client: "Columbia Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/columbia-building", logo: "/logos/columbia-africa.png" },
+  { sectorSlug: "social-impact", sector: "Social Impact", client: "UNHCR & Amahoro", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/africa-forum-displacement", logo: "/logos/unhcr.png" },
+  { sectorSlug: "finance", sector: "Finance", client: "Elysium Capital", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/elysium-finance", logo: "/logos/elysium-capital.png" },
+  { sectorSlug: "lifestyle", sector: "Beauty & Lifestyle", client: "Allso Beauty", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/allso-launch", logo: "/logos/allso-beauty.png" },
+  { sectorSlug: "culture-entertainment", sector: "Culture", client: "Talanta Afrika Festival", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cultural-dancers", logo: undefined },
+  { sectorSlug: "owned-ips", sector: "Owned IPs", client: "Tribe Vibe · Suhba · Capital Room", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/tribe-vibe", logo: "/logos/tribe-vibe.png" },
 ];
 
 const PLATFORMS = [
-  { slug: "the-tribe-vibe", name: "The Tribe Vibe", num: "01", tag: "Lifestyle · Music · Culture", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/tribe-vibe", logo: "/logos/tribe-vibe.png", logoDark: false },
+  { slug: "the-tribe-vibe", name: "The Tribe Vibe", num: "01", tag: "Lifestyle · Music · Culture", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/tribe-vibe", logo: "/logos/tribe-vibe.png", logoDark: false },
   { slug: "suhba-series", name: "Suhba Series", num: "02", tag: "Curated Conversations", image: cl("suhba-01"), logo: "/logos/suhba-series.png", logoDark: false },
-  { slug: "the-capital-room", name: "The Capital Room", num: "03", tag: "Leadership · Business", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/podcast-set", logo: "/logos/capital-room.png", logoDark: true },
+  { slug: "the-capital-room", name: "The Capital Room", num: "03", tag: "Leadership · Business", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/podcast-set", logo: "/logos/capital-room.png", logoDark: true },
 ];
 
 const STATS = [
@@ -361,7 +361,7 @@ export default function MobileHome() {
         </FadeUp>
         <FadeUp delay={0.06}>
           <img
-            src="https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/farida-studio"
+            src="https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/farida-studio"
             alt="Farida Idris"
             loading="lazy"
             style={{ width: "100%", maxWidth: "320px", aspectRatio: "4/5", objectFit: "cover", objectPosition: "center top", borderRadius: "16px", margin: "1.4rem 0 0", border: "1px solid rgba(117,0,6,0.18)" }}

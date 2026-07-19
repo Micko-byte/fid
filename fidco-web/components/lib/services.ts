@@ -65,7 +65,7 @@ export const services: Service[] = [
     cards: [
       { bg: "#e8e8e8", label: "Planning", image: "/illustrations/expertise/planning.jfif", imageAlt: "Media planning" },
       { bg: "#750006", label: "Placement", textColor: "#F5F2EC", image: "/illustrations/expertise/placement.jfif", imageAlt: "Media placement" },
-      { bg: "#D9AB88", label: "OOH & Print", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/kansai-01", imageAlt: "Out of home and print media" },
+      { bg: "#D9AB88", label: "OOH & Print", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-01", imageAlt: "Out of home and print media" },
       { bg: "#262a36", label: "Analytics", textColor: "#F5F2EC", image: "/illustrations/expertise/analytics.jfif", imageAlt: "Media analytics" },
     ],
   },
@@ -141,9 +141,9 @@ export const services: Service[] = [
     ],
     cards: [
       { bg: "#750006", label: "Event Production", textColor: "#F5F2EC", image: "/illustrations/expertise/event-production.jfif", imageAlt: "Event production" },
-      { bg: "#D9AB88", label: "Brand Activations", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/glam-hotel", imageAlt: "Brand activations" },
-      { bg: "#260000", label: "Government Events", textColor: "#F5F2EC", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/national-minorities-day", imageAlt: "Government events" },
-      { bg: "#e8e8e8", label: "Roadshows", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto/FID/utamaduni-day", imageAlt: "Roadshows" },
+      { bg: "#D9AB88", label: "Brand Activations", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-hotel", imageAlt: "Brand activations" },
+      { bg: "#260000", label: "Government Events", textColor: "#F5F2EC", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/national-minorities-day", imageAlt: "Government events" },
+      { bg: "#e8e8e8", label: "Roadshows", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/utamaduni-day", imageAlt: "Roadshows" },
     ],
   },
 ];
