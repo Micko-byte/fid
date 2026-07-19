@@ -117,53 +117,136 @@ function Lightbox({ images, title, start, onClose }: { images: string[]; title: 
     return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prevOverflow; };
   }, [onClose, prev, next]);
 
-  const navBtn: React.CSSProperties = {
-    flexShrink: 0, width: "clamp(40px,5vw,52px)", height: "clamp(40px,5vw,52px)", borderRadius: "999px",
-    border: "1px solid rgba(245,242,236,0.3)", background: "rgba(245,242,236,0.08)", color: "#f5f2ec",
-    display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", backdropFilter: "blur(4px)",
-  };
-
   return (
     <motion.div
-      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }}
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}
       onClick={onClose}
-      style={{ position: "fixed", inset: 0, zIndex: 1000, background: "rgba(18,8,4,0.95)", display: "flex", flexDirection: "column" }}
+      className="lb-root"
       role="dialog" aria-modal="true" aria-label={`${title} gallery`}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "clamp(1rem,3vw,1.6rem) clamp(1.2rem,4vw,2.4rem)" }}>
-        <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,242,236,0.75)", fontWeight: 700 }}>{title}</span>
-        <div style={{ display: "flex", alignItems: "center", gap: "1.4rem" }}>
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.8rem", letterSpacing: "0.1em", color: "rgba(245,242,236,0.6)" }}>
-            {String(i + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
-          </span>
-          <button onClick={onClose} aria-label="Close gallery" style={{ ...navBtn, width: "clamp(38px,4.5vw,46px)", height: "clamp(38px,4.5vw,46px)" }}>
-            <X size={18} weight="bold" />
-          </button>
-        </div>
-      </div>
+      {/* brand diamond lattice over the deep-current ground */}
+      <div aria-hidden className="lb-pattern brand-pattern-light" />
+      <div aria-hidden className="lb-glow" />
 
-      <div onClick={(e) => e.stopPropagation()} style={{ flex: 1, minHeight: 0, display: "flex", alignItems: "center", justifyContent: "center", gap: "clamp(0.5rem,2vw,1.5rem)", padding: "0 clamp(0.8rem,3vw,2rem)" }}>
-        {images.length > 1 && <button onClick={prev} aria-label="Previous" style={navBtn}><ArrowLeft size={20} weight="bold" /></button>}
+      {/* minimal chrome — just the close control */}
+      <button onClick={onClose} aria-label="Close gallery" className="lb-close">
+        <X size={17} weight="bold" />
+      </button>
+
+      {/* stage: the image carries the screen */}
+      <div className="lb-stage" onClick={(e) => e.stopPropagation()}>
+        {images.length > 1 && (
+          <button onClick={prev} aria-label="Previous" className="lb-nav lb-nav-prev"><ArrowLeft size={19} weight="bold" /></button>
+        )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <motion.img
           key={i} src={images[i]} alt={`${title} — image ${i + 1}`}
-          initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.3, ease: EASE }}
-          style={{ maxWidth: "100%", maxHeight: "76vh", objectFit: "contain", borderRadius: "8px", boxShadow: "0 30px 80px rgba(0,0,0,0.5)" }}
+          initial={{ opacity: 0, scale: 0.985 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.45, ease: EASE }}
+          className="lb-img"
         />
-        {images.length > 1 && <button onClick={next} aria-label="Next" style={navBtn}><ArrowRight size={20} weight="bold" /></button>}
+        {images.length > 1 && (
+          <button onClick={next} aria-label="Next" className="lb-nav lb-nav-next"><ArrowRight size={19} weight="bold" /></button>
+        )}
       </div>
 
-      {images.length > 1 && (
-        <div onClick={(e) => e.stopPropagation()} style={{ display: "flex", gap: "0.5rem", justifyContent: "flex-start", padding: "clamp(0.8rem,2vw,1.4rem) clamp(1.2rem,4vw,2.4rem)", overflowX: "auto" }}>
-          {images.map((src, idx) => (
-            <button key={idx} onClick={() => setI(idx)} aria-label={`View image ${idx + 1}`}
-              style={{ flex: "0 0 auto", width: "72px", height: "50px", borderRadius: "5px", overflow: "hidden", border: idx === i ? "2px solid #d98038" : "2px solid transparent", opacity: idx === i ? 1 : 0.5, cursor: "pointer", padding: 0, background: "none", transition: "opacity 0.2s" }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-            </button>
-          ))}
+      {/* caption rail pinned to the base, like an editorial plate */}
+      <div className="lb-foot" onClick={(e) => e.stopPropagation()}>
+        <div className="lb-meta">
+          <span className="lb-title">{title}</span>
+          <span className="lb-count">{String(i + 1).padStart(2, "0")} <em>/</em> {String(images.length).padStart(2, "0")}</span>
         </div>
-      )}
+        {images.length > 1 && (
+          <div className="lb-thumbs">
+            {images.map((src, idx) => (
+              <button key={idx} onClick={() => setI(idx)} aria-label={`View image ${idx + 1}`}
+                className={`lb-thumb ${idx === i ? "lb-thumb-on" : ""}`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={src} alt="" />
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <style>{`
+        .lb-root {
+          position: fixed; inset: 0; z-index: 1000; display: flex; flex-direction: column;
+          background: linear-gradient(160deg, #1a0000 0%, #260000 100%);
+        }
+        .lb-pattern { position: absolute; inset: 0; opacity: 0.55; pointer-events: none; }
+        .lb-glow {
+          position: absolute; inset: 0; pointer-events: none;
+          background:
+            radial-gradient(ellipse 55% 55% at 88% 10%, rgba(217,128,56,0.16) 0%, transparent 58%),
+            radial-gradient(ellipse 45% 45% at 5% 95%, rgba(117,0,6,0.4) 0%, transparent 55%);
+        }
+        .lb-close {
+          position: absolute; top: clamp(1rem,2.5vw,1.7rem); right: clamp(1rem,3vw,2.2rem); z-index: 3;
+          width: 42px; height: 42px; border-radius: 999px; cursor: pointer;
+          border: 1px solid rgba(245,242,236,0.28); background: rgba(38,0,0,0.35);
+          color: #f5f2ec; display: flex; align-items: center; justify-content: center;
+          backdrop-filter: blur(6px); transition: background 0.25s, border-color 0.25s;
+        }
+        .lb-close:hover { background: #750006; border-color: #750006; }
+
+        .lb-stage {
+          position: relative; z-index: 2; flex: 1; min-height: 0;
+          display: flex; align-items: center; justify-content: center;
+          padding: clamp(3.2rem,7vh,5rem) clamp(1rem,5vw,4.5rem) clamp(0.5rem,2vh,1rem);
+        }
+        .lb-img {
+          max-width: 100%; max-height: 74vh; object-fit: contain;
+          border-radius: 2px;
+          box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 0 1px rgba(245,242,236,0.08);
+        }
+        .lb-nav {
+          position: absolute; top: 50%; transform: translateY(-50%); z-index: 3;
+          width: clamp(40px,4.5vw,50px); height: clamp(40px,4.5vw,50px); border-radius: 999px; cursor: pointer;
+          border: 1px solid rgba(245,242,236,0.22); background: rgba(38,0,0,0.3);
+          color: #f5f2ec; display: flex; align-items: center; justify-content: center;
+          backdrop-filter: blur(6px); transition: background 0.25s, border-color 0.25s, transform 0.25s;
+        }
+        .lb-nav:hover { background: #750006; border-color: #750006; }
+        .lb-nav-prev { left: clamp(0.5rem,2vw,1.6rem); }
+        .lb-nav-next { right: clamp(0.5rem,2vw,1.6rem); }
+
+        .lb-foot {
+          position: relative; z-index: 2;
+          padding: 0 clamp(1.2rem,5vw,4.5rem) clamp(1.2rem,3vh,2.2rem);
+          display: flex; flex-direction: column; gap: clamp(0.7rem,1.6vh,1rem);
+        }
+        .lb-meta {
+          display: flex; align-items: baseline; justify-content: space-between; gap: 1.5rem;
+          border-top: 1px solid rgba(245,242,236,0.16); padding-top: clamp(0.7rem,1.6vh,1rem);
+        }
+        .lb-title {
+          font-family: var(--font-heading); font-weight: 700;
+          font-size: clamp(1rem,2vw,1.5rem); letter-spacing: -0.01em; color: #f5f2ec;
+        }
+        .lb-count {
+          font-family: var(--font-body); font-size: 0.78rem; letter-spacing: 0.18em;
+          color: rgba(245,242,236,0.6); font-weight: 700; white-space: nowrap;
+        }
+        .lb-count em { font-style: normal; color: #d98038; margin: 0 0.15em; }
+
+        .lb-thumbs { display: flex; gap: 0.45rem; overflow-x: auto; padding-bottom: 2px; }
+        .lb-thumbs::-webkit-scrollbar { height: 3px; }
+        .lb-thumbs::-webkit-scrollbar-thumb { background: rgba(245,242,236,0.25); border-radius: 999px; }
+        .lb-thumb {
+          flex: 0 0 auto; width: 62px; height: 44px; border-radius: 2px; overflow: hidden;
+          padding: 0; background: none; cursor: pointer; position: relative;
+          border: none; box-shadow: inset 0 0 0 1px rgba(245,242,236,0.18);
+          opacity: 0.42; transition: opacity 0.25s, box-shadow 0.25s;
+        }
+        .lb-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .lb-thumb:hover { opacity: 0.8; }
+        .lb-thumb-on { opacity: 1; box-shadow: inset 0 0 0 2px #d98038; }
+
+        @media (max-width: 640px) {
+          .lb-img { max-height: 62vh; }
+          .lb-nav { display: none; }
+        }
+      `}</style>
     </motion.div>
   );
 }
