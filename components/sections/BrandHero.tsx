@@ -3,7 +3,7 @@
 // q_auto + vc_auto let Cloudinary pick the best quality/codec per browser —
 // substantially smaller than the raw upload, same visual quality.
 const HERO_VIDEO =
-  "https://res.cloudinary.com/drpsrkmbk/video/upload/q_auto,vc_auto,w_1920/v1782892119/Untitled_design_1_qdy61c.mp4";
+  "https://res.cloudinary.com/drpsrkmbk/video/upload/q_auto,vc_auto,w_1920/v1784533901/enhanced-video_1_dhyv6f.mp4";
 
 export default function BrandHero() {
   return (
