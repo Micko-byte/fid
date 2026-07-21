@@ -3,6 +3,7 @@ import "./globals.css";
 import { LenisProvider } from "@/components/providers/LenisProvider";
 import SiteChrome from "@/components/SiteChrome";
 import WhatsAppButton from "@/components/ui/WhatsAppButton";
+import FloatingAbout from "@/components/ui/FloatingAbout";
 import CustomCursor from "@/components/motion/CustomCursor";
 
 export const metadata: Metadata = {
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <LenisProvider>
           <SiteChrome>{children}</SiteChrome>
           <WhatsAppButton />
+          <FloatingAbout />
           <CustomCursor />
         </LenisProvider>
       </body>
