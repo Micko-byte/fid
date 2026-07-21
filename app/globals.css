@@ -295,10 +295,11 @@ th {
 
 /* Deep Current dark with radial amber lift */
 .bg-brand-deep {
-  background: linear-gradient(160deg, #1a0000 0%, #260000 100%);
+  background-color: #260000;
   background-image:
     radial-gradient(ellipse 50% 55% at 88% 12%, rgba(217,128,56,0.22) 0%, transparent 55%),
-    radial-gradient(ellipse 40% 40% at 6% 92%, rgba(217,171,136,0.16) 0%, transparent 50%);
+    radial-gradient(ellipse 40% 40% at 6% 92%, rgba(217,171,136,0.16) 0%, transparent 50%),
+    linear-gradient(160deg, #1a0000 0%, #260000 100%);
 }
 
 /* Cream with the brand maze texture */
