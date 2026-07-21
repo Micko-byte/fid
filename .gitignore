@@ -47,9 +47,6 @@ skills-lock.json
 public/featureband/
 
 # Large Cloudinary-served source images (served via res.cloudinary.com, not needed in repo)
-public/photos/projects/kansai-plascon/
-public/photos/projects/allso-beauty/
-public/photos/projects/africa-urban-forum-2026/
 
 # local MCP config (contains API keys)
 .mcp.json
