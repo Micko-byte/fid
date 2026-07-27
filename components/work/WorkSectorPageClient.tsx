@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { ArrowLeft, ArrowRight, X, Images } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, X } from "@phosphor-icons/react";
 import Footer from "@/components/Footer";
 import { getPlatformsForWorkSector, getProjectsForWorkSector, getWorkSectorMeta, type WorkSectorSlug } from "@/components/lib/work-sectors";
 import { projectGalleryImages } from "@/lib/work-gallery";
@@ -103,7 +103,7 @@ type Entry = {
    grid instead of swiping… all of them there"). Click any photo to zoom it to a
    full view with prev/next; back returns to the grid. */
 function Lightbox({ images, title, start, onClose }: { images: string[]; title: string; start: number; onClose: () => void }) {
-  const [zoom, setZoom] = useState<number | null>(null); // null = grid, index = single view
+  const [zoom, setZoom] = useState<number | null>(start); // opens zoomed at the clicked photo; "All photos" drops to the grid
   const prev = useCallback(() => setZoom((n) => (n === null ? n : (n - 1 + images.length) % images.length)), [images.length]);
   const next = useCallback(() => setZoom((n) => (n === null ? n : (n + 1) % images.length)), [images.length]);
 
@@ -248,7 +248,7 @@ function Panel({
   i: number;
   accent: string;
   onActive: (i: number) => void;
-  onOpenGallery: (images: string[], title: string) => void;
+  onOpenGallery: (images: string[], title: string, start?: number) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { amount: 0.55 });
@@ -348,19 +348,6 @@ function Panel({
         {entry.years ? ` · ${entry.years}` : ""}
       </motion.p>
 
-      {entry.inset && (
-        <motion.img
-          src={entry.inset}
-          alt=""
-          loading="lazy"
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
-          style={{ width: "min(240px, 52vw)", aspectRatio: "1/1", objectFit: "cover", borderRadius: "6px", marginTop: "1.8rem", boxShadow: "0 18px 50px rgba(38,0,0,0.14)" }}
-        />
-      )}
-
       <motion.p
         initial={{ opacity: 0, y: 14 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -383,27 +370,58 @@ function Panel({
         </motion.p>
       )}
 
-      {entry.gallery.length >= 2 && (
-        <motion.button
-          type="button"
-          onClick={() => onOpenGallery(entry.gallery, entry.title)}
-          initial={{ opacity: 0, y: 12 }}
+      {/* Inline photo grid — arranged like the reference (fidpr.ke/medigah): all
+          photos laid out in a 3-up grid on the page, each opening the lightbox. */}
+      {entry.gallery.length >= 2 ? (
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.15 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
+          className="wsp-gallery-grid"
+          style={{ marginTop: "2rem", width: "100%", maxWidth: "620px" }}
+        >
+          {entry.gallery.map((src, gi) => (
+            <button
+              key={src + gi}
+              type="button"
+              onClick={() => onOpenGallery(entry.gallery, entry.title, gi)}
+              aria-label={`${entry.title} — open photo ${gi + 1}`}
+              className="wsp-gallery-tile"
+              style={{ ["--accent" as string]: accent }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={src} alt={`${entry.title} — photo ${gi + 1}`} loading={gi < 3 ? "eager" : "lazy"} />
+            </button>
+          ))}
+        </motion.div>
+      ) : entry.inset ? (
+        <motion.img
+          src={entry.inset}
+          alt=""
+          loading="lazy"
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.4 }}
-          transition={{ duration: 0.6, delay: 0.26, ease: EASE }}
-          whileHover={{ y: -2 }}
-          style={{
-            marginTop: "2rem", display: "inline-flex", alignItems: "center", gap: "0.6rem",
-            fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 700,
-            color: "#f5f2ec", background: accent, border: "none", borderRadius: "999px",
-            padding: "0.85rem 1.5rem", cursor: "pointer", boxShadow: `0 12px 30px ${accent}44`,
-          }}
-        >
-          <Images size={16} weight="bold" />
-          View gallery
-          <span style={{ opacity: 0.7 }}>({entry.gallery.length})</span>
-        </motion.button>
-      )}
+          transition={{ duration: 0.8, delay: 0.1, ease: EASE }}
+          style={{ width: "min(240px, 52vw)", aspectRatio: "1/1", objectFit: "cover", borderRadius: "6px", marginTop: "1.8rem", boxShadow: "0 18px 50px rgba(38,0,0,0.14)" }}
+        />
+      ) : null}
+
+      <style>{`
+        .wsp-gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.4rem, 1vw, 0.7rem); }
+        .wsp-gallery-tile {
+          position: relative; padding: 0; border: none; cursor: pointer; background: #e8e0d8;
+          aspect-ratio: 1/1; border-radius: 6px; overflow: hidden; box-shadow: 0 8px 22px rgba(38,0,0,0.1);
+          transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), box-shadow 0.4s;
+        }
+        .wsp-gallery-tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s cubic-bezier(0.16,1,0.3,1); }
+        .wsp-gallery-tile::after { content: ""; position: absolute; inset: 0; border-radius: 6px; box-shadow: inset 0 0 0 0 var(--accent); transition: box-shadow 0.3s; }
+        .wsp-gallery-tile:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(38,0,0,0.2); }
+        .wsp-gallery-tile:hover img { transform: scale(1.07); }
+        .wsp-gallery-tile:hover::after { box-shadow: inset 0 0 0 2px var(--accent); }
+        @media (max-width: 560px) { .wsp-gallery-grid { grid-template-columns: repeat(2, 1fr); } }
+      `}</style>
     </div>
   );
 }
@@ -418,8 +436,8 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
   const heroInView = useInView(heroRef, { once: true, margin: "-80px" });
   const [active, setActive] = useState(0);
   const onActive = useCallback((i: number) => setActive(i), []);
-  const [gallery, setGallery] = useState<{ images: string[]; title: string } | null>(null);
-  const onOpenGallery = useCallback((images: string[], title: string) => setGallery({ images, title }), []);
+  const [gallery, setGallery] = useState<{ images: string[]; title: string; start: number } | null>(null);
+  const onOpenGallery = useCallback((images: string[], title: string, start = 0) => setGallery({ images, title, start }), []);
 
   // Entrance — the shared image travels from its card position on the previous
   // page directly into the hero slot here (no fullscreen in between).
@@ -692,7 +710,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
       {SECTOR_PRESS[sector] ? <PressLinks campaigns={SECTOR_PRESS[sector]!} /> : null}
 
       {gallery && (
-        <Lightbox images={gallery.images} title={gallery.title} start={0} onClose={() => setGallery(null)} />
+        <Lightbox images={gallery.images} title={gallery.title} start={gallery.start} onClose={() => setGallery(null)} />
       )}
 
       <Footer />
