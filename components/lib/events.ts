@@ -25,15 +25,15 @@ export const events: FidEvent[] = [
   },
   {
     slug: "suhba-series",
-    name: "Suhba Series",
-    tagline: "Curated Conversations • Modern Identity • Wellbeing",
-    date: "Upcoming Edition",
-    location: "Nairobi · Curated Setting",
+    name: "Suhba Series — Edition 02",
+    tagline: "Becoming Her • A Curated High Tea Experience",
+    date: "Sat, 3 Oct 2026 · 2:00–5:00 PM",
+    location: "Mövenpick Hotel & Residences, Nairobi",
     status: "upcoming",
     description:
-      "An intimate conversation platform fostering meaningful dialogue around identity, leadership, wellbeing, finance, faith and modern African experiences. Each edition brings together professionals, creatives, entrepreneurs and thought leaders through curated panels, high tea and moderated conversations.",
-    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cultural-festival",
-    ticketUrl: "#",
+      "Following the success of the inaugural edition, the conversation continues. Becoming Her brings women together for a curated high tea experience of meaningful dialogue around identity, leadership and wellbeing. Early Access KES 3,500 · Standard KES 4,000.",
+    image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/suhba-02",
+    ticketUrl: "https://mookh.com/event/suhba-series-by-fid-pr-2/",
   },
   {
     slug: "the-capital-room",

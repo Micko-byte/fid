@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { ArrowUpLeft, CheckCircle, Handshake } from "@phosphor-icons/react";
+import { ArrowUpLeft, CheckCircle, Handshake, InstagramLogo } from "@phosphor-icons/react";
 import Button from "@/components/ui/Button";
 import Footer from "@/components/Footer";
 import PressLinks from "@/components/articles/PressLinks";
@@ -184,6 +184,20 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
               >
                 {p.shortDesc}
               </motion.p>
+
+              {p.instagram && (
+                <motion.a
+                  href={p.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.6 }}
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", alignSelf: "flex-start", marginTop: "0.2rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: "#f5f2ec", background: p.accent, borderRadius: "999px", padding: "0.7rem 1.3rem", textDecoration: "none", transition: "transform 0.25s, box-shadow 0.25s", boxShadow: `0 10px 26px ${p.accent}3a` }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-2px)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; }}
+                >
+                  <InstagramLogo size={17} weight="fill" /> Follow on Instagram
+                </motion.a>
+              )}
             </div>
           </div>
         </section>

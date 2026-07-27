@@ -69,14 +69,22 @@ function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
           {ev.description}
         </p>
 
-        <a
-          href={ev.ticketUrl}
-          style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", marginTop: "0.6rem", backgroundColor: "#750006", color: "#fff", padding: "0.85rem 1.5rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, textDecoration: "none", borderRadius: "2px", alignSelf: "flex-start", transition: "background 0.25s, gap 0.25s" }}
-          onMouseEnter={(e) => { e.currentTarget.style.background = "#8a0007"; e.currentTarget.style.gap = "0.9rem"; }}
-          onMouseLeave={(e) => { e.currentTarget.style.background = "#750006"; e.currentTarget.style.gap = "0.6rem"; }}
-        >
-          <Ticket size={18} weight="fill" /> Get tickets
-        </a>
+        {ev.ticketUrl && ev.ticketUrl !== "#" ? (
+          <a
+            href={ev.ticketUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", marginTop: "0.6rem", backgroundColor: "#750006", color: "#fff", padding: "0.85rem 1.5rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 600, textDecoration: "none", borderRadius: "2px", alignSelf: "flex-start", transition: "background 0.25s, gap 0.25s" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "#8a0007"; e.currentTarget.style.gap = "0.9rem"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = "#750006"; e.currentTarget.style.gap = "0.6rem"; }}
+          >
+            <Ticket size={18} weight="fill" /> Get tickets
+          </a>
+        ) : (
+          <span style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginTop: "0.6rem", color: "rgba(28,28,28,0.45)", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 600, alignSelf: "flex-start" }}>
+            <Ticket size={16} weight="bold" /> Tickets released soon
+          </span>
+        )}
       </motion.div>
     </div>
   );

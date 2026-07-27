@@ -17,6 +17,8 @@ export interface OwnedPlatform {
   accent: string;
   logo: string;
   logoDark?: boolean;
+  /** Instagram page for this owned platform */
+  instagram?: string;
 }
 
 export const platforms: OwnedPlatform[] = [
@@ -97,6 +99,7 @@ export const platforms: OwnedPlatform[] = [
     accent: "#750006",
     logo: "/logos/suhba-series.png",
     logoDark: false,
+    instagram: "https://www.instagram.com/p/Da97jNxMpui/",
   },
   {
     slug: "the-capital-room",
