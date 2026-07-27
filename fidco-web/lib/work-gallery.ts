@@ -57,7 +57,16 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-rooftop-01", label: "Glam Hotel — rooftop night" },
   ],
   "africa-forum-on-displacements": [],
-  "columbia-africa-healthcare": [],
+  "columbia-africa-healthcare": [
+    { src: "/photos/projects/columbia/columbia-01.jpg", label: "Columbia Africa Healthcare" },
+    { src: "/photos/projects/columbia/columbia-02.jpg", label: "Columbia Africa Healthcare" },
+    { src: "/photos/projects/columbia/columbia-03.jpg", label: "Columbia Africa Healthcare" },
+    { src: "/photos/projects/columbia/columbia-04.jpg", label: "Columbia Africa Healthcare" },
+    { src: "/photos/projects/columbia/columbia-05.jpg", label: "Columbia Africa Healthcare" },
+    { src: "/photos/projects/columbia/columbia-06.jpg", label: "Columbia Africa Healthcare" },
+    { src: "/photos/projects/columbia/columbia-07.jpg", label: "Columbia Africa Healthcare" },
+    { src: "/photos/projects/columbia/columbia-08.jpg", label: "Columbia Africa Healthcare" },
+  ],
   "medigah-london-hair": [
     { src: "/photos/projects/medigah/mlh-01.jpg", label: "Medigah London Hair — MLH app launch" },
     { src: "/photos/projects/medigah/mlh-02.jpg", label: "Medigah London Hair — MLH app launch" },

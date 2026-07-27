@@ -85,7 +85,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Healthcare & Medical Institutions",
     intro: "Healthcare communication that prioritises credibility, reassurance and clear institutional storytelling.",
     accent: "#2f6f8f",
-    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/columbia-building",
+    cover: "/photos/projects/columbia/columbia-01.jpg",
     Icon: Heartbeat,
   },
   {
