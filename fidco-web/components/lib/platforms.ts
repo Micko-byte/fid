@@ -50,6 +50,7 @@ export const platforms: OwnedPlatform[] = [
     accent: "#d98038",
     logo: "/logos/tribe-vibe.png",
     logoDark: false,
+    instagram: "https://www.instagram.com/the_tribevibe/",
   },
   {
     slug: "suhba-series",
@@ -99,7 +100,7 @@ export const platforms: OwnedPlatform[] = [
     accent: "#750006",
     logo: "/logos/suhba-series.png",
     logoDark: false,
-    instagram: "https://www.instagram.com/p/Da97jNxMpui/",
+    instagram: "https://www.instagram.com/suhbaseries/",
   },
   {
     slug: "the-capital-room",
