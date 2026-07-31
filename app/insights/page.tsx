@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { ArrowUpRight } from "@phosphor-icons/react";
+import { ArrowUpRight, X } from "@phosphor-icons/react";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import { STOCK } from "@/lib/stock-photos";
@@ -19,6 +19,14 @@ const articles = [
     category: "Digital & Influence",
     img: STOCK.digital[1].src,
     summary: "Across African markets, the communications landscape is evolving rapidly. Traditional advertising is no longer the sole driver of visibility — creators, influencers and digital communities are increasingly shaping how audiences discover, trust and engage with brands.",
+    body: [
+      "Across African markets, the communications landscape is evolving rapidly. Traditional advertising is no longer the sole driver of visibility — creators, influencers and digital communities are increasingly shaping how audiences discover, trust and engage with brands.",
+      "This shift is especially visible in markets such as Kenya, Uganda and Rwanda, where social media platforms have become central to modern communication and consumer behaviour.",
+      "However, successful creator-led marketing goes beyond selecting personalities with large followings. The most effective campaigns are grounded in strategy, audience alignment and cultural relevance.",
+      "At FID & Co., influencer engagement is approached as part of a broader communications ecosystem — identifying creators whose audiences align with brand objectives, structuring campaigns that feel authentic rather than transactional, and integrating influencer storytelling into wider digital and media strategies.",
+      "Our work across fashion, hospitality and lifestyle sectors has shown that creator-led campaigns are most impactful when they create genuine audience connection rather than short-term visibility.",
+      "As African markets continue to evolve, brands that succeed will be those that focus not only on reach, but on credibility, consistency and cultural understanding.",
+    ],
     href: "https://www.linkedin.com/company/fid-pr/",
   },
   {
@@ -27,6 +35,14 @@ const articles = [
     category: "Experiential",
     img: STOCK.experiential[1].src,
     summary: "In increasingly saturated markets, brands are no longer competing solely for visibility — they are competing for attention, relevance and emotional connection. Experiential marketing has emerged as one of the most effective ways to bridge this gap.",
+    body: [
+      "In increasingly saturated markets, brands are no longer competing solely for visibility — they are competing for attention, relevance and emotional connection. Experiential marketing has emerged as one of the most effective ways to bridge this gap.",
+      "Unlike traditional campaigns, experiential platforms allow audiences to interact with brands in physical, emotional and social environments, creating stronger engagement and longer-lasting recall.",
+      "Across African urban markets, particularly in cities such as Nairobi, experiential campaigns are becoming central to how hospitality, retail and lifestyle brands position themselves.",
+      "At FID & Co., experiential platforms are designed to do more than create moments. They are structured to align with brand positioning, generate organic digital conversation and create content that extends beyond the event itself.",
+      "Whether through launches, cultural activations or owned experiences such as The Tribe Vibe, the objective remains the same — translating brand strategy into memorable, culturally relevant experiences.",
+      "As audiences become increasingly selective, brands that invest in experience-driven communication will be better positioned to build long-term relevance and audience affinity.",
+    ],
     href: "https://www.linkedin.com/company/fid-pr/",
   },
   {
@@ -35,6 +51,14 @@ const articles = [
     category: "Strategy",
     img: STOCK.strategy[0].src,
     summary: "Africa presents significant opportunities for organisations seeking growth across emerging and high-potential markets. However, success within these markets requires more than a global strategy — it requires local understanding.",
+    body: [
+      "Africa presents significant opportunities for organisations seeking growth across emerging and high-potential markets. However, success within these markets requires more than a global strategy — it requires local understanding.",
+      "Markets across Africa are diverse, culturally nuanced and rapidly evolving. Consumer behaviour, media landscapes and audience expectations vary significantly from one region to another.",
+      "For organisations entering markets such as Kenya, Uganda or Rwanda, communications plays a critical role in establishing credibility, building trust and navigating local stakeholder environments.",
+      "At FID & Co., we work with organisations to ensure communications strategies are locally grounded while remaining globally aligned — adapting messaging to local realities, identifying relevant media and creator ecosystems, and ensuring campaigns resonate with target audiences while maintaining cross-market consistency.",
+      "Through regional campaigns and strategic partnerships, we have seen that organisations investing in local insight and culturally informed communication are significantly better positioned to build sustainable market presence across Africa.",
+      "In increasingly competitive environments, communication is no longer simply a support function — it is a strategic enabler of market growth and audience trust.",
+    ],
     href: "https://www.linkedin.com/company/fid-pr/",
   },
   {
@@ -43,6 +67,14 @@ const articles = [
     category: "Digital & Technology",
     img: STOCK.beauty[2].src,
     summary: "The fashion industry is undergoing a major shift in how content is created, distributed and consumed. Across global markets, brands are increasingly exploring how technology can enhance creativity while improving efficiency and scalability. In Africa, this shift presents unique opportunities.",
+    body: [
+      "The fashion industry is undergoing a major shift in how content is created, distributed and consumed. Across global markets, brands are increasingly exploring how technology can enhance creativity while improving efficiency and scalability. In Africa, this shift presents unique opportunities.",
+      "Fashion brands operating across multiple markets often face challenges related to production logistics, regional adaptation and content scalability. Traditional production models involving multiple shoots and extensive logistics can become both time-intensive and costly.",
+      "Artificial intelligence is beginning to reshape this reality. At FID & Co., we have explored the integration of AI-generated muses and virtual models as part of digital content production for regional fashion campaigns — enabling brands to maintain strong visual identity while adapting content efficiently across multiple markets.",
+      "The advantages include scalable content production, reduced production costs, consistent visual storytelling and flexibility in adapting campaigns for diverse regional audiences.",
+      "However, AI is not replacing creativity — it is enhancing it. The strongest campaigns continue to rely on human insight, cultural intelligence and strategic direction, supported by technology that improves efficiency and scalability.",
+      "As African fashion markets continue to grow, brands that successfully balance creativity and innovation will be better positioned to shape the future of digital storytelling.",
+    ],
     href: "https://www.linkedin.com/company/fid-pr/",
   },
   {
@@ -51,6 +83,14 @@ const articles = [
     category: "Government & Public Affairs",
     img: STOCK.government[0].src,
     summary: "Communications within government and public institutions operates within a uniquely complex environment. The audiences are broader. The stakeholders are more diverse. And the level of public scrutiny is significantly higher.",
+    body: [
+      "Communications within government and public institutions operates within a uniquely complex environment. The audiences are broader. The stakeholders are more diverse. And the level of public scrutiny is significantly higher.",
+      "Whether supporting national celebrations, public initiatives or policy-driven campaigns, communication must balance visibility, clarity and sensitivity.",
+      "Clarity of messaging remains critical. Public communication must be accessible, consistent and aligned with broader institutional objectives.",
+      "Stakeholder coordination is equally important. Government communications often involve multiple institutions, partners and audiences, requiring careful alignment across all touchpoints. Large-scale media coordination also plays a central role, requiring structured planning across television, radio, print and digital platforms.",
+      "Most importantly, public campaigns must remain culturally aware and socially inclusive, ensuring audiences feel represented and engaged.",
+      "Communications within the public sector is not simply about information dissemination — it is about building trust, reinforcing identity and shaping national conversation. As governments across Africa continue to engage more actively with citizens and stakeholders, strategic communications will remain increasingly important in shaping public understanding and participation.",
+    ],
     href: "https://www.linkedin.com/company/fid-pr/",
   },
   {
@@ -59,6 +99,14 @@ const articles = [
     category: "Brand & PR",
     img: STOCK.hospitality[1].src,
     summary: "Hospitality brands today are no longer competing solely on service, location or pricing. Increasingly, they are competing on experience, identity and cultural relevance — building environments people want to experience, document and share.",
+    body: [
+      "Hospitality brands today are no longer competing solely on service, location or pricing. Increasingly, they are competing on experience, identity and cultural relevance. Restaurants, hotels and lifestyle venues are now expected to create environments people want to experience, document and share.",
+      "This shift has fundamentally changed how hospitality brands communicate. Traditional advertising alone is no longer sufficient. Brands must now build immersive narratives that exist both physically and digitally.",
+      "At FID & Co., our work across hospitality and lifestyle brands has shown that successful positioning is built around experience-led storytelling, creator integration and strong digital amplification. Experiences are no longer simply events — they are content ecosystems.",
+      "From launch activations to curated lifestyle platforms, hospitality campaigns today must generate visual engagement, social conversation and long-term audience connection. The most effective hospitality brands combine on-ground experiences, influencer storytelling, digital content, media visibility and community engagement.",
+      "Across African cities such as Nairobi, hospitality brands are increasingly evolving into cultural spaces rather than transactional venues. They host conversations. They shape lifestyle culture. They become part of how audiences experience the city itself.",
+      "As audiences continue to seek experiences that feel intentional and socially relevant, hospitality brands that invest in cultural relevance and integrated storytelling will be better positioned to build lasting audience affinity.",
+    ],
     href: "https://www.linkedin.com/company/fid-pr/",
   },
 ];
@@ -104,12 +152,11 @@ function PageHero() {
   );
 }
 
-function FeatureCard({ article }: { article: typeof articles[0] }) {
+function FeatureCard({ article, onOpen }: { article: typeof articles[0]; onOpen: (a: typeof articles[0]) => void }) {
   return (
-    <motion.a
-      href={article.href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <motion.button
+      type="button"
+      onClick={() => onOpen(article)}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: EASE }}
@@ -126,18 +173,17 @@ function FeatureCard({ article }: { article: typeof articles[0] }) {
         </p>
         <h3 className="font-heading ins-feature-title">{article.title}</h3>
         <p className="font-body ins-feature-sum">{article.summary}</p>
-        <span className="ins-readmore">Read on LinkedIn <ArrowUpRight size={16} weight="bold" /></span>
+        <span className="ins-readmore">Read article <ArrowUpRight size={16} weight="bold" /></span>
       </div>
-    </motion.a>
+    </motion.button>
   );
 }
 
-function GridCard({ article, index }: { article: typeof articles[0]; index: number }) {
+function GridCard({ article, index, onOpen }: { article: typeof articles[0]; index: number; onOpen: (a: typeof articles[0]) => void }) {
   return (
-    <motion.a
-      href={article.href}
-      target="_blank"
-      rel="noopener noreferrer"
+    <motion.button
+      type="button"
+      onClick={() => onOpen(article)}
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: Math.min(index, 5) * 0.05, ease: EASE }}
@@ -154,7 +200,52 @@ function GridCard({ article, index }: { article: typeof articles[0]; index: numb
       <h3 className="font-heading ins-card-title">{article.title}</h3>
       <p className="font-body ins-card-sum">{article.summary}</p>
       <span className="ins-readmore ins-readmore-dark">Read more <ArrowUpRight size={14} weight="bold" /></span>
-    </motion.a>
+    </motion.button>
+  );
+}
+
+function ArticleReader({ article, onClose }: { article: typeof articles[0]; onClose: () => void }) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = prev; };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.25 }}
+      onClick={onClose} role="dialog" aria-modal="true" aria-label={article.title}
+      style={{ position: "fixed", inset: 0, zIndex: 1000, display: "flex", justifyContent: "center", overflowY: "auto", padding: "clamp(1rem,4vw,3rem) 1rem", background: "rgba(18,8,4,0.72)", backdropFilter: "blur(6px)" }}
+    >
+      <motion.article
+        initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: EASE }}
+        onClick={(e) => e.stopPropagation()}
+        style={{ position: "relative", width: "min(760px, 100%)", height: "fit-content", background: "#f5f2ec", borderRadius: "16px", overflow: "hidden", boxShadow: "0 40px 120px rgba(38,0,0,0.4)" }}
+      >
+        <div style={{ position: "relative", aspectRatio: "16/7", overflow: "hidden" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={article.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, transparent 55%, rgba(38,0,0,0.35))" }} />
+          <button onClick={onClose} aria-label="Close" style={{ position: "absolute", top: "1rem", right: "1rem", width: "40px", height: "40px", borderRadius: "999px", background: "rgba(38,0,0,0.55)", border: "1px solid rgba(245,242,236,0.3)", color: "#f5f2ec", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(6px)" }}>
+            <X size={17} weight="bold" />
+          </button>
+        </div>
+        <div style={{ padding: "clamp(1.6rem,4vw,3rem)" }}>
+          <p className="font-body" style={{ fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#750006", fontWeight: 700, margin: 0 }}>
+            {article.category} · {article.date}
+          </p>
+          <h1 className="font-heading" style={{ fontSize: "clamp(1.6rem,3.4vw,2.6rem)", lineHeight: 1.12, letterSpacing: "-0.02em", color: "#260000", margin: "0.8rem 0 1.4rem" }}>
+            {article.title}
+          </h1>
+          {article.body.map((p, k) => (
+            <p key={k} className="font-body" style={{ fontSize: "1rem", lineHeight: 1.8, color: "rgba(28,28,28,0.8)", margin: "0 0 1.1rem", maxWidth: "62ch" }}>{p}</p>
+          ))}
+          <p className="font-body" style={{ fontSize: "0.8rem", letterSpacing: "0.05em", color: "rgba(38,0,0,0.55)", margin: "1.6rem 0 0", fontWeight: 700 }}>— FID &amp; Co.</p>
+        </div>
+      </motion.article>
+    </motion.div>
   );
 }
 
@@ -162,6 +253,7 @@ function ArticlesSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const [filter, setFilter] = useState("All");
+  const [reading, setReading] = useState<typeof articles[0] | null>(null);
 
   const shown = filter === "All" ? articles : articles.filter((a) => a.category === filter);
   const [lead, ...rest] = shown;
@@ -192,14 +284,16 @@ function ArticlesSection() {
         </div>
 
         <div key={filter}>
-          {lead && <FeatureCard key={lead.title} article={lead} />}
+          {lead && <FeatureCard key={lead.title} article={lead} onOpen={setReading} />}
           <div className="ins-grid">
             {rest.map((a, i) => (
-              <GridCard key={a.title} article={a} index={i} />
+              <GridCard key={a.title} article={a} index={i} onOpen={setReading} />
             ))}
           </div>
         </div>
       </div>
+
+      {reading && <ArticleReader article={reading} onClose={() => setReading(null)} />}
 
       <style>{`
         .ins-filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: clamp(2rem,4vw,3rem); }
@@ -212,6 +306,7 @@ function ArticlesSection() {
         .ins-chip:hover { border-color: #750006; color: #750006; }
         .ins-chip-on { background: #750006; border-color: #750006; color: #f5f2ec; }
 
+        .ins-feature, .ins-card { border: none; padding: 0; cursor: pointer; text-align: left; font: inherit; width: 100%; }
         .ins-feature {
           display: grid; grid-template-columns: 1.15fr 1fr; gap: 0; text-decoration: none;
           border-radius: 18px; overflow: hidden; background: #260000;
