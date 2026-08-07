@@ -4,8 +4,18 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { X, CheckCircle } from "@phosphor-icons/react";
 import { services as serviceData } from "@/components/lib/services";
+import { STOCK } from "@/lib/stock-photos";
 
 const MODAL_EASE = [0.16, 1, 0.3, 1] as const;
+
+// A topic-appropriate stock image per expertise area (relates to the write-up).
+const SERVICE_IMAGE: Record<string, string | undefined> = {
+  "strategic-communications": STOCK.pressConf?.[0]?.src,
+  "media-management": STOCK.media?.[0]?.src,
+  "influencer-creator": STOCK.digital?.[0]?.src,
+  "digital-strategy": STOCK.strategy?.[1]?.src,
+  "experiential-marketing": STOCK.experiential?.[0]?.src,
+};
 
 /* Expertise pop-up — the write-up in words, no stock-photo pages (Farida's brief:
    "delete those pages when clicked and add pop-ups with the write-up"). Shared by
@@ -34,9 +44,17 @@ export default function ServiceModal({ slug, onClose }: { slug: string; onClose:
         className="brand-pattern-light"
         style={{ position: "relative", width: "min(620px, 100%)", maxHeight: "88vh", overflowY: "auto", borderRadius: "20px", padding: "clamp(1.8rem,4vw,3rem)", background: "linear-gradient(160deg, #2e0703 0%, #260000 55%, #180404 100%)", border: "1px solid rgba(217,128,56,0.2)", boxShadow: "0 40px 110px rgba(38,0,0,0.5)" }}
       >
-        <button onClick={onClose} aria-label="Close" style={{ position: "absolute", top: "1rem", right: "1rem", width: "38px", height: "38px", borderRadius: "999px", background: "rgba(245,242,236,0.08)", border: "1px solid rgba(245,242,236,0.22)", color: "#f5f2ec", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <button onClick={onClose} aria-label="Close" style={{ position: "absolute", top: "1rem", right: "1rem", zIndex: 2, width: "38px", height: "38px", borderRadius: "999px", background: "rgba(38,0,0,0.5)", border: "1px solid rgba(245,242,236,0.28)", color: "#f5f2ec", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", backdropFilter: "blur(6px)" }}>
           <X size={16} weight="bold" />
         </button>
+
+        {SERVICE_IMAGE[svc.slug] && (
+          <div style={{ position: "relative", margin: "calc(-1 * clamp(1.8rem,4vw,3rem)) calc(-1 * clamp(1.8rem,4vw,3rem)) 1.6rem", height: "clamp(150px, 26vw, 210px)", overflow: "hidden", borderRadius: "20px 20px 0 0" }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={SERVICE_IMAGE[svc.slug]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.95)" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0.15) 0%, rgba(38,0,0,0.35) 60%, #260000 100%)" }} />
+          </div>
+        )}
 
         <p style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#d98038", fontWeight: 700, margin: 0 }}>
           Expertise · {svc.num}

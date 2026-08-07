@@ -18,12 +18,12 @@ import {
 import { STOCK } from "@/lib/stock-photos";
 
 const articles = [
-  { title: "The rise of creator-led marketing in Africa", date: "May 2026", img: STOCK.digital[1].src, href: "https://www.linkedin.com/company/fid-pr/", blurb: "How creators are reshaping brand storytelling across the continent — and what it means for reach, trust and cultural relevance." },
-  { title: "Why experiential marketing builds cultural relevance", date: "April 2026", img: STOCK.experiential[1].src, href: "https://www.linkedin.com/company/fid-pr/", blurb: "Live experiences turn audiences into communities. We unpack how brand worlds earn lasting cultural equity." },
-  { title: "Entering African markets: why local insight matters", date: "March 2026", img: STOCK.strategy[0].src, href: "https://www.linkedin.com/company/fid-pr/", blurb: "Market entry is a cultural exercise as much as a commercial one. Local insight is the difference between noise and resonance." },
-  { title: "AI, fashion and the future of content production in Africa", date: "February 2026", img: STOCK.beauty[2].src, href: "https://www.linkedin.com/company/fid-pr/", blurb: "Generative tools are accelerating content — but cultural fluency still decides what lands. A look at the new production stack." },
-  { title: "Communicating at scale: lessons from national campaigns", date: "January 2026", img: STOCK.government[0].src, href: "https://www.linkedin.com/company/fid-pr/", blurb: "Lessons from delivering high-stakes national communication with accuracy, sensitivity and reach." },
-  { title: "How hospitality brands build lifestyle relevance", date: "December 2025", img: STOCK.hospitality[1].src, href: "https://www.linkedin.com/company/fid-pr/", blurb: "Hospitality is becoming lifestyle. How destination brands turn venues into cultural platforms." },
+  { title: "The rise of creator-led marketing in Africa", date: "May 2026", img: STOCK.digital[1].src, href: "/insights", blurb: "How creators are reshaping brand storytelling across the continent — and what it means for reach, trust and cultural relevance." },
+  { title: "Why experiential marketing builds cultural relevance", date: "April 2026", img: STOCK.experiential[1].src, href: "/insights", blurb: "Live experiences turn audiences into communities. We unpack how brand worlds earn lasting cultural equity." },
+  { title: "Entering African markets: why local insight matters", date: "March 2026", img: STOCK.strategy[0].src, href: "/insights", blurb: "Market entry is a cultural exercise as much as a commercial one. Local insight is the difference between noise and resonance." },
+  { title: "AI, fashion and the future of content production in Africa", date: "February 2026", img: STOCK.beauty[2].src, href: "/insights", blurb: "Generative tools are accelerating content — but cultural fluency still decides what lands. A look at the new production stack." },
+  { title: "Communicating at scale: lessons from national campaigns", date: "January 2026", img: STOCK.government[0].src, href: "/insights", blurb: "Lessons from delivering high-stakes national communication with accuracy, sensitivity and reach." },
+  { title: "How hospitality brands build lifestyle relevance", date: "December 2025", img: STOCK.hospitality[1].src, href: "/insights", blurb: "Hospitality is becoming lifestyle. How destination brands turn venues into cultural platforms." },
 ];
 
 const spring = { type: "spring", stiffness: 200, damping: 24 } as const;
@@ -89,7 +89,7 @@ export default function Insights() {
                         {a.blurb}
                       </motion.p>
                       <motion.a
-                        href={a.href} target="_blank" rel="noopener noreferrer"
+                        href={a.href}
                         initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.22 }}
                         style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginTop: "1.6rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.14em", textTransform: "uppercase", fontWeight: 700, color: "#260000", background: "#d98038", padding: "0.85rem 1.6rem", borderRadius: "999px", textDecoration: "none" }}
                       >

@@ -3,6 +3,7 @@ import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import CTABanner from "@/components/sections/CTABanner";
 import WorkReel from "@/components/work/WorkReel";
+import LogoMarquee from "@/components/sections/LogoMarquee";
 import StatsBand from "@/components/sections/StatsBand";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
 import Platforms from "@/components/sections/Platforms";
@@ -24,6 +25,7 @@ export default function HomePage() {
       <Services />
       <CTABanner />
       <WorkReel />
+      <LogoMarquee />
       <StatsBand />
       <AfricanFootprint />
       <Platforms />
