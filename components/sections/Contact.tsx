@@ -112,8 +112,8 @@ export default function Contact() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setState("submitting");
     try {
-      const endpoint = process.env.NEXT_PUBLIC_CONTACT_WEBHOOK_URL;
-      if (endpoint) await fetch(endpoint, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      const res = await fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(form) });
+      if (!res.ok) throw new Error("send failed");
       setState("success");
       setForm({ name: "", email: "", phone: "", service: "", message: "" });
       fireConfetti();
@@ -203,11 +203,12 @@ export default function Contact() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1.6rem" }}>
               {[
-                { Icon: EnvelopeSimple, label: "Email", value: "info@fidco.africa", href: "mailto:info@fidco.africa" },
+                { Icon: EnvelopeSimple, label: "Email", value: "farida@fidco.africa", href: "mailto:farida@fidco.africa" },
+                { Icon: EnvelopeSimple, label: "Email", value: "farida@fidpr.ke", href: "mailto:farida@fidpr.ke" },
                 { Icon: Phone, label: "Phone", value: "+254 797 690 609", href: "tel:+254797690609" },
                 { Icon: MapPin, label: "Location", value: "Nairobi, Kenya · Africa", href: null },
               ].map(({ Icon, label, value, href }) => (
-                <div key={label} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                <div key={value} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
                   <div style={{ width: "40px", height: "40px", flexShrink: 0, border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px" }}>
                     <HoverIcon icon={Icon} size={24} weight="bold" hoverWeight="fill" color="#d98038" drawOnScroll revealed={inView} />
                   </div>
