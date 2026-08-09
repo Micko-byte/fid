@@ -2,8 +2,11 @@
 
 // q_auto + vc_auto let Cloudinary pick the best quality/codec per browser —
 // substantially smaller than the raw upload, same visual quality.
+// e_gamma:50 lifts the source video out of its heavy baked-in darkness (Farida
+// asked for a brighter landing) without washing it out — gamma raises the
+// shadows/midtones far more naturally than a flat brightness offset.
 const HERO_VIDEO =
-  "https://res.cloudinary.com/drpsrkmbk/video/upload/q_auto,vc_auto,w_1920/v1784533901/enhanced-video_1_dhyv6f.mp4";
+  "https://res.cloudinary.com/drpsrkmbk/video/upload/q_auto,vc_auto,w_1920,e_gamma:50/v1784533901/enhanced-video_1_dhyv6f.mp4";
 
 export default function BrandHero() {
   return (
