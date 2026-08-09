@@ -19,6 +19,8 @@ export interface OwnedPlatform {
   logoDark?: boolean;
   /** Instagram page for this owned platform */
   instagram?: string;
+  /** A few Instagram-style photos shown as a small carousel by the IG link */
+  igPhotos?: string[];
 }
 
 export const platforms: OwnedPlatform[] = [
@@ -51,6 +53,11 @@ export const platforms: OwnedPlatform[] = [
     logo: "/logos/tribe-vibe.png",
     logoDark: false,
     instagram: "https://www.instagram.com/the_tribevibe/",
+    igPhotos: [
+      "/photos/platforms/tribe-vibe/tribe-talk-01.jpg",
+      "/photos/platforms/tribe-vibe/tribe-talk-02.jpg",
+      "/photos/platforms/tribe-vibe/tribe-talk-03.jpg",
+    ],
   },
   {
     slug: "suhba-series",

@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import PressLinks from "@/components/articles/PressLinks";
 import SplitText from "@/components/ui/SplitText";
 import type { OwnedPlatform } from "@/components/lib/platforms";
+import IgCarousel from "@/components/platforms/IgCarousel";
 
 const HERO_FLOATING_SHAPES = [
   { size: 380, x: "5%", y: "10%", color: "rgba(117,0,6,0.09)", dur: 24, dx: 25, dy: 18 },
@@ -197,6 +198,15 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                 >
                   <InstagramLogo size={17} weight="fill" /> Follow on Instagram
                 </motion.a>
+              )}
+
+              {p.instagram && p.igPhotos && p.igPhotos.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.7 }}
+                  style={{ marginTop: "0.4rem" }}
+                >
+                  <IgCarousel photos={p.igPhotos} href={p.instagram} accent={p.accent} />
+                </motion.div>
               )}
             </div>
           </div>
