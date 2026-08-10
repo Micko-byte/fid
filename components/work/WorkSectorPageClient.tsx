@@ -4,7 +4,7 @@ import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import { ArrowLeft, ArrowRight, X } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, X, House } from "@phosphor-icons/react";
 import Footer from "@/components/Footer";
 import { getPlatformsForWorkSector, getProjectsForWorkSector, getWorkSectorMeta, type WorkSectorSlug } from "@/components/lib/work-sectors";
 import { projectGalleryImages } from "@/lib/work-gallery";
@@ -540,9 +540,17 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
             <ArrowLeft size={14} weight="bold" />
             Back
           </button>
-          <span style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(28,28,28,0.45)" }}>
+          <Link
+            href="/"
+            aria-label="FID & Co. — home"
+            className="wsp-home-link"
+            style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(28,28,28,0.55)", textDecoration: "none", display: "inline-flex", alignItems: "center", gap: "0.45rem", fontWeight: 600, transition: "color 0.25s" }}
+            onMouseEnter={(e) => { e.currentTarget.style.color = meta.accent; }}
+            onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(28,28,28,0.55)"; }}
+          >
+            <House size={14} weight="bold" />
             FID &amp; Co. · Work
-          </span>
+          </Link>
         </div>
 
         <div className="section-shell" style={{ position: "relative", zIndex: 1, marginTop: "clamp(2rem,5vw,3rem)" }}>

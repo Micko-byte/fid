@@ -20,6 +20,10 @@ export default function IgCarousel({
 }) {
   const [i, setI] = useState(0);
   const [activePhotos, setActivePhotos] = useState<string[]>(photos);
+  const [broken, setBroken] = useState<Record<string, true>>({});
+
+  // Only show buckets whose image actually loaded — drop empty/failed ones.
+  const visible = activePhotos.filter((src) => !broken[src]);
 
   useEffect(() => {
     if (!feedUrl) return;
@@ -35,7 +39,7 @@ export default function IgCarousel({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .map((p: any) => p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl || "")
           .filter(Boolean)
-          .slice(0, 4);
+          .slice(0, 8);
         if (active && srcs.length) setActivePhotos(srcs);
       } catch {
         /* keep fallback */
@@ -45,10 +49,10 @@ export default function IgCarousel({
   }, [feedUrl]);
 
   useEffect(() => {
-    if (activePhotos.length < 2) return;
-    const t = setInterval(() => setI((n) => (n + 1) % activePhotos.length), 3200);
+    if (visible.length < 2) return;
+    const t = setInterval(() => setI((n) => (n + 1) % visible.length), 3200);
     return () => clearInterval(t);
-  }, [activePhotos.length]);
+  }, [visible.length]);
 
   return (
     <a
@@ -67,19 +71,20 @@ export default function IgCarousel({
         boxShadow: `0 14px 34px ${accent}26`,
       }}
     >
-      {activePhotos.map((src, k) => (
+      {visible.map((src, k) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={src}
           src={src}
           alt=""
+          onError={() => setBroken((b) => ({ ...b, [src]: true }))}
           style={{
             position: "absolute",
             inset: 0,
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            opacity: k === i ? 1 : 0,
+            opacity: k === i % visible.length ? 1 : 0,
             transition: "opacity 0.7s ease",
           }}
         />
@@ -89,8 +94,8 @@ export default function IgCarousel({
         <InstagramLogo size={20} weight="fill" />
       </span>
       <div style={{ position: "absolute", bottom: "0.65rem", left: 0, right: 0, display: "flex", justifyContent: "center", gap: "5px" }}>
-        {activePhotos.map((_, k) => (
-          <span key={k} style={{ width: "6px", height: "6px", borderRadius: "999px", background: k === i ? "#fff" : "rgba(255,255,255,0.45)", transition: "background 0.3s" }} />
+        {visible.map((_, k) => (
+          <span key={k} style={{ width: "6px", height: "6px", borderRadius: "999px", background: k === i % visible.length ? "#fff" : "rgba(255,255,255,0.45)", transition: "background 0.3s" }} />
         ))}
       </div>
     </a>
