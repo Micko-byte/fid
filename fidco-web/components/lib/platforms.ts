@@ -21,6 +21,8 @@ export interface OwnedPlatform {
   instagram?: string;
   /** A few Instagram-style photos shown as a small carousel by the IG link */
   igPhotos?: string[];
+  /** Optional JSON feed for Instagram posts (e.g. behold.so) */
+  igFeedUrl?: string;
 }
 
 export const platforms: OwnedPlatform[] = [
@@ -53,6 +55,7 @@ export const platforms: OwnedPlatform[] = [
     logo: "/logos/tribe-vibe.png",
     logoDark: false,
     instagram: "https://www.instagram.com/the_tribevibe/",
+    igFeedUrl: "https://feeds.behold.so/NGGpSLRU9Jo83uvQnNhZ",
     igPhotos: [
       "/photos/platforms/tribe-vibe/tribe-talk-01.jpg",
       "/photos/platforms/tribe-vibe/tribe-talk-02.jpg",

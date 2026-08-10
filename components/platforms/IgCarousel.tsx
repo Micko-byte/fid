@@ -11,17 +11,44 @@ export default function IgCarousel({
   photos,
   href,
   accent,
+  feedUrl,
 }: {
   photos: string[];
   href: string;
   accent: string;
+  feedUrl?: string;
 }) {
   const [i, setI] = useState(0);
+  const [activePhotos, setActivePhotos] = useState<string[]>(photos);
+
   useEffect(() => {
-    if (photos.length < 2) return;
-    const t = setInterval(() => setI((n) => (n + 1) % photos.length), 3200);
+    if (!feedUrl) return;
+    let active = true;
+    (async () => {
+      try {
+        const res = await fetch(feedUrl, { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const list: any[] = Array.isArray(data) ? data : data?.posts ?? [];
+        const srcs = list
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          .map((p: any) => p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl || "")
+          .filter(Boolean)
+          .slice(0, 4);
+        if (active && srcs.length) setActivePhotos(srcs);
+      } catch {
+        /* keep fallback */
+      }
+    })();
+    return () => { active = false; };
+  }, [feedUrl]);
+
+  useEffect(() => {
+    if (activePhotos.length < 2) return;
+    const t = setInterval(() => setI((n) => (n + 1) % activePhotos.length), 3200);
     return () => clearInterval(t);
-  }, [photos.length]);
+  }, [activePhotos.length]);
 
   return (
     <a
@@ -40,7 +67,7 @@ export default function IgCarousel({
         boxShadow: `0 14px 34px ${accent}26`,
       }}
     >
-      {photos.map((src, k) => (
+      {activePhotos.map((src, k) => (
         // eslint-disable-next-line @next/next/no-img-element
         <img
           key={src}
@@ -62,7 +89,7 @@ export default function IgCarousel({
         <InstagramLogo size={20} weight="fill" />
       </span>
       <div style={{ position: "absolute", bottom: "0.65rem", left: 0, right: 0, display: "flex", justifyContent: "center", gap: "5px" }}>
-        {photos.map((_, k) => (
+        {activePhotos.map((_, k) => (
           <span key={k} style={{ width: "6px", height: "6px", borderRadius: "999px", background: k === i ? "#fff" : "rgba(255,255,255,0.45)", transition: "background 0.3s" }} />
         ))}
       </div>

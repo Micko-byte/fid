@@ -205,7 +205,7 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                   initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.7 }}
                   style={{ marginTop: "0.4rem" }}
                 >
-                  <IgCarousel photos={p.igPhotos} href={p.instagram} accent={p.accent} />
+                  <IgCarousel photos={p.igPhotos} href={p.instagram} accent={p.accent} feedUrl={p.igFeedUrl} />
                 </motion.div>
               )}
             </div>
