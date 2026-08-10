@@ -39,7 +39,7 @@ export default function IgCarousel({
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .map((p: any) => p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl || "")
           .filter(Boolean)
-          .slice(0, 8);
+          .slice(0, 6);
         if (active && srcs.length) setActivePhotos(srcs);
       } catch {
         /* keep fallback */
