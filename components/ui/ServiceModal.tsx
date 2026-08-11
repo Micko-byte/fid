@@ -2,19 +2,32 @@
 
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { X, CheckCircle } from "@phosphor-icons/react";
+import { X, CheckCircle, ArrowUpRight } from "@phosphor-icons/react";
 import { services as serviceData } from "@/components/lib/services";
 import { STOCK } from "@/lib/stock-photos";
 
 const MODAL_EASE = [0.16, 1, 0.3, 1] as const;
 
-// A topic-appropriate stock image per expertise area (relates to the write-up).
+const CLD = "https://res.cloudinary.com/dnrj0hbpy";
+
+// Farida's expertise footage — muted autoplay clips that relate to each write-up.
+const SERVICE_VIDEO: Record<string, string | undefined> = {
+  "strategic-communications": `${CLD}/video/upload/q_auto,vc_auto,w_1200/FID/exp-strategic-communications.mp4`,
+  "media-management": `${CLD}/video/upload/q_auto,vc_auto,w_1200/FID/exp-media-management.mp4`,
+  "experiential-marketing": `${CLD}/video/upload/q_auto,vc_auto,w_1200/FID/exp-experiential-marketing.mp4`,
+};
+
+// A poster frame for each video (first frame) so nothing flashes before playback.
+const SERVICE_POSTER: Record<string, string | undefined> = {
+  "strategic-communications": `${CLD}/video/upload/so_0,q_auto,w_1200/FID/exp-strategic-communications.jpg`,
+  "media-management": `${CLD}/video/upload/so_0,q_auto,w_1200/FID/exp-media-management.jpg`,
+  "experiential-marketing": `${CLD}/video/upload/so_0,q_auto,w_1200/FID/exp-experiential-marketing.jpg`,
+};
+
+// A topic-appropriate image for the areas without footage (relates to the write-up).
 const SERVICE_IMAGE: Record<string, string | undefined> = {
-  "strategic-communications": STOCK.pressConf?.[0]?.src,
-  "media-management": STOCK.media?.[0]?.src,
-  "influencer-creator": STOCK.digital?.[0]?.src,
+  "influencer-creator": `${CLD}/image/upload/f_auto,q_auto,w_1800,c_limit/FID/exp-influencer-creator`,
   "digital-strategy": STOCK.strategy?.[1]?.src,
-  "experiential-marketing": STOCK.experiential?.[0]?.src,
 };
 
 /* Expertise pop-up — the write-up in words, no stock-photo pages (Farida's brief:
@@ -48,11 +61,15 @@ export default function ServiceModal({ slug, onClose }: { slug: string; onClose:
           <X size={16} weight="bold" />
         </button>
 
-        {SERVICE_IMAGE[svc.slug] && (
+        {(SERVICE_VIDEO[svc.slug] || SERVICE_IMAGE[svc.slug]) && (
           <div style={{ position: "relative", margin: "calc(-1 * clamp(1.8rem,4vw,3rem)) calc(-1 * clamp(1.8rem,4vw,3rem)) 1.6rem", height: "clamp(150px, 26vw, 210px)", overflow: "hidden", borderRadius: "20px 20px 0 0" }}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={SERVICE_IMAGE[svc.slug]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.95)" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0.15) 0%, rgba(38,0,0,0.35) 60%, #260000 100%)" }} />
+            {SERVICE_VIDEO[svc.slug] ? (
+              <video src={SERVICE_VIDEO[svc.slug]} poster={SERVICE_POSTER[svc.slug]} autoPlay muted loop playsInline preload="metadata" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+            ) : (
+              /* eslint-disable-next-line @next/next/no-img-element */
+              <img src={SERVICE_IMAGE[svc.slug]} alt="" style={{ width: "100%", height: "100%", objectFit: "cover", filter: "saturate(0.95)" }} />
+            )}
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0.15) 0%, rgba(38,0,0,0.35) 60%, #260000 100%)", pointerEvents: "none" }} />
           </div>
         )}
 
@@ -76,6 +93,14 @@ export default function ServiceModal({ slug, onClose }: { slug: string; onClose:
             </li>
           ))}
         </ul>
+
+        <a
+          href="/#work"
+          onClick={onClose}
+          style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", marginTop: "1.8rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.16em", textTransform: "uppercase", fontWeight: 700, color: "#260000", background: "#d98038", padding: "0.8rem 1.5rem", borderRadius: "999px", textDecoration: "none" }}
+        >
+          See our work <ArrowUpRight size={15} weight="bold" />
+        </a>
       </motion.div>
     </motion.div>
   );
