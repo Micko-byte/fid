@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Ticket, CalendarBlank, MapPin } from "@phosphor-icons/react";
 import { events } from "@/components/lib/events";
+import { platforms } from "@/components/lib/platforms";
 import Footer from "@/components/Footer";
 
 function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
@@ -146,8 +147,45 @@ export default function EventsClient() {
         </div>
       </section>
 
+      {/* ── Owned IPs — FID & Co.'s platforms behind the events ── */}
+      <section style={{ paddingBottom: "clamp(5rem,10vw,9rem)" }}>
+        <div style={{ maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.7rem", marginBottom: "clamp(1.6rem,3vw,2.4rem)" }}>
+            <span style={{ width: "26px", height: "1px", background: "#750006", opacity: 0.6 }} />
+            <span style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 500, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006" }}>
+              Our owned IPs
+            </span>
+          </div>
+
+          <div className="owned-ip-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "clamp(1rem,2vw,1.6rem)" }}>
+            {platforms.map((p) => (
+              <Link
+                key={p.slug}
+                href={`/platforms/${p.slug}`}
+                className="owned-ip-card"
+                style={{ position: "relative", display: "block", borderRadius: "18px", overflow: "hidden", aspectRatio: "4 / 5", textDecoration: "none", border: `1px solid ${p.accent}2e` }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={p.image} alt={p.name} className="owned-ip-img" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", transition: "transform 0.5s ease" }} />
+                <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(38,0,0,0.05) 0%, rgba(38,0,0,0.35) 55%, rgba(38,0,0,0.86) 100%)" }} />
+                <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "clamp(1.1rem,2vw,1.5rem)" }}>
+                  <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 600, fontSize: "clamp(1.2rem,2vw,1.6rem)", lineHeight: 1.05, letterSpacing: "-0.01em", color: "#f5f2ec", margin: 0, textTransform: "uppercase" }}>
+                    {p.name}
+                  </h3>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.04em", color: p.accent, margin: "0.5rem 0 0", fontWeight: 600 }}>
+                    {p.tagline}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <style>{`
+        .owned-ip-card:hover .owned-ip-img { transform: scale(1.05); }
         @media (max-width: 768px) {
+          .owned-ip-grid { grid-template-columns: 1fr !important; }
           .event-card { grid-template-columns: 1fr !important; }
           .event-card .event-text { order: 2 !important; }
           .event-card .event-img { order: 1 !important; }

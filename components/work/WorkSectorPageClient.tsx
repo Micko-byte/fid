@@ -596,7 +596,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
             >
               <div ref={heroImgRef} style={{ position: "relative", minHeight: "clamp(280px, 38vw, 520px)", borderRadius: "24px", overflow: "hidden", boxShadow: "0 24px 70px rgba(38,0,0,0.15)" }}>
                 <img src={heroImage} alt={meta.title} loading="eager" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(160deg, rgba(38,0,0,0.18) 0%, rgba(38,0,0,0.34) 44%, ${meta.accent}cc 100%)` }} />
+                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(160deg, rgba(38,0,0,0.04) 0%, rgba(38,0,0,0.10) 42%, ${meta.accent}bf 100%)` }} />
                 <div style={{ position: "absolute", left: "1.2rem", bottom: "1.2rem", right: "1.2rem", color: "#f5f2ec" }}>
                   <p style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.7rem, 3.2vw, 2.6rem)", lineHeight: 1.02, letterSpacing: "-0.03em", margin: 0, maxWidth: "12ch" }}>
                     {meta.title}
