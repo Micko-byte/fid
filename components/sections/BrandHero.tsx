@@ -1,20 +1,36 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowUpRight } from "@phosphor-icons/react";
 
-// q_auto + vc_auto let Cloudinary pick the best quality/codec per browser —
-// substantially smaller than the raw upload, same visual quality.
-// e_gamma:50 lifts the source video out of its heavy baked-in darkness (Farida
-// asked for a brighter landing) without washing it out — gamma raises the
-// shadows/midtones far more naturally than a flat brightness offset.
-const HERO_VIDEO =
-  "https://res.cloudinary.com/drpsrkmbk/video/upload/q_auto,vc_auto,w_1920,e_gamma:50/v1784533901/enhanced-video_1_dhyv6f.mp4";
+// Farida's brief: drop the video, use a premium image hero like the reference
+// site. A curated set of the strongest shots from the FID Cloudinary library —
+// editorial studio, fashion, hospitality, glam and government — cross-faded
+// with a slow Ken-Burns drift behind the headline.
+const cl = (id: string) =>
+  `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,c_fill,g_auto,w_1920,h_1200/FID/${id}`;
+
+const HERO_IMAGES = [
+  cl("hero-people-03"),
+  cl("hero-lcw-01"),
+  cl("hero-cafenbo-01"),
+  cl("hero-kingfisher-01"),
+  cl("hero-auf-01"),
+];
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+const SLIDE_MS = 5000;
 
 export default function BrandHero() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setActive((n) => (n + 1) % HERO_IMAGES.length), SLIDE_MS);
+    return () => clearInterval(t);
+  }, []);
+
   return (
     <section
       data-nav-dark
@@ -24,34 +40,36 @@ export default function BrandHero() {
         position: "relative",
         width: "100%",
         height: "100dvh",
-        minHeight: "560px",
+        minHeight: "600px",
         overflow: "hidden",
         background: "#260000",
       }}
     >
-      <video
-        src={HERO_VIDEO}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="metadata"
-        poster="/photos/hero-poster.jpg"
-        aria-hidden
-        className="brand-hero-video"
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center",
-          display: "block",
-        }}
-      />
+      {/* ── Cross-fading image slideshow ── */}
+      {HERO_IMAGES.map((src, i) => (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          key={src}
+          src={src}
+          alt=""
+          aria-hidden
+          loading="eager"
+          className="brand-hero-slide"
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            opacity: i === active ? 1 : 0,
+            transform: i === active ? "scale(1.06)" : "scale(1)",
+            transition: "opacity 1.2s ease, transform 6s ease-out",
+          }}
+        />
+      ))}
 
       {/* Editorial scrim — darker toward the lower-left so the headline reads,
-          lighter across the middle so the footage stays visible. */}
+          lighter across the middle so the photography stays vivid. */}
       <div
         aria-hidden
         className="brand-hero-scrim"
@@ -60,11 +78,11 @@ export default function BrandHero() {
           inset: 0,
           pointerEvents: "none",
           background:
-            "linear-gradient(to bottom, rgba(38,0,0,0.4) 0%, rgba(38,0,0,0.08) 26%, rgba(38,0,0,0.12) 55%, rgba(38,0,0,0.78) 100%)",
+            "linear-gradient(to bottom, rgba(38,0,0,0.5) 0%, rgba(38,0,0,0.12) 24%, rgba(38,0,0,0.2) 52%, rgba(38,0,0,0.82) 100%)",
         }}
       />
 
-      {/* ── Yeshi-style oversized editorial headline over the footage ── */}
+      {/* ── Yeshi-style oversized editorial headline ── */}
       <div className="brand-hero-content">
         <motion.span
           initial={{ opacity: 0, y: 14 }}
@@ -109,6 +127,19 @@ export default function BrandHero() {
             Start a conversation
           </Link>
         </motion.div>
+
+        {/* Slide indicators */}
+        <div className="brand-hero-dots" aria-hidden>
+          {HERO_IMAGES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setActive(i)}
+              className={i === active ? "is-active" : ""}
+              aria-label={`Show image ${i + 1}`}
+            />
+          ))}
+        </div>
       </div>
 
       <style>{`
@@ -122,7 +153,7 @@ export default function BrandHero() {
           justify-content: flex-end;
           gap: clamp(1rem, 1.8vw, 1.5rem);
           padding: clamp(2rem, 6vw, 5.5rem);
-          padding-bottom: clamp(3rem, 7vw, 6rem);
+          padding-bottom: clamp(2.6rem, 6vw, 5rem);
           max-width: 1240px;
           margin: 0 auto;
           left: 0; right: 0;
@@ -151,7 +182,7 @@ export default function BrandHero() {
           text-transform: uppercase;
           color: #f5f2ec;
           max-width: 16ch;
-          text-shadow: 0 2px 40px rgba(38,0,0,0.45);
+          text-shadow: 0 2px 40px rgba(38,0,0,0.5);
         }
         .brand-hero-headline em {
           font-style: italic;
@@ -162,9 +193,9 @@ export default function BrandHero() {
           font-family: var(--font-body);
           font-size: clamp(0.95rem, 1.4vw, 1.18rem);
           line-height: 1.6;
-          color: rgba(245,242,236,0.9);
+          color: rgba(245,242,236,0.92);
           max-width: 46ch;
-          text-shadow: 0 1px 20px rgba(38,0,0,0.4);
+          text-shadow: 0 1px 24px rgba(38,0,0,0.5);
         }
         .brand-hero-cta {
           display: flex;
@@ -196,35 +227,38 @@ export default function BrandHero() {
           backdrop-filter: blur(4px);
         }
         .brand-hero-btn--ghost:hover { background: rgba(245,242,236,0.16); }
+        .brand-hero-dots {
+          display: flex;
+          gap: 0.5rem;
+          margin-top: 0.6rem;
+        }
+        .brand-hero-dots button {
+          width: 28px; height: 3px;
+          border: none; padding: 0; cursor: pointer;
+          border-radius: 999px;
+          background: rgba(245,242,236,0.35);
+          transition: background 0.3s ease, width 0.3s ease;
+        }
+        .brand-hero-dots button.is-active {
+          background: #d98038;
+          width: 44px;
+        }
 
         @media (max-width: 900px) {
           .brand-hero-section {
-            height: auto !important;
-            min-height: 0 !important;
-            /* nav bar first, then the video, then the headline block below it */
-            padding-top: 64px !important;
-            display: flex;
-            flex-direction: column;
+            height: 88dvh !important;
+            min-height: 520px !important;
           }
-          .brand-hero-video {
-            position: relative !important;
-            width: 100% !important;
-            height: auto !important;
-            object-fit: contain !important;
+          .brand-hero-scrim {
+            background: linear-gradient(to bottom, rgba(38,0,0,0.45) 0%, rgba(38,0,0,0.25) 40%, rgba(38,0,0,0.9) 100%) !important;
           }
-          .brand-hero-scrim { display: none !important; }
           .brand-hero-content {
-            position: relative !important;
-            inset: auto !important;
             padding: clamp(1.6rem, 7vw, 2.4rem);
-            padding-bottom: clamp(2.4rem, 9vw, 3.2rem);
-            background: #260000;
+            padding-bottom: clamp(2rem, 8vw, 3rem);
           }
           .brand-hero-headline {
-            text-shadow: none;
-            font-size: clamp(2.2rem, 11vw, 3.4rem) !important;
+            font-size: clamp(2.2rem, 12vw, 3.6rem);
           }
-          .brand-hero-intro { text-shadow: none; }
         }
       `}</style>
     </section>
