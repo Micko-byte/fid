@@ -17,7 +17,6 @@ import {
   RadialDial,
 } from "@/components/mobile/ui";
 import { STOCK } from "@/lib/stock-photos";
-import ServiceModal from "@/components/ui/ServiceModal";
 
 const cl = (id: string) =>
   `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/${id}`;
@@ -84,7 +83,6 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export default function MobileHome() {
-  const [svcModal, setSvcModal] = useState<string | null>(null);
   // Live Instagram images from the Behold feed; falls back to curated tiles.
   const [igPosts, setIgPosts] = useState<string[]>(IG_POSTS);
   useEffect(() => {
@@ -201,7 +199,7 @@ export default function MobileHome() {
             const Icon = s.Icon;
             return (
               <FadeUp key={s.slug} delay={(i % 2) * 0.06}>
-                <button type="button" onClick={() => setSvcModal(s.slug)} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "block" }}>
+                <Link href={`/services/${s.slug}`} style={{ background: "none", border: "none", padding: 0, cursor: "pointer", display: "block", textDecoration: "none" }}>
                   <RadialDial
                     label={s.label}
                     tone="dark"
@@ -212,7 +210,7 @@ export default function MobileHome() {
                     icon={<Icon size={24} weight="bold" />}
                     photo={s.photo}
                   />
-                </button>
+                </Link>
               </FadeUp>
             );
           };
@@ -411,7 +409,6 @@ export default function MobileHome() {
 
       <Footer />
 
-      {svcModal && <ServiceModal slug={svcModal} onClose={() => setSvcModal(null)} />}
     </div>
   );
 }

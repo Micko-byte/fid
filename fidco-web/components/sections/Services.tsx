@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import { Megaphone, Newspaper, ShareNetwork, ChartLineUp, Confetti } from "@phosphor-icons/react";
 import HoverIcon from "@/components/ui/HoverIcon";
 import { STOCK } from "@/lib/stock-photos";
-import ServiceModal from "@/components/ui/ServiceModal";
 
 /* ── Circle geometry ── */
 const SVG_SIZE = 280;
@@ -85,11 +84,9 @@ const SERVICES = [
 function RadarCircle({
   svc,
   index,
-  onOpen,
 }: {
   svc: (typeof SERVICES)[number];
   index: number;
-  onOpen: (slug: string) => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-10% 0px" });
@@ -103,9 +100,8 @@ function RadarCircle({
       style={{ position: "relative", flexShrink: 0 }}
       className="radar-wrap"
     >
-      <button
-        type="button"
-        onClick={() => onOpen(svc.slug)}
+      <Link
+        href={`/services/${svc.slug}`}
         style={{ display: "block", position: "relative", width: "clamp(160px, 34vw, 280px)", aspectRatio: "1 / 1", textDecoration: "none", background: "none", border: "none", padding: 0, cursor: "pointer" }}
         aria-label={`${svc.lines.join(" ")} — read more`}
       >
@@ -200,7 +196,7 @@ function RadarCircle({
 
         {/* ── Hover ring glow ── */}
         <span className="radar-ring-glow" aria-hidden="true" />
-      </button>
+      </Link>
     </motion.div>
   );
 }
@@ -209,7 +205,6 @@ function RadarCircle({
 export default function Services() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
 
   return (
     <section
@@ -316,7 +311,7 @@ export default function Services() {
         className="radar-row"
       >
         {SERVICES.map((svc, i) => (
-          <RadarCircle key={svc.slug} svc={svc} index={i} onOpen={setActiveSlug} />
+          <RadarCircle key={svc.slug} svc={svc} index={i} />
         ))}
       </div>
 
@@ -344,7 +339,7 @@ export default function Services() {
             transition={{ duration: 0.6, delay: i * 0.07 }}
             style={{ textAlign: "center" }}
           >
-            <button type="button" onClick={() => setActiveSlug(svc.slug)} style={{ textDecoration: "none", display: "block", width: "100%", background: "none", border: "none", padding: 0, cursor: "pointer" }}>
+            <Link href={`/services/${svc.slug}`} style={{ textDecoration: "none", display: "block", width: "100%", background: "none", border: "none", padding: 0, cursor: "pointer" }}>
               <span style={{ display: "block", fontFamily: "var(--font-body)", fontSize: "0.58rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.5rem" }}>
                 {svc.num}
               </span>
@@ -355,7 +350,7 @@ export default function Services() {
               >
                 {svc.description}
               </span>
-            </button>
+            </Link>
           </motion.div>
         ))}
       </div>
@@ -401,8 +396,6 @@ export default function Services() {
           .radar-desc-grid > div:last-child { grid-column: auto; }
         }
       `}</style>
-
-      {activeSlug && <ServiceModal slug={activeSlug} onClose={() => setActiveSlug(null)} />}
     </section>
   );
 }

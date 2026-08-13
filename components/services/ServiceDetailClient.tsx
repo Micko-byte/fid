@@ -12,6 +12,24 @@ interface Props {
   service: Service;
 }
 
+const CLD = "https://res.cloudinary.com/dnrj0hbpy";
+
+// Farida's expertise footage/imagery, hosted on the FID Cloudinary — a muted
+// autoplay clip (or a still) heading each service page.
+const SERVICE_VIDEO: Record<string, string | undefined> = {
+  "strategic-communications": `${CLD}/video/upload/q_auto,vc_auto,w_1600/FID/exp-strategic-communications.mp4`,
+  "media-management": `${CLD}/video/upload/q_auto,vc_auto,w_1600/FID/exp-media-management.mp4`,
+  "experiential-marketing": `${CLD}/video/upload/q_auto,vc_auto,w_1600/FID/exp-experiential-marketing.mp4`,
+};
+const SERVICE_POSTER: Record<string, string | undefined> = {
+  "strategic-communications": `${CLD}/video/upload/so_0,q_auto,w_1600/FID/exp-strategic-communications.jpg`,
+  "media-management": `${CLD}/video/upload/so_0,q_auto,w_1600/FID/exp-media-management.jpg`,
+  "experiential-marketing": `${CLD}/video/upload/so_0,q_auto,w_1600/FID/exp-experiential-marketing.jpg`,
+};
+const SERVICE_IMAGE: Record<string, string | undefined> = {
+  "influencer-creator": `${CLD}/image/upload/f_auto,q_auto,w_1800,c_limit/FID/exp-influencer-creator`,
+};
+
 // Full-bleed project card — Clase bcn style
 function ProjectCard({
   bg,
@@ -158,7 +176,7 @@ export default function ServiceDetailClient({ service }: Props) {
           </Link>
           <span style={{ color: "#750006", fontSize: "clamp(1rem, 2vw, 1.25rem)", opacity: 0.5 }}>·</span>
           <Link
-            href="/services"
+            href="/#services"
             style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
@@ -169,7 +187,7 @@ export default function ServiceDetailClient({ service }: Props) {
             onMouseEnter={(e) => (e.currentTarget.style.color = "#750006")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#939393")}
           >
-            Services
+            Expertise
           </Link>
         </div>
         <Link
@@ -248,6 +266,34 @@ export default function ServiceDetailClient({ service }: Props) {
           {service.summary}
         </motion.p>
       </div>
+
+      {/* ── Expertise footage / imagery for this service ── */}
+      {(SERVICE_VIDEO[service.slug] || SERVICE_IMAGE[service.slug]) && (
+        <div style={{ maxWidth: "1440px", margin: "0 auto", padding: "clamp(2.5rem, 5vw, 4rem) 20px 0" }}>
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            style={{ position: "relative", width: "100%", aspectRatio: "16 / 9", overflow: "hidden", borderRadius: "16px", background: "#260000", boxShadow: "0 30px 80px rgba(38,0,0,0.18)" }}
+          >
+            {SERVICE_VIDEO[service.slug] ? (
+              <video
+                src={SERVICE_VIDEO[service.slug]}
+                poster={SERVICE_POSTER[service.slug]}
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="metadata"
+                style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={SERVICE_IMAGE[service.slug]} alt={service.title} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
+            )}
+          </motion.div>
+        </div>
+      )}
 
       {/* ── Full-bleed project cards — Clase bcn stack ── */}
       <div style={{ maxWidth: "1440px", margin: "0 auto", paddingTop: "clamp(3rem, 7vw, 6rem)" }}>
@@ -374,7 +420,7 @@ export default function ServiceDetailClient({ service }: Props) {
           }}
         >
           <Link
-            href="/services"
+            href="/#services"
             style={{
               fontFamily: "var(--font-body)",
               fontWeight: 400,
@@ -385,7 +431,7 @@ export default function ServiceDetailClient({ service }: Props) {
             onMouseEnter={(e) => (e.currentTarget.style.color = "#d98038")}
             onMouseLeave={(e) => (e.currentTarget.style.color = "#750006")}
           >
-            ← All services
+            ← Back to Expertise
           </Link>
           <Link
             href="/#contact"
