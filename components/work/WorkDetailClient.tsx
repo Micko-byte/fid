@@ -3,13 +3,17 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import type { Project } from "@/components/lib/projects";
+import type { Project, ProjectMedia } from "@/components/lib/projects";
 import { getProjectGallery } from "@/lib/work-gallery";
 import { ArrowCircleRight, TrendUp } from "@phosphor-icons/react";
 import IconField from "@/components/motion/IconField";
 import { STOCK } from "@/lib/stock-photos";
+import ProjectMediaShelf from "@/components/work/ProjectMediaShelf";
 
-interface Props { project: Project }
+interface Props {
+  project: Project;
+  media?: ProjectMedia[];
+}
 
 /* ── Animated corner-bracket border ── */
 function CornerBrackets({ color = "#d98038", size = 22, thickness = 2 }: { color?: string; size?: number; thickness?: number }) {
@@ -124,13 +128,20 @@ function PropertyCard({ name, desc, index }: { name: string; desc: string; index
   );
 }
 
-export default function WorkDetailClient({ project }: Props) {
+export default function WorkDetailClient({ project, media = project.media ?? [] }: Props) {
   const galleryImages = getProjectGallery(project);
   const hasImages = galleryImages.length > 0;
 
   return (
     <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh", position: "relative" }}>
       <IconField tone="light" photo={STOCK.about?.[1]?.src} />
+      {media.length > 0 && (
+        <ProjectMediaShelf
+          items={media}
+          title="Medigah launch media"
+          intro="Live coverage, store pages and playable launch assets pulled from the current web sources."
+        />
+      )}
       <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Sticky back bar ── */}

@@ -1,6 +1,9 @@
 import { notFound } from "next/navigation";
+import WorkDetailClient from "@/components/work/WorkDetailClient";
 import WorkSectorPageClient from "@/components/work/WorkSectorPageClient";
 import type { WorkSectorSlug } from "@/components/lib/work-sectors";
+import { getProjectBySlug, projects } from "@/components/lib/projects";
+import { fetchLivePreview } from "@/lib/live-preview";
 
 // Local list keeps this server route free of the phosphor-icon runtime import
 // that lives in work-sectors.ts (client-only).
@@ -18,20 +21,65 @@ const SECTORS: { slug: WorkSectorSlug; title: string; intro: string }[] = [
   { slug: "owned-ips", title: "Owned Experiences & Cultural IPs", intro: "Original platforms owned by FID & Co." },
 ];
 
+const PROJECT_PARAMS = projects.map((project) => ({ slug: project.slug }));
+
 export function generateStaticParams() {
-  return SECTORS.map((s) => ({ slug: s.slug }));
+  return [...SECTORS.map((s) => ({ slug: s.slug })), ...PROJECT_PARAMS];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const meta = SECTORS.find((s) => s.slug === slug);
-  if (!meta) return {};
-  return { title: `${meta.title} — Our Work | FID & Co.`, description: meta.intro };
+  const sector = SECTORS.find((s) => s.slug === slug);
+  if (sector) {
+    return { title: `${sector.title} — Our Work | FID & Co.`, description: sector.intro };
+  }
+
+  const project = getProjectBySlug(slug);
+  if (project) {
+    return {
+      title: `${project.client} — Our Work | FID & Co.`,
+      description: project.desc,
+    };
+  }
+
+  return {};
+}
+
+async function resolveProjectMedia(project: NonNullable<ReturnType<typeof getProjectBySlug>>) {
+  const media = project.media ?? [];
+  if (!media.length) return [];
+
+  const resolved = await Promise.all(
+    media.map(async (item) => {
+      const live = await fetchLivePreview(item.href, {
+        title: item.title,
+        description: item.description,
+        image: item.preview,
+        siteName: item.source,
+      });
+
+      return {
+        ...item,
+        title: live.title || item.title,
+        description: item.description || live.description,
+        preview: live.image || item.preview,
+      };
+    }),
+  );
+
+  return resolved;
 }
 
 export default async function WorkSectorRoute({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const meta = SECTORS.find((s) => s.slug === slug);
-  if (!meta) notFound();
-  return <WorkSectorPageClient sector={slug as WorkSectorSlug} />;
+  const sector = SECTORS.find((s) => s.slug === slug);
+  if (sector) return <WorkSectorPageClient sector={slug as WorkSectorSlug} />;
+
+  const project = getProjectBySlug(slug);
+  if (project) {
+    const media = await resolveProjectMedia(project);
+    return <WorkDetailClient project={project} media={media} />;
+  }
+
+  notFound();
 }
