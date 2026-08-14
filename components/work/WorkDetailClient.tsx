@@ -138,8 +138,8 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
       {media.length > 0 && (
         <ProjectMediaShelf
           items={media}
-          title="Medigah launch media"
-          intro="Live coverage, store pages and playable launch assets pulled from the current web sources."
+          title="In the press"
+          intro="Live links, press coverage and playable launch assets pulled from current web sources."
         />
       )}
       <div style={{ position: "relative", zIndex: 1 }}>

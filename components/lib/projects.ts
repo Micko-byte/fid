@@ -7,7 +7,7 @@ export interface ProjectMedia {
   title: string;
   source: string;
   href: string;
-  kind: "link" | "video";
+  kind: "link" | "video" | "document";
   preview?: string;
   playableSrc?: string;
   description?: string;

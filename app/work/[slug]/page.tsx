@@ -3,6 +3,7 @@ import WorkDetailClient from "@/components/work/WorkDetailClient";
 import WorkSectorPageClient from "@/components/work/WorkSectorPageClient";
 import type { WorkSectorSlug } from "@/components/lib/work-sectors";
 import { getProjectBySlug, projects } from "@/components/lib/projects";
+import { pressArticles } from "@/components/lib/articles";
 import { fetchLivePreview } from "@/lib/live-preview";
 
 // Local list keeps this server route free of the phosphor-icon runtime import
@@ -22,6 +23,19 @@ const SECTORS: { slug: WorkSectorSlug; title: string; intro: string }[] = [
 ];
 
 const PROJECT_PARAMS = projects.map((project) => ({ slug: project.slug }));
+
+function toYoutubeEmbed(url: string) {
+  try {
+    const parsed = new URL(url);
+    const videoId =
+      parsed.hostname.includes("youtu.be")
+        ? parsed.pathname.replace("/", "")
+        : parsed.searchParams.get("v") ?? "";
+    return videoId ? `https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&mute=1&playsinline=1` : url;
+  } catch {
+    return url;
+  }
+}
 
 export function generateStaticParams() {
   return [...SECTORS.map((s) => ({ slug: s.slug })), ...PROJECT_PARAMS];
@@ -46,17 +60,40 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 async function resolveProjectMedia(project: NonNullable<ReturnType<typeof getProjectBySlug>>) {
-  const media = project.media ?? [];
+  const media =
+    project.slug === "allso-beauty"
+      ? pressArticles
+          .filter((article) => article.campaignSlug === "allso-beauty")
+          .map((article) => {
+            const video = article.url.includes("youtu");
+            return {
+              title: article.title,
+              source: article.source,
+              href: article.url,
+              kind: video ? ("video" as const) : ("link" as const),
+              preview: article.image,
+              playableSrc: video ? toYoutubeEmbed(article.url) : undefined,
+              description: article.campaign,
+            };
+          })
+      : project.media ?? [];
   if (!media.length) return [];
 
   const resolved = await Promise.all(
     media.map(async (item) => {
-      const live = await fetchLivePreview(item.href, {
-        title: item.title,
-        description: item.description,
-        image: item.preview,
-        siteName: item.source,
-      });
+      const live = item.href.startsWith("http")
+        ? await fetchLivePreview(item.href, {
+            title: item.title,
+            description: item.description,
+            image: item.preview,
+            siteName: item.source,
+          })
+        : {
+            title: item.title,
+            description: item.description,
+            image: item.preview,
+            siteName: item.source,
+          };
 
       return {
         ...item,
