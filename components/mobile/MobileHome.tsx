@@ -10,6 +10,7 @@ import {
 import Footer from "@/components/Footer";
 import BrandHero from "@/components/sections/BrandHero";
 import Contact from "@/components/sections/Contact";
+import WorkCapsules from "@/components/sections/WorkCapsules";
 import {
   MobileSectionHead,
   MobileEyebrow,
@@ -39,21 +40,6 @@ const IG_POSTS = [
   "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-gor-mahia",
   "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/utamaduni-day",
   "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/africa-forum-displacement",
-];
-
-// All 11 sectors — the phone gets the same reel as desktop.
-const WORK = [
-  { sectorSlug: "government", sector: "Government", client: "Africa Urban Forum 2026", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/auf-2026", logo: "/logos/executive-office-president.png" },
-  { sectorSlug: "retail-fashion", sector: "Retail & Fashion", client: "LC Waikiki Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/lc-waikiki-influencer", logo: "/logos/lc-waikiki.png" },
-  { sectorSlug: "corporate", sector: "Corporate", client: "Kansai Plascon", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-plascon-launch", logo: "/logos/kansai-plascon.png" },
-  { sectorSlug: "hospitality", sector: "Hospitality", client: "Thrive Hospitality Group", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-hotel", logo: "/logos/thrive-hospitality.png" },
-  { sectorSlug: "sports-tourism", sector: "Sports & Tourism", client: "Gor Mahia FC", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-gor-mahia", logo: "/logos/kansai-plascon.png" },
-  { sectorSlug: "healthcare", sector: "Healthcare", client: "Columbia Africa", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/columbia-building", logo: "/logos/columbia-africa.png" },
-  { sectorSlug: "social-impact", sector: "Social Impact", client: "UNHCR & Amahoro", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/africa-forum-displacement", logo: "/logos/unhcr.png" },
-  { sectorSlug: "finance", sector: "Finance", client: "Elysium Capital", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/elysium-finance", logo: "/logos/elysium-capital.png" },
-  { sectorSlug: "lifestyle", sector: "Beauty & Lifestyle", client: "Allso Beauty", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/allso-launch", logo: "/logos/allso-beauty.png" },
-  { sectorSlug: "culture-entertainment", sector: "Culture", client: "Talanta Afrika Festival", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cultural-dancers", logo: undefined },
-  { sectorSlug: "owned-ips", sector: "Owned IPs", client: "Tribe Vibe · Suhba · Capital Room", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/tribe-vibe", logo: "/logos/tribe-vibe.png" },
 ];
 
 const PLATFORMS = [
@@ -255,79 +241,8 @@ export default function MobileHome() {
         </FadeUp>
       </section>
 
-      {/* ── SELECTED WORK — full-bleed vertical reel, desktop energy ── */}
-      <section className="section-dark" style={{ color: "#f5f2ec", padding: 0 }}>
-        <div style={{ padding: `${PY} ${PX} 1.2rem` }}>
-          <MobileSectionHead title="Selected Work" href="/work" label="View all" tone="dark" />
-        </div>
-        <div className="mwr-reel">
-          {WORK.slice(0, 3).map((w, i) => (
-            <Link key={w.sectorSlug} href={`/work/${w.sectorSlug}`} className="mwr-slide" style={{ textDecoration: "none", display: "block", position: "relative" }}>
-              <img src={w.image} alt={w.client} loading={i < 2 ? "eager" : "lazy"} decoding="async" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(13,5,5,0.42) 0%, rgba(13,5,5,0.05) 40%, rgba(13,5,5,0.86) 100%)" }} />
-              <span style={{ position: "absolute", top: "1.1rem", right: "1.2rem", fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.22em", color: "rgba(245,242,236,0.85)", fontWeight: 700 }}>
-                {String(i + 1).padStart(2, "0")} / 03
-              </span>
-              {w.logo && (
-                <span style={{ position: "absolute", top: "1rem", left: "1.2rem", display: "inline-flex", alignItems: "center", padding: "0.45rem 0.65rem", borderRadius: "10px", background: "#f5f2ec" }}>
-                  <img src={w.logo} alt={`${w.client} logo`} loading="lazy" style={{ height: "20px", maxWidth: "84px", objectFit: "contain" }} />
-                </span>
-              )}
-              <div style={{ position: "absolute", left: "1.2rem", right: "1.2rem", bottom: "1.4rem" }}>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", margin: 0 }}>({String(i + 1).padStart(2, "0")}) {w.sector}</p>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(1.9rem, 9vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 0.96, color: "#f5f2ec", margin: "0.5rem 0 0", textTransform: "uppercase" }}>{w.client}</h3>
-                <span style={{ display: "inline-block", marginTop: "0.8rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,242,236,0.75)", fontWeight: 700, borderBottom: "1px solid rgba(245,242,236,0.4)", paddingBottom: "0.2rem" }}>Open sector</span>
-              </div>
-            </Link>
-          ))}
-        </div>
-        {/* All Work — animated marquee of the remaining sectors, CTA hovering over it */}
-        <Link href="/work" style={{ textDecoration: "none", display: "block", position: "relative", overflow: "hidden", padding: "clamp(5rem,18vw,8rem) 0", background: "#260000" }}>
-          <div className="maw-track" aria-hidden>
-            {[...WORK.slice(3), ...WORK.slice(3)].map((w, i) => (
-              <img key={i} src={w.image} alt="" loading="lazy" className="maw-card" style={{ rotate: i % 2 ? "2.5deg" : "-2.5deg", translate: i % 3 === 1 ? "0 10px" : "0 0" }} />
-            ))}
-          </div>
-          <div aria-hidden style={{ position: "absolute", inset: 0, background: "radial-gradient(ellipse 75% 90% at 50% 50%, rgba(38,0,0,0.72) 0%, rgba(38,0,0,0.35) 55%, rgba(38,0,0,0.6) 100%)" }} />
-          <div style={{ position: "relative", textAlign: "center" }}>
-            <span style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(2.6rem, 12vw, 3.6rem)", letterSpacing: "-0.03em", color: "#f5f2ec", textShadow: "0 4px 30px rgba(0,0,0,0.45)" }}>
-              All Work
-              <sup style={{ fontFamily: "var(--font-body)", fontSize: "0.42em", fontWeight: 700, color: "#d98038", marginLeft: "0.2em" }}>(11)</sup>
-            </span>
-            <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(245,242,236,0.75)", fontWeight: 700, margin: "0.9rem 0 0" }}>
-              Every sector, every story →
-            </p>
-          </div>
-        </Link>
-
-        <style>{`
-          .mwr-reel { scroll-snap-type: y proximity; }
-          .mwr-slide { height: 72svh; scroll-snap-align: start; overflow: hidden; }
-          .maw-track {
-            position: absolute;
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-            display: flex;
-            align-items: center;
-            gap: 4vw;
-            width: max-content;
-            animation: maw-scroll 28s linear infinite;
-          }
-          .maw-card {
-            flex: 0 0 auto;
-            width: 36vw;
-            aspect-ratio: 3/4;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 14px 40px rgba(0,0,0,0.45);
-          }
-          @keyframes maw-scroll {
-            from { transform: translateY(-50%) translateX(0); }
-            to { transform: translateY(-50%) translateX(-50%); }
-          }
-        `}</style>
-      </section>
+      {/* ── SELECTED WORK — editorial capsules ── */}
+      <WorkCapsules limit={4} />
 
       {/* ── PLATFORMS (slider) ── */}
       <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>

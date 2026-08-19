@@ -2,7 +2,7 @@ import BrandHero from "@/components/sections/BrandHero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import CTABanner from "@/components/sections/CTABanner";
-import WorkReel from "@/components/work/WorkReel";
+import WorkCapsules from "@/components/sections/WorkCapsules";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import StatsBand from "@/components/sections/StatsBand";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
@@ -24,7 +24,7 @@ export default function HomePage() {
       <About />
       <Services />
       <CTABanner />
-      <WorkReel />
+      <WorkCapsules />
       <LogoMarquee />
       <StatsBand />
       <AfricanFootprint />
