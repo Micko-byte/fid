@@ -10,8 +10,9 @@ import LineSidebar from "@/components/ui/LineSidebar";
 const navLinks = [
   { label: "Expertise", href: "/#services" },
   { label: "Work",      href: "/#work" },
-  { label: "Events",    href: "/events" },
   { label: "About",     href: "/#about" },
+  { label: "Founder",   href: "/#founder" },
+  { label: "Events",    href: "/events" },
   { label: "Insights",  href: "/#insights" },
   { label: "Contact",   href: "/#contact" },
 ];

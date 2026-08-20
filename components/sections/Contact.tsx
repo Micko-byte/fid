@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
-import { FacebookLogo, InstagramLogo, YoutubeLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
+import { InstagramLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import HoverIcon from "@/components/ui/HoverIcon";
 import { fireConfetti } from "@/components/motion/confetti";
 import { STOCK } from "@/lib/stock-photos";
@@ -82,6 +82,43 @@ const services = [
 
 type FormState = "idle" | "submitting" | "success" | "error";
 
+interface IGPost {
+  id: string;
+  permalink: string;
+  image: string;
+}
+
+const IG_FALLBACK: IGPost[] = [
+  { id: "c1", permalink: "https://instagram.com/fidpr/", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/tribe-vibe" },
+  { id: "c2", permalink: "https://instagram.com/fidpr/", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/allso-01" },
+  { id: "c3", permalink: "https://instagram.com/fidpr/", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/suhba-01" },
+];
+
+function normalizeInstagram(raw: unknown): IGPost[] {
+  const list = Array.isArray(raw) ? raw : ((raw as { posts?: unknown[]; data?: unknown[] })?.posts ?? (raw as { posts?: unknown[]; data?: unknown[] })?.data ?? []);
+  return list
+    .map((p, i) => {
+      const post = p as { sizes?: { medium?: { mediaUrl?: string }; small?: { mediaUrl?: string } }; mediaUrl?: string; media_url?: string; thumbnailUrl?: string; thumbnail_url?: string; image?: string; permalink?: string; link?: string };
+      const image =
+        post.sizes?.medium?.mediaUrl ||
+        post.sizes?.small?.mediaUrl ||
+        post.mediaUrl ||
+        post.media_url ||
+        post.thumbnailUrl ||
+        post.thumbnail_url ||
+        post.image ||
+        "";
+      if (!image) return null;
+      return {
+        id: String(i),
+        permalink: post.permalink || post.link || "https://instagram.com/fidpr/",
+        image,
+      };
+    })
+    .filter((x): x is IGPost => Boolean(x))
+    .slice(0, 3);
+}
+
 function validate(form: Record<string, string>) {
   const errors: Record<string, string> = {};
   if (!form.name.trim()) errors.name = "Name is required.";
@@ -99,6 +136,32 @@ export default function Contact() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [focused, setFocused] = useState<string | null>(null);
+  const [igPosts, setIgPosts] = useState<IGPost[]>(IG_FALLBACK);
+  const [igLive, setIgLive] = useState(false);
+
+  useEffect(() => {
+    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL ?? "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
+    let alive = true;
+
+    (async () => {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) return;
+        const data = await res.json();
+        const next = normalizeInstagram(data);
+        if (alive && next.length) {
+          setIgPosts(next);
+          setIgLive(true);
+        }
+      } catch {
+        // keep fallback tiles
+      }
+    })();
+
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -125,21 +188,21 @@ export default function Contact() {
   const fieldBox = (name: string): React.CSSProperties => ({
     width: "100%",
     padding: "0.85rem 1rem",
-    border: `1px solid ${errors[name] ? "#d98038" : focused === name ? "#d98038" : "rgba(245,242,236,0.2)"}`,
-    backgroundColor: focused === name ? "rgba(245,242,236,0.1)" : "rgba(245,242,236,0.06)",
-    color: "#f5f2ec",
+    border: `1px solid ${errors[name] ? "#750006" : focused === name ? "#2f7f7a" : "rgba(117,0,6,0.16)"}`,
+    backgroundColor: focused === name ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.74)",
+    color: "#1c1c1c",
     fontFamily: "var(--font-body)",
     fontSize: "0.92rem",
     outline: "none",
     borderRadius: "14px",
     transition: "border-color 0.25s, background-color 0.25s, box-shadow 0.25s",
-    boxShadow: focused === name ? "0 0 0 3px rgba(217,128,56,0.15)" : "none",
+    boxShadow: focused === name ? "0 0 0 3px rgba(47,127,122,0.14)" : "none",
   });
-  const labelStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(245,242,236,0.55)", display: "block", marginBottom: "0.5rem", fontWeight: 500 };
-  const errStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.72rem", marginTop: "0.4rem", color: "#c0392b" };
+  const labelStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "rgba(117,0,6,0.62)", display: "block", marginBottom: "0.5rem", fontWeight: 600 };
+  const errStyle: React.CSSProperties = { fontFamily: "var(--font-body)", fontSize: "0.72rem", marginTop: "0.4rem", color: "#750006" };
 
   return (
-    <section id="contact" className="section-dark" style={{ backgroundColor: "#1c1c1c", color: "#f5f2ec", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative", overflow: "hidden" }}>
+    <section id="contact" className="section-light" style={{ backgroundColor: "#fbf7f1", color: "#1c1c1c", paddingTop: "clamp(5.5rem,12vw,11rem)", paddingBottom: "clamp(5.5rem,12vw,11rem)", position: "relative", overflow: "hidden" }}>
       {/* abstract background photo — desaturated, ~50% opacity per client direction */}
       {STOCK.about?.[0]?.src && (
         <img
@@ -147,22 +210,22 @@ export default function Contact() {
           src={STOCK.about[0].src}
           alt=""
           loading="lazy"
-          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(1) contrast(1.1)", opacity: 0.5, pointerEvents: "none", zIndex: 0 }}
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", filter: "grayscale(1) contrast(1.02) saturate(0.8)", opacity: 0.22, pointerEvents: "none", zIndex: 0 }}
         />
       )}
-      {/* dark scrim so form/text stay legible over the photo */}
+      {/* light scrim so the photo stays atmospheric without overpowering the form */}
       <div
         aria-hidden
-        style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(28,28,28,0.88) 0%, rgba(28,28,28,0.94) 100%)", zIndex: 0 }}
+        style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(251,247,241,0.72) 0%, rgba(251,247,241,0.96) 100%)", zIndex: 0 }}
       />
       {/* thin-line calendar-style grid — abstract stroke pattern per client direction */}
       <div
         aria-hidden
-        style={{
-          position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", opacity: 0.5,
-          backgroundImage:
-            "linear-gradient(rgba(245,242,236,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(245,242,236,0.08) 1px, transparent 1px)",
-          backgroundSize: "clamp(48px,6vw,96px) clamp(48px,6vw,96px)",
+          style={{
+            position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", opacity: 0.28,
+            backgroundImage:
+              "linear-gradient(rgba(117,0,6,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(47,127,122,0.07) 1px, transparent 1px)",
+            backgroundSize: "clamp(48px,6vw,96px) clamp(48px,6vw,96px)",
         }}
       />
 
@@ -173,9 +236,9 @@ export default function Contact() {
           <defs>
             <linearGradient id="contact-divider" x1="0" y1="0" x2="1440" y2="0" gradientUnits="userSpaceOnUse">
               <stop offset="0%" stopColor="rgba(117,0,6,0)" />
-              <stop offset="30%" stopColor="rgba(117,0,6,0.25)" />
-              <stop offset="50%" stopColor="rgba(117,0,6,0.4)" />
-              <stop offset="70%" stopColor="rgba(117,0,6,0.25)" />
+              <stop offset="35%" stopColor="rgba(117,0,6,0.2)" />
+              <stop offset="60%" stopColor="rgba(47,127,122,0.26)" />
+              <stop offset="80%" stopColor="rgba(117,0,6,0.18)" />
               <stop offset="100%" stopColor="rgba(117,0,6,0)" />
             </linearGradient>
           </defs>
@@ -188,7 +251,7 @@ export default function Contact() {
           <div style={{ textAlign: "center" }}>
             <ContactIcon />
             <div style={{ position: "relative", display: "inline-block" }}>
-              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#d98038", marginBottom: "1.2rem", fontWeight: 500 }}>
+              <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.25em", textTransform: "uppercase", color: "#750006", marginBottom: "1.2rem", fontWeight: 600 }}>
                 Get in touch
               </p>
             </div>
@@ -196,7 +259,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 22 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(2.8rem,6.5vw,5.2rem)", backgroundImage: "linear-gradient(135deg, #f5f2ec 40%, #d98038 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: "-0.02em", lineHeight: 1.02, textWrap: "balance", marginBottom: "2.5rem", maxWidth: "18ch", marginLeft: "auto", marginRight: "auto" } as React.CSSProperties}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(2.8rem,6.5vw,5.2rem)", backgroundImage: "linear-gradient(135deg, #750006 25%, #2f7f7a 100%)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text", letterSpacing: "-0.02em", lineHeight: 1.02, textWrap: "balance", marginBottom: "2.5rem", maxWidth: "18ch", marginLeft: "auto", marginRight: "auto" } as React.CSSProperties}
             >
               Let&apos;s start a conversation.
             </motion.h2>
@@ -209,34 +272,46 @@ export default function Contact() {
                 { Icon: MapPin, label: "Location", value: "Nairobi, Kenya · Africa", href: null },
               ].map(({ Icon, label, value, href }) => (
                 <div key={value} style={{ display: "flex", gap: "1rem", alignItems: "flex-start" }}>
-                  <div style={{ width: "40px", height: "40px", flexShrink: 0, border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px" }}>
-                    <HoverIcon icon={Icon} size={24} weight="bold" hoverWeight="fill" color="#d98038" drawOnScroll revealed={inView} />
+                  <div style={{ width: "40px", height: "40px", flexShrink: 0, border: "1px solid rgba(117,0,6,0.14)", display: "flex", alignItems: "center", justifyContent: "center", borderRadius: "14px", backgroundColor: "rgba(255,255,255,0.58)" }}>
+                    <HoverIcon icon={Icon} size={24} weight="bold" hoverWeight="fill" color="#2f7f7a" drawOnScroll revealed={inView} />
                   </div>
                   <div>
-                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(245,242,236,0.45)", marginBottom: "0.25rem" }}>{label}</p>
+                    <p style={{ fontFamily: "var(--font-body)", fontSize: "0.66rem", letterSpacing: "0.16em", textTransform: "uppercase", color: "rgba(117,0,6,0.56)", marginBottom: "0.25rem" }}>{label}</p>
                     {href ? (
-                      <a href={href} style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "#f5f2ec", textDecoration: "none" }}>{value}</a>
+                      <a href={href} style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "#1c1c1c", textDecoration: "none" }}>{value}</a>
                     ) : (
-                      <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "#f5f2ec" }}>{value}</p>
+                      <p style={{ fontFamily: "var(--font-body)", fontSize: "1rem", color: "#1c1c1c" }}>{value}</p>
                     )}
                   </div>
                 </div>
               ))}
 
-              <div style={{ display: "flex", gap: "1rem", marginTop: "0.6rem" }}>
-                {[
-                  { Icon: FacebookLogo, href: "https://facebook.com/profile.php?id=100070330230678", label: "Facebook" },
-                  { Icon: InstagramLogo, href: "https://instagram.com/fidpr/", label: "Instagram" },
-                  { Icon: YoutubeLogo, href: "https://youtube.com/@FIDPR", label: "YouTube" },
-                ].map(({ Icon, href, label }) => (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
-                    style={{ width: "40px", height: "40px", border: "1px solid rgba(245,242,236,0.2)", display: "flex", alignItems: "center", justifyContent: "center", color: "rgba(245,242,236,0.6)", borderRadius: "14px", transition: "all 0.25s" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.color = "#1c1c1c"; e.currentTarget.style.backgroundColor = "#d98038"; e.currentTarget.style.borderColor = "#d98038"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.color = "rgba(245,242,236,0.6)"; e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "rgba(245,242,236,0.2)"; }}
-                  >
-                    <Icon size={20} weight="bold" />
-                  </a>
-                ))}
+              <div style={{ marginTop: "0.9rem" }}>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "rgba(117,0,6,0.56)", margin: "0 0 0.75rem", fontWeight: 700 }}>
+                  {igLive ? "Live on Instagram" : "Instagram feed"}
+                </p>
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(3, minmax(0, 1fr))", gap: "0.65rem" }}>
+                  {igPosts.map((post) => (
+                    <a
+                      key={post.id}
+                      href={post.permalink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ display: "block", aspectRatio: "1 / 1", borderRadius: "14px", overflow: "hidden", border: "1px solid rgba(117,0,6,0.1)", background: "#f0e8dd" }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={post.image} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+                    </a>
+                  ))}
+                </div>
+                <a
+                  href="https://instagram.com/fidpr/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ display: "inline-flex", alignItems: "center", gap: "0.55rem", marginTop: "0.85rem", fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700, color: "#f5f2ec", background: "#750006", padding: "0.72rem 1rem", borderRadius: "999px", textDecoration: "none" }}
+                >
+                  <InstagramLogo size={17} weight="fill" /> @fidpr
+                </a>
               </div>
             </div>
           </div>
@@ -246,14 +321,14 @@ export default function Contact() {
             initial={{ opacity: 0, y: 32 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 0.2 }}
-            style={{ backgroundColor: "rgba(245,242,236,0.06)", border: "1px solid rgba(245,242,236,0.14)", borderRadius: "14px", padding: "clamp(1.6rem,3.5vw,2.8rem)", boxShadow: "0 18px 50px rgba(0,0,0,0.3)", backdropFilter: "blur(10px)" }}
+        style={{ backgroundColor: "rgba(255,255,255,0.76)", border: "1px solid rgba(117,0,6,0.08)", borderRadius: "14px", padding: "clamp(1.6rem,3.5vw,2.8rem)", boxShadow: "0 18px 50px rgba(93,0,16,0.06)", backdropFilter: "blur(10px)" }}
           >
             {state === "success" ? (
               <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "1.2rem", padding: "3rem 0" }}>
-                <div style={{ width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", backgroundColor: "#d98038", color: "#260000", borderRadius: "14px" }}>✓</div>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.6rem", color: "#f5f2ec" }}>Message received</h3>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(245,242,236,0.6)", maxWidth: "32ch" }}>Thank you for reaching out. We&apos;ll be in touch shortly.</p>
-                <button onClick={() => setState("idle")} style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#d98038", background: "none", border: "none", cursor: "pointer", marginTop: "0.4rem" }}>Send another message →</button>
+                <div style={{ width: "48px", height: "48px", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "1.3rem", backgroundColor: "#2f7f7a", color: "#f5f2ec", borderRadius: "14px" }}>✓</div>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontSize: "1.6rem", color: "#1c1c1c" }}>Message received</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", color: "rgba(28,28,28,0.68)", maxWidth: "32ch" }}>Thank you for reaching out. We&apos;ll be in touch shortly.</p>
+                <button onClick={() => setState("idle")} style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006", background: "none", border: "none", cursor: "pointer", marginTop: "0.4rem" }}>Send another message →</button>
               </motion.div>
             ) : (
               <form onSubmit={handleSubmit} noValidate style={{ display: "flex", flexDirection: "column", gap: "1.3rem" }}>
@@ -284,8 +359,8 @@ export default function Contact() {
                     onFocus={() => setFocused("service")} onBlur={() => setFocused(null)}
                     required style={{ ...fieldBox("service"), cursor: "pointer", colorScheme: "dark" }}
                   >
-                    <option value="" style={{ background: "#1c1c1c", color: "#f5f2ec" }}>Select a service</option>
-                    {services.map((s) => <option key={s} value={s} style={{ background: "#1c1c1c", color: "#f5f2ec" }}>{s}</option>)}
+                    <option value="" style={{ background: "#f5f2ec", color: "#1c1c1c" }}>Select a service</option>
+                    {services.map((s) => <option key={s} value={s} style={{ background: "#f5f2ec", color: "#1c1c1c" }}>{s}</option>)}
                   </select>
                   {errors.service && <p style={errStyle}>{errors.service}</p>}
                 </div>
@@ -300,9 +375,9 @@ export default function Contact() {
                   {errors.message && <p style={errStyle}>{errors.message}</p>}
                 </div>
 
-                <motion.button
+                  <motion.button
                   type="submit" disabled={state === "submitting"}
-                  whileHover={{ backgroundColor: "#8a0007" }} whileTap={{ scale: 0.98 }}
+                  whileHover={{ backgroundColor: "#2f7f7a" }} whileTap={{ scale: 0.98 }}
                   style={{ fontFamily: "var(--font-body)", fontSize: "0.85rem", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase", padding: "1rem", width: "100%", backgroundColor: "#750006", color: "#f5f2ec", border: "none", borderRadius: "14px", cursor: "pointer", marginTop: "0.4rem" }}
                 >
                   {state === "submitting" ? "Sending…" : "Send message"}

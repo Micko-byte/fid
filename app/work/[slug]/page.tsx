@@ -107,10 +107,19 @@ async function resolveProjectMedia(project: NonNullable<ReturnType<typeof getPro
   return resolved;
 }
 
-export default async function WorkSectorRoute({ params }: { params: Promise<{ slug: string }> }) {
+export default async function WorkSectorRoute({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ client?: string | string[] }>;
+}) {
   const { slug } = await params;
+  const resolvedSearchParams = await searchParams;
+  const clientParam = resolvedSearchParams.client;
+  const clientSlug = Array.isArray(clientParam) ? clientParam[0] : clientParam ?? "";
   const sector = SECTORS.find((s) => s.slug === slug);
-  if (sector) return <WorkSectorPageClient sector={slug as WorkSectorSlug} />;
+  if (sector) return <WorkSectorPageClient sector={slug as WorkSectorSlug} clientSlug={clientSlug} />;
 
   const project = getProjectBySlug(slug);
   if (project) {
