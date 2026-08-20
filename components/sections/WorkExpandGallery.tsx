@@ -125,8 +125,8 @@ export default function WorkExpandGallery() {
         <div className="section-shell" style={{ position: "relative", zIndex: 1, marginBottom: "clamp(2rem, 4vw, 3rem)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "clamp(0.7rem,1.4vw,1rem)", paddingTop: "clamp(1.4rem,2.5vw,2rem)", borderTop: "1px solid rgba(245,242,236,0.14)" }}>
             {CLIENT_LOGOS.map((name) => (
-              <span key={name} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "52px", padding: "0 1rem", borderRadius: "10px", background: "#f5f2ec" }}>
-                <img src={`/logos/${name}.png`} alt={name.replace(/-/g, " ")} loading="lazy" style={{ height: "30px", maxWidth: "118px", objectFit: "contain" }} />
+            <span key={name} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", height: "60px", padding: "0 1.1rem", borderRadius: "12px", background: "#f5f2ec" }}>
+                <img src={`/logos/${name}.png`} alt={name.replace(/-/g, " ")} loading="lazy" style={{ height: "36px", maxWidth: "136px", objectFit: "contain" }} />
               </span>
             ))}
           </div>
@@ -199,9 +199,9 @@ export default function WorkExpandGallery() {
                     >
                       {/* glass header — round logo badge + client handle + verified seal */}
                       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0.9rem" }}>
-                        <span style={{ width: "36px", height: "36px", borderRadius: "999px", background: "#f5f2ec", display: "inline-flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0, border: `1.5px solid ${accent}` }}>
+                        <span style={{ width: "42px", height: "42px", borderRadius: "999px", background: "#f5f2ec", display: "inline-flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0, border: `1.5px solid ${accent}` }}>
                           {item.logo ? (
-                            <img className="work-card-logo" src={item.logo} alt={`${item.client} logo`} loading="lazy" style={{ width: "28px", height: "28px", objectFit: "contain", transformOrigin: "center" }} />
+                            <img className="work-card-logo" src={item.logo} alt={`${item.client} logo`} loading="lazy" style={{ width: "32px", height: "32px", objectFit: "contain", transformOrigin: "center" }} />
                           ) : (
                             <span className="work-card-logo" style={{ fontFamily: "var(--font-heading)", fontSize: "0.72rem", fontWeight: 700, color: accent, display: "inline-block" }}>
                               {item.client.replace(/^The /i, "").charAt(0)}

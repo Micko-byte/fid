@@ -251,14 +251,14 @@ export default function Platforms() {
           display: inline-flex;
           align-items: center;
           justify-content: center;
-          padding: clamp(0.75rem, 1.4vw, 1rem) clamp(1rem, 2vw, 1.4rem);
-          border-radius: 14px;
+          padding: clamp(0.85rem, 1.6vw, 1.15rem) clamp(1.15rem, 2.2vw, 1.6rem);
+          border-radius: 16px;
           box-shadow: 0 14px 40px rgba(38,0,0,0.14);
           transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.45s ease;
         }
         .ip-logo img {
-          height: clamp(36px, 4.5vw, 48px);
-          max-width: min(200px, 28vw);
+          height: clamp(42px, 5vw, 58px);
+          max-width: min(230px, 30vw);
           object-fit: contain;
           display: block;
         }

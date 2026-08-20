@@ -748,15 +748,15 @@ function SectorChapter({
                       display: "inline-flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      padding: "0.5rem 0.7rem",
-                      borderRadius: "10px",
+                      padding: "0.7rem 1rem",
+                      borderRadius: "12px",
                       background: pl.logoDark ? "#1c1c1c" : "#f5f2ec",
                       flexShrink: 0,
                       boxShadow: "0 8px 24px rgba(0,0,0,0.25)",
                     }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={pl.logo} alt={`${pl.name} logo`} style={{ height: "28px", maxWidth: "110px", objectFit: "contain" }} />
+            <img src={pl.logo} alt={`${pl.name} logo`} style={{ height: "40px", maxWidth: "160px", objectFit: "contain" }} />
                   </span>
                   <span style={{ flex: 1, minWidth: 0 }}>
                     <span

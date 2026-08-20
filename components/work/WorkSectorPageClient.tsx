@@ -273,15 +273,15 @@ function Panel({
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "0.7rem 1rem",
-        borderRadius: "14px",
+        padding: "0.85rem 1.2rem",
+        borderRadius: "16px",
         background: entry.logoDark ? "#1c1c1c" : "#fff",
         border: "1px solid rgba(28,28,28,0.08)",
-        marginTop: "1.6rem",
+        marginTop: "1.8rem",
         boxShadow: "0 10px 30px rgba(38,0,0,0.07)",
       }}
     >
-      <img src={entry.logo} alt={`${entry.title} logo`} loading="lazy" style={{ height: "38px", maxWidth: "150px", objectFit: "contain" }} />
+      <img src={entry.logo} alt={`${entry.title} logo`} loading="lazy" style={{ height: "46px", maxWidth: "180px", objectFit: "contain" }} />
     </span>
   ) : null;
 
