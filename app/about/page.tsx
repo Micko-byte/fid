@@ -373,6 +373,83 @@ function Founder() {
   );
 }
 
+/* ── Cedric â€” portrait on the side, text on the other â”€â”€ */
+function Cedric() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true });
+
+  return (
+    <section className="bg-brand-deep relative overflow-hidden py-24 md:py-40">
+      <div aria-hidden className="brand-pattern-light absolute inset-0 opacity-40 pointer-events-none" />
+      <div
+        aria-hidden="true"
+        className="absolute top-1/2 right-0 -translate-y-1/2 font-heading select-none pointer-events-none"
+        style={{ fontSize: "clamp(14rem, 32vw, 24rem)", color: "rgba(117,0,6,0.06)", lineHeight: 0.85 }}
+      >
+        C.D.
+      </div>
+
+      <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
+        <p className="font-body text-xs tracking-[0.25em] uppercase mb-16" style={{ color: "#d98038" }}>
+          Cedric
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-16 items-center">
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <div style={{ width: "100%", maxWidth: "440px", aspectRatio: "4/5", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(217,128,56,0.25)" }}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/illustrations/cedric-portrait.jpg"
+                alt="Cedric, Creative Director | Digital Strategist | Storyteller"
+                style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }}
+              />
+            </div>
+          </motion.div>
+
+          <div>
+            <motion.h2
+              initial={{ opacity: 0, y: 24 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+              className="font-heading leading-none mb-4"
+              style={{ fontSize: "clamp(3rem, 7vw, 6rem)", color: "#FFFFFF", letterSpacing: "-0.03em" }}
+            >
+              Cedric
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="font-body text-xs tracking-[0.2em] uppercase mb-8"
+              style={{ color: "#d98038" }}
+            >
+              Creative Director | Digital Strategist | Storyteller
+            </motion.p>
+
+            <blockquote
+              className="font-heading leading-tight mb-8"
+              style={{
+                fontSize: "clamp(1.4rem, 3vw, 2.2rem)",
+                color: "#FFFFFF",
+                letterSpacing: "-0.01em",
+              }}
+            >
+              &ldquo;A seasoned creative director with over 14 years of experience shaping compelling digital narratives, developing high-impact creative strategies, writing for screen and digital platforms, and driving audience growth.&rdquo;
+            </blockquote>
+            <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(199,172,159,0.7)" }}>
+              With a strong track record across entertainment, media, and brand storytelling, he has contributed to Netflix productions including Mpakani and Mission to Rescue, bringing together creative vision, strategic thinking, and audience-first storytelling. Previously the Digital Strategy Lead at Capital Digital Media, he has led digital campaigns and content strategies designed to build brands, engage audiences, and deliver measurable impact. His work sits at the intersection of culture, creativity, digital innovation, and storytelling, with a focus on creating ideas that resonate, move audiences, and build lasting brand relevance.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ── Markets — left-aligned chips ── */
 function Markets() {
   const ref = useRef<HTMLDivElement>(null);
@@ -532,6 +609,7 @@ function AboutDesktop() {
       <OurApproach />
       <Philosophy />
       <Founder />
+      <Cedric />
       <Markets />
       <CTA />
       <Footer />
