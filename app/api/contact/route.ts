@@ -8,14 +8,14 @@ import nodemailer from "nodemailer";
  * Vercel → Project → Settings → Environment Variables; never commit them):
  *   SMTP_HOST      e.g. mail.fidpr.ke
  *   SMTP_PORT      465 (SSL) or 587 (STARTTLS)
- *   SMTP_USER      the mailbox login, e.g. farida@fidpr.ke
+ *   SMTP_USER      the mailbox login, e.g. info@fidpr.ke
  *   SMTP_PASS      that mailbox's password
  *   CONTACT_TO     optional; defaults to both Farida addresses
  * Until these are set the route returns a clear "not configured" error rather
  * than silently dropping the message.
  */
 
-const RECIPIENTS = process.env.CONTACT_TO || "farida@fidco.africa, farida@fidpr.ke";
+const RECIPIENTS = process.env.CONTACT_TO || "info@fidco.africa, info@fidpr.ke";
 
 export async function POST(req: Request) {
   let data: Record<string, string>;

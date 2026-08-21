@@ -266,8 +266,8 @@ export default function Contact() {
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1.6rem" }}>
               {[
-                { Icon: EnvelopeSimple, label: "Email", value: "farida@fidco.africa", href: "mailto:farida@fidco.africa" },
-                { Icon: EnvelopeSimple, label: "Email", value: "farida@fidpr.ke", href: "mailto:farida@fidpr.ke" },
+                { Icon: EnvelopeSimple, label: "Email", value: "info@fidco.africa", href: "mailto:info@fidco.africa" },
+                { Icon: EnvelopeSimple, label: "Email", value: "info@fidpr.ke", href: "mailto:info@fidpr.ke" },
                 { Icon: Phone, label: "Phone", value: "+254 797 690 609", href: "tel:+254797690609" },
                 { Icon: MapPin, label: "Location", value: "Nairobi, Kenya · Africa", href: null },
               ].map(({ Icon, label, value, href }) => (

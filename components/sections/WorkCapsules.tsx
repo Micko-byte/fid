@@ -86,7 +86,7 @@ function WorkCapsule({ project, index }: { project: Project; index: number }) {
             {project.logo ? (
               <span className="work-capsule-logo">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={project.logo} alt={`${project.client} logo`} loading="lazy" />
+          <img src={project.logo} alt={`${project.client} logo`} loading="lazy" />
               </span>
             ) : null}
             <h3 className="work-capsule-title">
@@ -237,8 +237,8 @@ export default function WorkCapsules({ limit = HOME_WORK_SLUGS.length }: { limit
           border: 1px solid rgba(117, 0, 6, 0.08);
         }
         .work-capsule-logo img {
-          height: 20px;
-          max-width: 88px;
+          height: 26px;
+          max-width: 110px;
           object-fit: contain;
           display: block;
         }

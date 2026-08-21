@@ -279,14 +279,14 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
               .suhba-mq-track:hover { animation-play-state: paused; }
               .suhba-mq-item {
                 flex: 0 0 auto;
-                height: clamp(48px, 8vw, 64px);
+                height: clamp(58px, 9vw, 76px);
                 display: flex;
                 align-items: center;
                 justify-content: center;
               }
               .suhba-mq-item img {
                 max-height: 100%;
-                max-width: 170px;
+                max-width: 210px;
                 width: auto;
                 object-fit: contain;
               }

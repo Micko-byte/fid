@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Megaphone, Newspaper, ShareNetwork, ChartLineUp, Confetti,
@@ -10,6 +9,7 @@ import {
 import Footer from "@/components/Footer";
 import BrandHero from "@/components/sections/BrandHero";
 import Contact from "@/components/sections/Contact";
+import InstagramFeed from "@/components/sections/InstagramFeed";
 import WorkCapsules from "@/components/sections/WorkCapsules";
 import {
   MobileSectionHead,
@@ -32,14 +32,6 @@ const SERVICES = [
   { label: "Digital &\nInfluencer", slug: "influencer-creator", dots: ["#f5f2ec", "#d98038", "#750006"], Icon: ShareNetwork, photo: STOCK.digital?.[1]?.src },
   { label: "Digital Strategy\n& Social", slug: "digital-strategy", dots: ["#d9ab88", "#750006", "#d98038"], Icon: ChartLineUp, photo: STOCK.strategy?.[0]?.src },
   { label: "Experiential\nMarketing", slug: "experiential-marketing", dots: ["#750006", "#f5f2ec", "#d98038", "#d9ab88"], Icon: Confetti, photo: STOCK.experiential?.[0]?.src },
-];
-
-const IG_POSTS = [
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/tribe-vibe",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/lc-waikiki-influencer",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kansai-gor-mahia",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/utamaduni-day",
-  "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/africa-forum-displacement",
 ];
 
 const PLATFORMS = [
@@ -69,31 +61,6 @@ function FadeUp({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export default function MobileHome() {
-  // Live Instagram images from the Behold feed; falls back to curated tiles.
-  const [igPosts, setIgPosts] = useState<string[]>(IG_POSTS);
-  useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL ?? "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
-    let active = true;
-    (async () => {
-      try {
-        const res = await fetch(url, { cache: "no-store" });
-        if (!res.ok) return;
-        const data = await res.json();
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const list: any[] = Array.isArray(data) ? data : data?.posts ?? [];
-        const srcs = list
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((p: any) => p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl || "")
-          .filter(Boolean)
-          .slice(0, 6);
-        if (active && srcs.length) setIgPosts(srcs);
-      } catch {
-        /* keep fallback */
-      }
-    })();
-    return () => { active = false; };
-  }, []);
-
   return (
     <div style={{ overflowX: "hidden" }}>
       {/* ── HERO ── */}
@@ -300,24 +267,7 @@ export default function MobileHome() {
       </section>
 
       {/* ── INSTAGRAM ── */}
-      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
-        <MobileSectionHead title="Follow the work in motion" href="https://instagram.com/fidpr/" label="@fidpr" tone="light" />
-        <FadeUp delay={0.06}>
-          <div style={{ display: "flex", gap: "0.7rem", overflowX: "auto", paddingBottom: "0.4rem", marginTop: "1.6rem" }}>
-            {igPosts.map((src) => (
-              <a
-                key={src}
-                href="https://instagram.com/fidpr/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ flexShrink: 0, width: "108px", aspectRatio: "1 / 1", borderRadius: "12px", overflow: "hidden", border: "3px solid #fff", boxShadow: "0 6px 18px rgba(117,0,6,0.2)" }}
-              >
-                <img src={src} alt="" loading="lazy" style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
-              </a>
-            ))}
-          </div>
-        </FadeUp>
-      </section>
+      <InstagramFeed />
 
       {/* ── CONTACT (real form) ── */}
       <Contact />

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import FidLogo from "@/components/ui/FidLogo";
+import BrandWordmark from "@/components/ui/BrandWordmark";
 import LineSidebar from "@/components/ui/LineSidebar";
 
 const navLinks = [
@@ -94,27 +94,15 @@ export default function Nav() {
         }}
       >
           {/* ── Logo + tagline ── */}
-          <Link href="/" aria-label="FID & Co. — home" className="nav-logo-link" style={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "3px", textDecoration: "none" }}>
-            <FidLogo
+                    <Link href="/" aria-label="Insight. Strategy. Impact. - home" className="nav-logo-link" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+            <BrandWordmark
               variant="dark"
               className="nav-logo"
               style={{
-                height: "46px",
+                height: "40px",
                 width: "auto",
               }}
             />
-            <span style={{
-              fontFamily: "var(--font-body)",
-              fontSize: "0.48rem",
-              letterSpacing: "0.28em",
-              textTransform: "uppercase",
-              color: "rgba(117,0,6,0.7)",
-              fontWeight: 600,
-              lineHeight: 1,
-              whiteSpace: "nowrap",
-            }}>
-              Insight · Strategy · Impact
-            </span>
           </Link>
 
           {/* ── Desktop links ── */}
@@ -197,11 +185,8 @@ export default function Nav() {
             }}
           >
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "1.4rem clamp(1.5rem,5vw,3rem)", borderBottom: "1px solid rgba(117,0,6,0.12)" }}>
-              <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                <FidLogo variant="dark" style={{ height: "40px", width: "auto" }} />
-                <span style={{ fontFamily: "var(--font-body)", fontSize: "0.48rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "rgba(117,0,6,0.6)", fontWeight: 600 }}>
-                  Insight · Strategy · Impact
-                </span>
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                <BrandWordmark variant="dark" style={{ height: "34px", width: "auto" }} />
               </div>
               <button onClick={() => setMenuOpen(false)} style={{ color: "#260000", background: "none", border: "none", cursor: "pointer" }} aria-label="Close menu">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" style={{ width: "26px", height: "26px" }}>

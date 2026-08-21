@@ -115,12 +115,12 @@ function MosaicCard({ p, index, variant }: { p: Project; index: number; variant:
 
         {/* Logo — directly on canvas, no white pill */}
         {a.logo && (
-          <div style={{ position: "absolute", top: "1rem", left: "1.1rem", zIndex: 2, height: "28px", display: "flex", alignItems: "center" }}>
+          <div style={{ position: "absolute", top: "1rem", left: "1.1rem", zIndex: 2, height: "34px", display: "flex", alignItems: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={a.logo}
               alt=""
-              style={{ maxHeight: "100%", maxWidth: "88px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.82 }}
+              style={{ maxHeight: "100%", maxWidth: "118px", objectFit: "contain", filter: "brightness(0) invert(1)", opacity: 0.82 }}
             />
           </div>
         )}

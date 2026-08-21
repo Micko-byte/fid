@@ -9,6 +9,7 @@ import { ScrollChoreography } from "@/components/ScrollChoreography";
 import { useWorkData } from "@/components/work/useWorkData";
 import ThreeDHoverGallery from "@/components/ui/ThreeDHoverGallery";
 import CoolBentoEffect from "@/components/ui/CoolBentoEffect";
+import PressLinks from "@/components/articles/PressLinks";
 import type { WorkImage, WorkProject } from "@/components/lib/work-types";
 import type { ReactNode } from "react";
 
@@ -51,6 +52,10 @@ const typeStyles = {
 function toSrc(src: string) {
   if (src.startsWith("http") || src.startsWith("/")) return src;
   return `/${src.replace(/^public\//, "")}`;
+}
+
+function projectHref(slug: string) {
+  return `/work?p=${encodeURIComponent(slug)}`;
 }
 
 function RevealBlock({
@@ -97,7 +102,7 @@ function WorkCard({ project }: { project: WorkProject }) {
   const preview = project.images?.[0]?.src ? toSrc(project.images[0].src) : "";
 
   return (
-    <Link href={`/work/${project.slug}`} className="group block overflow-hidden border-t pt-5" style={{ borderColor: COLORS.line }}>
+    <Link href={projectHref(project.slug)} className="group block overflow-hidden border-t pt-5" style={{ borderColor: COLORS.line }}>
       <div className="grid gap-[29px] md:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-5">
           <div>
@@ -212,7 +217,7 @@ function WorkListing({ projects }: { projects: WorkProject[] }) {
             className="min-h-[420px] bg-transparent"
             onImageClick={(index) => {
               const project = featuredProjects[index];
-              if (project) router.push(`/work/${project.slug}`);
+                if (project) router.push(projectHref(project.slug));
             }}
           />
         </section>
@@ -348,7 +353,7 @@ function ProjectHero({
 
         <div className="mt-10 flex flex-wrap items-center gap-[29px]">
           <PillLink href="/work">View all work</PillLink>
-          {nextProject ? <PillLink href={`/work/${nextProject.slug}`}>Next case study</PillLink> : null}
+            {nextProject ? <PillLink href={projectHref(nextProject.slug)}>Next case study</PillLink> : null}
         </div>
       </section>
 
@@ -426,6 +431,8 @@ function ProjectHero({
         </section>
       </RevealBlock>
 
+      <PressLinks campaigns={[project.slug]} />
+
       <footer className="mx-auto max-w-[1440px] px-6 pb-[120px] md:px-[29px]">
         <div className="flex flex-wrap items-center justify-between gap-[29px] border-t pt-6" style={{ borderColor: COLORS.line }}>
           <div>
@@ -444,7 +451,7 @@ function ProjectHero({
               </span>
             </PillLink>
             {nextProject ? (
-              <PillLink href={`/work/${nextProject.slug}`}>
+              <PillLink href={projectHref(nextProject.slug)}>
                 <span className="inline-flex items-center gap-2">
                   <span>View next</span>
                   <ArrowRight size={14} weight="bold" />
