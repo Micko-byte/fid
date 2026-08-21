@@ -266,6 +266,37 @@ export default function MobileHome() {
         </FadeUp>
       </section>
 
+      {/* ── CEDRIC (white) ── */}
+      <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
+        <FadeUp>
+          <MobileEyebrow tone="light">Cedric</MobileEyebrow>
+        </FadeUp>
+        <FadeUp delay={0.06}>
+          <img
+            src="/illustrations/cedric-portrait.jpg"
+            alt="Cedric, Creative Director | Digital Strategist | Storyteller"
+            loading="lazy"
+            style={{ width: "100%", maxWidth: "320px", aspectRatio: "4/5", objectFit: "cover", objectPosition: "center top", borderRadius: "16px", margin: "1.4rem 0 0", border: "1px solid rgba(117,0,6,0.18)" }}
+          />
+        </FadeUp>
+        <FadeUp delay={0.12}>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.2rem, 10vw, 3rem)", letterSpacing: "-0.03em", lineHeight: 1, margin: "1.6rem 0 0", color: "#1c1c1c" }}>
+            Cedric
+          </h2>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#750006", margin: "0.7rem 0 0" }}>
+            Creative Director | Digital Strategist | Storyteller
+          </p>
+        </FadeUp>
+        <FadeUp delay={0.18}>
+          <blockquote style={{ fontFamily: "var(--font-heading)", fontWeight: 500, fontSize: "clamp(1.3rem, 6vw, 1.7rem)", lineHeight: 1.32, letterSpacing: "-0.01em", margin: "1.6rem 0 0", color: "#1c1c1c" }}>
+            &ldquo;A seasoned creative director with over 14 years of experience shaping compelling digital narratives, developing high-impact creative strategies, writing for screen and digital platforms, and driving audience growth.&rdquo;
+          </blockquote>
+          <p style={{ fontFamily: "var(--font-body)", fontSize: "0.92rem", lineHeight: 1.7, color: "rgba(28,28,28,0.65)", margin: "1.4rem 0 0" }}>
+            With a strong track record across entertainment, media, and brand storytelling, he has contributed to Netflix productions including Mpakani and Mission to Rescue, bringing together creative vision, strategic thinking, and audience-first storytelling. Previously the Digital Strategy Lead at Capital Digital Media, he has led digital campaigns and content strategies designed to build brands, engage audiences, and deliver measurable impact. His work sits at the intersection of culture, creativity, digital innovation, and storytelling, with a focus on creating ideas that resonate, move audiences, and build lasting brand relevance.
+          </p>
+        </FadeUp>
+      </section>
+
       {/* ── INSTAGRAM ── */}
       <InstagramFeed />
 
