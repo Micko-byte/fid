@@ -8,6 +8,7 @@ import {
   Timer, ChartBar, Buildings, GlobeHemisphereEast,
 } from "@phosphor-icons/react";
 import Footer from "@/components/Footer";
+import BrandBand from "@/components/sections/BrandBand";
 import BrandHero from "@/components/sections/BrandHero";
 import Contact from "@/components/sections/Contact";
 import {
@@ -406,6 +407,8 @@ export default function MobileHome() {
 
       {/* ── CONTACT (real form) ── */}
       <Contact />
+
+      <BrandBand />
 
       <Footer />
 

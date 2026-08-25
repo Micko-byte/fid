@@ -2,7 +2,7 @@ import BrandHero from "@/components/sections/BrandHero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
 import CTABanner from "@/components/sections/CTABanner";
-import WorkCapsules from "@/components/sections/WorkCapsules";
+import WorkReel from "@/components/work/WorkReel";
 import LogoMarquee from "@/components/sections/LogoMarquee";
 import StatsBand from "@/components/sections/StatsBand";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
@@ -11,6 +11,7 @@ import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
 import InstagramFeed from "@/components/sections/InstagramFeed";
 import Contact from "@/components/sections/Contact";
+import BrandBand from "@/components/sections/BrandBand";
 import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import Footer from "@/components/Footer";
 import ResponsiveHome from "@/components/mobile/ResponsiveHome";
@@ -24,7 +25,7 @@ export default function HomePage() {
       <About />
       <Services />
       <CTABanner />
-      <WorkCapsules />
+      <WorkReel />
       <LogoMarquee />
       <StatsBand />
       <AfricanFootprint />
@@ -33,6 +34,7 @@ export default function HomePage() {
       <Insights />
       <InstagramFeed />
       <Contact />
+      <BrandBand />
       <div className="footer-capability-strip" aria-label="FID & Co. capabilities">
         <ScrollVelocity
           texts={["Strategic Communications / Media Management / Influencer & Creator / Digital Strategy / Experiential Marketing / "]}

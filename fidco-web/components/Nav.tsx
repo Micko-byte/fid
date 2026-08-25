@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BrandWordmark from "@/components/ui/BrandWordmark";
+import FidLogo from "@/components/ui/FidLogo";
 import LineSidebar from "@/components/ui/LineSidebar";
 
 const navLinks = [
@@ -95,11 +96,11 @@ export default function Nav() {
       >
           {/* ── Logo + tagline ── */}
                     <Link href="/" aria-label="Insight. Strategy. Impact. - home" className="nav-logo-link" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-            <BrandWordmark
+            <FidLogo
               variant="dark"
               className="nav-logo"
               style={{
-                height: "40px",
+                height: "34px",
                 width: "auto",
               }}
             />

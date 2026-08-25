@@ -11,6 +11,7 @@ import Founder from "@/components/sections/Founder";
 import Insights from "@/components/sections/Insights";
 import InstagramFeed from "@/components/sections/InstagramFeed";
 import Contact from "@/components/sections/Contact";
+import BrandBand from "@/components/sections/BrandBand";
 import ScrollVelocity from "@/components/ui/ScrollVelocity";
 import Footer from "@/components/Footer";
 import ResponsiveHome from "@/components/mobile/ResponsiveHome";
@@ -33,6 +34,7 @@ export default function HomePage() {
       <Insights />
       <InstagramFeed />
       <Contact />
+      <BrandBand />
       <div className="footer-capability-strip" aria-label="FID & Co. capabilities">
         <ScrollVelocity
           texts={["Strategic Communications / Media Management / Influencer & Creator / Digital Strategy / Experiential Marketing / "]}
