@@ -76,7 +76,9 @@ export default function InstagramFeed() {
 
   useEffect(() => {
     // Behold JSON feed for @fidpr (env var can override with a different feed)
-    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL ?? "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
+    // Use `||` (not `??`) so a blank Vercel env var also falls back to the live
+    // @fidpr Behold feed — an empty string would otherwise skip the fetch.
+    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL || "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
     if (!url) return;
     let active = true;
     (async () => {
