@@ -18,7 +18,6 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: cl("auf-01"), label: "Continental convening" },
     { src: cl("auf-02"), label: "Delegate experience" },
     { src: cl("auf-03"), label: "Stakeholder dialogue" },
-    { src: cl("auf-04"), label: "Forum atmosphere" },
   ],
   "utamaduni-day": [],
   "lc-waikiki-africa": [

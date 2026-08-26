@@ -183,7 +183,7 @@ export default function Founder() {
             <TiltedCard
               imageSrc="/illustrations/cedric-portrait.jpg"
               altText="Cedric, Creative Director | Digital Strategist | Storyteller"
-              captionText="Cedric"
+              captionText="Cedric Gitura"
               containerHeight="clamp(360px, 46vw, 560px)"
               containerWidth="100%"
               imageHeight="clamp(360px, 46vw, 560px)"
@@ -233,7 +233,7 @@ export default function Founder() {
               transition={{ duration: 0.75, delay: 0.22 }}
               style={{ fontFamily: "var(--font-heading)", fontWeight: 600, color: "#1c1c1c", fontSize: "clamp(2.6rem, 6vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.01em", marginTop: "1.4rem", textTransform: "uppercase" }}
             >
-              <TextRoll>Cedric</TextRoll>
+              <TextRoll>Cedric Gitura</TextRoll>
             </motion.div>
 
             <motion.div

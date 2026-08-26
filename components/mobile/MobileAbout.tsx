@@ -163,7 +163,7 @@ export default function MobileAbout() {
           <img src="/illustrations/cedric-portrait.jpg" alt="Cedric, Creative Director | Digital Strategist | Storyteller" loading="lazy" style={{ width: "100%", maxWidth: "320px", aspectRatio: "4/5", objectFit: "cover", objectPosition: "center top", borderRadius: "16px", margin: "1.4rem 0 0", border: "1px solid rgba(217,128,56,0.25)" }} />
         </FadeUp>
         <FadeUp delay={0.12}>
-          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.2rem, 10vw, 3rem)", letterSpacing: "-0.03em", lineHeight: 1, margin: "1.6rem 0 0" }}>Cedric</h2>
+          <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.2rem, 10vw, 3rem)", letterSpacing: "-0.03em", lineHeight: 1, margin: "1.6rem 0 0" }}>Cedric Gitura</h2>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#d98038", margin: "0.7rem 0 0" }}>Creative Director | Digital Strategist | Storyteller</p>
         </FadeUp>
         <FadeUp delay={0.18}>

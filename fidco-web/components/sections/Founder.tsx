@@ -12,6 +12,7 @@ export default function Founder() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const [photoHover, setPhotoHover] = useState(false);
+  const [cedricHover, setCedricHover] = useState(false);
 
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
   const watermarkY = useTransform(scrollYProgress, [0, 1], ["10%", "-15%"]);
@@ -171,6 +172,110 @@ export default function Founder() {
             </motion.p>
           </div>
         </div>
+
+        <div className="founder-grid founder-grid--cedric">
+          {/* Portrait */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.16 }}
+          >
+            <TiltedCard
+              imageSrc="/illustrations/cedric-portrait.jpg"
+              altText="Cedric, Creative Director | Digital Strategist | Storyteller"
+              captionText="Cedric Gitura"
+              containerHeight="clamp(360px, 46vw, 560px)"
+              containerWidth="100%"
+              imageHeight="clamp(360px, 46vw, 560px)"
+              imageWidth="100%"
+              rotateAmplitude={10}
+              scaleOnHover={1.04}
+              showTooltip
+              displayOverlayContent
+              onHoverChange={setCedricHover}
+              overlayContent={
+                <>
+                  {/* second frame — crossfades in on hover */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src="/illustrations/cedric-portrait.jpg"
+                    alt=""
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      objectPosition: "center top",
+                      borderRadius: "16px",
+                      opacity: cedricHover ? 1 : 0,
+                      transform: cedricHover ? "scale(1)" : "scale(1.04)",
+                      transition: "opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)",
+                    }}
+                  />
+                  {/* pixel band sweeping through the crossfade */}
+                  <PixelReveal
+                    active={cedricHover}
+                    direction="up"
+                    style={{ borderRadius: "16px" }}
+                  />
+                </>
+              }
+            />
+          </motion.div>
+
+          {/* Text */}
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.75, delay: 0.22 }}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 600, color: "#1c1c1c", fontSize: "clamp(2.6rem, 6vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.01em", marginTop: "1.4rem", textTransform: "uppercase" }}
+            >
+              <TextRoll>Cedric Gitura</TextRoll>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.65, delay: 0.3 }}
+              style={{ fontSize: "0.74rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#750006", marginTop: "1rem", fontFamily: "var(--font-body)", fontWeight: 500 }}
+            >
+              <TextRoll>Creative Director | Digital Strategist | Storyteller</TextRoll>
+            </motion.div>
+
+            <motion.blockquote
+              initial={{ opacity: 0, y: 18 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.9, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
+              style={{ fontFamily: "var(--font-body)", fontWeight: 400, fontStyle: "italic", color: "#1c1c1c", fontSize: "clamp(1.4rem, 2.7vw, 2.1rem)", lineHeight: 1.34, letterSpacing: "-0.01em", marginTop: "2.4rem", maxWidth: "34ch" }}
+            >
+              <span style={{ color: "#750006", fontStyle: "normal" }}>&ldquo;</span>
+              <span style={{ display: "inline-block", maxWidth: "34ch" }}>
+                <VariableProximity
+                  label="A seasoned creative director with over 14 years of experience shaping compelling digital narratives, developing high-impact creative strategies, writing for screen and digital platforms, and driving audience growth."
+                  containerRef={sectionRef as MutableRefObject<HTMLElement | null>}
+                  radius={160}
+                  falloff="gaussian"
+                  fromFontVariationSettings="'wght' 350, 'opsz' 16"
+                  toFontVariationSettings="'wght' 900, 'opsz' 42"
+                  style={{ fontFamily: 'var(--font-heading)', fontWeight: 500, letterSpacing: "-0.01em", textTransform: "none", lineHeight: 1.28, color: "#1c1c1c" }}
+                />
+              </span>
+              <span style={{ color: "#750006", fontStyle: "normal" }}>&rdquo;</span>
+            </motion.blockquote>
+
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.48 }}
+              style={{ fontFamily: "var(--font-body)", fontSize: "clamp(0.9rem,1.15vw,1rem)", lineHeight: 1.7, color: "#1c1c1c", marginTop: "2rem", maxWidth: "48ch" }}
+            >
+              With a strong track record across entertainment, media, and brand storytelling, he has contributed to Netflix productions including Mpakani and Mission to Rescue, bringing together creative vision, strategic thinking, and audience-first storytelling. Previously the Digital Strategy Lead at Capital Digital Media, he has led digital campaigns and content strategies designed to build brands, engage audiences, and deliver measurable impact. His work sits at the intersection of culture, creativity, digital innovation, and storytelling, with a focus on creating ideas that resonate, move audiences, and build lasting brand relevance.
+            </motion.p>
+          </div>
+        </div>
       </div>
 
       <style>{`
@@ -183,6 +288,11 @@ export default function Founder() {
         }
         @media (max-width: 1024px) {
           .founder-grid { grid-template-columns: 1fr; }
+        }
+        .founder-grid--cedric {
+          margin-top: clamp(4rem, 9vw, 7rem);
+          padding-top: clamp(4rem, 9vw, 7rem);
+          border-top: 1px solid rgba(117,0,6,0.08);
         }
       `}</style>
     </section>

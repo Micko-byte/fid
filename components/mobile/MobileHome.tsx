@@ -275,8 +275,8 @@ export default function MobileHome() {
                 </span>
               )}
               <div style={{ position: "absolute", left: "1.2rem", right: "1.2rem", bottom: "1.4rem" }}>
-                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", margin: 0 }}>({String(i + 1).padStart(2, "0")}) {w.sector}</p>
-                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(1.9rem, 9vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 0.96, color: "#f5f2ec", margin: "0.5rem 0 0", textTransform: "uppercase" }}>{w.client}</h3>
+                <p style={{ fontFamily: "var(--font-body)", fontSize: "0.64rem", fontWeight: 700, letterSpacing: "0.24em", textTransform: "uppercase", color: "#d98038", margin: 0 }}>({String(i + 1).padStart(2, "0")}) {w.client}</p>
+                <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 900, fontSize: "clamp(1.9rem, 9vw, 2.6rem)", letterSpacing: "-0.02em", lineHeight: 0.96, color: "#f5f2ec", margin: "0.5rem 0 0", textTransform: "uppercase" }}>{w.sector}</h3>
                 <span style={{ display: "inline-block", marginTop: "0.8rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,242,236,0.75)", fontWeight: 700, borderBottom: "1px solid rgba(245,242,236,0.4)", paddingBottom: "0.2rem" }}>Open sector</span>
               </div>
             </Link>
