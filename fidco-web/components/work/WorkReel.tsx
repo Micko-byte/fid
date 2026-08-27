@@ -208,7 +208,7 @@ export default function WorkReel() {
               <img src={s.image} alt={s.client} loading="lazy" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(13,5,5,0.05) 40%, rgba(13,5,5,0.85) 100%)" }} />
               <span style={{ position: "absolute", left: "0.9rem", right: "0.9rem", bottom: "0.85rem", fontFamily: "var(--font-body)", fontSize: "0.6rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(245,242,236,0.9)", fontWeight: 700 }}>
-                {s.title}
+                {s.client}
               </span>
             </Link>
           ))}
