@@ -87,7 +87,7 @@ export default function MobileHome() {
   // Live Instagram images from the Behold feed; falls back to curated tiles.
   const [igPosts, setIgPosts] = useState<string[]>(IG_POSTS);
   useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL ?? "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
+    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL || "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
     let active = true;
     (async () => {
       try {
