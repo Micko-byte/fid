@@ -13,11 +13,11 @@ const cl = (id: string) =>
   `https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,c_fill,g_auto,w_1920,h_1200/FID/${id}`;
 
 const HERO_IMAGES = [
-  cl("hero-auf-01"),
-  cl("hero-allso-01"),
-  cl("hero-glam-01"),
-  cl("hero-cafenbo-01"),
   cl("hero-people-03"),
+  cl("hero-lcw-01"),
+  cl("hero-cafenbo-01"),
+  cl("hero-kingfisher-01"),
+  cl("hero-auf-01"),
 ];
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -42,7 +42,7 @@ export default function BrandHero() {
         height: "100dvh",
         minHeight: "600px",
         overflow: "hidden",
-        background: "#5d0010",
+        background: "#260000",
       }}
     >
       {/* ── Cross-fading image slideshow ── */}
@@ -78,7 +78,7 @@ export default function BrandHero() {
           inset: 0,
           pointerEvents: "none",
           background:
-            "linear-gradient(to bottom, rgba(93,0,16,0.52) 0%, rgba(93,0,16,0.12) 24%, rgba(47,127,122,0.10) 52%, rgba(93,0,16,0.84) 100%)",
+            "linear-gradient(to bottom, rgba(38,0,0,0.5) 0%, rgba(38,0,0,0.12) 24%, rgba(38,0,0,0.2) 52%, rgba(38,0,0,0.82) 100%)",
         }}
       />
 
@@ -167,10 +167,10 @@ export default function BrandHero() {
           letter-spacing: 0.28em;
           text-transform: uppercase;
           font-weight: 600;
-          color: #f3e6d8;
+          color: #f0d9c4;
         }
         .brand-hero-kicker-rule {
-          width: 34px; height: 1px; background: #2f7f7a; opacity: 0.95;
+          width: 34px; height: 1px; background: #d98038; opacity: 0.85;
         }
         .brand-hero-headline {
           margin: 0;
@@ -182,11 +182,11 @@ export default function BrandHero() {
           text-transform: uppercase;
           color: #f5f2ec;
           max-width: 16ch;
-          text-shadow: 0 2px 40px rgba(38,0,0,0.38);
+          text-shadow: 0 2px 40px rgba(38,0,0,0.5);
         }
         .brand-hero-headline em {
           font-style: italic;
-          color: #2f7f7a;
+          color: #d98038;
         }
         .brand-hero-intro {
           margin: 0;
@@ -218,8 +218,8 @@ export default function BrandHero() {
           transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease;
         }
         .brand-hero-btn:hover { transform: translateY(-2px); }
-        .brand-hero-btn--solid { background: #2f7f7a; color: #f5f2ec; }
-        .brand-hero-btn--solid:hover { background: #3d918c; }
+        .brand-hero-btn--solid { background: #d98038; color: #260000; }
+        .brand-hero-btn--solid:hover { background: #e8924a; }
         .brand-hero-btn--ghost {
           background: rgba(245,242,236,0.08);
           color: #f5f2ec;
@@ -240,7 +240,7 @@ export default function BrandHero() {
           transition: background 0.3s ease, width 0.3s ease;
         }
         .brand-hero-dots button.is-active {
-          background: #2f7f7a;
+          background: #d98038;
           width: 44px;
         }
 
@@ -250,14 +250,33 @@ export default function BrandHero() {
             min-height: 520px !important;
           }
           .brand-hero-scrim {
-            background: linear-gradient(to bottom, rgba(93,0,16,0.42) 0%, rgba(93,0,16,0.25) 40%, rgba(93,0,16,0.9) 100%) !important;
+            background: linear-gradient(to bottom, rgba(38,0,0,0.45) 0%, rgba(38,0,0,0.25) 40%, rgba(38,0,0,0.9) 100%) !important;
           }
           .brand-hero-content {
-            padding: clamp(1.6rem, 7vw, 2.4rem);
+            padding: clamp(1.5rem, 6vw, 2rem);
             padding-bottom: clamp(2rem, 8vw, 3rem);
+            max-width: 100%;
+            box-sizing: border-box;
+          }
+          .brand-hero-content > * {
+            max-width: 100%;
+          }
+          .brand-hero-intro {
+            width: 100%;
+            overflow-wrap: break-word;
+          }
+          .brand-hero-kicker {
+            letter-spacing: 0.14em;
+            font-size: 0.58rem;
+            flex-wrap: wrap;
           }
           .brand-hero-headline {
-            font-size: clamp(2.2rem, 12vw, 3.6rem);
+            font-size: clamp(1.9rem, 8vw, 2.6rem);
+            max-width: 100%;
+          }
+          .brand-hero-intro {
+            font-size: 0.92rem;
+            max-width: 100%;
           }
         }
       `}</style>

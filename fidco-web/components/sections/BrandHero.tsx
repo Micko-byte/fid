@@ -253,11 +253,30 @@ export default function BrandHero() {
             background: linear-gradient(to bottom, rgba(38,0,0,0.45) 0%, rgba(38,0,0,0.25) 40%, rgba(38,0,0,0.9) 100%) !important;
           }
           .brand-hero-content {
-            padding: clamp(1.6rem, 7vw, 2.4rem);
+            padding: clamp(1.5rem, 6vw, 2rem);
             padding-bottom: clamp(2rem, 8vw, 3rem);
+            max-width: 100%;
+            box-sizing: border-box;
+          }
+          .brand-hero-content > * {
+            max-width: 100%;
+          }
+          .brand-hero-intro {
+            width: 100%;
+            overflow-wrap: break-word;
+          }
+          .brand-hero-kicker {
+            letter-spacing: 0.14em;
+            font-size: 0.58rem;
+            flex-wrap: wrap;
           }
           .brand-hero-headline {
-            font-size: clamp(2.2rem, 12vw, 3.6rem);
+            font-size: clamp(1.9rem, 8vw, 2.6rem);
+            max-width: 100%;
+          }
+          .brand-hero-intro {
+            font-size: 0.92rem;
+            max-width: 100%;
           }
         }
       `}</style>
