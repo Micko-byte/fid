@@ -2,7 +2,7 @@
 
 import Footer from "@/components/Footer";
 import AfricanFootprint from "@/components/sections/AfricanFootprint";
-import WorkSectorsScroll from "@/components/work/WorkSectorsScroll";
+import WorkSectorEditorial from "@/components/work/WorkSectorEditorial";
 
 export default function WorkSectorIndexClient() {
   return (
@@ -58,7 +58,7 @@ export default function WorkSectorIndexClient() {
         </p>
       </div>
 
-      <WorkSectorsScroll />
+      <WorkSectorEditorial />
 
       <section style={{ background: "#f5f2ec", padding: "clamp(3rem, 6vw, 5rem) 0" }}>
         <AfricanFootprint />
