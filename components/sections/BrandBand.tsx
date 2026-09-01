@@ -66,7 +66,7 @@ export default function BrandBand() {
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          style={{ height: "clamp(46px, 6vw, 76px)", width: "auto", display: "block" }}
+          style={{ height: "clamp(38px, 4.6vw, 52px)", width: "auto", display: "block" }}
         />
         <motion.p
           initial={{ opacity: 0, y: 14 }}
