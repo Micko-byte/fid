@@ -105,7 +105,8 @@ function ProjectCard({
           fontWeight: 400,
           fontSize: "clamp(1.25rem, 3.5vw, 1.75rem)",
           lineHeight: 1.21,
-          color: textColor,
+          color: image ? "#f5f2ec" : textColor,
+          textShadow: image ? "0 2px 18px rgba(0,0,0,0.45)" : "none",
           marginBottom: "0.75rem",
         }}>
           {label}
@@ -115,7 +116,7 @@ function ProjectCard({
           fontWeight: 400,
           fontSize: "clamp(0.95rem, 2.5vw, 1.25rem)",
           lineHeight: 1.17,
-          color: textColor === "#ffffff" ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.45)",
+          color: image ? "rgba(245,242,236,0.75)" : textColor === "#ffffff" ? "rgba(255,255,255,0.55)" : "rgba(0,0,0,0.45)",
         }}>
           FID &amp; Co. · Communications
         </p>
@@ -129,7 +130,7 @@ function ProjectCard({
         fontFamily: "var(--font-body)",
         fontWeight: 400,
         fontSize: "clamp(1.1rem, 2.5vw, 1.5rem)",
-        color: textColor,
+        color: image ? "#f5f2ec" : textColor,
       }}>
         →
       </div>

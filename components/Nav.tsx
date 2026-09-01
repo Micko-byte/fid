@@ -79,7 +79,9 @@ export default function Nav() {
     maxWidth: "calc(100vw - 1.5rem)",
     boxSizing: "border-box",
     borderRadius: "20px",
-    background: "#FFFFFF",
+    background: "rgba(255,255,255,0.68)",
+    backdropFilter: "blur(16px)",
+    WebkitBackdropFilter: "blur(16px)",
     borderBottom: "1px solid rgba(0,0,0,0.08)",
     boxShadow: "0 2px 12px rgba(0,0,0,.08)",
     transition: "box-shadow 0.3s, transform 0.3s",
@@ -265,7 +267,9 @@ export default function Nav() {
     margin: 0 !important;
     border: none !important;
     border-bottom: 1px solid rgba(0,0,0,0.08) !important;
-    background: #FFFFFF !important;
+    background: rgba(255,255,255,0.68) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
     box-shadow: 0 2px 12px rgba(0,0,0,.08) !important;
     opacity: 1 !important;
     pointer-events: auto !important;
