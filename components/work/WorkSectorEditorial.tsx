@@ -33,7 +33,8 @@ function SectorCard({ slug, short, index }: { slug: WorkSectorSlug; short: strin
   const gallery = flagship ? getProjectGallery(flagship).map((g) => g.src) : [];
   const images = (gallery.length ? gallery : [meta.cover]).slice(0, 3);
 
-  const kicker = `${flagship?.years ?? "FID & Co."} · ${meta.title.toUpperCase()}`;
+  // Sector is the headline; the actual work sits in the kicker + subtitle.
+  const kicker = flagship ? `${flagship.years} · ${flagship.client}` : "FID & Co.";
 
   return (
     <motion.article
@@ -48,7 +49,7 @@ function SectorCard({ slug, short, index }: { slug: WorkSectorSlug; short: strin
         <p className="wse-kicker">{kicker}</p>
         <span className="wse-pill" style={{ borderColor: `${meta.accent}55`, color: meta.accent }}>{short}</span>
 
-        <h2 className="wse-title">{flagship ? flagship.client : meta.title}</h2>
+        <h2 className="wse-title">{meta.title}</h2>
         {flagship?.title && <p className="wse-sub">{flagship.title}</p>}
         {flagship?.desc && <p className="wse-desc">{flagship.desc}</p>}
         {flagship?.scope?.length ? <p className="wse-meta">{flagship.scope.slice(0, 3).join(" · ")}</p> : null}
