@@ -91,7 +91,7 @@ export default function WorkSectorEditorial() {
           display: grid;
           grid-template-columns: 1.05fr 0.95fr;
           gap: clamp(1.2rem, 2.5vw, 2.4rem);
-          align-items: center;
+          align-items: stretch;
           background: #f5f2ec;
           border: 1px solid rgba(38,0,0,0.08);
           border-radius: 22px;
@@ -138,10 +138,10 @@ export default function WorkSectorEditorial() {
         .wse-btn--ghost:hover { border-color: #750006; color: #750006; }
 
         .wse-collage {
-          display: grid; gap: 10px; height: clamp(260px, 30vw, 420px);
+          display: grid; gap: 10px; height: 100%; min-height: clamp(260px, 26vw, 400px);
           grid-template-columns: 1.25fr 0.75fr; grid-template-rows: 1fr 1fr;
         }
-        .wse-collage img { width: 100%; height: 100%; object-fit: cover; border-radius: 14px; display: block; }
+        .wse-collage img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; border-radius: 14px; display: block; }
         .wse-collage--3 img:nth-child(1) { grid-row: 1 / 3; }
         .wse-collage--2 { grid-template-columns: 1.25fr 0.75fr; grid-template-rows: 1fr; }
         .wse-collage--2 img:nth-child(1) { grid-row: 1; }

@@ -90,7 +90,6 @@ export const platforms: OwnedPlatform[] = [
       { name: "ABSA La Riba", role: "Financial Partner", logo: "/logos/suhba-partners/absa.png" },
       { name: "Gulf Bank", role: "Banking Partner", logo: "/logos/suhba-partners/gulf-bank.png" },
       { name: "Luton Hospital Foundation", role: "Wellness & Community Partner" },
-      { name: "Abyan Salon & Spa", role: "Beauty & Self-Care Partner", logo: "/logos/suhba-partners/abyan-salon-spa.png" },
       { name: "Kingfisher Nest Hotel", role: "Hospitality Partner", logo: "/logos/suhba-partners/kingfisher-nest-hotel.png" },
       { name: "Goodlife Pharmacy", role: "Wellness Partner", logo: "/logos/suhba-partners/goodlife-pharmacy.png" },
       { name: "Allso Beauty", role: "Beauty Partner", logo: "/logos/suhba-partners/allso-beauty.png" },

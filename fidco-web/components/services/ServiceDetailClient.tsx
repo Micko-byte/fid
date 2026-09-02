@@ -224,27 +224,31 @@ export default function ServiceDetailClient({ service }: Props) {
           transition={{ duration: 0.5 }}
           style={{
             fontFamily: "var(--font-body)",
-            fontWeight: 400,
-            fontSize: "clamp(0.95rem, 2vw, 1.25rem)",
+            fontWeight: 700,
+            fontSize: "clamp(0.7rem, 1.4vw, 0.82rem)",
+            letterSpacing: "0.22em",
+            textTransform: "uppercase",
             color: "#d98038",
-            marginBottom: "clamp(1rem, 3vw, 2rem)",
+            marginBottom: "clamp(1rem, 3vw, 1.6rem)",
           }}
         >
-          {service.num} / Services
+          {service.num} · Expertise
         </motion.p>
 
-        {/* Main statement — 45px Clase bcn heading */}
+        {/* Main statement — big, editorial, like the Work cards */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, delay: 0.06, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            fontFamily: "var(--font-body)",
-            fontWeight: 400,
-            fontSize: "clamp(1.8rem, 5vw, 2.8rem)",
-            lineHeight: 1.11,
-            color: "#260000",
-            maxWidth: "18ch",
+            fontFamily: "var(--font-heading)",
+            fontWeight: 600,
+            fontSize: "clamp(2.6rem, 7vw, 5rem)",
+            lineHeight: 0.98,
+            letterSpacing: "-0.03em",
+            textTransform: "uppercase",
+            color: "#750006",
+            maxWidth: "16ch",
             marginBottom: "clamp(1.5rem, 4vw, 2.5rem)",
           }}
         >
