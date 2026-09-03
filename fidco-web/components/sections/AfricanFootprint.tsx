@@ -24,15 +24,15 @@ function injectDefs(svg: string): string {
   const defs = `<defs>
     <linearGradient id="fid-map-wash" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#f5f2ec" />
-      <stop offset="48%" stop-color="#f7e7db" />
-      <stop offset="100%" stop-color="#f0c9ae" />
+      <stop offset="48%" stop-color="#f0ddd1" />
+      <stop offset="100%" stop-color="#e8d3c5" />
     </linearGradient>
     <pattern id="fid-dot" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
       <circle cx="2" cy="2" r="0.95" fill="rgba(117,0,6,0.22)"/>
-      <circle cx="5" cy="5" r="0.7" fill="rgba(217,128,56,0.15)"/>
+      <circle cx="5" cy="5" r="0.7" fill="rgba(47,127,122,0.18)"/>
     </pattern>
     <pattern id="fid-dot-hi" x="0" y="0" width="3.5" height="3.5" patternUnits="userSpaceOnUse">
-      <circle cx="1.6" cy="1.6" r="1.05" fill="#d98038"/>
+      <circle cx="1.6" cy="1.6" r="1.05" fill="#2f7f7a"/>
     </pattern>
     <filter id="fid-grain" x="-20%" y="-20%" width="140%" height="140%">
       <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
@@ -55,33 +55,33 @@ function buildCss(active: string | null, marketCodes: string[]): string {
   const marketSelector = marketCodes.map((c) => `.af-map svg path#${c}`).join(",\n    ");
   const marketRule = `
     ${marketSelector} {
-      fill: #e08a35;
-      stroke: #260000;
+      fill: #750006;
+      stroke: #f5f2ec;
       stroke-width: 0.45;
     }
     ${marketSelector.replaceAll(",", ":hover,")}:hover {
-      fill: #f0a050;
+      fill: #2f7f7a;
       stroke: #f5f2ec;
       transform: scale(1.08);
-      filter: drop-shadow(0 0 10px rgba(240,160,80,0.7));
+      filter: drop-shadow(0 0 10px rgba(47,127,122,0.62));
     }`;
   const base = `
     .af-shell {
       position: relative;
       overflow: hidden;
       border-radius: 28px;
-      border: 1px solid rgba(217,128,56,0.18);
+      border: 1px solid rgba(117,0,6,0.14);
       background:
-        radial-gradient(ellipse 70% 55% at 30% 20%, rgba(117,0,6,0.55) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 78% 78%, rgba(217,128,56,0.16) 0%, transparent 55%),
-        linear-gradient(160deg, #2e0703 0%, #260000 45%, #180404 100%);
-      box-shadow: 0 40px 110px rgba(38,0,0,0.35);
+        radial-gradient(ellipse 70% 55% at 30% 20%, rgba(117,0,6,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 78% 78%, rgba(47,127,122,0.12) 0%, transparent 55%),
+        linear-gradient(160deg, #f5f2ec 0%, #f0e7dc 46%, #e9ddd0 100%);
+      box-shadow: 0 34px 90px rgba(93,0,16,0.14);
     }
     .af-shell::before {
       content: "";
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 60%, rgba(0,0,0,0.35) 100%);
+      background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 60%, rgba(117,0,6,0.08) 100%);
       pointer-events: none;
     }
     .af-shell::after { content: none; }
@@ -93,8 +93,8 @@ function buildCss(active: string | null, marketCodes: string[]): string {
     }
     /* non-market countries — soft cream landmass floating on deep current */
     .af-map svg path {
-      fill: rgba(245,242,236,0.18);
-      stroke: rgba(245,242,236,0.45);
+      fill: rgba(117,0,6,0.08);
+      stroke: rgba(47,127,122,0.32);
       stroke-width: 0.4;
       transition: fill 0.3s ease, stroke 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), filter 0.3s ease;
       transform-box: fill-box;
@@ -102,16 +102,16 @@ function buildCss(active: string | null, marketCodes: string[]): string {
       cursor: pointer;
     }
     .af-map svg path:hover {
-      fill: rgba(217,128,56,0.6);
+      fill: rgba(47,127,122,0.22);
       stroke: #f5f2ec;
       stroke-width: 0.6;
       transform: scale(1.06);
-      filter: drop-shadow(0 0 6px rgba(217,128,56,0.55));
+      filter: drop-shadow(0 0 6px rgba(47,127,122,0.4));
     }
     .af-map-glow {
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at 62% 40%, rgba(217,128,56,0.14), transparent 46%);
+      background: radial-gradient(circle at 62% 40%, rgba(47,127,122,0.12), transparent 46%);
       pointer-events: none;
       z-index: 0;
     }
@@ -204,7 +204,7 @@ export default function AfricanFootprint() {
   return (
     <section className="af-footprint" style={{ marginTop: "clamp(3rem,6vw,5rem)", paddingTop: 0 }}>
       <div style={{ textAlign: "center", maxWidth: "44rem", margin: "0 auto clamp(2rem,4vw,3rem)" }}>
-        <span style={{ display: "inline-block", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#d9ab88", marginBottom: "0.9rem" }}>
+        <span style={{ display: "inline-block", fontFamily: "var(--font-body)", fontSize: "0.72rem", fontWeight: 600, letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006", marginBottom: "0.9rem" }}>
           African footprint
         </span>
         <h3 style={{ fontFamily: "var(--font-heading)", fontWeight: 800, color: "#1c1c1c", fontSize: "clamp(1.9rem,3.6vw,3rem)", lineHeight: 1.04, letterSpacing: "-0.02em", margin: 0, textTransform: "uppercase", textWrap: "balance" } as React.CSSProperties}>
@@ -263,7 +263,7 @@ export default function AfricanFootprint() {
                   transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
                 }}
               >
-                <span className="af-pin-head" style={{ background: isOn ? "#d98038" : "#750006" }} />
+                <span className="af-pin-head" style={{ background: isOn ? "#2f7f7a" : "#750006" }} />
                 <span className="af-pin-stem" />
                 <span className="af-pin-ring" />
               </button>
@@ -304,7 +304,7 @@ export default function AfricanFootprint() {
               letterSpacing: "0.14em",
               fontWeight: 700,
               textTransform: "uppercase",
-              border: `1px solid ${activeCountry ? "rgba(117,0,6,0.5)" : "rgba(117,0,6,0.16)"}`,
+              border: `1px solid ${activeCountry ? "rgba(47,127,122,0.45)" : "rgba(117,0,6,0.16)"}`,
               backdropFilter: "blur(10px)",
               display: "flex",
               alignItems: "center",
@@ -344,8 +344,8 @@ export default function AfricanFootprint() {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "0.45rem",
-                border: `1px solid ${isActive ? "#750006" : "rgba(117,0,6,0.18)"}`,
-                backgroundColor: isActive ? "#750006" : "rgba(245,242,236,0.7)",
+                border: `1px solid ${isActive ? "#2f7f7a" : "rgba(117,0,6,0.18)"}`,
+                backgroundColor: isActive ? "#2f7f7a" : "rgba(245,242,236,0.72)",
                 padding: "0.42rem 0.8rem",
                 borderRadius: "999px",
                 fontFamily: "var(--font-body)",
@@ -354,7 +354,7 @@ export default function AfricanFootprint() {
                 color: isActive ? "#f5f2ec" : "#1c1c1c",
                 cursor: "pointer",
                 transition: "transform 0.22s ease, border-color 0.25s, background 0.25s, color 0.25s",
-                boxShadow: isActive ? "0 4px 14px rgba(117,0,6,0.22)" : "none",
+                boxShadow: isActive ? "0 4px 14px rgba(47,127,122,0.22)" : "none",
               }}
               onMouseDown={(e) => {
                 e.currentTarget.style.transform = "translateY(1px) scale(0.98)";
@@ -396,7 +396,7 @@ export default function AfricanFootprint() {
           width: 12px;
           height: 12px;
           border-radius: 999px;
-          border: 2px solid #260000;
+          border: 2px solid #5d0010;
           box-shadow: 0 0 0 1.5px rgba(245,242,236,0.85), 0 4px 12px rgba(0,0,0,0.5);
           transition: background 0.25s;
         }
@@ -405,7 +405,7 @@ export default function AfricanFootprint() {
           width: 2px;
           height: 9px;
           margin: -1px auto 0;
-          background: linear-gradient(to bottom, #f5f2ec, rgba(245,242,236,0.15));
+          background: linear-gradient(to bottom, #f5f2ec, rgba(47,127,122,0.18));
           border-radius: 0 0 2px 2px;
         }
         .af-pin-ring {
@@ -416,7 +416,7 @@ export default function AfricanFootprint() {
           height: 6px;
           transform: translateX(-50%);
           border-radius: 999px;
-          border: 1px solid rgba(245,242,236,0.5);
+          border: 1px solid rgba(117,0,6,0.26);
           animation: af-ring-pulse 2.4s ease-out infinite;
         }
         @keyframes af-ring-pulse {
@@ -424,7 +424,7 @@ export default function AfricanFootprint() {
           70% { transform: translateX(-50%) scale(1.7); opacity: 0; }
           100% { opacity: 0; }
         }
-        .af-pin:hover .af-pin-head { background: #d98038 !important; }
+        .af-pin:hover .af-pin-head { background: #2f7f7a !important; }
       `}</style>
     </section>
   );

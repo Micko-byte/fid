@@ -23,6 +23,7 @@ const logos = [
   "/logos/medigah-london-hair.png",
   "/logos/abyan-salon-spa.png",
   "/logos/2nu-kollexion.png",
+  "/logos/suhba-series.png",
 ];
 
 const proof = [
@@ -65,8 +66,8 @@ export default function BrandFlow() {
   return (
     <section className="fid-section section-light brand-proof" style={{ backgroundColor: "#f5f2ec", position: "relative" }}>
       {/* Brand texture overlay */}
-      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(ellipse 60% 50% at 0% 100%, rgba(217,128,56,0.10) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 100% 0%, rgba(117,0,6,0.06) 0%, transparent 55%)" }} />
-      <div aria-hidden className="brand-pattern" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.55 }} />
+      <div aria-hidden style={{ position: "absolute", inset: 0, pointerEvents: "none", backgroundImage: "radial-gradient(ellipse 60% 50% at 0% 100%, rgba(47,127,122,0.12) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 100% 0%, rgba(117,0,6,0.08) 0%, transparent 55%)" }} />
+      <div aria-hidden className="brand-pattern-teal" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.4 }} />
       <div ref={ref} className="section-shell">
         <div className="fid-editorial-head">
           <span className="fid-section-num">03</span>
@@ -101,6 +102,7 @@ export default function BrandFlow() {
         >
           {proof.map((item) => (
             <figure key={item.label} className="fid-art-panel proof-card">
+              <div aria-hidden className="brand-pattern-teal proof-card-pattern" />
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={item.image} alt={item.label} loading="lazy" className="fid-image" />
               <figcaption className="fid-caption">{item.label}</figcaption>
@@ -131,7 +133,7 @@ export default function BrandFlow() {
           position: relative;
           min-height: clamp(280px, 32vw, 440px);
           margin: 0;
-          background: #260000;
+          background: linear-gradient(180deg, #750006 0%, #5d0010 100%);
         }
         .proof-card:nth-child(2) { margin-top: clamp(2rem, 5vw, 4rem); }
         .proof-card:nth-child(3) { margin-top: clamp(1rem, 3vw, 2rem); }
@@ -147,20 +149,28 @@ export default function BrandFlow() {
           content: "";
           position: absolute;
           inset: 0;
-          background: linear-gradient(180deg, rgba(38,0,0,0.06), rgba(38,0,0,0.72));
+          background: linear-gradient(180deg, rgba(47,127,122,0.02), rgba(117,0,6,0.72));
+        }
+        .proof-card-pattern {
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          opacity: 0.26;
+          mix-blend-mode: soft-light;
+          z-index: 1;
         }
         .proof-card figcaption {
           position: absolute;
           left: clamp(1rem, 2vw, 1.4rem);
           bottom: clamp(1rem, 2vw, 1.4rem);
-          z-index: 1;
+          z-index: 2;
           color: #f5f2ec;
         }
         .logo-flow {
           margin-top: clamp(2rem, 5vw, 4rem);
           padding: clamp(1rem, 2vw, 1.4rem) 0;
-          border-top: 1px solid rgba(117,0,6,0.14);
-          border-bottom: 1px solid rgba(117,0,6,0.14);
+          border-top: 1px solid rgba(117,0,6,0.16);
+          border-bottom: 1px solid rgba(47,127,122,0.16);
         }
         .logo-chip {
           flex-shrink: 0;
@@ -170,7 +180,7 @@ export default function BrandFlow() {
           align-items: center;
           justify-content: center;
           background: rgba(245,242,236,0.92);
-          border: 1px solid rgba(117,0,6,0.08);
+          border: 1px solid rgba(117,0,6,0.1);
           border-radius: 14px;
           padding: 0.9rem 1.2rem;
         }

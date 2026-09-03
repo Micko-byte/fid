@@ -3,13 +3,18 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import type { Project } from "@/components/lib/projects";
+import type { Project, ProjectMedia } from "@/components/lib/projects";
+import { getWorkSectorSlugFromProject } from "@/components/lib/work-sectors";
 import { getProjectGallery } from "@/lib/work-gallery";
 import { ArrowCircleRight, TrendUp } from "@phosphor-icons/react";
 import IconField from "@/components/motion/IconField";
 import { STOCK } from "@/lib/stock-photos";
+import ProjectMediaShelf from "@/components/work/ProjectMediaShelf";
 
-interface Props { project: Project }
+interface Props {
+  project: Project;
+  media?: ProjectMedia[];
+}
 
 /* ── Animated corner-bracket border ── */
 function CornerBrackets({ color = "#d98038", size = 22, thickness = 2 }: { color?: string; size?: number; thickness?: number }) {
@@ -101,36 +106,58 @@ function ScopeItem({ text, index }: { text: string; index: number }) {
 }
 
 /* ── Property sub-card ── */
-function PropertyCard({ name, desc, index }: { name: string; desc: string; index: number }) {
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+function PropertyCard({ name, desc, index, sector }: { name: string; desc: string; index: number; sector: string }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8% 0px" }}
-      transition={{ duration: 0.6, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
-      style={{ borderRadius: "14px", background: "#f5f2ec", border: "1px solid rgba(117,0,6,0.1)", padding: "clamp(1.4rem,2.5vw,2rem)", position: "relative" }}
-    >
-      <CornerBrackets color="#d9ab88" size={16} thickness={1.5} />
-      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.6rem", fontWeight: 700 }}>
-        {String(index + 1).padStart(2, "0")}
-      </p>
-      <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.1rem,1.8vw,1.5rem)", color: "#1c1c1c", marginBottom: "0.8rem", lineHeight: 1.1 }}>
-        {name}
-      </h4>
-      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.65, color: "#1c1c1c", fontWeight: 500 }}>
-        {desc}
-      </p>
-    </motion.div>
+    <Link href={`/work/${sector}?client=${slugify(name)}`} style={{ textDecoration: "none", color: "inherit" }}>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-8% 0px" }}
+        transition={{ duration: 0.6, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+        style={{ borderRadius: "14px", background: "#f5f2ec", border: "1px solid rgba(117,0,6,0.1)", padding: "clamp(1.4rem,2.5vw,2rem)", position: "relative", transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s ease, border-color 0.35s ease" }}
+      >
+        <CornerBrackets color="#d9ab88" size={16} thickness={1.5} />
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#d98038", marginBottom: "0.6rem", fontWeight: 700 }}>
+          {String(index + 1).padStart(2, "0")}
+        </p>
+        <h4 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.1rem,1.8vw,1.5rem)", color: "#1c1c1c", marginBottom: "0.8rem", lineHeight: 1.1 }}>
+          {name}
+        </h4>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.9rem", lineHeight: 1.65, color: "#1c1c1c", fontWeight: 500 }}>
+          {desc}
+        </p>
+        <span style={{ display: "inline-flex", alignItems: "center", gap: "0.4rem", marginTop: "1rem", fontFamily: "var(--font-body)", fontSize: "0.62rem", fontWeight: 800, letterSpacing: "0.14em", textTransform: "uppercase", color: "#750006" }}>
+          Open palette
+        </span>
+      </motion.div>
+    </Link>
   );
 }
 
-export default function WorkDetailClient({ project }: Props) {
+export default function WorkDetailClient({ project, media = project.media ?? [] }: Props) {
   const galleryImages = getProjectGallery(project);
   const hasImages = galleryImages.length > 0;
+  const sectorSlug = getWorkSectorSlugFromProject(project);
 
   return (
     <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh", position: "relative" }}>
       <IconField tone="light" photo={STOCK.about?.[1]?.src} />
+      {media.length > 0 && (
+        <ProjectMediaShelf
+          items={media}
+          title="In the press"
+          intro="Live links, press coverage and playable launch assets pulled from current web sources."
+        />
+      )}
       <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Sticky back bar ── */}
@@ -314,7 +341,7 @@ export default function WorkDetailClient({ project }: Props) {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))", gap: "clamp(1rem,2vw,1.5rem)" }}>
             {project.properties.map((prop, i) => (
-              <PropertyCard key={prop.name} name={prop.name} desc={prop.desc} index={i} />
+              <PropertyCard key={prop.name} name={prop.name} desc={prop.desc} index={i} sector={sectorSlug} />
             ))}
           </div>
         </div>

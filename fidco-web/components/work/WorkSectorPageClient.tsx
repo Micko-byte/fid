@@ -80,12 +80,22 @@ function toSrc(src: string) {
   return `/${src.replace(/^public\//, "")}`;
 }
 
+function slugify(value: string) {
+  return value
+    .toLowerCase()
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 function projectImages(slug: string) {
   return projectGalleryImages[slug] ?? [];
 }
 
 type Entry = {
   key: string;
+  slug: string;
   title: string;
   eyebrow: string;
   years?: string;
@@ -263,15 +273,15 @@ function Panel({
         display: "inline-flex",
         alignItems: "center",
         justifyContent: "center",
-        padding: "0.6rem 0.9rem",
-        borderRadius: "12px",
+        padding: "0.85rem 1.2rem",
+        borderRadius: "16px",
         background: entry.logoDark ? "#1c1c1c" : "#fff",
         border: "1px solid rgba(28,28,28,0.08)",
-        marginTop: "1.6rem",
+        marginTop: "1.8rem",
         boxShadow: "0 10px 30px rgba(38,0,0,0.07)",
       }}
     >
-      <img src={entry.logo} alt={`${entry.title} logo`} loading="lazy" style={{ height: "30px", maxWidth: "120px", objectFit: "contain" }} />
+      <img src={entry.logo} alt={`${entry.title} logo`} loading="lazy" style={{ height: "46px", maxWidth: "180px", objectFit: "contain" }} />
     </span>
   ) : null;
 
@@ -301,6 +311,8 @@ function Panel({
       >
         ({String(i + 1).padStart(2, "0")})
       </motion.span>
+
+      {/* mobile-only main image (the sticky pane hides on small screens) */}
 
       {entry.logo && entry.href ? (
         <motion.div
@@ -427,7 +439,7 @@ function Panel({
   );
 }
 
-export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlug }) {
+export default function WorkSectorPageClient({ sector, clientSlug = "" }: { sector: WorkSectorSlug; clientSlug?: string }) {
   const router = useRouter();
   const meta = getWorkSectorMeta(sector);
   const projects = getProjectsForWorkSector(sector);
@@ -484,6 +496,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
           const v = THRIVE_VENUES[prop.name] ?? { image: meta.cover };
           return {
             key: `thrive-${prop.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`,
+            slug: slugify(prop.name),
             title: prop.name,
             eyebrow: "Thrive Hospitality Group",
             years: p.years,
@@ -500,6 +513,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
       const imgs = projectImages(p.slug);
       return [{
         key: p.slug,
+        slug: p.slug,
         title: p.client,
         eyebrow: p.title,
         years: p.years,
@@ -514,6 +528,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
     }),
     ...platforms.map((pl) => ({
       key: pl.slug,
+      slug: pl.slug,
       title: pl.name,
       eyebrow: pl.tagline,
       body: pl.intro || pl.shortDesc,
@@ -526,9 +541,13 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
   ];
 
   const entries = dedupeEntryImages(rawEntries, sector);
+  const filteredEntries = clientSlug
+    ? entries.filter((entry) => entry.slug === clientSlug)
+    : entries;
+  const visibleEntries = filteredEntries.length ? filteredEntries : entries;
 
-  const activeEntry = entries[Math.min(active, entries.length - 1)];
-  const heroImage = meta.cover || entries[0]?.image || "";
+  const activeEntry = visibleEntries[Math.min(active, visibleEntries.length - 1)];
+  const heroImage = meta.cover || visibleEntries[0]?.image || "";
 
   return (
     <main style={{ minHeight: "100vh", background: "#f5f2ec", color: "#1c1c1c" }}>
@@ -563,7 +582,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
                 transition={{ duration: 0.55 }}
                 style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.28em", textTransform: "uppercase", color: meta.accent, margin: "0 0 1rem", fontWeight: 700 }}
               >
-                {entries.length} {entries.length === 1 ? "engagement" : "engagements"}
+                {visibleEntries.length} {visibleEntries.length === 1 ? "engagement" : "engagements"}
               </motion.p>
               <motion.h1
                 initial={{ opacity: 0, y: 22 }}
@@ -579,7 +598,12 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
                 transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
                 style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "rgba(28,28,28,0.68)", maxWidth: "50ch", margin: "1.2rem 0 0" }}
               >
-                {meta.intro}
+              {meta.intro}
+              {clientSlug ? (
+                <span style={{ display: "block", marginTop: "0.9rem", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: meta.accent, fontWeight: 700 }}>
+                  Client palette: {visibleEntries[0]?.title ?? clientSlug}
+                </span>
+              ) : null}
               </motion.p>
               <motion.div
                 initial={{ scaleX: 0 }}
@@ -610,7 +634,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
 
         {/* numbered index strip, like the reference */}
         <div className="section-shell" style={{ marginTop: "clamp(2.5rem,5vw,4rem)", borderTop: "1px solid rgba(28,28,28,0.1)", paddingTop: "1rem", display: "flex", flexWrap: "wrap", gap: "0.4rem 2rem" }}>
-          {entries.map((e, i) => (
+          {visibleEntries.map((e, i) => (
             <button
               key={e.key}
               onClick={() => document.getElementById(`wsp-panel-${e.key}`)?.scrollIntoView({ behavior: "smooth" })}
@@ -658,7 +682,7 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
         </div>
 
         <div>
-          {entries.map((entry, i) => (
+          {visibleEntries.map((entry, i) => (
             <Panel key={entry.key} entry={entry} i={i} accent={meta.accent} onActive={onActive} onOpenGallery={onOpenGallery} />
           ))}
         </div>

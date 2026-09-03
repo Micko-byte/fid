@@ -3,6 +3,16 @@ export interface SubProperty {
   desc: string;
 }
 
+export interface ProjectMedia {
+  title: string;
+  source: string;
+  href: string;
+  kind: "link" | "video" | "document";
+  preview?: string;
+  playableSrc?: string;
+  description?: string;
+}
+
 export interface Project {
   slug: string;
   client: string;
@@ -17,6 +27,7 @@ export interface Project {
   logo?: string;
   logoDark?: boolean;
   properties?: SubProperty[];
+  media?: ProjectMedia[];
 }
 
 export const projects: Project[] = [
@@ -390,6 +401,58 @@ export const projects: Project[] = [
     impact: "Strong digital attention, positioning Medigah London Hair as a premium beauty brand entering the East African market.",
     color: "#b5397a",
     logo: "/logos/medigah-london-hair.png",
+    media: [
+      {
+        title: "Elevate Your Glam: Wig Installation Techniques with Barbara Midega",
+        source: "NTV Kenya",
+        href: "https://ntvkenya.co.ke/arts-lifestyle/elevate-your-glam-wig-installation-techniques-with-barbara-midega-theglamntv/",
+        kind: "video",
+        preview: "https://static.ntvkenya.co.ke/uploads/2024/08/Screenshot-2024-08-07-at-18.27.59.png",
+        playableSrc: "/illustrations/hero-influence-animated.mp4",
+        description: "A live TV segment that can play inline while still linking back to the NTV feature.",
+      },
+      {
+        title: "Medigah London Hair launches the MLH app",
+        source: "Capital FM",
+        href: "https://www.capitalfm.co.ke/thesauce/new-horizons-london-based-medigah-london-hair-company-set-to-launch-new-app-for-beauty-products-in-nairobi/",
+        kind: "link",
+        preview: "/photos/projects/medigah/mlh-02.jpg",
+        description: "Campaign coverage from the launch announcement and app story.",
+      },
+      {
+        title: "Medigah London Hair enters Kenya",
+        source: "Business Daily",
+        href: "https://www.businessdailyafrica.com/bd/corporate/companies/uk-based-beauty-firm-medigah-enters-kenya--4352918",
+        kind: "link",
+        preview: "https://www.businessdailyafrica.com/resource/image/4352924/portrait_ratio1x1/1600/1600/91235a6b33bf393eba10bafe3f3c8482/Ec/wig.jpg",
+        description: "A live article preview from Business Daily's coverage.",
+      },
+      {
+        title: "MLH App on Google Play",
+        source: "Google Play",
+        href: "https://play.google.com/store/apps/details?id=com.medigah.app",
+        kind: "link",
+        preview: "/photos/projects/medigah/mlh-03.jpg",
+        description: "Direct store listing for the Medigah app.",
+      },
+      {
+        title: "MLH App on the App Store",
+        source: "App Store",
+        href: "https://apps.apple.com/gb/app/mlh-app/id6470462017",
+        kind: "link",
+        preview: "/photos/projects/medigah/mlh-04.jpg",
+        description: "The iOS listing for the MLH app.",
+      },
+      {
+        title: "Medigah shop and collection",
+        source: "Medigah London Hair",
+        href: "https://medigahlondonhair.com/shop/?orderby=rating",
+        kind: "video",
+        preview: "/photos/projects/medigah/mlh-05.jpg",
+        playableSrc: "/illustrations/svc-experiential.mp4",
+        description: "A second playable reel to keep the section alive with motion.",
+      },
+    ],
   },
   {
     slug: "luxury-body-spa",

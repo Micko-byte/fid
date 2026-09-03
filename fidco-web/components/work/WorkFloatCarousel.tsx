@@ -125,10 +125,10 @@ function GlassCard({ card, variant, onClick }: { card: FloatCard; variant: "cent
     >
       {/* glass header — logo badge + handle + verified check */}
       <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", padding: "0.7rem 0.9rem" }}>
-        <span style={{ width: "30px", height: "30px", borderRadius: "999px", background: "#f5f2ec", display: "inline-flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0, border: "1px solid rgba(245,242,236,0.6)" }}>
+        <span style={{ width: "36px", height: "36px", borderRadius: "999px", background: "#f5f2ec", display: "inline-flex", alignItems: "center", justifyContent: "center", overflow: "hidden", flexShrink: 0, border: "1px solid rgba(245,242,236,0.6)" }}>
           {card.logo ? (
             /* eslint-disable-next-line @next/next/no-img-element */
-            <img src={card.logo} alt="" style={{ width: "22px", height: "22px", objectFit: "contain" }} />
+            <img src={card.logo} alt="" style={{ width: "28px", height: "28px", objectFit: "contain" }} />
           ) : (
             <span style={{ fontFamily: "var(--font-heading)", fontSize: "0.7rem", color: "#750006" }}>F</span>
           )}

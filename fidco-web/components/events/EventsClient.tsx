@@ -7,6 +7,51 @@ import { Ticket, CalendarBlank, MapPin } from "@phosphor-icons/react";
 import { events } from "@/components/lib/events";
 import { platforms } from "@/components/lib/platforms";
 import Footer from "@/components/Footer";
+import IgCarousel from "@/components/platforms/IgCarousel";
+
+const EVENT_ACCENT: Record<string, string> = {
+  "the-tribe-vibe": "#d98038",
+  "suhba-series": "#750006",
+  "the-capital-room": "#1c1c1c",
+};
+
+function EventInstagram({ slug }: { slug: string }) {
+  const platform = platforms.find((p) => p.slug === slug);
+  if (platform?.instagram) {
+    return (
+      <div style={{ marginTop: "1.6rem" }}>
+        <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(28,28,28,0.46)", fontWeight: 700, margin: "0 0 0.8rem" }}>
+          Live on Instagram
+        </p>
+        <IgCarousel
+          photos={platform.igPhotos ?? [platform.image]}
+          href={platform.instagram}
+          accent={EVENT_ACCENT[slug] ?? "#750006"}
+          feedUrl={platform.igFeedUrl}
+        />
+      </div>
+    );
+  }
+
+  return (
+    <div
+      style={{
+        marginTop: "1.6rem",
+        padding: "1rem 1.1rem",
+        borderRadius: "16px",
+        border: "1px solid rgba(28,28,28,0.08)",
+        background: "rgba(255,255,255,0.65)",
+      }}
+    >
+      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.62rem", letterSpacing: "0.26em", textTransform: "uppercase", color: "rgba(28,28,28,0.46)", fontWeight: 700, margin: 0 }}>
+        Instagram feed
+      </p>
+      <p style={{ fontFamily: "var(--font-body)", fontSize: "0.88rem", lineHeight: 1.6, color: "rgba(28,28,28,0.64)", margin: "0.65rem 0 0" }}>
+        The live Instagram embed for this platform is being connected. For now, the event hero keeps the latest visual reference in view.
+      </p>
+    </div>
+  );
+}
 
 function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -86,6 +131,8 @@ function EventCard({ ev, i }: { ev: typeof events[0]; i: number }) {
             <Ticket size={16} weight="bold" /> Tickets released soon
           </span>
         )}
+
+        <EventInstagram slug={ev.slug} />
       </motion.div>
     </div>
   );
