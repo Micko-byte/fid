@@ -21,7 +21,6 @@ const logos = [
   "/logos/wrc-safari-rally.svg",
   "/logos/elysium-capital.png",
   "/logos/medigah-london-hair.png",
-  "/logos/abyan-salon-spa.png",
   "/logos/2nu-kollexion.png",
   "/logos/suhba-series.png",
 ];

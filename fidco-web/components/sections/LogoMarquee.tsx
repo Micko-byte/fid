@@ -4,7 +4,7 @@ const logos = [
   "executive-office-president", "state-dept-culture", "unhcr", "lc-waikiki",
   "wrc-safari-rally", "columbia-africa", "thrive-hospitality", "chloride-exide",
   "bomas-of-kenya", "amahoro-coalition", "elysium-capital", "2nu-kollexion",
-  "abyan-salon-spa", "medigah-london-hair",
+  "medigah-london-hair",
 ];
 
 export default function LogoMarquee() {

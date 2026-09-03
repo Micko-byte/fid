@@ -74,8 +74,7 @@ const CLIENT_LOGOS = [
   "executive-office-president", "state-dept-culture", "unhcr", "lc-waikiki",
   "kansai-plascon", "wrc-safari-rally", "columbia-africa", "thrive-hospitality",
   "bomas-of-kenya", "amahoro-coalition", "elysium-capital", "chloride-exide",
-  "2nu-kollexion", "medigah-london-hair", "allso-beauty", "abyan-salon-spa",
-];
+  "2nu-kollexion", "medigah-london-hair", "allso-beauty", ];
 
 export default function WorkExpandGallery() {
   const [filter, setFilter] = useState<"all" | WorkSectorSlug>("all");

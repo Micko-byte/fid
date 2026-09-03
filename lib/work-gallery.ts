@@ -91,17 +91,6 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: cl("allso-04"), label: "Brand moment" },
     { src: cl("allso-05"), label: "Digital amplification" },
   ],
-  "abyan-salon": [
-    { src: "/photos/projects/abyan-salon/DSC08749.webp", label: "Salon environment" },
-    { src: "/photos/projects/abyan-salon/DSC08810.webp", label: "Beauty destination" },
-    { src: "/photos/projects/abyan-salon/DSC08835.webp", label: "Spa experience" },
-    { src: "/photos/projects/abyan-salon/DSC08838.webp", label: "Interior detail" },
-    { src: "/photos/projects/abyan-salon/DSC08846.webp", label: "Signature styling" },
-    { src: "/photos/projects/abyan-salon/DSC08858.webp", label: "Guest experience" },
-    { src: "/photos/projects/abyan-salon/DSC08859.webp", label: "Beauty craft" },
-    { src: "/photos/projects/abyan-salon/DSC08860.webp", label: "Salon atmosphere" },
-    { src: "/photos/projects/abyan-salon/DSC08926.webp", label: "Brand identity" },
-  ],
 };
 
 export function getProjectGallery(project: Pick<Project, "slug" | "title">): WorkImage[] {

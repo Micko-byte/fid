@@ -123,10 +123,9 @@ const CHAPTERS: Chapter[] = [
     title: "Beauty, Wellness & Lifestyle",
     short: "Beauty",
     accent: "#b5397a",
-    works: ["Allso Beauty", "Abyan Salon & Spa", "Luxury Body Spa", "Medigah London Hair", "RukyBeau"],
+    works: ["Allso Beauty", "Luxury Body Spa", "Medigah London Hair", "RukyBeau"],
     images: [
       { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/allso-launch", alt: "Allso Beauty launch" },
-      { src: "/photos/projects/abyan-salon/DSC08749.webp", alt: "Abyan Salon & Spa" },
     ],
   },
   {
