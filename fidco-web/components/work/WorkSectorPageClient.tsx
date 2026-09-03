@@ -302,9 +302,6 @@ function Panel({
         ({String(i + 1).padStart(2, "0")})
       </motion.span>
 
-      {/* mobile-only main image (the sticky pane hides on small screens) */}
-      <img src={entry.image} alt={entry.title} loading="lazy" className="wsp-inline-img" style={{ display: "none", width: "100%", maxWidth: "460px", aspectRatio: "4/3", objectFit: "cover", borderRadius: "10px", margin: "1.4rem 0 0" }} />
-
       {entry.logo && entry.href ? (
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
@@ -370,6 +367,10 @@ function Panel({
         </motion.p>
       )}
 
+      {/* Lead image, then the photo grid — the Suhba pattern: heading first,
+          then the images, full width. */}
+      <img src={entry.image} alt={entry.title} loading="lazy" className="wsp-inline-img" style={{ display: "none", width: "100%", maxWidth: "1040px", aspectRatio: "16/9", objectFit: "cover", borderRadius: "14px", margin: "2.2rem 0 0" }} />
+
       {/* Inline photo grid — arranged like the reference (fidpr.ke/medigah): all
           photos laid out in a 3-up grid on the page, each opening the lightbox. */}
       {entry.gallery.length >= 2 ? (
@@ -379,7 +380,7 @@ function Panel({
           viewport={{ once: true, amount: 0.15 }}
           transition={{ duration: 0.7, delay: 0.1, ease: EASE }}
           className="wsp-gallery-grid"
-          style={{ marginTop: "2rem", width: "100%", maxWidth: "620px" }}
+          style={{ marginTop: "1.4rem", width: "100%", maxWidth: "1040px" }}
         >
           {entry.gallery.map((src, gi) => (
             <button
@@ -724,21 +725,16 @@ export default function WorkSectorPageClient({ sector }: { sector: WorkSectorSlu
       <Footer />
 
       <style>{`
+        /* Every work section reads like the Suhba page: a heading, then the
+           images — full width, stacked. No sticky split pane. */
+        .wsp-split { grid-template-columns: 1fr !important; }
+        .wsp-sticky { display: none !important; }
+        .wsp-inline-img { display: block !important; }
+        .wsp-panel { min-height: 0 !important; }
+
         @media (max-width: 900px) {
           .sector-hero-grid {
             grid-template-columns: 1fr !important;
-          }
-          .wsp-split {
-            grid-template-columns: 1fr !important;
-          }
-          .wsp-sticky {
-            display: none !important;
-          }
-          .wsp-inline-img {
-            display: block !important;
-          }
-          .wsp-panel {
-            min-height: 0 !important;
           }
         }
       `}</style>
