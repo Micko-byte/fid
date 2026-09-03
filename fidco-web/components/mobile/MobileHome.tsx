@@ -82,11 +82,16 @@ export default function MobileHome() {
         const data = await res.json();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const list: any[] = Array.isArray(data) ? data : data?.posts ?? [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const pick = (m: any) => m?.sizes?.medium?.mediaUrl || m?.mediaUrl || m?.thumbnailUrl || "";
+        // Expand carousel albums so each post contributes several images.
         const srcs = list
+          .slice(0, 5)
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((p: any) => p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl || "")
+          .flatMap((p: any) => (Array.isArray(p.children) && p.children.length ? p.children : [p]))
+          .map(pick)
           .filter(Boolean)
-          .slice(0, 6);
+          .slice(0, 9);
         if (active && srcs.length) setIgPosts(srcs);
       } catch {
         /* keep fallback */

@@ -41,29 +41,39 @@ const fallback: IGPost[] = [
 function normalize(raw: any): IGPost[] {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const list: any[] = Array.isArray(raw) ? raw : raw?.posts ?? raw?.data ?? [];
-  return list
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pickImage = (m: any) =>
+    m?.sizes?.medium?.mediaUrl ||
+    m?.sizes?.small?.mediaUrl ||
+    m?.mediaUrl ||
+    m?.media_url ||
+    m?.thumbnailUrl ||
+    m?.thumbnail_url ||
+    m?.image ||
+    "";
+
+  // Most posts are carousels — expand each album's children so the feed shows
+  // several images per post instead of just the cover.
+  const out: IGPost[] = [];
+  list.slice(0, 5).forEach((p, i) => {
+    const permalink = p.permalink ?? p.link ?? PROFILE;
+    const caption = p.caption ?? p.prunedCaption ?? "";
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    .map((p: any, i: number): IGPost | null => {
-      const image =
-        p.sizes?.medium?.mediaUrl ||
-        p.sizes?.small?.mediaUrl ||
-        p.mediaUrl ||
-        p.media_url ||
-        p.thumbnailUrl ||
-        p.thumbnail_url ||
-        p.image ||
-        "";
-      if (!image) return null;
-      return {
-        id: p.id ?? String(i),
-        permalink: p.permalink ?? p.link ?? PROFILE,
+    const children: any[] = Array.isArray(p.children) ? p.children : [];
+    const media = children.length ? children : [p];
+    media.forEach((m, k) => {
+      const image = pickImage(m) || pickImage(p);
+      if (!image) return;
+      out.push({
+        id: `${p.id ?? i}-${k}`,
+        permalink,
         image,
-        caption: p.caption ?? p.prunedCaption ?? "",
-        isVideo: (p.mediaType ?? p.media_type ?? "").toString().toUpperCase().includes("VIDEO"),
-      };
-    })
-    .filter((x): x is IGPost => !!x)
-    .slice(0, 6);
+        caption,
+        isVideo: (m.mediaType ?? m.media_type ?? "").toString().toUpperCase().includes("VIDEO"),
+      });
+    });
+  });
+  return out.slice(0, 12);
 }
 
 

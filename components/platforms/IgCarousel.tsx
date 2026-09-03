@@ -35,11 +35,17 @@ export default function IgCarousel({
         const data = await res.json();
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const list: any[] = Array.isArray(data) ? data : data?.posts ?? [];
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const pick = (m: any) => m?.sizes?.medium?.mediaUrl || m?.mediaUrl || m?.thumbnailUrl || "";
+        // Expand carousel albums so the carousel cycles through several images
+        // per post, not just each post's cover.
         const srcs = list
+          .slice(0, 5)
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .map((p: any) => p.sizes?.medium?.mediaUrl || p.mediaUrl || p.thumbnailUrl || "")
+          .flatMap((p: any) => (Array.isArray(p.children) && p.children.length ? p.children : [p]))
+          .map(pick)
           .filter(Boolean)
-          .slice(0, 6);
+          .slice(0, 10);
         if (active && srcs.length) setActivePhotos(srcs);
       } catch {
         /* keep fallback */
