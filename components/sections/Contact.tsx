@@ -1,6 +1,7 @@
 ﻿"use client";
 
 import { useRef, useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { InstagramLogo, EnvelopeSimple, Phone, MapPin } from "@phosphor-icons/react";
 import HoverIcon from "@/components/ui/HoverIcon";
@@ -384,6 +385,20 @@ export default function Contact() {
                 </motion.button>
 
                 {state === "error" && <p style={errStyle}>Connection failed. Please email us directly at info@fidco.africa</p>}
+
+                {/* Farida's full briefing form lives on its own page — this is the
+                    route for anyone ready to give us the real brief. */}
+                <div style={{ marginTop: "0.6rem", paddingTop: "1.3rem", borderTop: "1px solid rgba(117,0,6,0.12)" }}>
+                  <p style={{ fontFamily: "var(--font-body)", fontSize: "0.86rem", lineHeight: 1.6, color: "rgba(28,28,28,0.66)", marginBottom: "0.9rem" }}>
+                    Working on something bigger? Take five minutes with our Discovery Brief and we&apos;ll come back with the thinking that matters.
+                  </p>
+                  <Link
+                    href="/brief"
+                    style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.12em", textTransform: "uppercase", fontWeight: 700, color: "#2f7f7a", border: "1px solid rgba(47,127,122,0.4)", padding: "0.8rem 1.3rem", borderRadius: "999px", textDecoration: "none" }}
+                  >
+                    Start the Discovery Brief →
+                  </Link>
+                </div>
               </form>
             )}
           </motion.div>

@@ -1,11 +1,6 @@
 {
   "version": "0.0.1",
   "configurations": [
-    {
-      "name": "fidco-web",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--prefix", "fidco-web", "--", "-p", "3001"],
-      "port": 3001
-    }
+    { "name": "fid-web", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3001 }
   ]
 }
