@@ -46,6 +46,12 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: cl("kansai-04"), label: "Stakeholder launch" },
     { src: cl("kansai-05"), label: "Brand moment" },
   ],
+  "wrc-safari-rally": [
+    { src: cl("wrc-01"), label: "WRC Safari Rally — Kenya stage" },
+    { src: cl("wrc-02"), label: "WRC Safari Rally — cultural welcome" },
+    { src: cl("wrc-03"), label: "WRC Safari Rally — Naivasha at golden hour" },
+    { src: cl("wrc-04"), label: "WRC Safari Rally — Kenya stage" },
+  ],
   "thrive-hospitality-group": [
     { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-hotel", label: "Glam Hotel — rooftop launch" },
     { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/social8-01", label: "Social 8 — launch entrance" },
