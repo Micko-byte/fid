@@ -1,14 +1,13 @@
 "use client";
 
+import BrandBackdrop from "@/components/graphics/BrandBackdrop";
 import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Plus, Minus, Megaphone, Television, UsersThree, DeviceMobileCamera, Confetti, type Icon } from "@phosphor-icons/react";
-import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
 import HoverIcon from "@/components/ui/HoverIcon";
 import { services } from "@/components/lib/services";
-const OrbitalRings = dynamic(() => import("@/components/graphics/OrbitalRings"), { ssr: false });
 
 const iconMap: Record<string, Icon> = {
   Megaphone, Television, UsersThree, DeviceMobileCamera, Confetti,
@@ -144,7 +143,9 @@ function PageHero() {
         className="absolute inset-0 pointer-events-none"
         style={{ background: "radial-gradient(ellipse 80% 60% at 70% 80%, rgba(217,128,56,0.07) 0%, transparent 70%)" }}
       />
-      <OrbitalRings color="#1c1c1c" opacity={0.06} className="absolute right-0 top-0 h-full w-2/3 hidden md:block" />
+      {/* 2026 brand constellation + dotted Africa, replacing the orbital rings
+          this hero used before. */}
+      <BrandBackdrop variant="light" map opacity={0.5} />
       <div className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16 w-full">
         <motion.p
           initial={{ opacity: 0, y: 12 }}

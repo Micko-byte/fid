@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import DiscoveryBrief from "@/components/contact/DiscoveryBrief";
+import BrandBackdrop from "@/components/graphics/BrandBackdrop";
 
 export const metadata: Metadata = {
   title: "The Discovery Brief | FID & Co.",
@@ -13,15 +14,7 @@ export default function BriefPage() {
   return (
     <>
       <section className="section-light" style={{ position: "relative", overflow: "hidden", paddingTop: "clamp(7rem,14vw,11rem)", paddingBottom: "clamp(2.5rem,5vw,4rem)", backgroundColor: "#fbf7f1" }}>
-        <div
-          aria-hidden
-          style={{
-            position: "absolute", inset: 0, zIndex: 0, pointerEvents: "none", opacity: 0.3,
-            backgroundImage:
-              "linear-gradient(rgba(117,0,6,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(47,127,122,0.07) 1px, transparent 1px)",
-            backgroundSize: "clamp(48px,6vw,96px) clamp(48px,6vw,96px)",
-          }}
-        />
+        <BrandBackdrop variant="cream" map opacity={0.55} />
         <div style={{ position: "relative", zIndex: 1, maxWidth: "1280px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)" }}>
           <p style={{ fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.28em", textTransform: "uppercase", color: "#750006", marginBottom: "1.4rem", fontWeight: 700 }}>
             The Discovery Brief
