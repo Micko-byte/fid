@@ -1,18 +1,22 @@
 import type { CSSProperties } from "react";
 
 interface FidLogoProps {
-  /** "dark" = logo on light/cream bg (maroon mark). "light" = logo on dark/red bg (cream mark). */
+  /** "dark" = logo on light/cream bg (black mark). "light" = logo on dark/red bg (cream mark). */
   variant?: "dark" | "light";
   className?: string;
   style?: CSSProperties;
 }
 
 /**
- * FID & Co. logo (2026 redesign). Two colourways — maroon for light backgrounds,
- * cream for dark backgrounds. Height is driven by the caller's style; width auto.
+ * FID & Co. logo (2026 redesign). Vector, so it stays sharp at the 260px-tall
+ * footer banner where the old PNG visibly pixelated. Two colourways — black for
+ * light backgrounds, cream for dark. Height is driven by the caller; width auto.
+ *
+ * A maroon colourway sits alongside these at /brand/fid-logo-maroon.svg if the
+ * mark should go back to brand maroon on light backgrounds.
  */
 export default function FidLogo({ variant = "dark", className = "", style }: FidLogoProps) {
-  const src = variant === "dark" ? "/brand/fid-logo-maroon.png" : "/brand/fid-logo-cream.png";
+  const src = variant === "dark" ? "/brand/fid-logo-black.svg" : "/brand/fid-logo-cream.svg";
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img

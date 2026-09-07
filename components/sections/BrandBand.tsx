@@ -61,7 +61,7 @@ export default function BrandBand() {
         }}
       >
         <motion.img
-          src="/brand/fid-logo-cream.png"
+          src="/brand/fid-logo-cream.svg"
           alt="FID & Co."
           initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

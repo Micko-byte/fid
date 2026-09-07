@@ -26,7 +26,10 @@ const SECTORS: { slug: WorkSectorSlug; short: string }[] = [
 function SectorCard({ slug, short, index }: { slug: WorkSectorSlug; short: string; index: number }) {
   const meta = getWorkSectorMeta(slug);
   const projects = getProjectsForWorkSector(slug);
-  const flagship = projects[0];
+  // Lead with the first project that actually has photography — otherwise a
+  // sector whose first project has an empty gallery (Government, whose first
+  // entry is National Minorities Day) falls back to a lone cover image.
+  const flagship = projects.find((p) => getProjectGallery(p).length > 0) ?? projects[0];
   if (!meta) return null;
 
   // Collage — the flagship's gallery, else the sector cover.

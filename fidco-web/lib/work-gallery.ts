@@ -62,6 +62,18 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-rooftop-01", label: "Glam Hotel — rooftop night" },
   ],
   "africa-forum-on-displacements": [],
+  "gertrudes-foundation": [
+    { src: cl("gertrudes-06"), label: "Gertrude's Foundation — mobile clinic outreach" },
+    { src: cl("gertrudes-04"), label: "Filming the mobile clinic in the community" },
+    { src: cl("gertrudes-01"), label: "On location with the production crew" },
+    { src: cl("gertrudes-09"), label: "Community outreach" },
+    { src: cl("gertrudes-02"), label: "Mobile clinic day" },
+    { src: cl("gertrudes-03"), label: "Gertrude's Foundation" },
+    { src: cl("gertrudes-05"), label: "Gertrude's Foundation" },
+    { src: cl("gertrudes-07"), label: "Gertrude's Foundation" },
+    { src: cl("gertrudes-08"), label: "Gertrude's Foundation" },
+    { src: cl("gertrudes-10"), label: "Gertrude's Foundation" },
+  ],
   "columbia-africa-healthcare": [
     { src: "/photos/projects/columbia/columbia-01.jpg", label: "Columbia Africa Healthcare" },
     { src: "/photos/projects/columbia/columbia-02.jpg", label: "Columbia Africa Healthcare" },

@@ -141,7 +141,9 @@ export default function Contact() {
   const [igLive, setIgLive] = useState(false);
 
   useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL ?? "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
+    // `||` not `??` — the Vercel env var is set but empty, and `"" ?? default`
+    // keeps the empty string, which silently strands us on the fallback tiles.
+    const url = process.env.NEXT_PUBLIC_INSTAGRAM_FEED_URL || "https://feeds.behold.so/yZp6UeHFmPs6YRRfXoGV";
     let alive = true;
 
     (async () => {
