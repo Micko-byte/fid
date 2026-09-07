@@ -151,13 +151,6 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
   return (
     <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh", position: "relative" }}>
       <IconField tone="light" photo={STOCK.about?.[1]?.src} />
-      {media.length > 0 && (
-        <ProjectMediaShelf
-          items={media}
-          title="In the press"
-          intro="Live links, press coverage and playable launch assets pulled from current web sources."
-        />
-      )}
       <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Sticky back bar ── */}
@@ -173,9 +166,46 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
         </span>
       </div>
 
-      {/* ── HERO: title left + first image right ── */}
-      <div style={{ paddingTop: "clamp(5.5rem,12vh,8rem)", maxWidth: "1440px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,5rem)", paddingRight: "clamp(1.5rem,5vw,5rem)" }}>
-        <div className="wd-hero-grid" style={{ display: "grid", gridTemplateColumns: hasImages ? "1fr 1fr" : "1fr", gap: "clamp(2rem,5vw,5rem)", alignItems: "center", paddingBottom: "clamp(3rem,6vw,5rem)", borderBottom: "1px solid rgba(117,0,6,0.1)" }}>
+      {/* ── HERO: full-bleed photograph with the title over it, matching the
+             case-study pages on fidpr.ke ── */}
+      {hasImages && (
+        <section className="wd-hero-full" style={{ position: "relative", width: "100%", height: "clamp(420px, 68vh, 760px)", overflow: "hidden", background: "#1c1c1c" }}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={galleryImages[0].src}
+            alt={galleryImages[0].label}
+            style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }}
+          />
+          {/* scrim so the title stays readable whatever the photo does */}
+          <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.06) 38%, rgba(0,0,0,0.72) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "flex-end", maxWidth: "1440px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,5rem)", paddingRight: "clamp(1.5rem,5vw,5rem)", paddingBottom: "clamp(2.5rem,6vw,4.5rem)" }}>
+            <div>
+              <motion.div
+                initial={{ scaleX: 0 }} animate={{ scaleX: 1 }}
+                transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+                style={{ transformOrigin: "left", height: "3px", width: "64px", background: "#d98038", borderRadius: "2px", marginBottom: "1.4rem" }}
+              />
+              <motion.p
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
+                style={{ fontFamily: "var(--font-body)", fontSize: "0.68rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#f0c9a8", fontWeight: 700, marginBottom: "0.9rem" }}
+              >
+                {project.sector} · {project.years}
+              </motion.p>
+              <motion.h1
+                initial={{ opacity: 0, y: 26 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.85, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
+                style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.1rem,5.5vw,4.8rem)", lineHeight: 1.02, letterSpacing: "-0.025em", color: "#ffffff", maxWidth: "18ch", textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}
+              >
+                {project.client}
+              </motion.h1>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ── Intro: meta + title + desc ── */}
+      <div style={{ paddingTop: hasImages ? "clamp(3rem,6vw,4.5rem)" : "clamp(5.5rem,12vh,8rem)", maxWidth: "1440px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,5rem)", paddingRight: "clamp(1.5rem,5vw,5rem)" }}>
+        <div className="wd-hero-grid" style={{ display: "grid", gridTemplateColumns: hasImages && galleryImages.length > 1 ? "1fr 1fr" : "1fr", gap: "clamp(2rem,5vw,5rem)", alignItems: "center", paddingBottom: "clamp(3rem,6vw,5rem)", borderBottom: "1px solid rgba(117,0,6,0.1)" }}>
 
           {/* Left: meta + title + desc */}
           <div>
@@ -188,13 +218,15 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
               ))}
             </motion.div>
 
-            <motion.h1
+            {/* The client name carries the hero, so this leads with the piece
+                of work itself rather than repeating it. */}
+            <motion.h2
               initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, delay: 0.07, ease: [0.16, 1, 0.3, 1] }}
-              style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(2.2rem,5.5vw,5rem)", lineHeight: 0.95, letterSpacing: "-0.025em", color: "#1c1c1c", marginBottom: "1.2rem" }}
+              style={{ fontFamily: "var(--font-heading)", fontWeight: 800, fontSize: "clamp(1.9rem,4.2vw,3.4rem)", lineHeight: 1.02, letterSpacing: "-0.025em", color: "#750006", marginBottom: "1.2rem" }}
             >
-              {project.client}
-            </motion.h1>
+              {project.title}
+            </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }}
@@ -212,11 +244,11 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
             />
           </div>
 
-          {/* Right: hero image */}
-          {hasImages && (
+          {/* Right: second frame (the first now carries the hero) */}
+          {hasImages && galleryImages.length > 1 && (
             <motion.div initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
               style={{ position: "relative" }}>
-              <Img src={galleryImages[0].src} label={galleryImages[0].label} index={0} style={{ height: "clamp(300px,40vw,520px)", borderRadius: "14px" }} />
+              <Img src={galleryImages[1].src} label={galleryImages[1].label} index={1} style={{ height: "clamp(300px,40vw,520px)", borderRadius: "14px" }} />
             </motion.div>
           )}
         </div>
@@ -316,16 +348,38 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
         </motion.div>
       </div>
 
-      {/* ── Extended gallery: images 6+ in editorial grid ── */}
+      {/* Coverage sits after the write-up — the hero opens the page. */}
+      {media.length > 0 && (
+        <ProjectMediaShelf
+          items={media}
+          title="In the press"
+          intro="Live links, press coverage and playable launch assets pulled from current web sources."
+        />
+      )}
+
+      {/* ── "A visual glimpse": the dense photo wall on a dark ground, as on
+             the fidpr.ke case-study pages ── */}
       {galleryImages.length > 5 && (
-        <div style={{ maxWidth: "1440px", margin: "clamp(3rem,6vw,5rem) auto 0", paddingLeft: "clamp(1.5rem,5vw,5rem)", paddingRight: "clamp(1.5rem,5vw,5rem)" }}>
-          <div className="wd-gallery-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "clamp(0.75rem,1.5vw,1.25rem)" }}>
-            {galleryImages.slice(5).map((img, i) => (
-              <Img key={img.src} src={img.src} label={img.label} index={i + 5}
-                style={{ height: "clamp(160px,20vw,280px)", marginTop: i % 3 === 1 ? "clamp(1rem,2.5vw,2rem)" : 0 }} />
-            ))}
+        <section style={{ background: "#241014", marginTop: "clamp(4rem,8vw,7rem)", paddingTop: "clamp(3rem,6vw,5rem)", paddingBottom: "clamp(3rem,6vw,5rem)" }}>
+          <div style={{ maxWidth: "1440px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,5rem)", paddingRight: "clamp(1.5rem,5vw,5rem)" }}>
+            <h2 style={{ fontFamily: "var(--font-heading)", fontWeight: 700, fontSize: "clamp(1.6rem,3.4vw,2.9rem)", color: "#ffffff", lineHeight: 1.1, letterSpacing: "-0.02em", marginBottom: "0.9rem" }}>
+              A visual glimpse of {project.client}
+            </h2>
+            <div style={{ height: "1px", background: "linear-gradient(90deg, #d98038, rgba(217,128,56,0))", marginBottom: "clamp(1.6rem,3vw,2.4rem)" }} />
+            <div className="wd-glimpse-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: "clamp(0.5rem,1vw,0.85rem)" }}>
+              {galleryImages.slice(5).map((img) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={img.src}
+                  src={img.src}
+                  alt={img.label}
+                  loading="lazy"
+                  style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "cover", display: "block", background: "#2e181c" }}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        </section>
       )}
 
       {/* ── Sub-properties ── */}
@@ -363,11 +417,15 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
       </div>
 
       <style>{`
+        @media (max-width: 1024px) {
+          .wd-glimpse-grid { grid-template-columns: repeat(3,1fr) !important; }
+        }
         @media (max-width: 767px) {
           .wd-hero-grid  { grid-template-columns: 1fr !important; }
           .wd-body-grid  { grid-template-columns: 1fr !important; }
           .wd-scope-grid { grid-template-columns: 1fr !important; }
           .wd-gallery-grid { grid-template-columns: 1fr 1fr !important; }
+          .wd-glimpse-grid { grid-template-columns: repeat(2,1fr) !important; }
         }
         @media (max-width: 560px) {
           .wd-gallery-grid { grid-template-columns: 1fr !important; }
