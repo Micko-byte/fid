@@ -50,6 +50,37 @@ export const projects: Project[] = [
     impact: "High-level government communication delivered with sensitivity, accuracy and national impact.",
     color: "#750006",
     logo: "/logos/executive-office-president.png",
+    // Broadcast work and coverage, embedded so they play on the page — the same
+    // three films carried on fidpr.ke's Executive Office of the President page.
+    media: [
+      {
+        title: "TVC for Kenya's first celebration of International Minorities Rights Day",
+        source: "FID Public Relations",
+        kind: "video",
+        href: "https://www.youtube.com/watch?v=Oeb-1e7Cfx0",
+        playableSrc: "https://www.youtube-nocookie.com/embed/Oeb-1e7Cfx0",
+        preview: "https://i.ytimg.com/vi/Oeb-1e7Cfx0/maxresdefault.jpg",
+        description: "The national television commercial produced for the observance.",
+      },
+      {
+        title: "Selected by the Executive Office of the President as creative agency",
+        source: "FID Public Relations",
+        kind: "video",
+        href: "https://www.youtube.com/shorts/CK8125IHoxs",
+        playableSrc: "https://www.youtube-nocookie.com/embed/CK8125IHoxs",
+        preview: "https://i.ytimg.com/vi/CK8125IHoxs/hqdefault.jpg",
+        description: "Short-form cut from the campaign.",
+      },
+      {
+        title: "Talking arts & culture on the day of the minority with PS Ummi Bashir",
+        source: "NTV Kenya · #theTrend",
+        kind: "video",
+        href: "https://www.youtube.com/watch?v=oFbmCCA4kVk",
+        playableSrc: "https://www.youtube-nocookie.com/embed/oFbmCCA4kVk",
+        preview: "https://i.ytimg.com/vi/oFbmCCA4kVk/maxresdefault.jpg",
+        description: "National broadcast coverage of the observance.",
+      },
+    ],
   },
   {
     slug: "africa-urban-forum-2026",

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { renderBrandedEmail } from "@/lib/email-template";
 
 /**
  * Discovery Brief handler — emails a completed briefing form to Farida.
@@ -48,18 +49,6 @@ export async function POST(req: Request) {
     auth: { user: SMTP_USER, pass: SMTP_PASS },
   });
 
-  const html = sections
-    .map(
-      (s) => `<h3 style="font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:#750006;margin:26px 0 8px">${escapeHtml(s.title)}</h3>` +
-        s.items
-          .map(
-            (i) =>
-              `<p style="margin:0 0 10px;font-size:14px;line-height:1.6"><span style="color:#2f7f7a;font-weight:700">${escapeHtml(i.label)}</span><br>${escapeHtml(i.value).replace(/\n/g, "<br>")}</p>`,
-          )
-          .join(""),
-    )
-    .join("");
-
   const text = sections
     .map((s) => `${s.title}\n${"-".repeat(s.title.length)}\n` + s.items.map((i) => `${i.label}\n${i.value}\n`).join("\n"))
     .join("\n\n");
@@ -71,11 +60,16 @@ export async function POST(req: Request) {
       replyTo: email,
       subject: `Discovery Brief — ${company} (${name})`,
       text: `Discovery Brief\n\nCompany: ${company}\nName: ${name}\nEmail: ${email}\n\n${text}`,
-      html: `<div style="font-family:Arial,sans-serif;color:#1c1c1c;max-width:640px">
-        <h2 style="color:#260000;margin:0 0 4px">Discovery Brief</h2>
-        <p style="margin:0 0 18px;font-size:14px;color:#555">${escapeHtml(company)} · ${escapeHtml(name)} · ${escapeHtml(email)}</p>
-        ${html}
-      </div>`,
+      html: renderBrandedEmail({
+        title: "Discovery Brief",
+        subtitle: `${company} · ${name} · ${email}`,
+        replyEmail: email,
+        // Long prose answers read better as panels than as cramped table rows.
+        sections: sections.map((s) => ({
+          title: s.title,
+          items: s.items.map((i) => ({ ...i, block: i.value.length > 80 || i.value.includes("\n") })),
+        })),
+      }),
     });
     return NextResponse.json({ ok: true });
   } catch (err) {
@@ -84,6 +78,3 @@ export async function POST(req: Request) {
   }
 }
 
-function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string));
-}

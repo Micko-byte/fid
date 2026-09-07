@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
+import { renderBrandedEmail } from "@/lib/email-template";
 
 /**
  * Contact form handler — emails submissions to Farida.
@@ -52,15 +53,6 @@ export async function POST(req: Request) {
     auth: { user: SMTP_USER, pass: SMTP_PASS },
   });
 
-  const rows = [
-    ["Name", name],
-    ["Email", email],
-    ["Phone", phone || "—"],
-    ["Service", service || "—"],
-  ]
-    .map(([k, v]) => `<tr><td style="padding:6px 14px 6px 0;color:#750006;font-weight:700">${k}</td><td style="padding:6px 0">${escapeHtml(v)}</td></tr>`)
-    .join("");
-
   try {
     await transporter.sendMail({
       from: `"FID & Co. website" <${SMTP_USER}>`,
@@ -68,20 +60,26 @@ export async function POST(req: Request) {
       replyTo: email,
       subject: `New enquiry from ${name}${service ? ` — ${service}` : ""}`,
       text: `New contact form enquiry\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || "—"}\nService: ${service || "—"}\n\nMessage:\n${message}`,
-      html: `<div style="font-family:Arial,sans-serif;color:#1c1c1c">
-        <h2 style="color:#260000;margin:0 0 12px">New website enquiry</h2>
-        <table style="border-collapse:collapse;font-size:14px">${rows}</table>
-        <p style="margin:16px 0 4px;color:#750006;font-weight:700">Message</p>
-        <p style="white-space:pre-wrap;font-size:14px;line-height:1.6">${escapeHtml(message)}</p>
-      </div>`,
+      html: renderBrandedEmail({
+        title: "New website enquiry",
+        subtitle: `${name}${service ? ` · ${service}` : ""}`,
+        replyEmail: email,
+        sections: [
+          {
+            items: [
+              { label: "Name", value: name },
+              { label: "Email", value: email },
+              { label: "Phone", value: phone || "—" },
+              { label: "Service", value: service || "—" },
+              { label: "Message", value: message, block: true },
+            ],
+          },
+        ],
+      }),
     });
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[contact] send failed:", err);
     return NextResponse.json({ ok: false, error: "Could not send your message. Please email us directly." }, { status: 502 });
   }
-}
-
-function escapeHtml(s: string) {
-  return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c] as string));
 }
