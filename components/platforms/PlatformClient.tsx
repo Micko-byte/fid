@@ -200,12 +200,14 @@ export default function PlatformClient({ platform: p }: { platform: OwnedPlatfor
                 </motion.a>
               )}
 
-              {p.instagram && p.igPhotos && p.igPhotos.length > 0 && (
+              {/* A live Behold feed is enough on its own — igPhotos is only the
+                  fallback for platforms without one wired up yet. */}
+              {p.instagram && ((p.igPhotos && p.igPhotos.length > 0) || p.igFeedUrl) && (
                 <motion.div
                   initial={{ opacity: 0, y: 14 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7, delay: 0.7 }}
                   style={{ marginTop: "0.4rem" }}
                 >
-                  <IgCarousel photos={p.igPhotos} href={p.instagram} accent={p.accent} feedUrl={p.igFeedUrl} />
+                  <IgCarousel photos={p.igPhotos} href={p.instagram} accent={p.accent} feedUrl={p.igFeedUrl} bio={p.tagline} />
                 </motion.div>
               )}
             </div>

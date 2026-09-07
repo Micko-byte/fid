@@ -110,6 +110,7 @@ export const platforms: OwnedPlatform[] = [
     logo: "/logos/suhba-series.png",
     logoDark: false,
     instagram: "https://www.instagram.com/suhbaseries/",
+    igFeedUrl: "https://feeds.behold.so/jaz3mTtJDWN6zqEY4rrx",
   },
   {
     slug: "the-capital-room",
