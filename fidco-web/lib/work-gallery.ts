@@ -62,6 +62,9 @@ export const projectGalleryImages: Record<string, WorkImage[]> = {
     { src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-rooftop-01", label: "Glam Hotel — rooftop night" },
   ],
   "africa-forum-on-displacements": [],
+  "gor-mahia-launch": [
+    { src: cl("gor-mahia-01"), label: "Gor Mahia FC — starting XI, CAF Champions League" },
+  ],
   "gertrudes-foundation": [
     { src: cl("gertrudes-06"), label: "Gertrude's Foundation — mobile clinic outreach" },
     { src: cl("gertrudes-04"), label: "Filming the mobile clinic in the community" },
