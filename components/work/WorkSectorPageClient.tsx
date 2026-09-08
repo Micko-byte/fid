@@ -1,6 +1,6 @@
 "use client";
 
-import BrandBackdrop from "@/components/graphics/BrandBackdrop";
+import BrandBackdrop, { seededPatternStyle } from "@/components/graphics/BrandBackdrop";
 import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -304,7 +304,11 @@ function Panel({
         justifyContent: "center",
         textAlign: "center",
         padding: "clamp(4rem,10vh,7rem) clamp(1.5rem,4.5vw,4rem)",
-        background: i % 2 ? "#efe8dc" : "#f5f2ec",
+        // Each work starts on its own patterned ground — the page-level
+        // backdrop is painted over by these panels, so the pattern is blended
+        // into the panel colour instead.
+        backgroundColor: i % 2 ? "#efe8dc" : "#f5f2ec",
+        ...seededPatternStyle(entry.key),
         position: "relative",
       }}
     >

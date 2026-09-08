@@ -83,3 +83,21 @@ export default function BrandBackdrop({
     </div>
   );
 }
+
+/** Seeded pattern layer for a section that paints its own background colour.
+ *  Returns background properties rather than an element, so the artwork blends
+ *  into that colour instead of stacking over the section's content. */
+export function seededPatternStyle(seed: string, variant: "light" | "cream" = "cream") {
+  let h = 0;
+  for (let i = 0; i < seed.length; i += 1) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  const src = variant === "cream"
+    ? "/brand/pattern-constellation-cream.jpg"
+    : "/brand/pattern-constellation-light.jpg";
+  return {
+    backgroundImage: `url('${src}')`,
+    backgroundSize: `${Math.round(780 * (0.82 + ((h >> 16) % 45) / 100))}px auto`,
+    backgroundPosition: `${h % 90}% ${(h >> 8) % 90}%`,
+    backgroundRepeat: "repeat",
+    backgroundBlendMode: "multiply",
+  } as const;
+}
