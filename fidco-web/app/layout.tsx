@@ -33,8 +33,15 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
   alternates: { canonical: "https://fidco.africa" },
   icons: {
-    icon: "/favicon.svg",
-    shortcut: "/favicon.svg",
+    // The circular brand badge. Several raster sizes so the browser picks a
+    // clean one rather than downscaling a big PNG itself.
+    icon: [
+      { url: "/brand/fid-badge-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/brand/fid-badge-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/brand/fid-badge-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    shortcut: "/brand/fid-badge-192.png",
+    apple: "/brand/fid-badge-180.png",
   },
 };
 

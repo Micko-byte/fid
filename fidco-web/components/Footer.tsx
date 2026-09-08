@@ -16,6 +16,15 @@ export default function Footer() {
     <footer ref={ref} className="section-red" data-nav-dark style={{ backgroundColor: "#5d0010", color: "#f5f2ec", position: "relative", overflow: "hidden", borderTop: "3px solid rgba(47,127,122,0.55)" }}>
       {/* ── Columns ── */}
       <div style={{ position: "relative", zIndex: 2, maxWidth: "1320px", margin: "0 auto", paddingLeft: "clamp(1.5rem,5vw,6rem)", paddingRight: "clamp(1.5rem,5vw,6rem)", paddingTop: "clamp(4rem,7vw,6rem)" }}>
+        {/* Brand badge — the circular mark, transparent behind the circle so it
+            sits straight on the maroon. */}
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="/brand/fid-badge.png"
+          alt="FID &amp; Co. — Insight. Strategy. Impact."
+          loading="lazy"
+          style={{ display: "block", width: "clamp(112px, 13vw, 168px)", height: "auto", marginBottom: "clamp(2rem,4vw,3rem)" }}
+        />
         <div className="ft-grid" style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: "clamp(2rem,5vw,4rem)" }}>
           <div>
             <h5 style={{ fontSize: "0.7rem", letterSpacing: "0.2em", textTransform: "uppercase", color: "#f5f2ec", marginBottom: "1.4rem", fontWeight: 700, fontFamily: "var(--font-body)" }}>Navigation</h5>
