@@ -99,7 +99,7 @@ export default function Nav() {
           {/* ── Logo + tagline ── */}
                     <Link href="/" aria-label="Insight. Strategy. Impact. - home" className="nav-logo-link" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
             <FidLogo
-              variant="dark"
+              variant="maroon"
               className="nav-logo"
               style={{
                 height: "34px",

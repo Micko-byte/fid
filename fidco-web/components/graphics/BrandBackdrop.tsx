@@ -15,6 +15,7 @@ export default function BrandBackdrop({
   map = false,
   opacity = 0.5,
   mapOpacity = 0.3,
+  seed,
 }: {
   /** "light" for white pages, "cream" for the warmer #f5f2ec sections,
    *  "dark" for the deep-maroon panels (gold artwork, no multiply). */
@@ -23,6 +24,9 @@ export default function BrandBackdrop({
   map?: boolean;
   opacity?: number;
   mapOpacity?: number;
+  /** Any stable string (a slug works). Shifts and scales the tiling so pages
+   *  don't all show the constellation in the same place. */
+  seed?: string;
 }) {
   const dark = variant === "dark";
   // The gold artwork is transparent PNG, so it sits on a dark panel directly;
@@ -34,6 +38,16 @@ export default function BrandBackdrop({
       : "/brand/pattern-constellation-light.jpg";
   const mapSrc = dark ? "/brand/africa-constellation-gold.png" : "/brand/africa-constellation-maroon.jpg";
 
+  // Deterministic per-seed variation, so the constellation doesn't sit in the
+  // same place on every page. Hashed rather than random so the server and the
+  // client render the same thing.
+  let h = 0;
+  for (let i = 0; i < (seed ?? "").length; i += 1) h = (h * 31 + seed!.charCodeAt(i)) >>> 0;
+  const offsetX = seed ? h % 90 : 0;
+  const offsetY = seed ? (h >> 8) % 90 : 0;
+  const scale = seed ? 0.82 + ((h >> 16) % 45) / 100 : 1;
+  const flip = seed ? ((h >> 5) & 1) === 1 : false;
+
   return (
     <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
       <div
@@ -41,8 +55,10 @@ export default function BrandBackdrop({
           position: "absolute",
           inset: 0,
           backgroundImage: `url('${pattern}')`,
-          backgroundSize: "clamp(620px, 62vw, 1000px) auto",
+          backgroundSize: seed ? `${Math.round(780 * scale)}px auto` : "clamp(620px, 62vw, 1000px) auto",
+          backgroundPosition: `${offsetX}% ${offsetY}%`,
           backgroundRepeat: "repeat",
+          transform: flip ? "scaleX(-1)" : undefined,
           mixBlendMode: dark ? "normal" : "multiply",
           opacity,
         }}

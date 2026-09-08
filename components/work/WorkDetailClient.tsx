@@ -152,7 +152,7 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
   return (
     <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh", position: "relative" }}>
       <IconField tone="light" photo={STOCK.about?.[1]?.src} />
-      <BrandBackdrop variant="cream" opacity={0.42} />
+      <BrandBackdrop variant="cream" opacity={0.42} seed={project.slug} />
       <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Sticky back bar ── */}
