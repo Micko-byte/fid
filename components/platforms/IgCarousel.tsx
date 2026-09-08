@@ -34,7 +34,7 @@ export default function IgCarousel({
   // the header reads like a real profile rather than a generic badge.
   const [profile, setProfile] = useState<{ avatar?: string; bio?: string }>({});
 
-  const visible = tiles.filter((t) => !broken[t.src]).slice(0, 8);
+  const visible = tiles.filter((t) => !broken[t.src]).slice(0, 24);
   const handle = href.replace(/\/+$/, "").split("/").pop() || "instagram";
 
   useEffect(() => {
@@ -56,9 +56,9 @@ export default function IgCarousel({
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const pick = (m: any) => m?.sizes?.medium?.mediaUrl || m?.mediaUrl || m?.thumbnailUrl || "";
         const next: IgTile[] = [];
-        list.slice(0, 8).forEach((p) => {
+        list.slice(0, 20).forEach((p) => {
           const children = Array.isArray(p.children) && p.children.length ? p.children : [p];
-          children.slice(0, 2).forEach((m: unknown) => {
+          children.slice(0, 4).forEach((m: unknown) => {
             const src = pick(m) || pick(p);
             if (src && !next.some((t) => t.src === src)) {
               next.push({ src, isVideo: p.mediaType === "VIDEO" });
@@ -66,7 +66,7 @@ export default function IgCarousel({
           });
         });
         if (active && next.length) {
-          setTiles(next.slice(0, 12));
+          setTiles(next.slice(0, 32));
           setLive(true);
         }
       } catch {

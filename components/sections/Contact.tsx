@@ -1,5 +1,6 @@
 ﻿"use client";
 
+import BrandBackdrop from "@/components/graphics/BrandBackdrop";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
@@ -221,6 +222,9 @@ export default function Contact() {
         aria-hidden
         style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(251,247,241,0.72) 0%, rgba(251,247,241,0.96) 100%)", zIndex: 0 }}
       />
+      {/* 2026 brand constellation + dotted Africa */}
+      <BrandBackdrop variant="cream" map opacity={0.5} />
+
       {/* thin-line calendar-style grid — abstract stroke pattern per client direction */}
       <div
         aria-hidden

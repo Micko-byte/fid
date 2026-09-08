@@ -74,7 +74,7 @@ export default function Footer() {
       {/* ── Big logo banner below the footer ── */}
       <div className="bg-brand-texture" style={{ position: "relative", zIndex: 2, width: "100%", padding: "clamp(2.5rem,6vw,4.5rem) clamp(1.5rem,5vw,6rem)", display: "flex", flexDirection: "column", alignItems: "center", gap: "1rem", overflow: "hidden" }}>
         <div aria-hidden className="brand-pattern-teal" style={{ position: "absolute", inset: 0, pointerEvents: "none", opacity: 0.34 }} />
-        <FidLogo variant="dark" style={{ position: "relative", zIndex: 1, height: "clamp(120px,20vw,260px)", width: "auto", display: "block" }} />
+        <FidLogo variant="maroon" style={{ position: "relative", zIndex: 1, height: "clamp(120px,20vw,260px)", width: "auto", display: "block" }} />
         <span style={{ position: "relative", zIndex: 1, fontFamily: "var(--font-body)", fontSize: "0.72rem", letterSpacing: "0.34em", textTransform: "uppercase", color: "#750006", fontWeight: 600 }}>
           Insight · Strategy · Impact
         </span>

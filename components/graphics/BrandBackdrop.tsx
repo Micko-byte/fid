@@ -16,17 +16,23 @@ export default function BrandBackdrop({
   opacity = 0.5,
   mapOpacity = 0.3,
 }: {
-  /** "light" for white pages, "cream" for the warmer #f5f2ec sections. */
-  variant?: "light" | "cream";
+  /** "light" for white pages, "cream" for the warmer #f5f2ec sections,
+   *  "dark" for the deep-maroon panels (gold artwork, no multiply). */
+  variant?: "light" | "cream" | "dark";
   /** Anchor the dotted Africa map in the bottom-right. */
   map?: boolean;
   opacity?: number;
   mapOpacity?: number;
 }) {
-  const pattern =
-    variant === "cream"
+  const dark = variant === "dark";
+  // The gold artwork is transparent PNG, so it sits on a dark panel directly;
+  // the light artwork carries its own pale ground and needs multiply.
+  const pattern = dark
+    ? "/brand/pattern-constellation-gold.png"
+    : variant === "cream"
       ? "/brand/pattern-constellation-cream.jpg"
       : "/brand/pattern-constellation-light.jpg";
+  const mapSrc = dark ? "/brand/africa-constellation-gold.png" : "/brand/africa-constellation-maroon.jpg";
 
   return (
     <div aria-hidden style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none", zIndex: 0 }}>
@@ -37,14 +43,14 @@ export default function BrandBackdrop({
           backgroundImage: `url('${pattern}')`,
           backgroundSize: "clamp(620px, 62vw, 1000px) auto",
           backgroundRepeat: "repeat",
-          mixBlendMode: "multiply",
+          mixBlendMode: dark ? "normal" : "multiply",
           opacity,
         }}
       />
       {map && (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src="/brand/africa-constellation-maroon.jpg"
+          src={mapSrc}
           alt=""
           loading="lazy"
           style={{
@@ -53,7 +59,7 @@ export default function BrandBackdrop({
             bottom: "clamp(-90px, -6vw, -40px)",
             width: "clamp(280px, 34vw, 560px)",
             height: "auto",
-            mixBlendMode: "multiply",
+            mixBlendMode: dark ? "normal" : "multiply",
             opacity: mapOpacity,
           }}
         />

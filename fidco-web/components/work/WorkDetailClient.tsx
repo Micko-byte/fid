@@ -1,5 +1,6 @@
 "use client";
 
+import BrandBackdrop from "@/components/graphics/BrandBackdrop";
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
@@ -151,6 +152,7 @@ export default function WorkDetailClient({ project, media = project.media ?? [] 
   return (
     <main className="bg-brand-texture" style={{ color: "#1c1c1c", minHeight: "100vh", position: "relative" }}>
       <IconField tone="light" photo={STOCK.about?.[1]?.src} />
+      <BrandBackdrop variant="cream" opacity={0.42} />
       <div style={{ position: "relative", zIndex: 1 }}>
 
       {/* ── Sticky back bar ── */}

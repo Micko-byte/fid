@@ -1,5 +1,6 @@
 "use client";
 
+import BrandBackdrop from "@/components/graphics/BrandBackdrop";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
@@ -147,6 +148,7 @@ function Philosophy() {
   return (
     <section className="bg-brand-deep relative overflow-hidden py-24 md:py-40">
       <div aria-hidden className="brand-pattern-light absolute inset-0 opacity-40 pointer-events-none" />
+      <BrandBackdrop variant="dark" map opacity={0.32} mapOpacity={0.2} />
       <OrbitalRings color="#C7AC9F" opacity={0.07} className="absolute inset-0 w-full h-full" />
       <div ref={ref} className="relative z-10 max-w-[1280px] mx-auto px-6 md:px-16">
         <p className="font-body text-xs tracking-[0.25em] uppercase mb-10" style={{ color: "#d98038" }}>
@@ -302,6 +304,7 @@ function Founder() {
   return (
     <section className="bg-brand-deep relative overflow-hidden py-24 md:py-40">
       <div aria-hidden className="brand-pattern-light absolute inset-0 opacity-40 pointer-events-none" />
+      <BrandBackdrop variant="dark" map opacity={0.32} mapOpacity={0.2} />
       <div
         aria-hidden="true"
         className="absolute top-1/2 right-0 -translate-y-1/2 font-heading select-none pointer-events-none"

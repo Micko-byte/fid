@@ -1,5 +1,6 @@
 "use client";
 
+import BrandBackdrop from "@/components/graphics/BrandBackdrop";
 import { useRef, useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -555,7 +556,8 @@ export default function WorkSectorPageClient({ sector, clientSlug = "" }: { sect
   const heroImage = meta.cover || visibleEntries[0]?.image || "";
 
   return (
-    <main style={{ minHeight: "100vh", background: "#f5f2ec", color: "#1c1c1c" }}>
+    <main style={{ minHeight: "100vh", background: "#f5f2ec", color: "#1c1c1c", position: "relative" }}>
+      <BrandBackdrop variant="cream" opacity={0.42} />
       <section style={{ position: "relative", overflow: "hidden", padding: "clamp(1rem,2.5vw,1.5rem) 0 0" }}>
         <div className="section-shell" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", position: "relative", zIndex: 1 }}>
           <button

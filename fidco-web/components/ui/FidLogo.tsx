@@ -1,8 +1,9 @@
 import type { CSSProperties } from "react";
 
 interface FidLogoProps {
-  /** "dark" = logo on light/cream bg (black mark). "light" = logo on dark/red bg (cream mark). */
-  variant?: "dark" | "light";
+  /** "dark" = black mark on light/cream bg. "light" = cream mark on dark/red bg.
+   *  "maroon" = brand-maroon mark on light/cream bg. */
+  variant?: "dark" | "light" | "maroon";
   className?: string;
   style?: CSSProperties;
 }
@@ -16,7 +17,10 @@ interface FidLogoProps {
  * mark should go back to brand maroon on light backgrounds.
  */
 export default function FidLogo({ variant = "dark", className = "", style }: FidLogoProps) {
-  const src = variant === "dark" ? "/brand/fid-logo-black.svg" : "/brand/fid-logo-cream.svg";
+  const src =
+    variant === "light" ? "/brand/fid-logo-cream.svg"
+    : variant === "maroon" ? "/brand/fid-logo-maroon.svg"
+    : "/brand/fid-logo-black.svg";
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
