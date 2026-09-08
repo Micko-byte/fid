@@ -57,7 +57,10 @@ const GLAM_GALLERY = [...seq("glam-hotel", "glam-h", 8), cld("glam-rooftop-01")]
 // Café NBO: the two venue interiors already on Cloudinary + the launch shoot.
 const CAFENBO_GALLERY = [cld("cafenbo-01"), cld("cafenbo-02"), ...seq("cafe-nbo", "cafenbo-l", 8)];
 // Kingfisher Nest: the Drive folder is The Perch launch — The Perch is its restaurant.
-const KINGFISHER_GALLERY = [cld("kingfisher-01"), cld("kingfisher-02"), ...seq("kingfisher", "kingfisher-p", 8)];
+// The Perch relaunch album — people rather than the empty-room shots
+// Farida objected to on the call.
+const PERCH_GALLERY = Array.from({ length: 24 }, (_, i) => cld(`prch-${String(i + 1).padStart(2, "0")}`));
+const KINGFISHER_GALLERY = [cld("kingfisher-01"), cld("kingfisher-02"), ...PERCH_GALLERY, ...seq("kingfisher", "kingfisher-p", 8)];
 
 const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: string; inset?: string; gallery?: string[] }> = {
   "Café NBO": { logo: "/logos/cafe-nbo.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cafenbo-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cafenbo-02", gallery: CAFENBO_GALLERY },
@@ -573,14 +576,27 @@ export default function WorkSectorPageClient({ sector, clientSlug = "" }: { sect
           </Link>
         </div>
 
-        <div className="section-shell" style={{ position: "relative", zIndex: 1, marginTop: "clamp(2rem,5vw,3rem)" }}>
-          <div ref={heroRef} style={{ display: "grid", gridTemplateColumns: "1.05fr 0.95fr", gap: "clamp(1.5rem, 4vw, 3rem)", alignItems: "center" }} className="sector-hero-grid">
-            <div>
+        {/* Full-bleed hero with the sector title over it, matching the
+            case-study pages and fidpr.ke. */}
+        <div ref={heroRef} className="wsp-hero-full" style={{ position: "relative", width: "100%", height: "clamp(400px, 62vh, 700px)", overflow: "hidden", background: "#1c1c1c", marginTop: "clamp(1.2rem,3vw,2rem)" }}>
+          <div ref={heroImgRef} style={{ position: "absolute", inset: 0 }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={heroImage} alt={meta.title} loading="eager" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 35%" }} />
+          </div>
+          <div aria-hidden style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(0,0,0,0.32) 0%, rgba(0,0,0,0.06) 38%, rgba(0,0,0,0.74) 100%)" }} />
+          <div style={{ position: "absolute", inset: 0, display: "flex", alignItems: "flex-end" }}>
+            <div className="section-shell" style={{ width: "100%", paddingBottom: "clamp(2.2rem,5vw,4rem)" }}>
+              <motion.div
+                initial={{ scaleX: 0 }}
+                animate={heroInView ? { scaleX: 1 } : {}}
+                transition={{ duration: 0.85, delay: 0.15, ease: EASE }}
+                style={{ transformOrigin: "left", height: "3px", width: "68px", background: meta.accent, borderRadius: "999px", marginBottom: "1.3rem" }}
+              />
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={heroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.55 }}
-                style={{ fontFamily: "var(--font-body)", fontSize: "0.74rem", letterSpacing: "0.28em", textTransform: "uppercase", color: meta.accent, margin: "0 0 1rem", fontWeight: 700 }}
+                style={{ fontFamily: "var(--font-body)", fontSize: "0.7rem", letterSpacing: "0.24em", textTransform: "uppercase", color: "#f0c9a8", margin: "0 0 0.9rem", fontWeight: 700 }}
               >
                 {visibleEntries.length} {visibleEntries.length === 1 ? "engagement" : "engagements"}
               </motion.p>
@@ -588,48 +604,29 @@ export default function WorkSectorPageClient({ sector, clientSlug = "" }: { sect
                 initial={{ opacity: 0, y: 22 }}
                 animate={heroInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.8, delay: 0.05, ease: EASE }}
-                style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(3rem, 7vw, 6rem)", lineHeight: 0.92, letterSpacing: "-0.04em", color: "#1c1c1c", margin: 0, maxWidth: "11ch" }}
+                style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(2.2rem, 5.6vw, 5rem)", lineHeight: 1.0, letterSpacing: "-0.035em", color: "#ffffff", margin: 0, maxWidth: "16ch", textShadow: "0 2px 24px rgba(0,0,0,0.45)" }}
               >
                 {meta.title}
               </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={heroInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
-                style={{ fontFamily: "var(--font-body)", fontSize: "1rem", lineHeight: 1.75, color: "rgba(28,28,28,0.68)", maxWidth: "50ch", margin: "1.2rem 0 0" }}
-              >
-              {meta.intro}
-              {clientSlug ? (
-                <span style={{ display: "block", marginTop: "0.9rem", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: meta.accent, fontWeight: 700 }}>
-                  Client palette: {visibleEntries[0]?.title ?? clientSlug}
-                </span>
-              ) : null}
-              </motion.p>
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={heroInView ? { scaleX: 1 } : {}}
-                transition={{ duration: 0.9, delay: 0.18, ease: EASE }}
-                style={{ transformOrigin: "left", height: "3px", width: "72px", background: meta.accent, borderRadius: "999px", marginTop: "1.8rem" }}
-              />
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.96 }}
-              animate={heroInView ? { opacity: 1, scale: 1 } : {}}
-              transition={{ duration: 0.9, delay: 0.08, ease: EASE }}
-              style={{ position: "relative" }}
-            >
-              <div ref={heroImgRef} style={{ position: "relative", minHeight: "clamp(280px, 38vw, 520px)", borderRadius: "24px", overflow: "hidden", boxShadow: "0 24px 70px rgba(38,0,0,0.15)" }}>
-                <img src={heroImage} alt={meta.title} loading="eager" style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />
-                <div style={{ position: "absolute", inset: 0, background: `linear-gradient(160deg, rgba(38,0,0,0.04) 0%, rgba(38,0,0,0.10) 42%, ${meta.accent}bf 100%)` }} />
-                <div style={{ position: "absolute", left: "1.2rem", bottom: "1.2rem", right: "1.2rem", color: "#f5f2ec" }}>
-                  <p style={{ fontFamily: "var(--font-heading)", fontSize: "clamp(1.7rem, 3.2vw, 2.6rem)", lineHeight: 1.02, letterSpacing: "-0.03em", margin: 0, maxWidth: "12ch" }}>
-                    {meta.title}
-                  </p>
-                </div>
-              </div>
-            </motion.div>
           </div>
+        </div>
+
+        {/* Sector intro, below the hero */}
+        <div className="section-shell" style={{ position: "relative", zIndex: 1, marginTop: "clamp(2rem,4vw,3rem)" }}>
+          <motion.p
+            initial={{ opacity: 0, y: 16 }}
+            animate={heroInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.12, ease: EASE }}
+            style={{ fontFamily: "var(--font-body)", fontSize: "clamp(1rem,1.3vw,1.12rem)", lineHeight: 1.75, color: "rgba(28,28,28,0.72)", maxWidth: "62ch", margin: 0 }}
+          >
+            {meta.intro}
+            {clientSlug ? (
+              <span style={{ display: "block", marginTop: "0.9rem", fontSize: "0.72rem", letterSpacing: "0.18em", textTransform: "uppercase", color: meta.accent, fontWeight: 700 }}>
+                Client palette: {visibleEntries[0]?.title ?? clientSlug}
+              </span>
+            ) : null}
+          </motion.p>
         </div>
 
         {/* numbered index strip, like the reference */}
@@ -756,11 +753,6 @@ export default function WorkSectorPageClient({ sector, clientSlug = "" }: { sect
         .wsp-inline-img { display: block !important; }
         .wsp-panel { min-height: 0 !important; }
 
-        @media (max-width: 900px) {
-          .sector-hero-grid {
-            grid-template-columns: 1fr !important;
-          }
-        }
       `}</style>
     </main>
   );
