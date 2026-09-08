@@ -79,7 +79,7 @@ export default function IgCarousel({
   if (!visible.length) return null;
 
   return (
-    <div style={{ width: "100%", maxWidth: "560px" }}>
+    <div style={{ width: "100%", maxWidth: "1080px" }}>
       {/* profile header */}
       <a
         href={href}
@@ -89,7 +89,7 @@ export default function IgCarousel({
       >
         <span
           style={{
-            width: "46px", height: "46px", flexShrink: 0, borderRadius: "999px",
+            width: "60px", height: "60px", flexShrink: 0, borderRadius: "999px",
             background: accent, color: "#fff", display: "flex", alignItems: "center",
             justifyContent: "center", border: `1px solid ${accent}33`, overflow: "hidden",
           }}
@@ -114,7 +114,7 @@ export default function IgCarousel({
       </a>
 
       {/* square grid */}
-      <div className="ig-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "0.4rem" }}>
+      <div className="ig-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, minmax(0, 1fr))", gap: "clamp(0.5rem, 0.9vw, 0.85rem)" }}>
         {visible.map((t) => (
           <a
             key={t.src}
@@ -151,8 +151,11 @@ export default function IgCarousel({
       </a>
 
       <style>{`
-        @media (max-width: 520px) {
+        @media (max-width: 900px) {
           .ig-grid { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
+        }
+        @media (max-width: 520px) {
+          .ig-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
         }
       `}</style>
     </div>
