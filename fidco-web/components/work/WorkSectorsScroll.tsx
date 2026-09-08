@@ -49,7 +49,10 @@ const CHAPTERS: Chapter[] = [
     short: "Retail",
     accent: "#b5397a",
     works: ["Woolworths Kenya", "LC Waikiki Africa", "2nu Boutique"],
-    images: [{ src: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/lc-waikiki-influencer", alt: "LC Waikiki influencer campaign" }],
+    images: [
+      { src: "/photos/projects/lc-waikiki/lcw-01.jpg", alt: "LC Waikiki Africa campaign" },
+      { src: "/photos/projects/lc-waikiki/lcw-03.jpg", alt: "LC Waikiki Africa campaign" },
+    ],
   },
   {
     slug: "corporate",

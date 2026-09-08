@@ -59,6 +59,8 @@ const CAFENBO_GALLERY = [cld("cafenbo-01"), cld("cafenbo-02"), ...seq("cafe-nbo"
 // Kingfisher Nest: the Drive folder is The Perch launch — The Perch is its restaurant.
 // The Perch relaunch album — people rather than the empty-room shots
 // Farida objected to on the call.
+// Chaii Republic launch at Social 8, from the fidpr.ke case-study page.
+const CHAII_GALLERY = Array.from({ length: 18 }, (_, i) => cld(`chr-${String(i + 1).padStart(2, "0")}`));
 const PERCH_GALLERY = Array.from({ length: 24 }, (_, i) => cld(`prch-${String(i + 1).padStart(2, "0")}`));
 const KINGFISHER_GALLERY = [cld("kingfisher-01"), cld("kingfisher-02"), ...PERCH_GALLERY, ...seq("kingfisher", "kingfisher-p", 8)];
 
@@ -66,7 +68,7 @@ const THRIVE_VENUES: Record<string, { logo?: string; logoDark?: boolean; image: 
   "Café NBO": { logo: "/logos/cafe-nbo.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cafenbo-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/cafenbo-02", gallery: CAFENBO_GALLERY },
   "Glam Hotel – Westlands": { logo: "/logos/thrive-hospitality.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-hotel", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/glam-rooftop-01", gallery: GLAM_GALLERY },
   "Social 8": { logo: "/logos/social8.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/social8-01" },
-  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-02", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-03" },
+  "Chaii Republic": { logo: "/logos/chaii-republic.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-02", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/chaii-03", gallery: CHAII_GALLERY },
   "Kingfisher Nest Hotel": { logo: "/logos/kingfisher-nest.png", image: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kingfisher-01", inset: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/kingfisher-02", gallery: KINGFISHER_GALLERY },
 };
 

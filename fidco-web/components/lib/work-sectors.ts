@@ -53,7 +53,7 @@ export const WORK_SECTORS: WorkSectorMeta[] = [
     title: "Retail & Fashion",
     intro: "Retail campaigns, influencer-led fashion storytelling and digital ecosystems for style-conscious African audiences.",
     accent: "#b5397a",
-    cover: "https://res.cloudinary.com/dnrj0hbpy/image/upload/f_auto,q_auto,w_1800,c_limit/FID/lc-waikiki-influencer",
+    cover: "/photos/projects/lc-waikiki/lcw-01.jpg",
     Icon: TShirt,
   },
   {
