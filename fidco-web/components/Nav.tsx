@@ -9,10 +9,10 @@ import FidLogo from "@/components/ui/FidLogo";
 import LineSidebar from "@/components/ui/LineSidebar";
 
 const navLinks = [
+  { label: "About",     href: "/#about" },
   { label: "Expertise", href: "/#services" },
   { label: "Work",      href: "/#work" },
   { label: "Events",    href: "/events" },
-  { label: "About",     href: "/#about" },
   { label: "Insights",  href: "/#insights" },
   { label: "Contact",   href: "/#contact" },
 ];

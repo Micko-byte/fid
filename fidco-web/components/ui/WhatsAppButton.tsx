@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { WhatsappLogo } from "@phosphor-icons/react";
+import { InstagramLogo } from "@phosphor-icons/react";
 
-const PHONE = "254797690609"; // +254 797 690 609
-const MESSAGE = "Hello FID & Co., I'd like to discuss a project.";
+const INSTAGRAM = "https://www.instagram.com/fidpr/";
 
+/** Floating social button. Was WhatsApp; Farida asked for Instagram instead. */
 export default function WhatsAppButton() {
   const [mounted, setMounted] = useState(false);
   const [hover, setHover] = useState(false);
@@ -13,14 +13,14 @@ export default function WhatsAppButton() {
   useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const href = `https://wa.me/${PHONE}?text=${encodeURIComponent(MESSAGE)}`;
+  const href = INSTAGRAM;
 
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat with us on WhatsApp"
+      aria-label="Follow FID &amp; Co. on Instagram"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{
@@ -57,7 +57,7 @@ export default function WhatsAppButton() {
           transition: "max-width 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.3s, padding 0.4s, margin 0.4s",
         }}
       >
-        Chat with us
+        Follow us
       </span>
 
       {/* Circular FAB */}
@@ -70,11 +70,11 @@ export default function WhatsAppButton() {
           display: "inline-flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #25D366 0%, #0e9f6e 100%)",
+          background: "linear-gradient(135deg, #f09433 0%, #dc2743 45%, #bc1888 100%)",
           color: "#ffffff",
           boxShadow: hover
-            ? "0 14px 36px rgba(37,211,102,0.45), 0 6px 14px rgba(0,0,0,0.25)"
-            : "0 10px 28px rgba(37,211,102,0.32), 0 4px 10px rgba(0,0,0,0.2)",
+            ? "0 14px 36px rgba(188,24,136,0.45), 0 6px 14px rgba(0,0,0,0.25)"
+            : "0 10px 28px rgba(188,24,136,0.32), 0 4px 10px rgba(0,0,0,0.2)",
           border: "1px solid rgba(255,255,255,0.18)",
           transform: hover ? "translateY(-3px) scale(1.04)" : "translateY(0)",
           transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1), box-shadow 0.35s",
@@ -87,7 +87,7 @@ export default function WhatsAppButton() {
             position: "absolute",
             inset: 0,
             borderRadius: "999px",
-            border: "2px solid rgba(37,211,102,0.55)",
+            border: "2px solid rgba(220,39,67,0.55)",
             animation: "fid-wa-ping 2.4s cubic-bezier(0,0,0.2,1) infinite",
           }}
         />
@@ -105,7 +105,7 @@ export default function WhatsAppButton() {
             border: "2px solid #260000",
           }}
         />
-        <WhatsappLogo size={30} weight="fill" />
+        <InstagramLogo size={30} weight="fill" />
       </span>
 
       <style>{`
