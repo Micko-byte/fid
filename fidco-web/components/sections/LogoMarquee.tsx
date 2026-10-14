@@ -1,10 +1,14 @@
-﻿"use client";
+"use client";
 
 const logos = [
   "executive-office-president", "state-dept-culture", "unhcr", "lc-waikiki",
   "wrc-safari-rally", "columbia-africa", "thrive-hospitality", "chloride-exide",
   "bomas-of-kenya", "amahoro-coalition", "elysium-capital", "2nu-kollexion",
   "medigah-london-hair",
+  // Suhba Series partners — the five that have a logo file. Luton Hospital
+  // Foundation and Dessert Galore are partners too but no mark was supplied.
+  "suhba-partners/absa", "suhba-partners/gulf-bank",
+  "suhba-partners/goodlife-pharmacy", "allso-beauty", "kingfisher-nest",
 ];
 
 export default function LogoMarquee() {
@@ -20,7 +24,7 @@ export default function LogoMarquee() {
           {row.map((name, i) => (
             <div key={`${name}-${i}`} className="lm-item">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`/logos/${name}.png`} alt={name.replace(/-/g, " ")} loading="lazy" />
+              <img src={`/logos/${name}.png`} alt={name.split("/").pop()!.replace(/-/g, " ")} loading="lazy" />
             </div>
           ))}
         </div>

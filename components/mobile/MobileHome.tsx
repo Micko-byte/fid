@@ -11,6 +11,7 @@ import Footer from "@/components/Footer";
 import BrandBand from "@/components/sections/BrandBand";
 import BrandHero from "@/components/sections/BrandHero";
 import WorkSectorEditorial from "@/components/work/WorkSectorEditorial";
+import LogoMarquee from "@/components/sections/LogoMarquee";
 import Contact from "@/components/sections/Contact";
 import {
   MobileSectionHead,
@@ -252,6 +253,11 @@ export default function MobileHome() {
         <MobileSectionHead title="Our Work" href="/work" label="View all" tone="light" />
       </div>
       <WorkSectorEditorial />
+
+      {/* ── CLIENTS & PARTNERS ──
+           Mobile had no logo wall at all, so the client and Suhba partner
+           marks only ever showed on desktop. ── */}
+      <LogoMarquee />
 
       {/* ── PLATFORMS (slider) ── */}
       <section className="section-light" style={{ color: "#1c1c1c", padding: `${PY} ${PX}` }}>
