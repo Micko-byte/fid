@@ -73,16 +73,31 @@ export default function FootprintMap() {
   const [failed, setFailed] = useState<string | null>(null);
   const [paths, setPaths] = useState<string[]>([]);
 
-  // only pull the library in when the section is close to view
+  // Only pull the library in when the section is close to view.
+  // A plain rect check on scroll rather than IntersectionObserver: the observer
+  // was not firing for this element in production, leaving the map stuck on
+  // "Loading map" forever. This is cheap, passive, and detaches once it fires.
   useEffect(() => {
-    const el = holder.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setNear(true); io.disconnect(); } },
-      { rootMargin: "300px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
+    let done = false;
+    const check = () => {
+      if (done) return;
+      const el = holder.current;
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight + 600 && r.bottom > -600) {
+        done = true;
+        window.removeEventListener("scroll", check);
+        window.removeEventListener("resize", check);
+        setNear(true);
+      }
+    };
+    check();
+    window.addEventListener("scroll", check, { passive: true });
+    window.addEventListener("resize", check, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", check);
+      window.removeEventListener("resize", check);
+    };
   }, []);
 
   useEffect(() => {
