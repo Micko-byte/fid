@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import FootprintMap from "@/components/sections/FootprintMap";
+import { motion } from "framer-motion";
 
 type Country = { name: string; code: string };
 
@@ -17,189 +18,10 @@ const countries: Country[] = [
   { name: "South Africa", code: "ZA" },
 ];
 
-const ROOT_W = 239.05701;
-const ROOT_H = 217.31789;
-
-function injectDefs(svg: string): string {
-  const defs = `<defs>
-    <linearGradient id="fid-map-wash" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#f5f2ec" />
-      <stop offset="48%" stop-color="#f0ddd1" />
-      <stop offset="100%" stop-color="#e8d3c5" />
-    </linearGradient>
-    <pattern id="fid-dot" x="0" y="0" width="6" height="6" patternUnits="userSpaceOnUse">
-      <circle cx="2" cy="2" r="0.95" fill="rgba(117,0,6,0.22)"/>
-      <circle cx="5" cy="5" r="0.7" fill="rgba(47,127,122,0.18)"/>
-    </pattern>
-    <pattern id="fid-dot-hi" x="0" y="0" width="3.5" height="3.5" patternUnits="userSpaceOnUse">
-      <circle cx="1.6" cy="1.6" r="1.05" fill="#2f7f7a"/>
-    </pattern>
-    <filter id="fid-grain" x="-20%" y="-20%" width="140%" height="140%">
-      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch" />
-      <feColorMatrix type="saturate" values="0" />
-      <feComponentTransfer>
-        <feFuncA type="table" tableValues="0 0.05" />
-      </feComponentTransfer>
-    </filter>
-  </defs>`;
-
-  let result = svg.replace(/(<svg[^>]*>)/, `$1${defs}`);
-  result = result
-    .replace(/<svg\b([^>]*)>/, `<svg$1 viewBox="0 0 ${ROOT_W} ${ROOT_H}" preserveAspectRatio="xMidYMid meet">`)
-    .replace(/width="[^"]*"/, 'width="100%"')
-    .replace(/height="[^"]*"/, 'height="100%"');
-  return result;
-}
-
-function buildCss(active: string | null, marketCodes: string[]): string {
-  const marketSelector = marketCodes.map((c) => `.af-map svg path#${c}`).join(",\n    ");
-  const marketRule = `
-    ${marketSelector} {
-      fill: #750006;
-      stroke: #f5f2ec;
-      stroke-width: 0.45;
-    }
-    ${marketSelector.replaceAll(",", ":hover,")}:hover {
-      fill: #2f7f7a;
-      stroke: #f5f2ec;
-      transform: scale(1.08);
-      filter: drop-shadow(0 0 10px rgba(47,127,122,0.62));
-    }`;
-  const base = `
-    .af-shell {
-      position: relative;
-      overflow: hidden;
-      border-radius: 28px;
-      border: 1px solid rgba(117,0,6,0.14);
-      background:
-        radial-gradient(ellipse 70% 55% at 30% 20%, rgba(117,0,6,0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 50% at 78% 78%, rgba(47,127,122,0.12) 0%, transparent 55%),
-        linear-gradient(160deg, #f5f2ec 0%, #f0e7dc 46%, #e9ddd0 100%);
-      box-shadow: 0 34px 90px rgba(93,0,16,0.14);
-    }
-    .af-shell::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(ellipse 120% 100% at 50% 50%, transparent 60%, rgba(117,0,6,0.08) 100%);
-      pointer-events: none;
-    }
-    .af-shell::after { content: none; }
-    .af-map { width:100% !important; height:100% !important; display:block; position:relative; z-index:1; }
-    .af-map svg {
-      width:100% !important; height:100% !important; display:block;
-      shape-rendering: geometricPrecision;
-      overflow: visible;
-    }
-    /* non-market countries — soft cream landmass floating on deep current */
-    .af-map svg path {
-      fill: rgba(117,0,6,0.08);
-      stroke: rgba(47,127,122,0.32);
-      stroke-width: 0.4;
-      transition: fill 0.3s ease, stroke 0.3s ease, transform 0.35s cubic-bezier(0.16,1,0.3,1), filter 0.3s ease;
-      transform-box: fill-box;
-      transform-origin: center;
-      cursor: pointer;
-    }
-    .af-map svg path:hover {
-      fill: rgba(47,127,122,0.22);
-      stroke: #f5f2ec;
-      stroke-width: 0.6;
-      transform: scale(1.06);
-      filter: drop-shadow(0 0 6px rgba(47,127,122,0.4));
-    }
-    .af-map-glow {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 62% 40%, rgba(47,127,122,0.12), transparent 46%);
-      pointer-events: none;
-      z-index: 0;
-    }
-  `;
-  if (!active) return base + marketRule;
-  return base + marketRule + `
-    .af-map svg path#${active} {
-      fill: #f5f2ec;
-      stroke: #d98038;
-      stroke-width: 0.7;
-      transform: scale(1.07);
-      filter: drop-shadow(0 0 12px rgba(245,242,236,0.55));
-    }`;
-}
-
 export default function AfricanFootprint() {
-  const [svgMarkup, setSvgMarkup] = useState("");
   const [active, setActive] = useState<string | null>(null);
   const [pinned, setPinned] = useState<string | null>(null);
-  const [pins, setPins] = useState<{ code: string; name: string; x: number; y: number }[]>([]);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-  const mapRef = useRef<HTMLDivElement>(null);
-
   const activeCode = pinned ?? active;
-  const activeCountry = countries.find((c) => c.code === activeCode) ?? null;
-
-  useEffect(() => {
-    let mounted = true;
-    (async () => {
-      const res = await fetch("/africa.svg", { cache: "force-cache" });
-      const raw = await res.text();
-      if (!mounted) return;
-      setSvgMarkup(injectDefs(raw));
-    })();
-    return () => {
-      mounted = false;
-    };
-  }, []);
-
-  // Standing pins — measure each market's rendered position and place a
-  // 3D marker there. Re-measured on resize.
-  useEffect(() => {
-    if (!svgMarkup) return;
-    const measure = () => {
-      const host = mapRef.current;
-      if (!host) return;
-      const hostRect = host.getBoundingClientRect();
-      if (!hostRect.width) return;
-      const next: { code: string; name: string; x: number; y: number }[] = [];
-      for (const c of countries) {
-        const path = host.querySelector<SVGPathElement>(`svg path#${c.code}`);
-        if (!path) continue;
-        const r = path.getBoundingClientRect();
-        next.push({
-          code: c.code,
-          name: c.name,
-          x: ((r.left + r.width / 2 - hostRect.left) / hostRect.width) * 100,
-          y: ((r.top + r.height / 2 - hostRect.top) / hostRect.height) * 100,
-        });
-      }
-      setPins(next);
-    };
-    const t = setTimeout(measure, 60);
-    window.addEventListener("resize", measure, { passive: true });
-    return () => {
-      clearTimeout(t);
-      window.removeEventListener("resize", measure);
-    };
-  }, [svgMarkup]);
-
-  // 3D tilt — the map leans toward the pointer. Coalesced into one rAF so a
-  // burst of mousemove events can't thrash React state (the old cause of lag).
-  const tiltRaf = useRef<number | null>(null);
-  const pending = useRef({ x: 0, y: 0 });
-  const onTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const r = e.currentTarget.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    pending.current = { x: py * -8, y: px * 10 };
-    if (tiltRaf.current !== null) return;
-    tiltRaf.current = requestAnimationFrame(() => {
-      tiltRaf.current = null;
-      setTilt(pending.current);
-    });
-  };
-  useEffect(() => () => {
-    if (tiltRaf.current !== null) cancelAnimationFrame(tiltRaf.current);
-  }, []);
 
   return (
     <section className="af-footprint" style={{ marginTop: "clamp(3rem,6vw,5rem)", paddingTop: 0 }}>
@@ -212,118 +34,15 @@ export default function AfricanFootprint() {
         </h3>
       </div>
 
+      {/* Satellite footprint map — routes drawn out from Nairobi. Replaces the
+          flat SVG landmass this section used to show. */}
       <motion.div
         initial={{ opacity: 0, y: 18 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.35 }}
+        viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="af-shell"
-        onMouseMove={onTilt}
-        onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-        style={{ width: "100%", maxWidth: "740px", margin: "0 auto", height: "clamp(300px,42vw,500px)", perspective: "1100px" }}
       >
-        <div
-          className="af-map"
-          ref={mapRef}
-          style={{
-            position: "relative",
-            transformStyle: "preserve-3d",
-            transform: `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-            transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
-          }}
-        >
-          {svgMarkup && <div dangerouslySetInnerHTML={{ __html: svgMarkup }} style={{ width: "100%", height: "100%" }} />}
-          <div className="af-map-glow" />
-          <style>{buildCss(activeCode, countries.map((c) => c.code))}</style>
-
-          {/* 3D standing pins on each market */}
-          {pins.map((pin, i) => {
-            const isOn = activeCode === pin.code;
-            return (
-              <button
-                key={pin.code}
-                type="button"
-                aria-label={pin.name}
-                className="af-pin"
-                onMouseEnter={() => setActive(pin.code)}
-                onMouseLeave={() => setActive(null)}
-                onClick={() => setPinned((p) => (p === pin.code ? null : pin.code))}
-                style={{
-                  position: "absolute",
-                  left: `${pin.x}%`,
-                  top: `${pin.y}%`,
-                  transform: `translate(-50%, -100%) translateZ(34px) scale(${isOn ? 1.35 : 1})`,
-                  transformStyle: "preserve-3d",
-                  animationDelay: `${i * 0.09 + 0.2}s`,
-                  background: "none",
-                  border: "none",
-                  padding: 0,
-                  cursor: "pointer",
-                  zIndex: 3,
-                  transition: "transform 0.3s cubic-bezier(0.34,1.56,0.64,1)",
-                }}
-              >
-                <span className="af-pin-head" style={{ background: isOn ? "#2f7f7a" : "#750006" }} />
-                <span className="af-pin-stem" />
-                <span className="af-pin-ring" />
-              </button>
-            );
-          })}
-
-          <div
-            aria-hidden
-            style={{
-              position: "absolute",
-              inset: "10% 14%",
-              borderRadius: "999px",
-              border: "none",
-              filter: "blur(0.2px)",
-              pointerEvents: "none",
-              opacity: 0.7,
-            }}
-          />
-        </div>
-
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeCountry?.code ?? "none"}
-            initial={{ opacity: 0, y: 6 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -6 }}
-            transition={{ duration: 0.28 }}
-            style={{
-              position: "absolute",
-              left: "1rem",
-              bottom: "0.85rem",
-              padding: "0.5rem 1rem",
-              borderRadius: "999px",
-              backgroundColor: activeCountry ? "#750006" : "rgba(245,242,236,0.88)",
-              color: activeCountry ? "#f5f2ec" : "rgba(28,28,28,0.52)",
-              fontFamily: "var(--font-body)",
-              fontSize: "0.7rem",
-              letterSpacing: "0.14em",
-              fontWeight: 700,
-              textTransform: "uppercase",
-              border: `1px solid ${activeCountry ? "rgba(47,127,122,0.45)" : "rgba(117,0,6,0.16)"}`,
-              backdropFilter: "blur(10px)",
-              display: "flex",
-              alignItems: "center",
-              gap: "0.5rem",
-            }}
-          >
-            {activeCountry && (
-              /* eslint-disable-next-line @next/next/no-img-element */
-              <img
-                src={`https://flagcdn.com/w40/${activeCountry.code.toLowerCase()}.png`}
-                alt=""
-                width={18}
-                height={12}
-                style={{ width: "18px", height: "12px", objectFit: "cover", borderRadius: "2px" }}
-              />
-            )}
-            {activeCountry ? activeCountry.name : "All markets"}
-          </motion.div>
-        </AnimatePresence>
+        <FootprintMap />
       </motion.div>
 
       <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", justifyContent: "center", marginTop: "1.2rem", maxWidth: "760px", marginLeft: "auto", marginRight: "auto" }}>
