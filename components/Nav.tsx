@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import BrandWordmark from "@/components/ui/BrandWordmark";
-import FidLogo from "@/components/ui/FidLogo";
 import LineSidebar from "@/components/ui/LineSidebar";
 
 const navLinks = [
@@ -96,16 +95,42 @@ export default function Nav() {
             height: "78px",                    
         }}
       >
-          {/* ── Logo + tagline ── */}
-                    <Link href="/" aria-label="Insight. Strategy. Impact. - home" className="nav-logo-link" style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-            <FidLogo
-              variant="maroon"
+          {/* ── Constellation map + tagline ── */}
+          <Link
+            href="/"
+            aria-label="FID & Co. - Insight. Strategy. Impact. - home"
+            className="nav-logo-link"
+            style={{ display: "flex", alignItems: "center", gap: "0.85rem", textDecoration: "none" }}
+          >
+            {/* The dotted Africa constellation stands in for the wordmark here.
+                Plain <img> rather than next/image: it is a fixed-size brand mark
+                in the header of every page, so there is nothing to optimise. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/brand/nav-africa-maroon.png"
+              srcSet="/brand/nav-africa-maroon.png 2x, /brand/nav-africa-maroon@3x.png 3x"
+              alt="FID &amp; Co."
               className="nav-logo"
-              style={{
-                height: "34px",
-                width: "auto",
-              }}
+              style={{ height: "44px", width: "auto", display: "block" }}
             />
+            <span
+              className="nav-tagline"
+              style={{
+                color: "#750006",
+                fontSize: "0.62rem",
+                fontWeight: 600,
+                letterSpacing: "0.16em",
+                textTransform: "uppercase",
+                lineHeight: 1.5,
+                whiteSpace: "nowrap",
+              }}
+            >
+              Insight.
+              <br />
+              Strategy.
+              <br />
+              Impact.
+            </span>
           </Link>
 
           {/* ── Desktop links ── */}
@@ -279,8 +304,8 @@ export default function Nav() {
     padding-left: clamp(1rem, 4vw, 1.5rem) !important;
     padding-right: clamp(1rem, 4vw, 1.5rem) !important;
   }
-  .nav-logo { height: 34px !important; }
-  .nav-logo-link span { font-size: 0.4rem !important; }
+  .nav-logo { height: 36px !important; }
+  .nav-tagline { font-size: 0.52rem !important; letter-spacing: 0.12em !important; }
 }
       `}</style>
     </>
