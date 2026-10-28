@@ -82,7 +82,7 @@ function SectorCard({ slug, short, index }: { slug: WorkSectorSlug; short: strin
 
 export default function WorkSectorEditorial() {
   return (
-    <section style={{ background: "#efe9df", padding: "clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem) clamp(4rem, 8vw, 7rem)" }}>
+    <section id="work" aria-label="Our work" style={{ background: "#efe9df", padding: "clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2.5rem) clamp(4rem, 8vw, 7rem)" }}>
       <div style={{ maxWidth: "1180px", margin: "0 auto", display: "flex", flexDirection: "column", gap: "clamp(1.4rem, 3vw, 2.2rem)" }}>
         {SECTORS.map((s, i) => (
           <SectorCard key={s.slug} slug={s.slug} short={s.short} index={i} />

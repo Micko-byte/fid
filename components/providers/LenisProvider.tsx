@@ -24,15 +24,27 @@ export function LenisProvider({ children }: { children: React.ReactNode }) {
     // Keep GSAP ScrollTrigger in sync with Lenis smooth scroll position
     lenis.on("scroll", ScrollTrigger.update);
 
-    function raf(time: number) {
+    // Track the live frame id. Previously only the first id was kept, so the
+    // cleanup cancelled a frame that had already run and the loop carried on
+    // against a destroyed Lenis — one orphaned loop per remount.
+    let rafId = requestAnimationFrame(function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
+      rafId = requestAnimationFrame(raf);
+    });
 
-    const rafId = requestAnimationFrame(raf);
+    // Lenis caches the scroll limit at startup. On a client-side route change —
+    // or when images and fonts land and the page grows — that cache goes stale
+    // and scrolling stops short of the bottom. Re-measure whenever the document
+    // actually changes height.
+    const ro = new ResizeObserver(() => {
+      lenis.resize();
+      ScrollTrigger.refresh();
+    });
+    ro.observe(document.body);
 
     return () => {
       cancelAnimationFrame(rafId);
+      ro.disconnect();
       lenis.destroy();
     };
   }, []);

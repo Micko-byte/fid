@@ -325,7 +325,7 @@ function Founder() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div style={{ width: "100%", maxWidth: "440px", aspectRatio: "4/5", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(217,128,56,0.25)" }}>
+            <div style={{ width: "100%", maxWidth: "620px", aspectRatio: "4/3", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(217,128,56,0.25)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/illustrations/founder-portrait.png"
@@ -404,7 +404,7 @@ function Cedric() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div style={{ width: "100%", maxWidth: "440px", aspectRatio: "4/5", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(217,128,56,0.25)" }}>
+            <div style={{ width: "100%", maxWidth: "620px", aspectRatio: "4/3", overflow: "hidden", borderRadius: "16px", border: "1px solid rgba(217,128,56,0.25)" }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/illustrations/cedric-portrait.jpg"
