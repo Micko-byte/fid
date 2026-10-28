@@ -6,6 +6,7 @@ import GrainOverlay from "@/components/GrainOverlay";
 import Nav from "@/components/Nav";
 import ScrollProgress from "@/components/ScrollProgress";
 import GlobalImageParallax from "@/components/motion/GlobalImageParallax";
+import IntroLoader from "@/components/IntroLoader";
 
 export default function SiteChrome({ children }: { children: ReactNode }) {
   const pathname = usePathname() || "";
@@ -13,8 +14,10 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
   // but keep chrome for /work/[slug] detail pages
   const isLegacyWorkRoute = pathname === "/work" || pathname.startsWith("/work?");
 
-  // Fire intro-done immediately so Hero shows without the loader
+  // IntroLoader owns the intro now and fires fid:intro-done when it finishes.
+  // This only guards the case where it never mounts, so nothing waits forever.
   useEffect(() => {
+    if (document.documentElement.dataset.intro) return;
     document.documentElement.dataset.intro = "done";
     window.dispatchEvent(new Event("fid:intro-done"));
   }, []);
@@ -34,6 +37,7 @@ export default function SiteChrome({ children }: { children: ReactNode }) {
       >
         Skip to content
       </a>
+      <IntroLoader />
       <GlobalImageParallax />
       <ScrollProgress />
       <GrainOverlay />
