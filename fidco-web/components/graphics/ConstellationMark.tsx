@@ -18,6 +18,14 @@ const WAVE = (() => {
   return d.map((v) => v / max);
 })();
 
+/** Where each dot starts before it is pulled into place. Seeded off the index
+ *  with the golden angle, so the scatter is even and identical on every run. */
+const SCATTER = DOTS.map((_, i) => {
+  const a = (i * 2.399963) % (Math.PI * 2);
+  const r = 0.1 + ((i * 97) % 53) / 420;
+  return [Math.cos(a) * r, Math.sin(a) * r] as const;
+});
+
 const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
 const clamp01 = (v: number) => (v < 0 ? 0 : v > 1 ? 1 : v);
 const TAU = Math.PI * 2;
@@ -58,9 +66,12 @@ export default function ConstellationMark({
     const off = document.createElement("canvas");
     const offCtx = off.getContext("2d");
     let coastReady = false;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const coast = new Image();
     coast.onload = () => {
       coastReady = true;
+      // repaint so a late-arriving outline still lands in the finished frame
+      if (reduced) draw(1);
     };
     coast.src = COASTLINE_SRC;
 
@@ -89,7 +100,13 @@ export default function ConstellationMark({
         }
       }
 
+      // The pulse both lights each dot and carries it in: a dot drifts from its
+      // scattered start and lands exactly as the wave front reaches it.
       const on = DOTS.map((_, i) => clamp01((t - WAVE[i] * 0.62) / 0.26));
+      const ox = on.map((a, i) => SCATTER[i][0] * span * (1 - easeOut(a)));
+      const oy = on.map((a, i) => SCATTER[i][1] * span * (1 - easeOut(a)));
+      const dx = (i: number) => px(i) + ox[i];
+      const dy = (i: number) => py(i) + oy[i];
 
       ctx.lineCap = "round";
       ctx.lineWidth = Math.max(0.5, span * 0.0028);
@@ -97,10 +114,14 @@ export default function ConstellationMark({
         const [i, j] = EDGES[k];
         const a = Math.min(on[i], on[j]);
         if (a <= 0.02) continue;
-        ctx.strokeStyle = rgba(a * 0.46);
+        // hold the lines back until both ends have nearly landed, so the mesh
+        // snaps into a clean map rather than whipping around with the dots
+        const settled = clamp01((Math.min(a, 1) - 0.55) / 0.45);
+        if (settled <= 0) continue;
+        ctx.strokeStyle = rgba(settled * 0.46);
         ctx.beginPath();
-        ctx.moveTo(px(i), py(i));
-        ctx.lineTo(px(j), py(j));
+        ctx.moveTo(dx(i), dy(i));
+        ctx.lineTo(dx(j), dy(j));
         ctx.stroke();
       }
 
@@ -113,14 +134,26 @@ export default function ConstellationMark({
         if (crest > 0) {
           ctx.fillStyle = rgba(0.1 * crest);
           ctx.beginPath();
-          ctx.arc(px(i), py(i), r * 3, 0, TAU);
+          ctx.arc(dx(i), dy(i), r * 3, 0, TAU);
           ctx.fill();
         }
         ctx.fillStyle = rgba(Math.min(1, a));
         ctx.beginPath();
-        ctx.arc(px(i), py(i), r, 0, TAU);
+        ctx.arc(dx(i), dy(i), r, 0, TAU);
         ctx.fill();
       }
+    }
+
+    // Reduced motion: no pulse and no drift. The completed mark fades up in
+    // place, which reads as a reveal without anything travelling across it.
+    if (reduced) {
+      cv.style.opacity = "0";
+      cv.style.transition = `opacity ${duration}ms ease-out`;
+      draw(1);
+      const fade = window.setTimeout(() => {
+        cv.style.opacity = "1";
+      }, 20);
+      return () => window.clearTimeout(fade);
     }
 
     // Some embedded webviews never fire requestAnimationFrame; fall back to a
